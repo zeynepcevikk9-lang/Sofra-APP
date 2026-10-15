@@ -92,6 +92,15 @@ try {
   assert.equal(result.body.nutrition, null, 'doğrulanmamış tarif kalorisi öneriye taşınmamalı');
   assert.equal(result.body.safety.status, 'not_requested');
 
+  result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 4, fit_profile: { gender: 'Kadın', age: 30, height: 165, weight: 60, activityFactor: 1.375, goalKey: 'lose' } }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.fit_target.ready, true);
+  assert.equal(result.body.fit_target.targetKcal, 1515);
+  assert.equal(result.body.fit_target.approximate, true);
+
+  result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 4, fit_profile: { age: 30, unknown_field: true } }) });
+  assert.equal(result.response.status, 422, 'tanımsız Fit profil alanı kabul edilmemeli');
+
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'sofra', servings: 4, safety_profile: { selected: ['gluten'] } }) });
   assert.equal(result.response.status, 200);
   assert.equal(result.body.recipe_id, null, 'doğrulanmamış tarif çölyak profiline önerilmemeli');

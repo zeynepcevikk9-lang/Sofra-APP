@@ -1292,6 +1292,32 @@ body.reference-v2 .bottomnav{border-radius:0 0 30px 30px}
   window.sofraSafetyV46={read,options,summary};
 })();
 </script>
+<style>
+  .fit-recipe-reference-v2>img{width:38px;height:38px;flex:none;object-fit:cover;border-radius:10px;background:#eee7ff}
+</style>
+<script>
+(function(){
+  const photos={
+    'Tavuklu kinoalı salata':'photo-1512621776951-a57141f2eefd',
+    'Mercimekli sebze bowl':'photo-1547592180-85f173990554',
+    'Sebzeli yoğurtlu makarna':'photo-1473093295043-cdd812d0e601',
+    'Yoğurtlu sebze çorbası':'photo-1547592180-85f173990554',
+    'Renkli sebze bowl':'photo-1512621776951-a57141f2eefd',
+    'Sebzeli yumurta tabağı':'photo-1525351484163-7529414344d8',
+    'Fıstık ezmeli yulaf':'photo-1525351484163-7529414344d8',
+    'Peynirli tavuklu makarna':'photo-1473093295043-cdd812d0e601',
+    'Avokadolu yumurta tabağı':'photo-1512621776951-a57141f2eefd'
+  };
+  function replace(){
+    document.querySelectorAll('.fit-recipe-reference-v2').forEach(card=>{
+      const title=card.querySelector('strong')?.textContent.trim();const id=photos[title];if(!id||card.querySelector('img'))return;
+      const icon=card.querySelector('span');const image=document.createElement('img');image.src=`https://images.unsplash.com/${id}?auto=format&fit=crop&w=160&q=80`;image.alt=title;image.onerror=()=>{image.style.display='none'};if(icon)icon.replaceWith(image);else card.prepend(image);
+    });
+  }
+  replace();
+  const list=document.getElementById('fit-reference-recipes-v2');if(list)new MutationObserver(replace).observe(list,{childList:true});
+})();
+</script>
 </body>
 </html>
 

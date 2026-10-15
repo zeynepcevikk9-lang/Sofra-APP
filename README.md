@@ -17,6 +17,8 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Referans HTTP API iskeleti: `node SOFRA-API-SERVER.mjs` · HTTP testi: `node SOFRA-API-SERVER-TEST.mjs`
 - Bağımsız deterministik öneri motoru: `SOFRA-ALGORITHM-V1.mjs`
 - Fit/sağlık sözleşme testi: `node SOFRA-HEALTH-CONTRACT-TEST.mjs`
+- Fit profil/hedef sözleşmesi: `SOFRA-FIT-V1.mjs` · `node SOFRA-FIT-CONTRACT-TEST.mjs` (yaş, boy, kilo, cinsiyet, hareket ve hedef için yaklaşık hedef hesabı)
+- Referans Fit/tasarım smoke testi: `node SOFRA-REFERENCE-CONTRACT-TEST.mjs` (profil, sağlık sınırı, canlı tarif görselleri ve antrenman bölümünün çıkarılması)
 - Market teklif kuralları ve testi: `SOFRA-MARKET-V1.mjs` · `node SOFRA-MARKET-CONTRACT-TEST.mjs`
 - Paket ve yayın öncesi otomatik kontrol: `node SOFRA-RELEASE-CHECK.mjs`
 - Frontend yapısal smoke testi: `node SOFRA-FRONTEND-CONTRACT-TEST.mjs`

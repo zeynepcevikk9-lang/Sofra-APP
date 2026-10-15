@@ -125,7 +125,8 @@ Plan oluşturma isteği yalnızca sözleşmedeki `date`, `servings`, `main_recip
   "pantry_item_ids": ["pantry_123"],
   "fit_profile_id": null,
   "health_summary": null,
-  "safety_profile": { "selected": ["gluten"], "schemaVersion": 1 }
+  "safety_profile": { "selected": ["gluten"], "schemaVersion": 1 },
+  "fit_profile": { "gender": "Kadın", "age": 30, "heightCm": 165, "weightKg": 60, "activityFactor": 1.375, "goalKey": "lose" }
 }
 ```
 
@@ -134,6 +135,8 @@ Sunucu, kullanıcının göndermediği ürünleri dolapta var saymaz. Eksik ür�
 `pantry_item_ids` gönderilmişse öneri yalnızca bu kimliklerle seçilen dolap kayıtlarını kullanır. Yabancı kimlikler, tanımsız alanlar ve geçersiz `fit_profile_id` değerleri doğrulama hatasıyla reddedilir.
 
 `health_summary` yalnızca Fit önerisinde isteğe bağlı normalize edilmiş bağlam olarak kabul edilir. Geçersiz veya izin verilmeyen metrikler `null` olur; bu sürüm sağlık verisini kalori telafisi, tıbbi öneri veya market kişiselleştirmesi için kullanmaz.
+
+`fit_profile` gönderilirse `SOFRA-FIT-V1.mjs` yaş, boy, kilo, cinsiyet, hareket ve hedef alanlarını normalize eder. Hazır profil için öneri yanıtında `fit_target` bulunur; hedef yaklaşık hesap olarak etiketlenir ve tıbbi tavsiye yerine geçmez. Eksik profil kalori veya protein hedefini `null` bırakır.
 
 `safety_profile` kullanıcının alerji, intolerans veya çölyak tercihleridir. Seçim varsa yalnızca yapılandırılmış alerjen metadata’sı doğrulanmış tarifler uygun sayılır; çölyak seçiminde çapraz bulaş bilgisi `controlled` değilse tarif `review_required` olarak engellenir. Sistem eksik içeriği güvenli kabul etmez ve bu alan tıbbi onay yerine geçmez.
 

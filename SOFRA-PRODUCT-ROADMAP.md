@@ -488,6 +488,7 @@ v43 kapsamlı kullanıcı akışı yeniden kontrolü (14 Ekim 2026):
 - Market sözleşme smoke testi: geçti (`SOFRA_MARKET_CONTRACT_TEST_OK`); geçerli teklifin öne alınması, minimum sepet/eskimiş fiyat koruması ve “İş birliği” etiketi kontrol edildi
 - Tarif besin doğrulama kapısı: geçti (`SOFRA_NUTRITION_CONTRACT_TEST_OK`); eksik alan, belirsiz kaynak veya doğrulanmamış tarif için kalori/makro iddiası `null` kalıyor, yalnızca izinli doğrulanmış kaynaklar yayınlanıyor
 - Gıda güvenliği öneri filtresi: geçti (`SOFRA_SAFETY_CONTRACT_TEST_OK`); profil seçimi alerjen çatışmasını engelliyor, eksik/doğrulanmamış metadata’yı güvenli saymıyor ve çölyakta çapraz bulaş bilgisi yoksa `review_required` döndürüyor
+- Fit profil/hedef sözleşmesi: geçti (`SOFRA_FIT_CONTRACT_TEST_OK`); yaş, boy, kilo, cinsiyet, hareket ve hedef normalize ediliyor, eksik profilde hedef `null` kalıyor ve yaklaşık hesap açıkça etiketleniyor
 - Boş dolap başlangıcı: geçti; yeni kullanıcıya demo ürünleri gerçek stok gibi göstermiyor, `?demo=1` yalnızca tasarım örneği için kullanılıyor ve boş dolapta genel öneri/“Hızlı ekle” geri dönüşü korunuyor
 - Temiz localhost origin QA: geçti; parametresiz açılışta “Dolabını doldurmak şart değil / Genel önerilerle başlayalım” göründü, `?demo=1` açılışında örnek patates/peynir verisiyle dolap eşleşmesi geri geldi.
 - Ana sayfadan “domates” araması ve Tarifler sonuçlarına geçiş: geçti

@@ -5,6 +5,7 @@ import { parsePantryNote } from './SOFRA-INGEST-V1.mjs';
 import { fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
 import { normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
+import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -86,7 +87,7 @@ function recipeById(id) { return catalog.find((recipe) => recipe.id === id); }
 
 function buildRecommendationInput(state, input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('geçersiz öneri gövdesi');
-  const allowed = ['mode', 'max_minutes', 'servings', 'pantry_item_ids', 'fit_profile_id', 'health_summary', 'recent_recipe_ids', 'safety_profile'];
+  const allowed = ['mode', 'max_minutes', 'servings', 'pantry_item_ids', 'fit_profile_id', 'fit_profile', 'health_summary', 'recent_recipe_ids', 'safety_profile'];
   const unknown = Object.keys(input).filter((key) => !allowed.includes(key));
   if (unknown.length) throw validationError(`güncellenemeyen öneri alanı: ${unknown[0]}`);
   if (!['sofra', 'fit', 'tatli'].includes(input.mode)) throw validationError('geçersiz mode');
@@ -98,6 +99,12 @@ function buildRecommendationInput(state, input) {
     }
   }
   if (input.fit_profile_id != null && (typeof input.fit_profile_id !== 'string' || !input.fit_profile_id.trim())) throw validationError('geçersiz fit_profile_id');
+  if (input.fit_profile != null) {
+    if (!input.fit_profile || typeof input.fit_profile !== 'object' || Array.isArray(input.fit_profile)) throw validationError('geçersiz fit_profile');
+    const fitProfileAllowed = ['gender', 'age', 'heightCm', 'height', 'weightKg', 'weight', 'activityFactor', 'activity', 'goal', 'goalKey'];
+    const unknownFitField = Object.keys(input.fit_profile).find((key) => !fitProfileAllowed.includes(key));
+    if (unknownFitField) throw validationError(`güncellenemeyen fit_profile alanı: ${unknownFitField}`);
+  }
   if (input.health_summary != null && (!input.health_summary || typeof input.health_summary !== 'object' || Array.isArray(input.health_summary))) throw validationError('geçersiz health_summary');
   if (input.recent_recipe_ids != null && (!Array.isArray(input.recent_recipe_ids) || new Set(input.recent_recipe_ids).size !== input.recent_recipe_ids.length || input.recent_recipe_ids.some((id) => typeof id !== 'string' || !recipeById(id)))) throw validationError('geçersiz recent_recipe_ids');
   if (input.safety_profile != null) {
@@ -109,6 +116,7 @@ function buildRecommendationInput(state, input) {
   return {
     ...input,
     ...(input.health_summary == null ? {} : { health_summary: normalizeHealthSummary(input.health_summary) }),
+    ...(input.fit_profile == null ? {} : { fit_profile: normalizeFitProfile(input.fit_profile) }),
     ...(input.safety_profile == null ? {} : { safety_profile: normalizeSafetyProfile(input.safety_profile) }),
   };
 }
@@ -168,6 +176,7 @@ function recommendationResponse(state, input) {
   const top = result[0];
   if (!top) return null;
   const nutrition = recipeNutrition(top);
+  const fitTarget = input.mode === 'fit' && input.fit_profile ? calculateFitTarget(input.fit_profile) : null;
   return {
     id: `recommendation_${top.id}`,
     recipe_id: top.id,
@@ -183,6 +192,7 @@ function recommendationResponse(state, input) {
     score_version: top.scoreVersion,
     safety: top.safety,
     health_context: input.mode === 'fit' && input.health_summary ? fitContext(input.health_summary) : null,
+    fit_target: fitTarget,
     fit_verification: nutrition.fit_verification,
     nutrition: nutrition.nutrition,
   };
@@ -248,6 +258,7 @@ export function createSofraServer({ state = createState() } = {}) {
           safety: input.safety_profile?.selected?.length
             ? { status: 'review_required', blocked: true, conflicts: [], reason: 'no_verified_match' }
             : { status: 'not_requested', blocked: false, conflicts: [], reason: null },
+          fit_target: input.mode === 'fit' && input.fit_profile ? calculateFitTarget(input.fit_profile) : null,
         });
       }
       const feedbackMatch = path.match(/^\/v1\/recommendations\/([^/]+)\/feedback$/);

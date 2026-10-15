@@ -466,6 +466,10 @@ components:
           uniqueItems: true
           items: { type: string }
         fit_profile_id: { type: string, nullable: true }
+        fit_profile:
+          allOf:
+            - $ref: '#/components/schemas/FitProfile'
+          nullable: true
         health_summary:
           allOf:
             - $ref: '#/components/schemas/HealthSummary'
@@ -508,6 +512,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/HealthSummary'
           nullable: true
+        fit_target:
+          allOf:
+            - $ref: '#/components/schemas/FitTarget'
+          nullable: true
         fit_verification:
           type: string
           enum: [verified, unverified]
@@ -533,6 +541,30 @@ components:
             type: string
             enum: [milk, egg, peanut, nuts, fish, shellfish, soy, gluten]
         schemaVersion: { type: integer, example: 1 }
+    FitProfile:
+      type: object
+      additionalProperties: false
+      description: Sofra Fit için kullanıcı tarafından girilen yaklaşık profil. Tıbbi değerlendirme değildir.
+      properties:
+        gender: { type: string, enum: [Kadın, Erkek, Belirtmek istemiyorum, female, male, unspecified] }
+        age: { type: integer, minimum: 13, maximum: 100 }
+        heightCm: { type: number, minimum: 120, maximum: 230 }
+        weightKg: { type: number, minimum: 35, maximum: 250 }
+        activityFactor: { type: number, enum: [1.2, 1.375, 1.55, 1.725] }
+        goal: { type: string, enum: [balanced, lose, gain] }
+        goalKey: { type: string, enum: [balanced, lose, gain] }
+    FitTarget:
+      type: object
+      required: [ready, approximate, formulaVersion, targetKcal, proteinTargetG, warning]
+      properties:
+        ready: { type: boolean }
+        approximate: { type: boolean }
+        formulaVersion: { type: string, example: mifflin-st-jeor-v1 }
+        targetKcal: { type: integer, nullable: true, minimum: 0 }
+        proteinTargetG: { type: integer, nullable: true, minimum: 0 }
+        bmrKcal: { type: integer, nullable: true, minimum: 0 }
+        maintenanceKcal: { type: integer, nullable: true, minimum: 0 }
+        warning: { type: string }
     RecipeSafetyAssessment:
       type: object
       required: [status, blocked, conflicts, reason]

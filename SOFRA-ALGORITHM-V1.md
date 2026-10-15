@@ -35,6 +35,12 @@ Son kullanma tarihi zorunlu değildir. Tarih yoksa ürün normal stok sinyaliyle
 - Öneri sonucu “kesin sende var” diye gösterilmez; “uyumlu” veya “tamamlamak için gerekebilir” dili kullanılır.
 - Gerçek AI çözümlemesi ve besin doğrulaması backend aşamasında ayrıca yapılacak.
 
+## Gıda güvenliği filtresi v1
+
+Profilde alerji veya gluten/çölyak tercihi seçilmişse `SOFRA-SAFETY-V1.mjs` her tarifin yapılandırılmış güvenlik metadata’sını değerlendirir. Tarif metadata’sı yoksa, alerjen doğrulaması yapılmamışsa veya çölyak için çapraz bulaş kontrolü `controlled` değilse tarif uygun kabul edilmez. Bu davranış bilinmeyen içeriği güvenli varsaymamak içindir.
+
+Demo kataloğundaki tarifler şu anda `verified: false` olduğu için kısıtlı profilde otomatik uygun tarif döndürmez. Gerçek tarif içerikleri, kaynak ve üretim koşulları doğrulanınca ilgili kayıtlar `verified: true` ve gerekli çapraz bulaş bilgisiyle yayınlanmalıdır.
+
 ## Mevcut kullanım
 
 `outputs/sofra-motoru-home-v43.html` içindeki `sofraEngineV38` katmanı:
@@ -52,6 +58,6 @@ API yanıtı bu iki yeni sinyali `preference_boost` ve `repeat_penalty` alanlar�
 
 ## Sonraki adım
 
-Bu motor gerçek tarif veri tabanına, besin veri kaynağına ve kullanıcı geçmişine bağlanacak. API katmanında Apple Health verisi yalnızca Fit bağlamı olarak normalize edilir; V1 deterministik motoru bunu normal Sofra akışına taşımaz veya kalori telafisi olarak kullanmaz. Besin doğrulaması ve ürün kararı hazır olduğunda Fit’e özel ek sinyaller ayrı bir skor sürümüyle tanımlanmalıdır.
+Bu motor gerçek tarif veri tabanına, besin veri kaynağına ve kullanıcı geçmişine bağlanacak. API katmanında Apple Health verisi yalnızca Fit bağlamı olarak normalize edilir; V1 deterministik motoru bunu normal Sofra akışına taşımaz veya kalori telafisi olarak kullanmaz. Besin doğrulaması ve ürün kararı hazır olduğunda Fit’e özel ek sinyaller ayrı bir skor sürümüyle tanımlanmalıdır. Alerjen ve çapraz bulaş metadata’sı doğrulanmadan güvenli/alerjensiz/glutensiz iddiası yayınlanmamalıdır.
 
 Model ve geri bildirim sınırları için `SOFRA-AI-V1.md` dosyasındaki veri sözleşmesi kullanılacak. Prototipteki puanlar açıklanabilir kalacak; gerçek model devreye alınsa bile kullanıcıya neden önerildiği gösterilmeye devam edecek.

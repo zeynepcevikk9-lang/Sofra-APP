@@ -475,6 +475,10 @@ components:
           uniqueItems: true
           description: Kullanıcının yakın zamanda gördüğü tarifler; tekrarları azaltmak için sınırlı sinyal.
           items: { type: string }
+        safety_profile:
+          allOf:
+            - $ref: '#/components/schemas/SafetyProfile'
+          nullable: true
     Recommendation:
       type: object
       required: [recipe_id, mode, matched_ingredients, missing_ingredients, reason_code, score_version]
@@ -498,6 +502,8 @@ components:
           type: string
           enum: [inventory_match, expiry_priority, fit_goal, general]
         score_version: { type: string, example: deterministic-v1 }
+        safety:
+          $ref: '#/components/schemas/RecipeSafetyAssessment'
         health_context:
           allOf:
             - $ref: '#/components/schemas/HealthSummary'
@@ -514,6 +520,33 @@ components:
             carbs_g: { type: number, minimum: 0 }
             fat_g: { type: number, minimum: 0 }
             fiber_g: { type: number, minimum: 0 }
+    SafetyProfile:
+      type: object
+      additionalProperties: false
+      required: [selected]
+      description: Kullanıcının alerji, intolerans veya çölyak için seçtiği güvenlik tercihleri. Bu alan tıbbi onay yerine geçmez.
+      properties:
+        selected:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum: [milk, egg, peanut, nuts, fish, shellfish, soy, gluten]
+        schemaVersion: { type: integer, example: 1 }
+    RecipeSafetyAssessment:
+      type: object
+      required: [status, blocked, conflicts, reason]
+      properties:
+        status:
+          type: string
+          enum: [not_requested, eligible, blocked, review_required]
+        blocked: { type: boolean }
+        conflicts:
+          type: array
+          items: { type: string }
+        reason:
+          type: string
+          nullable: true
     PlanInput:
       type: object
       additionalProperties: false

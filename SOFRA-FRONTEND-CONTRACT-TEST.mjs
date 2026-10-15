@@ -33,6 +33,12 @@ assert.match(html, /quantity:`\$\{number\} \$\{unit\}`/, 'hızlı ekle miktarı 
 assert.match(html, /sofraSafetyProfileV46/, 'gıda güvenliği tercihi saklama kancası eksik');
 assert.match(html, /Gluten \/ çölyak/, 'çölyak tercihi eksik');
 assert.match(html, /çapraz bulaş/, 'çapraz bulaş uyarısı eksik');
+assert.match(html, /function readSafetyProfile\(\)/, 'frontend gıda güvenliği profili motor kancası eksik');
+assert.match(html, /function assessSafety\(recipe,profile\)/, 'frontend tarif güvenliği değerlendirmesi eksik');
+assert.match(html, /allergen_verification_missing/, 'doğrulanmamış alerjen metadata koruması eksik');
+assert.match(html, /cross_contamination_unknown/, 'çölyak çapraz bulaş motor koruması eksik');
+assert.match(html, /function recipeSafetyAllowedV46\(title\)/, 'tarif listesi güvenlik filtresi eksik');
+assert.match(html, /Güvenli tarif doğrulaması bekleniyor/, 'güvenlik filtresi boş durum mesajı eksik');
 assert.match(html, /new URLSearchParams\(location\.search\).*demo.*DEFAULT_INVENTORY/s, 'demo dolap verisi normal açılışta gerçek kullanıcı verisi gibi yükleniyor');
 assert.match(html, /Dolabın henüz boş\./, 'boş dolap geri dönüşü eksik');
 assert.doesNotMatch(html, /<button[^>]*class="heart"[^>]*>/, 'işlevsiz favori kalbi geri eklenmiş');

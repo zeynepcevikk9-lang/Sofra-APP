@@ -18,6 +18,8 @@ const requiredPaths = [
 for (const path of requiredPaths) assert.ok(apiSpec.includes(path), `OpenAPI yolu eksik: ${path}`);
 assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı eksik');
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
+assert.ok(apiSpec.includes('safety_profile:'), 'gıda güvenliği profil alanı eksik');
+assert.ok(apiSpec.includes('SafetyProfile'), 'gıda güvenliği şeması eksik');
 
 const store = {
   pantry: [],

@@ -241,7 +241,8 @@ function setInventoryState(state){document.querySelectorAll('[data-inventory-sta
 function go(screen){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===screen));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===screen||(['fit','aile','menu'].includes(screen)&&b.dataset.tab==='home')));document.getElementById('scrollpane').scrollTop=0;if(screen==='dolabim')renderInventory();if(screen==='tarifler')renderRecipes();}
 function filterChip(button,kind){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));button.classList.add('active');if(kind==='Hepsi')return;if(kind==='Fit')return go('fit');go('tarifler');document.getElementById('search2').placeholder=kind==='Pratik'?'30 dakikada hazır tarifler':kind==='Dünya'?'Dünya mutfağından bir tarif ara':'Neye canın çekiyor?';if(kind==='Pratik')renderRecipes('pratik');else if(kind==='Dünya')renderRecipes('dunya');}
 function doSearch(){go('tarifler');const t=document.getElementById('homesearch').value;document.getElementById('search2').value=t;renderRecipes(t)}
-function renderRecipes(search=''){const list=document.getElementById('recipe-list');let arr=recipes.filter(r=>search==='pratik'?r[1]<=30:search==='dunya'?['Kremalı mantarlı makarna','Ev yapımı pizza','Sebzeli noodle'].includes(r[0]):r[0].toLocaleLowerCase('tr').includes(search.toLocaleLowerCase('tr')));list.innerHTML=arr.map(r=>`<button class="foodtile" data-recipe="${r[0]}"><div class="foodpic"><div class="fallback">${r[2]}</div><img src="https://images.unsplash.com/${images[r[0]]}?auto=format&fit=crop&w=500&q=80" alt="${r[0]}" onerror="this.style.display='none'"/></div><span class="foodname">${r[0]}</span><span class="foodmeta">${r[1]} dk · Tarif önizlemesi</span></button>`).join('')||'<p style="grid-column:1/-1;color:#7b867d;font-size:12px">Aramana uygun örnek tarif bulunamadı.</p>';list.querySelectorAll('[data-recipe]').forEach(b=>b.onclick=()=>{const r=recipes.find(r=>r[0]===b.dataset.recipe);recipe(r[0],r[1],r[2],images[r[0]])});}
+function recipeSafetyAllowedV46(title){const engine=window.sofraEngineV38;if(!engine?.assessSafety||!engine?.readSafetyProfile)return true;const recipeItem=engine.catalog.find(item=>item.title===title);return !recipeItem||!engine.assessSafety(recipeItem,engine.readSafetyProfile()).blocked}
+function renderRecipes(search=''){const list=document.getElementById('recipe-list');let arr=recipes.filter(r=>search==='pratik'?r[1]<=30:search==='dunya'?['Kremalı mantarlı makarna','Ev yapımı pizza','Sebzeli noodle'].includes(r[0]):r[0].toLocaleLowerCase('tr').includes(search.toLocaleLowerCase('tr'))).filter(r=>recipeSafetyAllowedV46(r[0]));list.innerHTML=arr.map(r=>`<button class="foodtile" data-recipe="${r[0]}"><div class="foodpic"><div class="fallback">${r[2]}</div><img src="https://images.unsplash.com/${images[r[0]]}?auto=format&fit=crop&w=500&q=80" alt="${r[0]}" onerror="this.style.display='none'"/></div><span class="foodname">${r[0]}</span><span class="foodmeta">${r[1]} dk · Tarif önizlemesi</span></button>`).join('')||'<p style="grid-column:1/-1;color:#7b867d;font-size:12px">Bu tercih için doğrulanmış güvenli örnek tarif bulunamadı.</p>';list.querySelectorAll('[data-recipe]').forEach(b=>b.onclick=()=>{const r=recipes.find(r=>r[0]===b.dataset.recipe);recipe(r[0],r[1],r[2],images[r[0]])});}
 function liveFilter(value){renderRecipes(value)}
 function renderInventory(){const list=document.getElementById('inventory-list');if(!list)return;if(!inventory.length){list.innerHTML='<div class="pantry-empty"><strong>Dolabın henüz boş.</strong><p>Her şeyi eklemek zorunda değilsin. Bildiğin bir ürünü yazarak başlayabilirsin.</p><button type="button" onclick="document.getElementById(\'quick-add\')?.focus()">Hızlı ekle →</button></div>';return}list.innerHTML=inventory.map((i,index)=>`<div class="inventory-row"><span class="item-emoji">${i[0]}</span><span class="item-text">${escapeHtml(i[1])}<small>${escapeHtml(i[2])}</small></span><span class="row-actions"><span class="tag ${i[3]==='az'?'warning':i[3]==='yok'?'out':''}">${i[3]==='var'?'Var':i[3]==='az'?'Azaldı':'Bitti'}</span><button class="inventory-edit" type="button" onclick="openInventoryItemV36(${index})" aria-label="${escapeHtml(i[1])} düzenle">⋯</button></span></div>`).join('')}
 function ingredientEmoji(value){const v=value.toLocaleLowerCase('tr-TR');if(v.includes('domates'))return '🍅';if(v.includes('marul')||v.includes('roka'))return '🥬';if(v.includes('elma'))return '🍎';if(v.includes('yumurta'))return '🥚';if(v.includes('patates'))return '🥔';if(v.includes('peynir'))return '🧀';if(v.includes('süt'))return '🥛';return '🧺'}
@@ -508,7 +509,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
   function setRecipeHeadingV35(value){if(recipeHeadingV35)recipeHeadingV35.textContent=value}
   function renderRecipeArrayV35(items){
     const list=document.getElementById('recipe-list');if(!list)return;
-    list.innerHTML=items.map(r=>`<button class="foodtile" data-recipe="${escapeHtml(r[0])}" aria-label="${escapeHtml(r[0])} tarifini aç"><div class="foodpic"><div class="fallback">${r[2]}</div><img src="https://images.unsplash.com/${images[r[0]]}?auto=format&fit=crop&w=500&q=80" alt="${escapeHtml(r[0])}" onerror="this.style.display='none'"/></div><span class="foodname">${escapeHtml(r[0])}</span><span class="foodmeta">${r[1]} dk · Tarif önizlemesi</span></button>`).join('')||'<p style="grid-column:1/-1;color:#7b867d;font-size:12px">Aramana uygun örnek tarif bulunamadı.</p>';
+    const safeItems=items.filter(r=>recipeSafetyAllowedV46(r[0]));list.innerHTML=safeItems.map(r=>`<button class="foodtile" data-recipe="${escapeHtml(r[0])}" aria-label="${escapeHtml(r[0])} tarifini aç"><div class="foodpic"><div class="fallback">${r[2]}</div><img src="https://images.unsplash.com/${images[r[0]]}?auto=format&fit=crop&w=500&q=80" alt="${escapeHtml(r[0])}" onerror="this.style.display='none'"/></div><span class="foodname">${escapeHtml(r[0])}</span><span class="foodmeta">${r[1]} dk · Tarif önizlemesi</span></button>`).join('')||'<p style="grid-column:1/-1;color:#7b867d;font-size:12px">Bu tercih için doğrulanmış güvenli örnek tarif bulunamadı.</p>';
     list.querySelectorAll('[data-recipe]').forEach(button=>button.onclick=()=>{const r=recipes.find(item=>item[0]===button.dataset.recipe);if(r)recipe(r[0],r[1],r[2],images[r[0]])});
   }
   function recipeQuickFilterV35(button,mode){
@@ -601,22 +602,25 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
   // tek yerde, test edilebilir ve daha sonra sunucuya taşınabilir biçimde uygular.
   (function(){
     const catalog=[
-      {title:'Kremalı mantarlı makarna',mins:25,emoji:'🍝',ingredients:['mantar','makarna','peynir'],tags:['sofra','dunya','pratik'],fit:false},
-      {title:'Renkli sebze bowl',mins:20,emoji:'🥗',ingredients:['marul','roka','domates'],tags:['sofra','fit','mevsim'],fit:true},
-      {title:'Fırında sebzeli tabak',mins:35,emoji:'🥘',ingredients:['patates','domates','peynir'],tags:['sofra','mevsim'],fit:true},
-      {title:'Ev yapımı pizza',mins:45,emoji:'🍕',ingredients:['yumurta','peynir','domates'],tags:['sofra','dunya'],fit:false},
-      {title:'Yoğurtlu meyve kasesi',mins:10,emoji:'🍓',ingredients:['yoğurt','süt','elma'],tags:['tatli','fit','pratik'],fit:true},
-      {title:'Sebzeli noodle',mins:25,emoji:'🍜',ingredients:['mantar','marul','domates'],tags:['sofra','dunya','pratik'],fit:true}
+      {title:'Kremalı mantarlı makarna',mins:25,emoji:'🍝',ingredients:['mantar','makarna','peynir'],tags:['sofra','dunya','pratik'],fit:false,safety:{allergens:['milk','gluten'],verified:false,crossContamination:'unknown'}},
+      {title:'Renkli sebze bowl',mins:20,emoji:'🥗',ingredients:['marul','roka','domates'],tags:['sofra','fit','mevsim'],fit:true,safety:{allergens:[],verified:false,crossContamination:'unknown'}},
+      {title:'Fırında sebzeli tabak',mins:35,emoji:'🥘',ingredients:['patates','domates','peynir'],tags:['sofra','mevsim'],fit:true,safety:{allergens:['milk'],verified:false,crossContamination:'unknown'}},
+      {title:'Ev yapımı pizza',mins:45,emoji:'🍕',ingredients:['yumurta','peynir','domates'],tags:['sofra','dunya'],fit:false,safety:{allergens:['egg','milk','gluten'],verified:false,crossContamination:'unknown'}},
+      {title:'Yoğurtlu meyve kasesi',mins:10,emoji:'🍓',ingredients:['yoğurt','süt','elma'],tags:['tatli','fit','pratik'],fit:true,safety:{allergens:['milk'],verified:false,crossContamination:'unknown'}},
+      {title:'Sebzeli noodle',mins:25,emoji:'🍜',ingredients:['mantar','marul','domates'],tags:['sofra','dunya','pratik'],fit:true,safety:{allergens:['gluten'],verified:false,crossContamination:'unknown'}}
     ];
     const normalize=value=>(value||'').toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/İ/g,'i').trim();
     function currentMode(){try{const value=localStorage.getItem('sofraMode');return value==='fit'?'fit':value==='tatli'?'tatli':'sofra'}catch(e){return 'sofra'}}
     function activeInventory(){const source=typeof inventory!=='undefined'?inventory:[];return source.map(item=>({name:normalize(item[1]),label:item[1],status:item[3]||'var',expiry:item[4]||''})).filter(item=>item.status!=='yok')}
     function readFeedback(){try{const value=JSON.parse(localStorage.getItem('sofraFeedbackV1')||'[]');return Array.isArray(value)?value:[]}catch(e){return[]}}
+    function readSafetyProfile(){try{const value=JSON.parse(localStorage.getItem('sofraSafetyProfileV46')||'{}');return {selected:Array.isArray(value.selected)?value.selected:[]}}catch(e){return {selected:[]}}}
+    function assessSafety(recipe,profile){const selected=profile?.selected||[];if(!selected.length)return {status:'not_requested',blocked:false,conflicts:[],reason:null};const metadata=recipe.safety;if(!metadata||!Array.isArray(metadata.allergens))return {status:'review_required',blocked:true,conflicts:[],reason:'allergen_metadata_missing'};const conflicts=selected.filter(key=>metadata.allergens.includes(key));if(conflicts.length)return {status:'blocked',blocked:true,conflicts,reason:'declared_allergen_conflict'};if(metadata.verified!==true)return {status:'review_required',blocked:true,conflicts:[],reason:'allergen_verification_missing'};if(selected.includes('gluten')&&metadata.crossContamination!=='controlled')return {status:'review_required',blocked:true,conflicts:[],reason:'cross_contamination_unknown'};return {status:'eligible',blocked:false,conflicts:[],reason:null}}
     function feedbackBoost(title,feedback){const raw=feedback.reduce((sum,event)=>event.recipeId===title?sum+(event.value==='helpful'?6:event.value==='not_helpful'?-6:0):sum,0);return Math.max(-12,Math.min(12,raw))}
     function expiryBoost(item){if(!item.expiry)return 0;const date=new Date(item.expiry);if(Number.isNaN(date.getTime()))return 0;const days=(date-Date.now())/86400000;return days>=0&&days<=3?16:days>=0&&days<=7?8:0}
     function recommend(options={}){
-      const mode=options.mode||currentMode();const maxMinutes=Number(options.maxMinutes)||0;const pantry=activeInventory();const feedback=Array.isArray(options.feedback)?options.feedback:readFeedback();
+      const mode=options.mode||currentMode();const maxMinutes=Number(options.maxMinutes)||0;const pantry=activeInventory();const feedback=Array.isArray(options.feedback)?options.feedback:readFeedback();const safetyProfile=options.safetyProfile||readSafetyProfile();
       return catalog.map(recipeItem=>{
+        const safety=assessSafety(recipeItem,safetyProfile);if(safety.blocked)return null;
         const matches=pantry.filter(item=>recipeItem.ingredients.some(ingredient=>item.name.includes(normalize(ingredient))||normalize(ingredient).includes(item.name))).filter(item=>item.status!=='yok');
         const matchedIngredients=[...new Set(matches.flatMap(item=>recipeItem.ingredients.filter(ingredient=>item.name.includes(normalize(ingredient))||normalize(ingredient).includes(item.name))))];
         const missing=recipeItem.ingredients.filter(ingredient=>!matchedIngredients.includes(ingredient));
@@ -626,13 +630,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
         if(mode==='sofra')score+=(recipeItem.tags.includes('sofra')?12:0);
         if(maxMinutes)score+=recipeItem.mins<=maxMinutes?18:-18;
         score-=missing.length*2;
-        return {...recipeItem,score,learningBoost,matchedIngredients,missing,matchedCount:matchedIngredients.length};
-      }).filter(item=>!maxMinutes||item.mins<=maxMinutes||item.matchedCount>0).sort((a,b)=>b.score-a.score||a.mins-b.mins);
+        return {...recipeItem,score,learningBoost,matchedIngredients,missing,matchedCount:matchedIngredients.length,safety};
+      }).filter(item=>item&&(!maxMinutes||item.mins<=maxMinutes||item.matchedCount>0)).sort((a,b)=>b.score-a.score||a.mins-b.mins);
     }
     function top(){return recommend()[0]}
     function syncHome(){
-      const recommendation=top();if(!recommendation)return;
-      const smart=document.querySelector('#home .smart-status [data-inventory-state="known"]');
+      const recommendation=top();const smart=document.querySelector('#home .smart-status [data-inventory-state="known"]');const hero=document.querySelector('#home .herofood');if(!recommendation){if(hero)hero.style.display='none';if(smart){const title=smart.querySelector('h3');const facts=smart.querySelector('.smart-facts');const meta=smart.querySelector('p');if(title)title.textContent='Güvenli tarif doğrulaması bekleniyor.';if(facts)facts.innerHTML='<span>Gıda güvenliği profili açık</span>';if(meta)meta.textContent='Bu tercihle eşleşen doğrulanmış tarif bulunamadı.'}return}if(hero)hero.style.display='';
       if(smart){const title=smart.querySelector('h3');const facts=smart.querySelector('.smart-facts');const meta=smart.querySelector('p');const mode=currentMode();const modeLabel=mode==='fit'?'Dengeli seçim':mode==='tatli'?'Tatlı önerisi':'Dolabındaki ürünlerle';if(title)title.textContent=`${recommendation.title} ile başlayalım.`;if(facts)facts.innerHTML=(recommendation.matchedIngredients.length?recommendation.matchedIngredients:recommendation.ingredients.slice(0,3)).map(item=>`<span>${item}</span>`).join('');if(meta)meta.textContent=`${recommendation.matchedCount} malzeme uyumlu · ${recommendation.mins} dk · ${modeLabel}`} 
       const reason=document.querySelector('#home .hero-reason');if(reason)reason.textContent=recommendation.matchedCount?`${recommendation.matchedCount} malzeme dolabınla uyumlu · ${recommendation.missing.length} ürün daha gerekebilir`:'Genel öneri · dolabını doldurmak zorunda değilsin';
     }
@@ -648,7 +651,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
     window.go=function(screen){originalGo(screen);if(screen==='home'||screen==='tarifler'||screen==='fit')syncHome()};
     const originalRender=window.renderInventory;
     if(originalRender)window.renderInventory=function(){originalRender();syncHome()};
-    window.sofraEngineV38={catalog,recommend,activeInventory,currentMode,readFeedback,feedbackBoost,syncHome};
+    window.sofraEngineV38={catalog,recommend,activeInventory,currentMode,readFeedback,readSafetyProfile,assessSafety,feedbackBoost,syncHome,top};
     syncHome();
   })();
 </script>

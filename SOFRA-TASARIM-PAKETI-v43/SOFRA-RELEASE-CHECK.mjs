@@ -27,6 +27,8 @@ const requiredFiles = [
   'SOFRA-HEALTH-V1.mjs',
   'SOFRA-NUTRITION-V1.mjs',
   'SOFRA-NUTRITION-CONTRACT-TEST.mjs',
+  'SOFRA-SAFETY-V1.mjs',
+  'SOFRA-SAFETY-CONTRACT-TEST.mjs',
   'SOFRA-FRONTEND-CONTRACT-TEST.mjs',
   'SOFRA-INGEST-V1.mjs',
   'SOFRA-MARKET-V1.md',
@@ -68,6 +70,7 @@ const tests = [
   'SOFRA-API-SERVER-TEST.mjs',
   'SOFRA-HEALTH-CONTRACT-TEST.mjs',
   'SOFRA-NUTRITION-CONTRACT-TEST.mjs',
+  'SOFRA-SAFETY-CONTRACT-TEST.mjs',
   'SOFRA-MARKET-CONTRACT-TEST.mjs',
 ];
 for (const test of tests) {

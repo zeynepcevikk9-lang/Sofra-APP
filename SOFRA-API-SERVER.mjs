@@ -4,6 +4,7 @@ import { buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { parsePantryNote } from './SOFRA-INGEST-V1.mjs';
 import { fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
+import { normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -85,7 +86,7 @@ function recipeById(id) { return catalog.find((recipe) => recipe.id === id); }
 
 function buildRecommendationInput(state, input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('geçersiz öneri gövdesi');
-  const allowed = ['mode', 'max_minutes', 'servings', 'pantry_item_ids', 'fit_profile_id', 'health_summary', 'recent_recipe_ids'];
+  const allowed = ['mode', 'max_minutes', 'servings', 'pantry_item_ids', 'fit_profile_id', 'health_summary', 'recent_recipe_ids', 'safety_profile'];
   const unknown = Object.keys(input).filter((key) => !allowed.includes(key));
   if (unknown.length) throw validationError(`güncellenemeyen öneri alanı: ${unknown[0]}`);
   if (!['sofra', 'fit', 'tatli'].includes(input.mode)) throw validationError('geçersiz mode');
@@ -99,7 +100,17 @@ function buildRecommendationInput(state, input) {
   if (input.fit_profile_id != null && (typeof input.fit_profile_id !== 'string' || !input.fit_profile_id.trim())) throw validationError('geçersiz fit_profile_id');
   if (input.health_summary != null && (!input.health_summary || typeof input.health_summary !== 'object' || Array.isArray(input.health_summary))) throw validationError('geçersiz health_summary');
   if (input.recent_recipe_ids != null && (!Array.isArray(input.recent_recipe_ids) || new Set(input.recent_recipe_ids).size !== input.recent_recipe_ids.length || input.recent_recipe_ids.some((id) => typeof id !== 'string' || !recipeById(id)))) throw validationError('geçersiz recent_recipe_ids');
-  return input.health_summary == null ? input : { ...input, health_summary: normalizeHealthSummary(input.health_summary) };
+  if (input.safety_profile != null) {
+    if (!input.safety_profile || typeof input.safety_profile !== 'object' || Array.isArray(input.safety_profile)) throw validationError('geçersiz safety_profile');
+    if (!Array.isArray(input.safety_profile.selected) || new Set(input.safety_profile.selected).size !== input.safety_profile.selected.length || input.safety_profile.selected.some((key) => typeof key !== 'string' || !SAFETY_KEYS.includes(key))) {
+      throw validationError('geçersiz safety_profile.selected');
+    }
+  }
+  return {
+    ...input,
+    ...(input.health_summary == null ? {} : { health_summary: normalizeHealthSummary(input.health_summary) }),
+    ...(input.safety_profile == null ? {} : { safety_profile: normalizeSafetyProfile(input.safety_profile) }),
+  };
 }
 
 function buildPlan(state, input) {
@@ -153,7 +164,7 @@ function demoMarketQuotes() {
 
 function recommendationResponse(state, input) {
   const inventory = input.pantry_item_ids == null ? state.pantry : state.pantry.filter((item) => input.pantry_item_ids.includes(item.id));
-  const result = recommend({ mode: input.mode, maxMinutes: input.max_minutes || 0, inventory, feedback: state.feedback, recentRecipeIds: input.recent_recipe_ids || [] });
+  const result = recommend({ mode: input.mode, maxMinutes: input.max_minutes || 0, inventory, feedback: state.feedback, recentRecipeIds: input.recent_recipe_ids || [], safetyProfile: input.safety_profile || {} });
   const top = result[0];
   if (!top) return null;
   const nutrition = recipeNutrition(top);
@@ -170,6 +181,7 @@ function recommendationResponse(state, input) {
     repeat_penalty: top.repeatPenalty,
     reason_code: top.reasonCode,
     score_version: top.scoreVersion,
+    safety: top.safety,
     health_context: input.mode === 'fit' && input.health_summary ? fitContext(input.health_summary) : null,
     fit_verification: nutrition.fit_verification,
     nutrition: nutrition.nutrition,
@@ -227,7 +239,16 @@ export function createSofraServer({ state = createState() } = {}) {
       if (method === 'POST' && path === '/v1/recommendations') {
         const input = buildRecommendationInput(state, await readJson(req));
         const result = recommendationResponse(state, input);
-        return result ? json(res, 200, result) : json(res, 200, { recipe_id: null, matched_ingredients: [], missing_ingredients: [], reason_code: 'general', score_version: 'deterministic-v1' });
+        return result ? json(res, 200, result) : json(res, 200, {
+          recipe_id: null,
+          matched_ingredients: [],
+          missing_ingredients: [],
+          reason_code: input.safety_profile?.selected?.length ? 'safety_review_required' : 'general',
+          score_version: 'deterministic-v1',
+          safety: input.safety_profile?.selected?.length
+            ? { status: 'review_required', blocked: true, conflicts: [], reason: 'no_verified_match' }
+            : { status: 'not_requested', blocked: false, conflicts: [], reason: null },
+        });
       }
       const feedbackMatch = path.match(/^\/v1\/recommendations\/([^/]+)\/feedback$/);
       if (method === 'POST' && feedbackMatch) {

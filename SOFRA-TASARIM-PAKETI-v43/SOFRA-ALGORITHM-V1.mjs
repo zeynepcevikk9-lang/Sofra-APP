@@ -5,13 +5,15 @@
  * tarafından eklenmeyen ürünleri var kabul etmez ve açıklama sinyallerini korur.
  */
 
+import { assessRecipeSafety, normalizeSafetyProfile } from './SOFRA-SAFETY-V1.mjs';
+
 export const catalog = [
-  { id: 'recipe_pasta_mushroom', title: 'Kremalı mantarlı makarna', mins: 25, emoji: '🍝', ingredients: ['mantar', 'makarna', 'peynir'], tags: ['sofra', 'dunya', 'pratik'], fit: false },
-  { id: 'recipe_vegetable_bowl', title: 'Renkli sebze bowl', mins: 20, emoji: '🥗', ingredients: ['marul', 'roka', 'domates'], tags: ['sofra', 'fit', 'mevsim'], fit: true },
-  { id: 'recipe_oven_vegetables', title: 'Fırında sebzeli tabak', mins: 35, emoji: '🥘', ingredients: ['patates', 'domates', 'peynir'], tags: ['sofra', 'mevsim'], fit: true },
-  { id: 'recipe_pizza', title: 'Ev yapımı pizza', mins: 45, emoji: '🍕', ingredients: ['yumurta', 'peynir', 'domates'], tags: ['sofra', 'dunya'], fit: false },
-  { id: 'recipe_yogurt_bowl', title: 'Yoğurtlu meyve kasesi', mins: 10, emoji: '🍓', ingredients: ['yoğurt', 'süt', 'elma'], tags: ['tatli', 'fit', 'pratik'], fit: true },
-  { id: 'recipe_noodle', title: 'Sebzeli noodle', mins: 25, emoji: '🍜', ingredients: ['mantar', 'marul', 'domates'], tags: ['sofra', 'dunya', 'pratik'], fit: true },
+  { id: 'recipe_pasta_mushroom', title: 'Kremalı mantarlı makarna', mins: 25, emoji: '🍝', ingredients: ['mantar', 'makarna', 'peynir'], tags: ['sofra', 'dunya', 'pratik'], fit: false, safety: { allergens: ['milk', 'gluten'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_vegetable_bowl', title: 'Renkli sebze bowl', mins: 20, emoji: '🥗', ingredients: ['marul', 'roka', 'domates'], tags: ['sofra', 'fit', 'mevsim'], fit: true, safety: { allergens: [], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_oven_vegetables', title: 'Fırında sebzeli tabak', mins: 35, emoji: '🥘', ingredients: ['patates', 'domates', 'peynir'], tags: ['sofra', 'mevsim'], fit: true, safety: { allergens: ['milk'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_pizza', title: 'Ev yapımı pizza', mins: 45, emoji: '🍕', ingredients: ['yumurta', 'peynir', 'domates'], tags: ['sofra', 'dunya'], fit: false, safety: { allergens: ['egg', 'milk', 'gluten'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_yogurt_bowl', title: 'Yoğurtlu meyve kasesi', mins: 10, emoji: '🍓', ingredients: ['yoğurt', 'süt', 'elma'], tags: ['tatli', 'fit', 'pratik'], fit: true, safety: { allergens: ['milk'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_noodle', title: 'Sebzeli noodle', mins: 25, emoji: '🍜', ingredients: ['mantar', 'marul', 'domates'], tags: ['sofra', 'dunya', 'pratik'], fit: true, safety: { allergens: ['gluten'], verified: false, crossContamination: 'unknown' } },
 ];
 
 export function normalize(value) {
@@ -78,10 +80,13 @@ function repeatPenalty(recipeId, recentRecipeIds = []) {
   return -Math.min(18, repeats * 8);
 }
 
-export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feedback = [], recentRecipeIds = [], now = new Date() } = {}) {
+export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feedback = [], recentRecipeIds = [], safetyProfile = {}, now = new Date() } = {}) {
   const pantry = activeInventory(inventory);
+  const normalizedSafetyProfile = normalizeSafetyProfile(safetyProfile);
   return catalog
     .map((recipe) => {
+      const safety = assessRecipeSafety(recipe, normalizedSafetyProfile);
+      if (safety.blocked) return null;
       const matches = pantry.filter((item) => recipe.ingredients.some((ingredient) => item.name.includes(normalize(ingredient)) || normalize(ingredient).includes(item.name)));
       const matchedIngredients = [...new Set(matches.flatMap((item) => recipe.ingredients.filter((ingredient) => item.name.includes(normalize(ingredient)) || normalize(ingredient).includes(item.name))))];
       const missing = recipe.ingredients.filter((ingredient) => !matchedIngredients.includes(ingredient));
@@ -109,11 +114,12 @@ export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feed
         learningBoost,
         preferenceBoost: preferenceBoostValue,
         repeatPenalty: repeatPenaltyValue,
+        safety,
         reasonCode: matches.some((item) => expiryBoost(item, now) > 0) ? 'expiry_priority' : matchedIngredients.length ? 'inventory_match' : 'general',
         scoreVersion: 'deterministic-v1.1',
       };
     })
-    .filter((item) => !maxMinutes || item.mins <= maxMinutes || item.matchedCount > 0)
+    .filter((item) => item && (!maxMinutes || item.mins <= maxMinutes || item.matchedCount > 0))
     .sort((a, b) => b.score - a.score || a.mins - b.mins);
 }
 

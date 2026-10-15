@@ -90,6 +90,16 @@ try {
   assert.equal(result.body.health_context.activeCalories, 420);
   assert.equal(result.body.fit_verification, 'unverified');
   assert.equal(result.body.nutrition, null, 'doğrulanmamış tarif kalorisi öneriye taşınmamalı');
+  assert.equal(result.body.safety.status, 'not_requested');
+
+  result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'sofra', servings: 4, safety_profile: { selected: ['gluten'] } }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.recipe_id, null, 'doğrulanmamış tarif çölyak profiline önerilmemeli');
+  assert.equal(result.body.reason_code, 'safety_review_required');
+  assert.equal(result.body.safety.reason, 'no_verified_match');
+
+  result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'sofra', servings: 4, safety_profile: { selected: ['unknown'] } }) });
+  assert.equal(result.response.status, 422, 'geçersiz gıda güvenliği anahtarı kabul edilmemeli');
 
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 4, health_summary: { source: 'health_connect', activeCalories: -1, permissions: { activeCalories: 'granted' } } }) });
   assert.equal(result.response.status, 200);

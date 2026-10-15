@@ -21,6 +21,7 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Paket ve yayın öncesi otomatik kontrol: `node SOFRA-RELEASE-CHECK.mjs`
 - Frontend yapısal smoke testi: `node SOFRA-FRONTEND-CONTRACT-TEST.mjs`
 - Tarif besin doğrulama kapısı: `node SOFRA-NUTRITION-CONTRACT-TEST.mjs` (yalnızca izinli ve doğrulanmış kaynaklardan gelen tam porsiyon verisi kaloriyi görünür kılar)
+- Tarif güvenliği kapısı: `SOFRA-SAFETY-V1.mjs` · `node SOFRA-SAFETY-CONTRACT-TEST.mjs` (alerjen çatışması, doğrulama ve çölyak için çapraz bulaş kontrolü)
 
 Not: Tek dosyalık HTML önizlemesi internetsiz açılabilsin diye motorun tarayıcı kopyasını içerir; backend sözleşme testi ise ortak `SOFRA-ALGORITHM-V1.mjs` modülünü kullanır. Gerçek uygulamada bu modül sunucu tarafının tek kaynağı olarak korunmalıdır.
 - Tasarım devri: `SOFRA-DESIGN-HANDOFF.md`

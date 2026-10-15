@@ -124,7 +124,8 @@ Plan oluşturma isteği yalnızca sözleşmedeki `date`, `servings`, `main_recip
   "servings": 4,
   "pantry_item_ids": ["pantry_123"],
   "fit_profile_id": null,
-  "health_summary": null
+  "health_summary": null,
+  "safety_profile": { "selected": ["gluten"], "schemaVersion": 1 }
 }
 ```
 
@@ -133,6 +134,8 @@ Sunucu, kullanıcının göndermediği ürünleri dolapta var saymaz. Eksik ür�
 `pantry_item_ids` gönderilmişse öneri yalnızca bu kimliklerle seçilen dolap kayıtlarını kullanır. Yabancı kimlikler, tanımsız alanlar ve geçersiz `fit_profile_id` değerleri doğrulama hatasıyla reddedilir.
 
 `health_summary` yalnızca Fit önerisinde isteğe bağlı normalize edilmiş bağlam olarak kabul edilir. Geçersiz veya izin verilmeyen metrikler `null` olur; bu sürüm sağlık verisini kalori telafisi, tıbbi öneri veya market kişiselleştirmesi için kullanmaz.
+
+`safety_profile` kullanıcının alerji, intolerans veya çölyak tercihleridir. Seçim varsa yalnızca yapılandırılmış alerjen metadata’sı doğrulanmış tarifler uygun sayılır; çölyak seçiminde çapraz bulaş bilgisi `controlled` değilse tarif `review_required` olarak engellenir. Sistem eksik içeriği güvenli kabul etmez ve bu alan tıbbi onay yerine geçmez.
 
 Öneri yanıtı `fit_verification: unverified` ve `nutrition: null` döndürür; gerçek besin kaynağı ve porsiyon doğrulaması eklenmeden tarif kalorisi veya makrosu kesin sayı olarak yayınlanmaz.
 

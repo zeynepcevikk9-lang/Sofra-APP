@@ -53,6 +53,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthStatus'
+  /v1/notifications/status:
+    get:
+      tags: [User]
+      summary: Bildirim izin planını ve kanal sınırını getirir
+      operationId: getNotificationStatus
+      parameters:
+        - name: platform
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [ios, android, web]
+            default: web
+      responses:
+        '200':
+          description: Sistem bildirimi henüz istenmedi; uygulama yalnızca izin planını döndürür
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationStatus'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/ai/status:
     get:
       tags: [Recommendations]
@@ -456,6 +478,38 @@ components:
           properties:
             export_endpoint: { type: string }
             delete_endpoint: { type: string }
+    NotificationStatus:
+      type: object
+      required: [schema_version, platform, live_permission, permission_status, permission_plan, channels, requires_user_action, privacy]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        platform: { type: string, enum: [ios, android, web] }
+        live_permission: { type: boolean }
+        permission_status: { type: string, enum: [not_requested, granted, denied] }
+        permission_plan:
+          type: object
+          required: [permission_api, permission_key]
+          properties:
+            permission_api: { type: string }
+            permission_key: { type: string }
+        channels:
+          type: array
+          items:
+            type: object
+            required: [key, label, default_enabled, enabled]
+            properties:
+              key: { type: string, enum: [meal_reminder, expiry_reminder, plan_reminder] }
+              label: { type: string }
+              default_enabled: { type: boolean }
+              enabled: { type: boolean }
+        requires_user_action: { type: boolean }
+        privacy:
+          type: object
+          required: [content_preview, health_data_included, market_data_included]
+          properties:
+            content_preview: { type: boolean }
+            health_data_included: { type: boolean }
+            market_data_included: { type: boolean }
     DataExport:
       type: object
       required: [schema_version, exported_at, user, data]

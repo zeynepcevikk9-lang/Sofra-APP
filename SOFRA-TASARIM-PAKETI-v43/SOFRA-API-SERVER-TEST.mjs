@@ -23,6 +23,12 @@ try {
   assert.equal(result.body.account_linking.available, false);
   assert.deepEqual(result.body.providers.map((provider) => provider.id), ['google', 'apple']);
 
+  result = await request('/v1/notifications/status?platform=ios');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.permission_status, 'not_requested');
+  assert.equal(result.body.live_permission, false);
+  assert.equal(result.body.permission_plan.permission_api, 'UNUserNotificationCenter');
+
   result = await request('/v1/ai/status');
   assert.equal(result.response.status, 200);
   assert.equal(result.body.provider_status, 'not_connected');

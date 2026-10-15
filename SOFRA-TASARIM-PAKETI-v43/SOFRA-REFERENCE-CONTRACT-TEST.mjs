@@ -20,6 +20,8 @@ assert.match(html, /fit-recipe-reference-v2/, 'hedefe göre Fit tarif kartları 
 assert.match(html, /fit-reference-photo|images\.unsplash\.com/, 'Fit tariflerinde canlı görsel kancası eksik');
 assert.match(html, /dashboard\.querySelector\('\.fit-workout-v2'\)\?\.remove/, 'referans Fit ekranı antrenman bölümünü kaldırmıyor');
 assert.match(html, /reference-family-v2/, 'Çocuğum için giriş kartı eksik');
+assert.match(html, /mode-change.*setHomeModeV34\('sofra'\)/s, 'Fit ekranından Sofra’ya doğrudan dönüş eksik');
+assert.doesNotMatch(html, /class="mode-change"[^>]+onclick="openWelcome\(\)"/, 'Fit ekranından çıkış gereksiz ilk giriş penceresini açıyor');
 assert.match(html, /childRecipeData/, 'çocuk yaş grubu tarif verisi eksik');
 for (const age of ['12–23 ay', '24–35 ay', '36+ ay']) assert.match(html, new RegExp(age.replace(/[+]/g, '\\+')), `çocuk yaş grubu eksik: ${age}`);
 assert.match(html, /child-age-note-v2/, 'çocuk yaş filtresi açıklaması eksik');

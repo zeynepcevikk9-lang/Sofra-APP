@@ -4,9 +4,9 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 
 ## 1. Ürün akışı
 
-- [ ] İlk girişte Sofra / Sofra Fit / Tatlı seçimi anlaşılır.
+- [x] İlk girişte Sofra / Sofra Fit / Tatlı seçimi anlaşılır; üç seçim de ayrı akışa bağlanır ve sözleşme testiyle korunur.
 - [ ] Kullanıcı Dolap’a ürün eklemeden de tarif keşfedebilir.
-- [ ] Sofra ↔ Sofra Fit geçişi her iki yönde çalışır.
+- [x] Sofra ↔ Sofra Fit geçişi her iki yönde çalışır.
 - [ ] Tatlı önerisi ana yemek akışını zorunlu olarak etkilemez.
 - [ ] Menü birden fazla bölüm içerebilir ve Planım’a aktarılır.
 - [ ] Planım hafta, ay ve geçmiş görünümünde aynı veriyi korur.

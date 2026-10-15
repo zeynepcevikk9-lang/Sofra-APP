@@ -27,6 +27,12 @@ for (const tab of ['home', 'tarifler', 'dolabim', 'planim', 'profil']) {
 assert.match(html, /class="fallback"/, 'görsel fallback alanı eksik');
 assert.ok((html.match(/onerror=/g) || []).length >= 3, 'görsel yüklenememe fallbackleri eksik');
 assert.match(html, /Apple Health ile bağlan/, 'Fit sağlık bağlantısı arayüz kancası eksik');
+assert.match(html, /id="welcomeGate"/, 'ilk giriş yönlendirme alanı eksik');
+for (const mode of ['sofra', 'fit', 'tatli']) {
+  assert.match(html, new RegExp(`chooseMode\\(['"]${mode}['"]\\)`), `ilk giriş modu eksik: ${mode}`);
+}
+assert.match(html, /function chooseMode\(mode\)/, 'ilk giriş modu geçiş fonksiyonu eksik');
+assert.match(html, /localStorage\.setItem\('sofraMode',mode\)/, 'seçilen modun korunması eksik');
 assert.match(html, /openPrivacyV47/, 'profil gizlilik özeti kancası eksik');
 assert.match(html, /Gizlilik ve veri sınırları/, 'profil gizlilik özeti metni eksik');
 assert.match(html, /fit-goal-recommendations-v47/, 'Fit hedefe göre tarif önerileri eksik');

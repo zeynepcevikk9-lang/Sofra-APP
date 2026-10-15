@@ -10,6 +10,10 @@ const referencePath = existsSync(join(root, 'sofra-motoru-reference-v2.html'))
 const html = readFileSync(referencePath, 'utf8');
 
 assert.match(html, /reference-v2-fit/, 'referans Fit ekranı eksik');
+assert.match(html, /id="welcomeGate"/, 'referans ilk giriş yönlendirme alanı eksik');
+for (const mode of ['sofra', 'fit', 'tatli']) {
+  assert.match(html, new RegExp(`chooseMode\\(['"]${mode}['"]\\)`), `referans ilk giriş modu eksik: ${mode}`);
+}
 assert.doesNotMatch(html, /\n\+<style>/, 'referans HTML içinde patch artığı kaldı');
 assert.match(html, /demo==='empty'.*return \[\]/s, 'referans boş dolap QA senaryosu eksik');
 assert.match(html, /fit-profile-reference-v2/, 'referans Fit profil alanı eksik');

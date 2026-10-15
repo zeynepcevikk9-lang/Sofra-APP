@@ -273,6 +273,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Menüden Planım’a aktarılan yemeğin görünüm değiştirince korunması
 - Öneri motoru v1: dolap eşleşmesi, azalan ürün önceliği, süre ve Sofra/Fit/Tatlı modu puanlaması
 - Öneri geri bildirimi v1: anonim “İşe yaradı / Başka fikir” sinyalinin tarif bazında sınırlı ve açıklanabilir `learning_boost` puanına dönüşmesi
+- Referans ana sayfasında öneri geri bildirimi görünür ve öneri kartının hemen altında; tıklama sonrası kullanıcıya durum mesajı veriyor ve `sofraFeedbackV1` sinyalini besliyor.
 - Fit profilinde yaş, boy, kilo, hedef ve günlük hareket katsayısıyla yaklaşık kalori/protein hesabı
 - Fit hedefi backend öneri sıralamasına bağlandı: dengede kalma, kilo verme ve kilo alma hedefleri `fit_goal_boost` ile açıklanabilir biçimde ayrılıyor; bu henüz doğrulanmış kalori iddiası değildir
 - Fit profilinin yenileme sonrası korunması ve eksik profil doğrulaması

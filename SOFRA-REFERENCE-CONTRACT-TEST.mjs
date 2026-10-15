@@ -19,6 +19,7 @@ assert.match(html, /Apple Health \/ Health Connect/, 'sağlık bağlantısı ref
 assert.match(html, /Bu prototipte gerçek HealthKit bağlantısı yok/, 'HealthKit demo sınırı görünür değil');
 assert.match(html, /fit-recipe-reference-v2/, 'hedefe göre Fit tarif kartları eksik');
 assert.match(html, /fit-reference-photo|images\.unsplash\.com/, 'Fit tariflerinde canlı görsel kancası eksik');
+assert.match(html, /reference-feedback-v2|sofraFeedbackReferenceV1/, 'referans öneri geri bildirimi eksik');
 assert.doesNotMatch(html, /yaklaşık (?:320|390|410|520|540|620|680|760) kcal/, 'doğrulanmamış Fit tarif kalori iddiası var');
 assert.match(html, /besin verisi bekleniyor/, 'Fit tarif besin verisi durumu açıkça belirtilmiyor');
 assert.match(html, /renderFitNutritionBoundary/, 'Fit besin verisi sınırı uygulanmıyor');

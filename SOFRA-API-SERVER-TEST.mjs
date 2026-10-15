@@ -28,6 +28,10 @@ try {
   assert.deepEqual(result.body.items.map((item) => [item.canonical_name, item.stock_state]), [['yumurta', 'available'], ['peynir', 'low'], ['süt', 'finished']]);
   assert.equal(result.body.items[0].quantity_text, '6 yumurta');
   assert.equal(result.body.unparsed_text, 'bilinmeyen ürün');
+  assert.equal(result.body.parser, 'deterministic_fallback');
+  assert.equal(result.body.ai_status, 'not_connected');
+  assert.equal(result.body.requires_user_confirmation, true);
+  assert.equal(result.body.auto_saved, false);
   result = await request('/v1/pantry');
   assert.deepEqual(result.body.items, [], 'önizleme endpointi kullanıcı onayı olmadan dolaba yazmamalı');
 

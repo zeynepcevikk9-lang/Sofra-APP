@@ -248,7 +248,13 @@ export function createSofraServer({ state = createState() } = {}) {
       if (method === 'POST' && path === '/v1/pantry/parse-note') {
         const input = await readJson(req);
         if (typeof input.text !== 'string' || !input.text.trim()) throw validationError('text zorunlu');
-        return json(res, 200, parsePantryNote(input.text));
+        return json(res, 200, {
+          ...parsePantryNote(input.text),
+          parser: 'deterministic_fallback',
+          ai_status: 'not_connected',
+          requires_user_confirmation: true,
+          auto_saved: false,
+        });
       }
       if (method === 'POST' && path === '/v1/pantry/items/bulk') {
         const batch = buildPantryBatch(state, await readJson(req));

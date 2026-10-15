@@ -419,7 +419,7 @@ components:
         text: { type: string, minLength: 1 }
     PantryNoteParseResponse:
       type: object
-      required: [items, unparsed_text]
+      required: [items, unparsed_text, parser, ai_status, requires_user_confirmation, auto_saved]
       properties:
         items:
           type: array
@@ -436,6 +436,14 @@ components:
                 enum: [available, low, finished]
               confidence: { type: number, minimum: 0, maximum: 1 }
         unparsed_text: { type: string }
+        parser:
+          type: string
+          enum: [deterministic_fallback, live_model]
+        ai_status:
+          type: string
+          enum: [not_connected, connected]
+        requires_user_confirmation: { type: boolean }
+        auto_saved: { type: boolean }
     HealthSummary:
       type: object
       additionalProperties: true

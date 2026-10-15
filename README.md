@@ -34,6 +34,7 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Tarif besin doğrulama kapısı: `node SOFRA-NUTRITION-CONTRACT-TEST.mjs` (yalnızca izinli ve doğrulanmış kaynaklardan gelen tam porsiyon verisi kaloriyi görünür kılar)
 - Tarif güvenliği kapısı: `SOFRA-SAFETY-V1.mjs` · `node SOFRA-SAFETY-CONTRACT-TEST.mjs` (alerjen çatışması, doğrulama ve çölyak için çapraz bulaş kontrolü)
 - Veri ve gizlilik sınırı: `SOFRA-PRIVACY-V1.md` · `node SOFRA-PRIVACY-CONTRACT-TEST.mjs` (cihaz verisi, sağlık/market ayrımı ve hukuki politika sınırı)
+- Analitik veri sınırı: `SOFRA-ANALYTICS-V1.md` · `node SOFRA-ANALYTICS-CONTRACT-TEST.mjs` (izinli olaylar; sağlık, kişisel ve serbest metin alanları kapalı)
 
 Not: Tek dosyalık HTML önizlemesi internetsiz açılabilsin diye motorun tarayıcı kopyasını içerir; backend sözleşme testi ise ortak `SOFRA-ALGORITHM-V1.mjs` modülünü kullanır. Gerçek uygulamada bu modül sunucu tarafının tek kaynağı olarak korunmalıdır.
 - Tasarım devri: `SOFRA-DESIGN-HANDOFF.md`

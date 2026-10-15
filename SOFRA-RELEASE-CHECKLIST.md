@@ -51,7 +51,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Çevrimdışı/bozuk ağ durumunda anlamlı hata mesajı vardır.
 - [ ] Görseller yüklenemediğinde fallback içerik görünür.
 - [ ] Console error/warning ve kritik performans sorunları temizlenir.
-- [ ] Analitik olayları kişisel sağlık verisi içermeden tanımlanır.
+- [x] Analitik olayları kişisel sağlık verisi içermeden tanımlanır; hassas alanlar sözleşme testiyle engellenir, gerçek sağlayıcı henüz bağlı değildir.
 - [ ] Gizlilik politikası, kullanım koşulları ve çerez/izin metinleri hazırdır; prototipteki sınırlar `SOFRA-PRIVACY-V1.md` ile görünür.
 - [ ] Hata izleme, yedekleme ve geri alma planı vardır.
 - [x] GitHub Actions kalite kapısı sözleşme ve release smoke testlerini her push/pull request’te çalıştırır.

@@ -14,6 +14,7 @@ assert.match(html, /id="welcomeGate"/, 'referans ilk giriş yönlendirme alanı 
 for (const mode of ['sofra', 'fit', 'tatli']) {
   assert.match(html, new RegExp(`chooseMode\\(['"]${mode}['"]\\)`), `referans ilk giriş modu eksik: ${mode}`);
 }
+assert.match(html, /get\('demo'\).*onboarding.*openWelcome\(\)/s, 'referans onboarding QA önizlemesi eksik');
 assert.doesNotMatch(html, /\n\+<style>/, 'referans HTML içinde patch artığı kaldı');
 assert.match(html, /demo==='empty'.*return \[\]/s, 'referans boş dolap QA senaryosu eksik');
 assert.match(html, /fit-profile-reference-v2/, 'referans Fit profil alanı eksik');

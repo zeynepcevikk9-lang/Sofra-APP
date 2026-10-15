@@ -50,6 +50,7 @@ Not: Tek dosyalık HTML önizlemesi internetsiz açılabilsin diye motorun taray
 İki referans ekranın özelliklerini karşılaştırmalı görmek için `outputs/sofra-motoru-reference-v2.html` dosyasını açabilirsin. Bu dosya; ana Sofra ekranında arama, mod seçimi, tek tarif, dolap önceliği, gerçek yemek fotoğraflı kategori kısayolları, haftalık plan, çocuk beslenmesi ve menü akışını; Fit ekranında profil, kalori, makro, öğün, sağlık bağlantısı ve hedefe göre tarif önerilerini gösteren tasarım önizlemesidir. Antrenman bölümü bu akıştan çıkarılmıştır. Kanonik v43 davranışını değiştirmez; tasarım onayı sonrasında seçilen parçalar v43’e taşınacaktır.
 
 Yeni kullanıcı açılışı dolap boş olacak şekilde başlar; yalnızca tasarımda örnek ürünleri görmek için `sofra-motoru-home-v43.html?demo=1` kullanılabilir.
+İlk giriş mod seçimini mevcut cihaz verisini bozmadan yeniden görmek için `sofra-motoru-home-v43.html?demo=onboarding` kullanılabilir.
 
 Boş dolap akışını mevcut cihaz verisine dokunmadan test etmek için referans ekranını `sofra-motoru-reference-v2.html?demo=empty` ile açabilirsin; bu senaryoda genel tarif önerisi, boş Dolabım mesajı ve Tarifler geçişi doğrulanır.
 

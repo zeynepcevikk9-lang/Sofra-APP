@@ -485,7 +485,7 @@ fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>G
   if(menuAddV33)menuAddV33.onclick=()=>openMenuPartsV33();
   const menuPrimaryV33=document.querySelector('#menu .menu-primary');
   if(menuPrimaryV33)menuPrimaryV33.onclick=function(){window.menuAddedV31=true;go('planim');updatePlanAfterMenuV31();updatePlanOptionalSummaryV33();toast('Menün Planım’a eklendi')};
-  try{const savedMode=localStorage.getItem('sofraMode');if(savedMode)closeWelcome(savedMode)}catch(e){}
+  try{const savedMode=localStorage.getItem('sofraMode');if(savedMode)closeWelcome(savedMode);if(new URLSearchParams(location.search).get('demo')==='onboarding')openWelcome()}catch(e){}
 </script>
 <script>
   function syncHomeModeV34(){

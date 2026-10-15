@@ -1,5 +1,7 @@
 /** Provider-neutral market quote rules. Live retailer adapters come later. */
 
+export const marketProviders = Object.freeze(['CarrefourSA', 'Getir', 'Migros']);
+
 export function estimatedTotal({ subtotal = 0, deliveryFee = 0, mandatoryFees = 0 } = {}) {
   return Number((Number(subtotal) + Number(deliveryFee) + Number(mandatoryFees)).toFixed(2));
 }
@@ -70,4 +72,21 @@ export function buildMarketRequest(input = {}) {
     throw Object.assign(new Error('candidateIds boş olmayan ve benzersiz bir dizi olmalı'), { status: 422 });
   }
   return { candidateIds: [...candidateIds], userConfirmed: true };
+}
+
+export function buildMarketHandoff(input = {}) {
+  const request = buildMarketRequest(input);
+  const provider = typeof input.provider === 'string' ? input.provider.trim() : '';
+  if (!marketProviders.includes(provider)) throw Object.assign(new Error('geçersiz market sağlayıcısı'), { status: 422 });
+  return {
+    schema_version: 1,
+    provider,
+    candidate_ids: request.candidateIds,
+    action: 'open_partner',
+    handoff_status: 'not_connected',
+    available: false,
+    partner_url: null,
+    user_confirmed: true,
+    disclosure: 'Market bağlantısı ve yönlendirme bu prototipte henüz açık değil.',
+  };
 }

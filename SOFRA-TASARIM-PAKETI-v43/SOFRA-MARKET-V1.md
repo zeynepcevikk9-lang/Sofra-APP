@@ -54,6 +54,7 @@ isteğine sokulmaz.
 ### Aşama 3 — yönlendirme ve gelir
 
 - Hazır sepet/API entegrasyonu.
+- Onaylı liste için provider-neutral yönlendirme niyeti (`/v1/market/handoff`); prototipte `partner_url: null` ve `handoff_status: not_connected` döner.
 - Sipariş veya yönlendirme komisyonu.
 - Kupon ve kampanya.
 - Sponsorlu ürünler açıkça `Sponsorlu` veya `İş birliği` etiketiyle gösterilir.

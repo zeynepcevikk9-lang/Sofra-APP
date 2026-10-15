@@ -1,6 +1,6 @@
 import http from 'node:http';
 import { catalog, recommend } from './SOFRA-ALGORITHM-V1.mjs';
-import { buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
+import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { parsePantryNote } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
@@ -328,6 +328,12 @@ export function createSofraServer({ state = createState() } = {}) {
           quotes: rankQuotes(demoMarketQuotes()).map(serializeMarketQuote),
           candidate_ids: request.candidateIds,
         });
+      }
+      if (method === 'POST' && path === '/v1/market/handoff') {
+        const handoff = buildMarketHandoff(await readJson(req));
+        const candidateIds = new Set(shoppingCandidates(state).map((candidate) => candidate.id));
+        if (handoff.candidate_ids.some((id) => !candidateIds.has(id))) throw validationError('Market listesi yalnızca Planım ürünlerinden oluşmalı');
+        return json(res, 200, { market_status: 'demo_only', ...handoff });
       }
       return json(res, 404, { code: 'not_found', message: 'Endpoint bulunamadı' });
     } catch (error) {

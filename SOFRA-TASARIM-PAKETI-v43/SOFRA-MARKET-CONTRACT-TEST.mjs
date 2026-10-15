@@ -1,11 +1,23 @@
 import assert from 'node:assert/strict';
-import { buildMarketRequest, estimatedTotal, rankQuotes } from './SOFRA-MARKET-V1.mjs';
+import { buildMarketHandoff, buildMarketRequest, estimatedTotal, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 
 assert.equal(estimatedTotal({ subtotal: 331, deliveryFee: 29.9 }), 360.9);
 assert.throws(() => buildMarketRequest({ candidateIds: ['candidate_domates'], userConfirmed: false }), /onayı gerekir/);
 assert.deepEqual(buildMarketRequest({ candidateIds: ['candidate_domates'], userConfirmed: true }), { candidateIds: ['candidate_domates'], userConfirmed: true });
 assert.throws(() => buildMarketRequest({ candidateIds: [], userConfirmed: true }), /benzersiz bir dizi/);
 assert.throws(() => buildMarketRequest({ candidateIds: ['candidate_domates', 'candidate_domates'], userConfirmed: true }), /benzersiz bir dizi/);
+assert.deepEqual(buildMarketHandoff({ provider: 'CarrefourSA', candidateIds: ['candidate_domates'], userConfirmed: true }), {
+  schema_version: 1,
+  provider: 'CarrefourSA',
+  candidate_ids: ['candidate_domates'],
+  action: 'open_partner',
+  handoff_status: 'not_connected',
+  available: false,
+  partner_url: null,
+  user_confirmed: true,
+  disclosure: 'Market bağlantısı ve yönlendirme bu prototipte henüz açık değil.',
+});
+assert.throws(() => buildMarketHandoff({ provider: 'Bilinmeyen', candidateIds: ['candidate_domates'], userConfirmed: true }), /geçersiz market sağlayıcısı/);
 
 const quotes = rankQuotes([
   {

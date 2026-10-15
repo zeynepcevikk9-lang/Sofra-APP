@@ -192,6 +192,15 @@ try {
   assert.equal(result.body.quotes[0].comparison_state, 'comparable');
   assert.equal(result.body.quotes.find((quote) => quote.provider === 'Getir').comparison_state, 'minimum_basket_not_met');
 
+  result = await request('/v1/market/handoff', { method: 'POST', body: JSON.stringify({ provider: 'CarrefourSA', candidateIds: ['candidate_domates'], userConfirmed: true }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.market_status, 'demo_only');
+  assert.equal(result.body.handoff_status, 'not_connected');
+  assert.equal(result.body.partner_url, null);
+
+  result = await request('/v1/market/handoff', { method: 'POST', body: JSON.stringify({ provider: 'CarrefourSA', candidateIds: ['candidate_domates'], userConfirmed: false }) });
+  assert.equal(result.response.status, 409, 'onaysız market yönlendirmesi yapılmamalı');
+
   result = await request('/v1/recommendations/recommendation_recipe_oven_vegetables/feedback', { method: 'POST', body: JSON.stringify({ value: 'helpful' }) });
   assert.equal(result.response.status, 204, 'geçerli geri bildirim kaydedilmeli');
 

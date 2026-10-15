@@ -342,6 +342,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /v1/market/handoff:
+    post:
+      tags: [Market]
+      summary: Onaylanmış liste için partner yönlendirme niyeti oluşturur
+      operationId: createMarketHandoff
+      description: Prototipte dış URL açmaz; canlı partner bağlantısı bağlandığında aynı sözleşme kullanılabilir.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [provider, candidateIds, userConfirmed]
+              properties:
+                provider:
+                  type: string
+                  enum: [CarrefourSA, Getir, Migros]
+                candidateIds:
+                  type: array
+                  minItems: 1
+                  uniqueItems: true
+                  items: { type: string }
+                userConfirmed: { type: boolean }
+      responses:
+        '200':
+          description: Demo yönlendirme niyeti
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketHandoff'
+        '409':
+          description: Kullanıcı listesi onaylanmadı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   parameters:
     ItemId:
@@ -718,6 +754,28 @@ components:
           type: string
           enum: [demo, live]
         partnership_label: { type: string, nullable: true }
+    MarketHandoff:
+      type: object
+      required: [market_status, schema_version, provider, candidate_ids, action, handoff_status, available, partner_url, user_confirmed, disclosure]
+      properties:
+        market_status:
+          type: string
+          enum: [demo_only, live]
+        schema_version: { type: integer, example: 1 }
+        provider: { type: string }
+        candidate_ids:
+          type: array
+          items: { type: string }
+        action:
+          type: string
+          enum: [open_partner]
+        handoff_status:
+          type: string
+          enum: [not_connected, ready, opened]
+        available: { type: boolean }
+        partner_url: { type: string, format: uri, nullable: true }
+        user_confirmed: { type: boolean }
+        disclosure: { type: string }
     Error:
       type: object
       required: [code, message]

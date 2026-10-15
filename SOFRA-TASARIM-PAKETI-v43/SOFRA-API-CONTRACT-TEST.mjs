@@ -15,6 +15,7 @@ const requiredPaths = [
   '/v1/plans:',
   '/v1/shopping/candidates:',
   '/v1/market/quotes:',
+  '/v1/market/handoff:',
 ];
 
 for (const path of requiredPaths) assert.ok(apiSpec.includes(path), `OpenAPI yolu eksik: ${path}`);

@@ -21,6 +21,10 @@ try {
   await saveStore(filePath, state);
   const restored = await loadStore(filePath);
   assert.deepEqual(restored, state);
+  state.pantry[0].quantity_text = '3 kg';
+  await saveStore(filePath, state);
+  const overwritten = await loadStore(filePath);
+  assert.equal(overwritten.pantry[0].quantity_text, '3 kg', 'store ikinci yazmada güncellenmeli');
 
   assert.throws(() => normalizeStoreState({ pantry: [], plans: [], feedback: [], nextId: 0 }), /nextId/);
   assert.throws(() => normalizeStoreState({ pantry: {}, plans: [], feedback: [], nextId: 1 }), /dizileri/);

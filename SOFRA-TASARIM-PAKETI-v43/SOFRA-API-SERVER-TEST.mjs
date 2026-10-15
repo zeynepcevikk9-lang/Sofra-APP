@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { createSofraServer } from './SOFRA-API-SERVER.mjs';
 
-const { server } = createSofraServer();
+let persistedState = null;
+const { server } = createSofraServer({ saveState: async (state) => { persistedState = JSON.parse(JSON.stringify(state)); } });
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const { port } = server.address();
 const base = `http://127.0.0.1:${port}`;
@@ -54,6 +55,7 @@ try {
   assert.equal(result.response.status, 201);
   assert.equal(result.body.count, 2, 'onaylanan toplu dolap kaydı iki ürün içermeli');
   assert.equal(result.body.items[0].source, 'natural_note');
+  assert.equal(persistedState?.pantry.length, 2, 'API mutasyonu persist callback’ine ulaşmalı');
   result = await request('/v1/pantry');
   const pantryCountAfterBulk = result.body.items.length;
   result = await request('/v1/pantry/items/bulk', { method: 'POST', body: JSON.stringify({ items: [

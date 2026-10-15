@@ -2,7 +2,7 @@
 
 > Bu dosya Sofra’nın ürün kararlarını, algoritma mantığını ve ileride geliştirilecek özellikleri tek yerde tutar. Yeni bir özellik eklenmeden önce buradaki ilkelerle çelişip çelişmediği kontrol edilir.
 
-Son güncelleme: 15 Ekim 2026  
+Son güncelleme: 15 Ekim 2026
 Mevcut prototip: `outputs/sofra-motoru-home-v43.html`
 
 ## 1. Ürün fikri

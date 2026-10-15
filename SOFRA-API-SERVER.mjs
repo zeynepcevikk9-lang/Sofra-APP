@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { catalog, normalize as normalizeRecipeText, recommend } from './SOFRA-ALGORITHM-V1.mjs';
+import { catalog, normalize as normalizeRecipeText, recipeDetails, recommend } from './SOFRA-ALGORITHM-V1.mjs';
 import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { parsePantryNote } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
@@ -108,6 +108,17 @@ function serializeRecipe(recipe) {
       verified: recipe.safety?.verified === true,
       cross_contamination: recipe.safety?.crossContamination || 'unknown',
     },
+  };
+}
+
+function serializeRecipeDetail(recipe) {
+  const detail = recipeDetails[recipe.id] || {};
+  return {
+    servings: detail.servings || null,
+    ingredients_detail: detail.ingredients || [],
+    instructions: detail.instructions || [],
+    tip: detail.tip || null,
+    instructions_available: Array.isArray(detail.instructions) && detail.instructions.length > 0,
   };
 }
 
@@ -297,7 +308,7 @@ export function createSofraServer({ state = createState(), saveState = null } = 
       if (method === 'GET' && recipeDetailMatch) {
         const recipe = recipeById(recipeDetailMatch[1]);
         if (!recipe) return json(res, 404, { code: 'not_found', message: 'Tarif bulunamadı' });
-        return json(res, 200, { ...serializeRecipe(recipe), source: 'catalog_v1', instructions_available: false });
+        return json(res, 200, { ...serializeRecipe(recipe), ...serializeRecipeDetail(recipe), source: 'catalog_v1' });
       }
       if (method === 'GET' && path === '/v1/me/export') return json(res, 200, exportUserData(state));
       if (method === 'DELETE' && path === '/v1/me/data') {

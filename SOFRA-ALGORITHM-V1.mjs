@@ -18,6 +18,19 @@ export const catalog = [
   { id: 'recipe_eggplant_olive_oil', title: 'Zeytinyağlı patlıcan', mins: 30, emoji: '🍆', ingredients: ['patlıcan', 'domates', 'soğan'], tags: ['sofra', 'mevsim', 'sebze'], fit: true, fitGoals: ['balanced', 'lose'], safety: { allergens: [], verified: false, crossContamination: 'unknown' } },
 ];
 
+// Tarif metni ayrı tutulur: öneri sıralaması bu içeriğe bağımlı değildir;
+// besin ve alerjen doğrulaması yapılmadan kesin sağlık iddiası üretilmez.
+export const recipeDetails = Object.freeze({
+  recipe_pasta_mushroom: { servings: 2, ingredients: [['200 g', 'makarna'], ['250 g', 'mantar'], ['50 g', 'peynir'], ['1 yemek kaşığı', 'zeytinyağı']], instructions: ['Makarnayı paketin üzerindeki süreye göre haşla ve yarım su bardağı suyunu ayır.', 'Mantarları zeytinyağında suyunu çekene kadar sotele.', 'Makarnayı mantarla karıştır, ayırdığın sudan ekle ve peynirle servis et.'], tip: 'Peyniri eklemeden önce ocağı kısarsan sos daha pürüzsüz olur.' },
+  recipe_vegetable_bowl: { servings: 2, ingredients: [['1/2 adet', 'marul'], ['1 avuç', 'roka'], ['2 adet', 'domates'], ['1 yemek kaşığı', 'zeytinyağı']], instructions: ['Marul ve rokayı yıka, iyice kurula.', 'Domatesleri doğrayıp yeşilliklerle karıştır.', 'Zeytinyağı ve istediğin baharatlarla servis et.'], tip: 'Sosu servis anında eklemek sebzelerin diri kalmasına yardımcı olur.' },
+  recipe_oven_vegetables: { servings: 2, ingredients: [['3 adet', 'patates'], ['2 adet', 'domates'], ['60 g', 'peynir'], ['1 yemek kaşığı', 'zeytinyağı']], instructions: ['Patatesleri ince dilimle ve yağla harmanla.', 'Patatesleri 200°C fırında yumuşayana kadar pişir.', 'Domates ve peyniri ekleyip peynir eriyene kadar fırınla.'], tip: 'Dilimleri benzer kalınlıkta kesmek pişme süresini dengeler.' },
+  recipe_pizza: { servings: 2, ingredients: [['1 adet', 'pizza hamuru'], ['1 adet', 'domates'], ['80 g', 'peynir'], ['1 adet', 'yumurta']], instructions: ['Hamuru tepsiye açıp üzerine domatesi yay.', 'Peyniri serpiştir ve yumurtayı tarifin merkezine kır.', '220°C fırında kenarları kızarana kadar pişir.'], tip: 'Hamurun ortasını çok kalın bırakma; böylece taban daha iyi pişer.' },
+  recipe_yogurt_bowl: { servings: 1, ingredients: [['150 g', 'yoğurt'], ['1/2 adet', 'elma'], ['2 yemek kaşığı', 'yulaf']], instructions: ['Elmayı yıka ve küçük küpler halinde doğra.', 'Yoğurdu kaseye alıp yulafla karıştır.', 'Elmayı üzerine ekleyip hemen servis et.'], tip: 'İlave şeker yerine meyvenin kendi tatlılığını kullanabilirsin.' },
+  recipe_noodle: { servings: 2, ingredients: [['150 g', 'noodle'], ['150 g', 'mantar'], ['1 avuç', 'marul'], ['1 adet', 'domates']], instructions: ['Noodle’ı yumuşayana kadar haşla ve süz.', 'Mantarları tavada sotele, doğranmış domatesi ekle.', 'Noodle’ı karıştırıp marulla birlikte servis et.'], tip: 'Noodle çeşidinin içerik ve gluten bilgisini paketten kontrol et.' },
+  recipe_avocado_egg_toast: { servings: 1, ingredients: [['1 dilim', 'ekmek'], ['1 adet', 'yumurta'], ['1/2 adet', 'avokado']], instructions: ['Ekmeği kızart.', 'Yumurtayı istediğin kıvamda pişir.', 'Avokadoyu ekmeğe ezerek sür ve yumurtayı üzerine koy.'], tip: 'Ekmek ve yumurtanın alerjen bilgisini ambalajdan kontrol et.' },
+  recipe_eggplant_olive_oil: { servings: 2, ingredients: [['2 adet', 'patlıcan'], ['2 adet', 'domates'], ['1 adet', 'soğan'], ['2 yemek kaşığı', 'zeytinyağı']], instructions: ['Patlıcanları alacalı soyup küp doğra; acısını almak istersen kısa süre tuzlu suda beklet.', 'Soğanı zeytinyağında yumuşat, domatesi ekleyip birkaç dakika pişir.', 'Patlıcanı ekle, kapağı kapat ve kısık ateşte yumuşayana kadar pişir.'], tip: 'Tarifin suyu azalırsa az miktarda sıcak su ekleyebilirsin.' },
+});
+
 export function normalize(value) {
   return String(value ?? '')
     .toLocaleLowerCase('tr-TR')

@@ -32,6 +32,9 @@ assert.ok(apiSpec.includes('FitProfile'), 'Fit profil şeması eksik');
 assert.ok(apiSpec.includes('fit_target:'), 'Fit hedef yanıt alanı eksik');
 assert.ok(apiSpec.includes('fit_goal_boost:'), 'Fit hedef puanı yanıt alanı eksik');
 assert.ok(apiSpec.includes('AiStatus'), 'AI durum şeması eksik');
+assert.ok(apiSpec.includes('ingredients_detail:'), 'tarif detayındaki ölçülü malzeme alanı eksik');
+assert.ok(apiSpec.includes('instructions_available:'), 'tarif detayındaki hazırlanış durumu eksik');
+assert.ok(apiSpec.includes('servings:'), 'tarif detayındaki porsiyon alanı eksik');
 
 const store = {
   pantry: [],

@@ -38,7 +38,10 @@ try {
   assert.equal(result.response.status, 200);
   assert.equal(result.body.title, 'Zeytinyağlı patlıcan');
   assert.equal(result.body.source, 'catalog_v1');
-  assert.equal(result.body.instructions_available, false);
+  assert.equal(result.body.instructions_available, true);
+  assert.equal(result.body.servings, 2);
+  assert.equal(result.body.ingredients_detail[0][1], 'patlıcan');
+  assert.equal(result.body.instructions.length, 3);
   result = await request('/v1/recipes/recipe_does_not_exist');
   assert.equal(result.response.status, 404);
   result = await request('/v1/recipes?mode=tatli&query=patl%C4%B1can');

@@ -644,10 +644,20 @@ components:
       allOf:
         - $ref: '#/components/schemas/RecipeCatalogItem'
         - type: object
-          required: [source, instructions_available]
+          required: [source, instructions_available, servings, ingredients_detail, instructions, tip]
           properties:
             source: { type: string, enum: [catalog_v1] }
             instructions_available: { type: boolean }
+            servings: { type: integer, minimum: 1, nullable: true }
+            ingredients_detail:
+              type: array
+              items:
+                type: array
+                minItems: 2
+                maxItems: 2
+                items: { type: string }
+            instructions: { type: array, items: { type: string } }
+            tip: { type: string, nullable: true }
     DataExport:
       type: object
       required: [schema_version, exported_at, user, data]

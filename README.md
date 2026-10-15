@@ -22,7 +22,7 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Geliştirme kalıcılık adapter’ı: `SOFRA-STORE-V1.mjs` · `node SOFRA-STORE-CONTRACT-TEST.mjs`; `SOFRA_STORE_PATH=...` ile referans sunucu yeniden başlatmalar arasında JSON store kullanabilir.
 - Bağımsız deterministik öneri motoru: `SOFRA-ALGORITHM-V1.mjs`
 - Tarif katalog endpoint’i: `GET /v1/recipes` (Sofra/Fit/Tatlı, arama ve süre filtresi; doğrulanmamış besin verisi `null` kalır)
-- Tarif detay endpoint’i: `GET /v1/recipes/:id` (güvenlik ve besin doğrulama görünümü; tarif adımları katalogda henüz bağlı değil)
+- Tarif detay endpoint’i: `GET /v1/recipes/:id` (güvenlik/besin doğrulama görünümü ve yapılandırılmış malzeme, porsiyon, hazırlanış alanları; doğrulanmış besin verisi yine `null` kalabilir)
 - Fit/sağlık sözleşme testi: `node SOFRA-HEALTH-CONTRACT-TEST.mjs`
 - Fit profil/hedef sözleşmesi: `SOFRA-FIT-V1.mjs` · `node SOFRA-FIT-CONTRACT-TEST.mjs` (yaş, boy, kilo, cinsiyet, hareket ve hedef için yaklaşık hedef hesabı)
 - Referans Fit/tasarım smoke testi: `node SOFRA-REFERENCE-CONTRACT-TEST.mjs` (profil, sağlık sınırı, canlı tarif görselleri ve antrenman bölümünün çıkarılması)

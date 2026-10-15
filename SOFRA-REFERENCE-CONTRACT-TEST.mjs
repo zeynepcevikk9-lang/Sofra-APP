@@ -27,6 +27,9 @@ for (const age of ['12–23 ay', '24–35 ay', '36+ ay']) assert.match(html, new
 assert.match(html, /child-age-note-v2/, 'çocuk yaş filtresi açıklaması eksik');
 assert.match(html, /photo-child-v2|childPhotoBase/, 'çocuk tariflerinde canlı görsel kancası eksik');
 assert.match(html, /Zeytinyağlı patlıcan/, 'referans tarif kataloğunda patlıcan örneği eksik');
+assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
+assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');
+assert.match(html, /<strong>Hazırlanış<\/strong>/, 'referans tarif hazırlanış bölümü eksik');
 
 const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)];
 for (const [index, match] of scripts.entries()) {

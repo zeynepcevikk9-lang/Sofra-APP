@@ -54,6 +54,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Analitik olayları kişisel sağlık verisi içermeden tanımlanır.
 - [ ] Gizlilik politikası, kullanım koşulları ve çerez/izin metinleri hazırdır.
 - [ ] Hata izleme, yedekleme ve geri alma planı vardır.
+- [x] GitHub Actions kalite kapısı sözleşme ve release smoke testlerini her push/pull request’te çalıştırır.
 
 ## 6. Prototipten çıkış kriteri
 

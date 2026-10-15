@@ -55,6 +55,7 @@ const requiredFiles = [
   'SOFRA-PRODUCT-ROADMAP.md',
   'SOFRA-RELEASE-CHECKLIST.md',
   'SOFRA-RELEASE-CHECK.mjs',
+  'SOFRA-CI-SMOKE.mjs',
 ];
 
 for (const file of [canonicalHtml, ...(zip ? [zip] : []), ...requiredFiles.map((file) => join(staging, file))]) {

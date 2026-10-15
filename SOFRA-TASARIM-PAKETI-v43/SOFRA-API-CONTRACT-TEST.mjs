@@ -22,6 +22,7 @@ assert.ok(apiSpec.includes('safety_profile:'), 'gıda güvenliği profil alanı 
 assert.ok(apiSpec.includes('SafetyProfile'), 'gıda güvenliği şeması eksik');
 assert.ok(apiSpec.includes('FitProfile'), 'Fit profil şeması eksik');
 assert.ok(apiSpec.includes('fit_target:'), 'Fit hedef yanıt alanı eksik');
+assert.ok(apiSpec.includes('fit_goal_boost:'), 'Fit hedef puanı yanıt alanı eksik');
 
 const store = {
   pantry: [],

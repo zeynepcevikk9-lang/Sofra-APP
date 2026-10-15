@@ -13,6 +13,22 @@ export function normalizeQuote(input = {}, now = Date.now()) {
   const updatedAt = input.updatedAt ? new Date(input.updatedAt) : null;
   const reference = new Date(now).getTime();
   const fresh = updatedAt && !Number.isNaN(updatedAt.getTime()) ? (reference - updatedAt.getTime()) < 86400000 : false;
+  const comparisonState = !fresh
+    ? 'stale'
+    : !quantityMatch
+      ? 'quantity_mismatch'
+      : !stockKnown
+        ? 'stock_unknown'
+        : !minimumBasketMet
+          ? 'minimum_basket_not_met'
+          : 'comparable';
+  const comparisonLabel = {
+    comparable: 'Karşılaştırılabilir',
+    stale: 'Fiyat güncellenmeli',
+    quantity_mismatch: 'Miktar farklı',
+    stock_unknown: 'Stok doğrulanmalı',
+    minimum_basket_not_met: 'Minimum sepet tamamlanmalı',
+  }[comparisonState];
   return {
     ...input,
     estimatedTotal: total,
@@ -21,6 +37,8 @@ export function normalizeQuote(input = {}, now = Date.now()) {
     quantityMatch,
     stockKnown,
     fresh,
+    comparisonState,
+    comparisonLabel,
     eligibleForBestTotal: minimumBasketMet && quantityMatch && stockKnown && fresh,
     displayLabel: 'Tahmini toplam',
   };

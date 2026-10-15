@@ -506,6 +506,7 @@ components:
         learning_boost: { type: integer, minimum: -12, maximum: 12 }
         preference_boost: { type: integer, minimum: -6, maximum: 6 }
         repeat_penalty: { type: integer, minimum: -18, maximum: 0 }
+        fit_goal_boost: { type: integer, minimum: -10, maximum: 20 }
         reason_code:
           type: string
           enum: [inventory_match, expiry_priority, fit_goal, general]

@@ -293,8 +293,12 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [quotes]
+                required: [market_status, quotes]
                 properties:
+                  market_status:
+                    type: string
+                    enum: [demo_only, live]
+                    description: Prototipte demo_only; canlı adaptörler bağlandığında live olur.
                   quotes:
                     type: array
                     items:
@@ -502,6 +506,7 @@ components:
         learning_boost: { type: integer, minimum: -12, maximum: 12 }
         preference_boost: { type: integer, minimum: -6, maximum: 6 }
         repeat_penalty: { type: integer, minimum: -18, maximum: 0 }
+        fit_goal_boost: { type: integer, minimum: -10, maximum: 20 }
         reason_code:
           type: string
           enum: [inventory_match, expiry_priority, fit_goal, general]
@@ -609,7 +614,7 @@ components:
         reason: { type: string }
     MarketQuote:
       type: object
-      required: [provider, quoted_at, estimated_total, delivery_fee, minimum_basket, stock_state]
+      required: [provider, quoted_at, estimated_total, delivery_fee, minimum_basket, stock_state, comparison_state, source]
       properties:
         provider: { type: string }
         quoted_at: { type: string, format: date-time }
@@ -620,6 +625,16 @@ components:
         stock_state:
           type: string
           enum: [complete, partial, unknown]
+        comparison_state:
+          type: string
+          enum: [comparable, stale, quantity_mismatch, stock_unknown, minimum_basket_not_met]
+        comparison_label: { type: string }
+        minimum_basket_met: { type: boolean }
+        quantity_match: { type: boolean }
+        fresh: { type: boolean }
+        source:
+          type: string
+          enum: [demo, live]
         partnership_label: { type: string, nullable: true }
     Error:
       type: object

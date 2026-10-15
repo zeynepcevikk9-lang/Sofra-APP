@@ -2,7 +2,7 @@
 
 > Bu dosya Sofra’nın ürün kararlarını, algoritma mantığını ve ileride geliştirilecek özellikleri tek yerde tutar. Yeni bir özellik eklenmeden önce buradaki ilkelerle çelişip çelişmediği kontrol edilir.
 
-Son güncelleme: 14 Ekim 2026  
+Son güncelleme: 15 Ekim 2026  
 Mevcut prototip: `outputs/sofra-motoru-home-v43.html`
 
 ## 1. Ürün fikri
@@ -274,6 +274,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Öneri motoru v1: dolap eşleşmesi, azalan ürün önceliği, süre ve Sofra/Fit/Tatlı modu puanlaması
 - Öneri geri bildirimi v1: anonim “İşe yaradı / Başka fikir” sinyalinin tarif bazında sınırlı ve açıklanabilir `learning_boost` puanına dönüşmesi
 - Fit profilinde yaş, boy, kilo, hedef ve günlük hareket katsayısıyla yaklaşık kalori/protein hesabı
+- Fit hedefi backend öneri sıralamasına bağlandı: dengede kalma, kilo verme ve kilo alma hedefleri `fit_goal_boost` ile açıklanabilir biçimde ayrılıyor; bu henüz doğrulanmış kalori iddiası değildir
 - Fit profilinin yenileme sonrası korunması ve eksik profil doğrulaması
 - Apple Health için isteğe bağlı izin açıklaması ve iOS HealthKit bağlantısına hazırlık demo akışı
 - Planım’da menülerden alışverişe aday ürün listesi üretme
@@ -311,6 +312,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Mod geçişi ve Planım: Sofra → Fit geçişinde kalori özeti, Fit → Sofra dönüşünde alışveriş özeti doğrulandı; menüye tatlı ekleyip Planım’a aktarma akışı geçti.
 - Kişisel Fit hesabı: 30 yaş / 170 cm / 70 kg örneğinde Fit kartı 1.996 kcal, Planım Fit özeti de 1.996 kcal olarak eşleşti.
 - Market güvenli akışı: Planım’da listeyi kontrol etme, açıkça onaylama ve ardından örnek teklifleri görme sırası geçti; onay ekranı canlı markete gönderim yapmadığını belirtiyor.
+- Market sözleşmesi: API yalnızca Planım’dan üretilen adayları kabul ediyor; teklif yanıtı `demo_only`, minimum sepet ve karşılaştırılabilirlik durumlarını açıkça taşıyor.
 
 Henüz demo/placeholder olanlar:
 

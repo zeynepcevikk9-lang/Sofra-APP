@@ -97,6 +97,8 @@ try {
   assert.equal(result.body.fit_target.ready, true);
   assert.equal(result.body.fit_target.targetKcal, 1515);
   assert.equal(result.body.fit_target.approximate, true);
+  assert.equal(result.body.fit_goal_boost, 20, 'Fit hedefi öneri puanına yansımadı');
+  assert.equal(result.body.reason_code, 'fit_goal', 'Fit hedefi açıklaması dönmedi');
 
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 4, fit_profile: { age: 30, unknown_field: true } }) });
   assert.equal(result.response.status, 422, 'tanımsız Fit profil alanı kabul edilmemeli');

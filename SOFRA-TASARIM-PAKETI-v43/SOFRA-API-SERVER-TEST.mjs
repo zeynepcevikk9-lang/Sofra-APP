@@ -97,6 +97,8 @@ try {
   assert.equal(result.body.fit_target.ready, true);
   assert.equal(result.body.fit_target.targetKcal, 1515);
   assert.equal(result.body.fit_target.approximate, true);
+  assert.equal(result.body.fit_goal_boost, 20, 'Fit hedefi öneri puanına yansımadı');
+  assert.equal(result.body.reason_code, 'fit_goal', 'Fit hedefi açıklaması dönmedi');
 
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 4, fit_profile: { age: 30, unknown_field: true } }) });
   assert.equal(result.response.status, 422, 'tanımsız Fit profil alanı kabul edilmemeli');
@@ -154,6 +156,16 @@ try {
 
   result = await request('/v1/market/quotes', { method: 'POST', body: JSON.stringify({ candidateIds: [], userConfirmed: true }) });
   assert.equal(result.response.status, 422, 'boş market listesi kabul edilmemeli');
+
+  result = await request('/v1/market/quotes', { method: 'POST', body: JSON.stringify({ candidateIds: ['candidate_harici_urun'], userConfirmed: true }) });
+  assert.equal(result.response.status, 422, 'Plan dışı market adayı gönderilmemeli');
+
+  result = await request('/v1/market/quotes', { method: 'POST', body: JSON.stringify({ candidateIds: ['candidate_domates'], userConfirmed: true }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.market_status, 'demo_only');
+  assert.equal(result.body.quotes[0].provider, 'CarrefourSA');
+  assert.equal(result.body.quotes[0].comparison_state, 'comparable');
+  assert.equal(result.body.quotes.find((quote) => quote.provider === 'Getir').comparison_state, 'minimum_basket_not_met');
 
   result = await request('/v1/recommendations/recommendation_recipe_oven_vegetables/feedback', { method: 'POST', body: JSON.stringify({ value: 'helpful' }) });
   assert.equal(result.response.status, 204, 'geçerli geri bildirim kaydedilmeli');

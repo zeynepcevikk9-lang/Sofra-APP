@@ -192,7 +192,7 @@ function serializeMarketQuote(quote) {
 
 function recommendationResponse(state, input) {
   const inventory = input.pantry_item_ids == null ? state.pantry : state.pantry.filter((item) => input.pantry_item_ids.includes(item.id));
-  const result = recommend({ mode: input.mode, maxMinutes: input.max_minutes || 0, inventory, feedback: state.feedback, recentRecipeIds: input.recent_recipe_ids || [], safetyProfile: input.safety_profile || {} });
+  const result = recommend({ mode: input.mode, maxMinutes: input.max_minutes || 0, inventory, feedback: state.feedback, recentRecipeIds: input.recent_recipe_ids || [], safetyProfile: input.safety_profile || {}, fitGoal: input.fit_profile?.goalKey || input.fit_profile?.goal || null });
   const top = result[0];
   if (!top) return null;
   const nutrition = recipeNutrition(top);
@@ -208,6 +208,7 @@ function recommendationResponse(state, input) {
     learning_boost: top.learningBoost,
     preference_boost: top.preferenceBoost,
     repeat_penalty: top.repeatPenalty,
+    fit_goal_boost: top.fitGoalBoost,
     reason_code: top.reasonCode,
     score_version: top.scoreVersion,
     safety: top.safety,

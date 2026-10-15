@@ -9,11 +9,12 @@ import { assessRecipeSafety, normalizeSafetyProfile } from './SOFRA-SAFETY-V1.mj
 
 export const catalog = [
   { id: 'recipe_pasta_mushroom', title: 'Kremalı mantarlı makarna', mins: 25, emoji: '🍝', ingredients: ['mantar', 'makarna', 'peynir'], tags: ['sofra', 'dunya', 'pratik'], fit: false, safety: { allergens: ['milk', 'gluten'], verified: false, crossContamination: 'unknown' } },
-  { id: 'recipe_vegetable_bowl', title: 'Renkli sebze bowl', mins: 20, emoji: '🥗', ingredients: ['marul', 'roka', 'domates'], tags: ['sofra', 'fit', 'mevsim'], fit: true, safety: { allergens: [], verified: false, crossContamination: 'unknown' } },
-  { id: 'recipe_oven_vegetables', title: 'Fırında sebzeli tabak', mins: 35, emoji: '🥘', ingredients: ['patates', 'domates', 'peynir'], tags: ['sofra', 'mevsim'], fit: true, safety: { allergens: ['milk'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_vegetable_bowl', title: 'Renkli sebze bowl', mins: 20, emoji: '🥗', ingredients: ['marul', 'roka', 'domates'], tags: ['sofra', 'fit', 'mevsim'], fit: true, fitGoals: ['balanced', 'lose'], safety: { allergens: [], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_oven_vegetables', title: 'Fırında sebzeli tabak', mins: 35, emoji: '🥘', ingredients: ['patates', 'domates', 'peynir'], tags: ['sofra', 'mevsim'], fit: true, fitGoals: ['balanced', 'lose'], safety: { allergens: ['milk'], verified: false, crossContamination: 'unknown' } },
   { id: 'recipe_pizza', title: 'Ev yapımı pizza', mins: 45, emoji: '🍕', ingredients: ['yumurta', 'peynir', 'domates'], tags: ['sofra', 'dunya'], fit: false, safety: { allergens: ['egg', 'milk', 'gluten'], verified: false, crossContamination: 'unknown' } },
-  { id: 'recipe_yogurt_bowl', title: 'Yoğurtlu meyve kasesi', mins: 10, emoji: '🍓', ingredients: ['yoğurt', 'süt', 'elma'], tags: ['tatli', 'fit', 'pratik'], fit: true, safety: { allergens: ['milk'], verified: false, crossContamination: 'unknown' } },
-  { id: 'recipe_noodle', title: 'Sebzeli noodle', mins: 25, emoji: '🍜', ingredients: ['mantar', 'marul', 'domates'], tags: ['sofra', 'dunya', 'pratik'], fit: true, safety: { allergens: ['gluten'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_yogurt_bowl', title: 'Yoğurtlu meyve kasesi', mins: 10, emoji: '🍓', ingredients: ['yoğurt', 'süt', 'elma'], tags: ['tatli', 'fit', 'pratik'], fit: true, fitGoals: ['balanced', 'lose'], safety: { allergens: ['milk'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_noodle', title: 'Sebzeli noodle', mins: 25, emoji: '🍜', ingredients: ['mantar', 'marul', 'domates'], tags: ['sofra', 'dunya', 'pratik'], fit: true, fitGoals: ['balanced', 'gain'], safety: { allergens: ['gluten'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_avocado_egg_toast', title: 'Avokadolu yumurta tost', mins: 12, emoji: '🥑', ingredients: ['yumurta', 'ekmek', 'avokado'], tags: ['fit', 'pratik'], fit: true, fitGoals: ['balanced', 'gain'], safety: { allergens: ['egg', 'gluten'], verified: false, crossContamination: 'unknown' } },
 ];
 
 export function normalize(value) {
@@ -80,7 +81,12 @@ function repeatPenalty(recipeId, recentRecipeIds = []) {
   return -Math.min(18, repeats * 8);
 }
 
-export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feedback = [], recentRecipeIds = [], safetyProfile = {}, now = new Date() } = {}) {
+function fitGoalBoost(recipe, fitGoal) {
+  if (!fitGoal) return 0;
+  return recipe.fitGoals?.includes(fitGoal) ? 20 : -10;
+}
+
+export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feedback = [], recentRecipeIds = [], safetyProfile = {}, fitGoal = null, now = new Date() } = {}) {
   const pantry = activeInventory(inventory);
   const normalizedSafetyProfile = normalizeSafetyProfile(safetyProfile);
   return catalog
@@ -93,12 +99,14 @@ export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feed
       const learningBoost = feedbackBoost(recipe.id, feedback);
       const preferenceBoostValue = preferenceBoost(recipe, feedback);
       const repeatPenaltyValue = repeatPenalty(recipe.id, recentRecipeIds);
+      const fitGoalBoostValue = mode === 'fit' ? fitGoalBoost(recipe, fitGoal) : 0;
       const score = matchedIngredients.length * 28
         + matches.reduce((sum, item) => sum + statusLowBoost(item) + expiryBoost(item, now), 0)
         + learningBoost
         + preferenceBoostValue
         + repeatPenaltyValue
         + (mode === 'fit' ? (recipe.fit ? 42 : -12) : 0)
+        + fitGoalBoostValue
         + (mode === 'tatli' ? (recipe.tags.includes('tatli') ? 55 : -20) : 0)
         + (mode === 'sofra' && recipe.tags.includes('sofra') ? 12 : 0)
         + (maxMinutes ? (recipe.mins <= maxMinutes ? 18 : -18) : 0)
@@ -114,9 +122,10 @@ export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feed
         learningBoost,
         preferenceBoost: preferenceBoostValue,
         repeatPenalty: repeatPenaltyValue,
+        fitGoalBoost: fitGoalBoostValue,
         safety,
-        reasonCode: matches.some((item) => expiryBoost(item, now) > 0) ? 'expiry_priority' : matchedIngredients.length ? 'inventory_match' : 'general',
-        scoreVersion: 'deterministic-v1.1',
+        reasonCode: fitGoalBoostValue > 0 ? 'fit_goal' : matches.some((item) => expiryBoost(item, now) > 0) ? 'expiry_priority' : matchedIngredients.length ? 'inventory_match' : 'general',
+        scoreVersion: 'deterministic-v1.2',
       };
     })
     .filter((item) => item && (!maxMinutes || item.mins <= maxMinutes || item.matchedCount > 0))

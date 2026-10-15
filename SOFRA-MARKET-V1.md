@@ -42,6 +42,15 @@ Kullanıcı listeyi onayladıktan sonra her market için ürün eşleştirmesi y
 }
 ```
 
+Prototip API, cevabı `market_status: demo_only` ile işaretler. Her teklif ayrıca
+`comparison_state` (`comparable`, `minimum_basket_not_met`, `quantity_mismatch`,
+`stock_unknown` veya `stale`) ve `source: demo` taşır. Böylece kullanıcıya gösterilen
+toplam ile gelecekte bağlanacak canlı adaptörün durumu birbirine karışmaz.
+
+Demo akışında yalnızca Planım’dan üretilmiş `candidate_id` değerleri kabul edilir.
+Liste onaylansa bile dışarıdan uydurulmuş veya başka kullanıcıya ait bir aday market
+isteğine sokulmaz.
+
 ### Aşama 3 — yönlendirme ve gelir
 
 - Hazır sepet/API entegrasyonu.
@@ -75,3 +84,5 @@ Kullanıcı listeyi onayladıktan sonra her market için ürün eşleştirmesi y
 - `azaldı` ve `bitti` ürünleri listede kalır ve durumları görünür.
 - Liste kopyalanabilir ve kullanıcı Dolabım’a geri dönebilir.
 - Market seçimi ve fiyat gösterimi, liste onayından önce tetiklenmez.
+- Demo toplamları API ile arayüzde aynı hesaplanır; minimum sepeti karşılanmayan teklif
+  `Tahmini toplam` olarak kalır ve `En uygun toplam` etiketi alamaz.

@@ -959,7 +959,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
   .market-demo-card.best{border-color:var(--clay);box-shadow:0 0 0 2px #d48c7520}
   .market-demo-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .market-demo-top strong{font-size:13px;color:var(--ink)}
-  .market-demo-badge{font-size:8px;color:#9a624c;background:#fff0e9;border-radius:999px;padding:5px 7px;font-weight:800}
+  .market-demo-badge{font-size:8px;color:#6d806f;background:#eef4eb;border-radius:999px;padding:5px 7px;font-weight:800}.market-demo-badge.best{color:#9a624c;background:#fff0e9}
   .market-demo-total{font:600 20px var(--display);color:var(--ink);margin-top:7px}
   .market-demo-meta{font-size:9px;color:var(--muted);line-height:1.5;margin-top:3px}
   .market-demo-note{font-size:9px;color:#9a624c;margin-top:7px}
@@ -970,11 +970,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
 <script>
 (function(){
   const marketsV43=[
-    {name:'CarrefourSA',total:'360,90 TL',totalValue:360.9,eta:'Yarın teslim',fee:'29,90 TL teslimat',minimum:'Minimum sepet yok',best:true,comparable:true},
-    {name:'Getir',total:'372,00 TL',totalValue:372,eta:'25 dk',fee:'Teslimat dahil',minimum:'350 TL minimum sepet',comparable:true},
-    {name:'Migros',total:'377,90 TL',totalValue:377.9,eta:'35 dk',fee:'29,90 TL teslimat',minimum:'400 TL minimum sepet',note:'Minimum sepet tamamlanmalı',comparable:false}
+    {name:'CarrefourSA',total:'360,90 TL',totalValue:360.9,eta:'Yarın teslim',fee:'29,90 TL teslimat',minimum:'Minimum sepet yok',label:'En uygun toplam',best:true,comparable:true},
+    {name:'Getir',total:'342,10 TL',totalValue:342.1,eta:'25 dk',fee:'Teslimat dahil',minimum:'350 TL minimum sepet',label:'Tahmini toplam',note:'Minimum sepet tamamlanmalı',comparable:false},
+    {name:'Migros',total:'377,90 TL',totalValue:377.9,eta:'35 dk',fee:'29,90 TL teslimat',minimum:'400 TL minimum sepet',label:'Tahmini toplam',note:'Minimum sepet tamamlanmalı',comparable:false}
   ];
-  function marketMarkupV43(){const best=marketsV43.find(m=>m.best);return marketsV43.map(m=>{const diff=best&&m.comparable&&!m.best?Number((m.totalValue-best.totalValue).toFixed(2)):null;const diffLabel=diff==null?'':`<div class="market-demo-diff">En uygun toplama göre ${diff.toLocaleString('tr-TR',{minimumFractionDigits:2})} TL daha pahalı</div>`;return `<article class="market-demo-card ${m.best?'best':''}"><div class="market-demo-top"><strong>${m.name}</strong>${m.best?'<span class="market-demo-badge">En uygun toplam</span>':''}</div><div class="market-demo-total">${m.total}</div><div class="market-demo-meta">${m.eta} · ${m.fee}<br>${m.minimum}</div>${diffLabel}${m.note?`<div class="market-demo-note">${m.note}</div>`:''}</article>`}).join('')}
+  function marketMarkupV43(){const best=marketsV43.find(m=>m.best);return marketsV43.map(m=>{const diff=best&&m.comparable&&!m.best?Number((m.totalValue-best.totalValue).toFixed(2)):null;const diffLabel=diff==null?'':`<div class="market-demo-diff">En uygun toplama göre ${diff.toLocaleString('tr-TR',{minimumFractionDigits:2})} TL daha pahalı</div>`;return `<article class="market-demo-card ${m.best?'best':''}"><div class="market-demo-top"><strong>${m.name}</strong><span class="market-demo-badge ${m.best?'best':''}">${m.label}</span></div><div class="market-demo-total">${m.total}</div><div class="market-demo-meta">${m.eta} · ${m.fee}<br>${m.minimum}<br>Kaynak: örnek veri</div>${diffLabel}${m.note?`<div class="market-demo-note">${m.note}</div>`:''}</article>`}).join('')}
   window.openMarketConfirmV43=function(){
     const names=[...document.querySelectorAll('#shopping-list-v40 .shopping-item strong')].map(item=>item.textContent.trim());
     const list=names.length?names.map(name=>`<div><span>${escapeHtml(name)}</span><span>Kontrol edildi</span></div>`).join(''):'<div><span>Liste öğesi yok</span><span>Genel öneriler</span></div>';

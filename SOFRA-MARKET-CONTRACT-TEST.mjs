@@ -27,11 +27,14 @@ assert.equal(quotes[0].retailer, 'CarrefourSA');
 assert.equal(quotes[0].estimatedTotal, 360.9);
 assert.equal(quotes[0].displayLabel, 'En uygun toplam');
 assert.equal(quotes[0].differenceFromBest, 0);
+assert.equal(quotes[0].comparisonState, 'comparable');
 assert.equal(quotes[1].displayLabel, 'Tahmini toplam');
 assert.equal(quotes[1].differenceFromBest, null, 'minimum sepeti karşılanmayan teklif fiyat farkı iddia etmemeli');
+assert.equal(quotes[1].comparisonState, 'minimum_basket_not_met');
 assert.equal(quotes[2].displayLabel, 'Tahmini toplam');
 assert.equal(quotes.find((quote) => quote.retailer === 'Getir').sponsorshipLabel, 'İş birliği');
 assert.equal(quotes.find((quote) => quote.retailer === 'Migros').minimumBasketMet, false);
+assert.equal(quotes.find((quote) => quote.retailer === 'Migros').comparisonLabel, 'Minimum sepet tamamlanmalı');
 
 const stale = rankQuotes([{
   retailer: 'Old Market', subtotal: 200, deliveryFee: 0, minimumBasket: null,
@@ -39,6 +42,7 @@ const stale = rankQuotes([{
 }], { now: '2026-10-14T12:00:00Z' });
 assert.equal(stale[0].displayLabel, 'Tahmini toplam');
 assert.equal(stale[0].fresh, false);
+assert.equal(stale[0].comparisonState, 'stale');
 
 const comparable = rankQuotes([
   { retailer: 'A', subtotal: 100, deliveryFee: 0, quantityMatch: true, stockState: 'complete', updatedAt: '2026-10-14T11:00:00Z' },

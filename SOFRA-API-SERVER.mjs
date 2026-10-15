@@ -164,10 +164,30 @@ function shoppingCandidates(state) {
 
 function demoMarketQuotes() {
   return [
-    { retailer: 'CarrefourSA', subtotal: 331, deliveryFee: 29.9, minimumBasket: null, quantityMatch: true, stockState: 'complete', updatedAt: new Date().toISOString(), isSponsored: false },
-    { retailer: 'Getir', subtotal: 342.1, deliveryFee: 0, minimumBasket: 350, quantityMatch: true, stockState: 'complete', updatedAt: new Date().toISOString(), isSponsored: true, partnershipLabel: 'İş birliği' },
-    { retailer: 'Migros', subtotal: 348, deliveryFee: 29.9, minimumBasket: 400, quantityMatch: true, stockState: 'complete', updatedAt: new Date().toISOString(), isSponsored: false },
+    { provider: 'CarrefourSA', retailer: 'CarrefourSA', subtotal: 331, deliveryFee: 29.9, minimumBasket: null, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 1440, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: false },
+    { provider: 'Getir', retailer: 'Getir', subtotal: 342.1, deliveryFee: 0, minimumBasket: 350, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 25, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: true, partnershipLabel: 'İş birliği' },
+    { provider: 'Migros', retailer: 'Migros', subtotal: 348, deliveryFee: 29.9, minimumBasket: 400, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 35, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: false },
   ];
+}
+
+function serializeMarketQuote(quote) {
+  return {
+    ...quote,
+    provider: quote.provider || quote.retailer,
+    quoted_at: quote.updatedAt,
+    estimated_total: quote.estimatedTotal,
+    delivery_fee: Number(quote.deliveryFee || 0),
+    minimum_basket: quote.minimumBasket,
+    delivery_eta_minutes: quote.deliveryEtaMinutes ?? null,
+    stock_state: quote.stockState === 'complete' ? 'complete' : quote.stockState === 'partial' ? 'partial' : 'unknown',
+    partnership_label: quote.sponsorshipLabel,
+    comparison_state: quote.comparisonState,
+    comparison_label: quote.comparisonLabel,
+    minimum_basket_met: quote.minimumBasketMet,
+    quantity_match: quote.quantityMatch,
+    fresh: quote.fresh,
+    source: quote.source || 'demo',
+  };
 }
 
 function recommendationResponse(state, input) {
@@ -283,7 +303,13 @@ export function createSofraServer({ state = createState() } = {}) {
       if (method === 'POST' && path === '/v1/market/quotes') {
         const input = await readJson(req);
         const request = buildMarketRequest(input);
-        return json(res, 200, { quotes: rankQuotes(demoMarketQuotes()), candidate_ids: request.candidateIds });
+        const candidateIds = new Set(shoppingCandidates(state).map((candidate) => candidate.id));
+        if (request.candidateIds.some((id) => !candidateIds.has(id))) throw validationError('Market listesi yalnızca Planım ürünlerinden oluşmalı');
+        return json(res, 200, {
+          market_status: 'demo_only',
+          quotes: rankQuotes(demoMarketQuotes()).map(serializeMarketQuote),
+          candidate_ids: request.candidateIds,
+        });
       }
       return json(res, 404, { code: 'not_found', message: 'Endpoint bulunamadı' });
     } catch (error) {

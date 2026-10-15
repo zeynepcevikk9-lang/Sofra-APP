@@ -278,7 +278,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
   const fitHead = document.querySelector('#fit .screen-head');
   const fitCard = fitHead && fitHead.nextElementSibling;
   if (fitCard && !fitCard.classList.contains('fit-insight')) {
-    fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>Bugünkü enerji hedefi</span><strong>1.820 kcal</strong><small>Profil bilgilerine göre</small></div><div><span>Protein hedefi</span><strong>86 g</strong><small>Doğrulanmış tarif verisi</small></div></div>');
+fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>Günlük enerji hedefi</span><strong>Yaklaşık hesap</strong><small>Profil bilgilerine göre</small></div><div><span>Protein hedefi</span><strong>Yaklaşık hesap</strong><small>Profil bilgilerine göre</small></div></div>');
     fitCard.querySelector('p').textContent = 'Kalori ve makro hesaplamaları yalnızca doğrulanmış besin verisi bulunan tariflerde gösterilecek.';
     fitCard.querySelector('.cta').textContent = 'Fit tarifleri keşfet →';
   }

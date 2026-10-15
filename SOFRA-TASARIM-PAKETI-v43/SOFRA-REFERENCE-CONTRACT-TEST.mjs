@@ -20,6 +20,8 @@ assert.match(html, /fit-recipe-reference-v2/, 'hedefe göre Fit tarif kartları 
 assert.match(html, /fit-reference-photo|images\.unsplash\.com/, 'Fit tariflerinde canlı görsel kancası eksik');
 assert.doesNotMatch(html, /yaklaşık (?:320|390|410|520|540|620|680|760) kcal/, 'doğrulanmamış Fit tarif kalori iddiası var');
 assert.match(html, /besin verisi bekleniyor/, 'Fit tarif besin verisi durumu açıkça belirtilmiyor');
+assert.match(html, /renderFitNutritionBoundary/, 'Fit besin verisi sınırı uygulanmıyor');
+assert.doesNotMatch(html, /420 kcal|610 kcal|Doğrulanmış tarif verisi/, 'statik Fit öğün kalorisi kesin veri gibi kalmış');
 assert.match(html, /dashboard\.querySelector\('\.fit-workout-v2'\)\?\.remove/, 'referans Fit ekranı antrenman bölümünü kaldırmıyor');
 assert.match(html, /reference-family-v2/, 'Çocuğum için giriş kartı eksik');
 assert.match(html, /mode-change.*setHomeModeV34\('sofra'\)/s, 'Fit ekranından Sofra’ya doğrudan dönüş eksik');

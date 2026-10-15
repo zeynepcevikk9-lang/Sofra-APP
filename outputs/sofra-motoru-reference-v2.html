@@ -278,7 +278,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});rende
   const fitHead = document.querySelector('#fit .screen-head');
   const fitCard = fitHead && fitHead.nextElementSibling;
   if (fitCard && !fitCard.classList.contains('fit-insight')) {
-    fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>Bugünkü enerji hedefi</span><strong>1.820 kcal</strong><small>Profil bilgilerine göre</small></div><div><span>Protein hedefi</span><strong>86 g</strong><small>Doğrulanmış tarif verisi</small></div></div>');
+fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>Günlük enerji hedefi</span><strong>Yaklaşık hesap</strong><small>Profil bilgilerine göre</small></div><div><span>Protein hedefi</span><strong>Yaklaşık hesap</strong><small>Profil bilgilerine göre</small></div></div>');
     fitCard.querySelector('p').textContent = 'Kalori ve makro hesaplamaları yalnızca doğrulanmış besin verisi bulunan tariflerde gösterilecek.';
     fitCard.querySelector('.cta').textContent = 'Fit tarifleri keşfet →';
   }
@@ -1167,7 +1167,7 @@ body.reference-v2 .bottomnav{border-radius:0 0 30px 30px}
   }
   function renderFit(){
     if(fit.querySelector('.fit-dashboard-v2'))return;
-    fit.insertAdjacentHTML('beforeend','<section class="fit-dashboard-v2" aria-label="Sofra Fit tasarım önizlemesi"><div class="fit-greeting-v2"><strong>İyi hisset, güçlü kal.</strong><span class="fit-streak-v2">🔥 4 günlük seri</span></div><div class="fit-days-v2"><button>Pzt<strong>12</strong></button><button>Sal<strong>13</strong></button><button class="active">Çar<strong>14</strong></button><button>Per<strong>15</strong></button><button>Cum<strong>16</strong></button><button>Cmt<strong>17</strong></button><button>Paz<strong>18</strong></button></div><div class="fit-calorie-v2"><span class="fit-kicker-v2">YAKLAŞIK GÜNLÜK HEDEF</span><div class="fit-calorie-main-v2"><strong>1.850 kcal</strong><span>550 kcal kaldı<br>Hedef: 2.400 kcal</span></div><div class="fit-macros-v2"><div>Protein<strong>130 / 170 g</strong></div><div>Karbonhidrat<strong>190 / 260 g</strong></div><div>Yağ<strong>63 / 75 g</strong></div></div></div><div class="fit-actions-v2"><button type="button" onclick="toast(\'Öğün ekleme akışı açılacak\')">＋ Öğün ekle</button><button type="button" onclick="toast(\'Barkod tarama yakında\')">▣ Barkod tara</button><button type="button" onclick="toast(\'Antrenman planı yakında\')">🏋 Antrenman</button></div><div class="fit-workout-v2"><div><strong>Bugünkü antrenman</strong><small>Üst vücut · 45 dk · 6 hareket</small></div><button type="button" onclick="toast(\'Antrenman başlangıcı yakında\')">Başla ↗</button></div><div class="fit-meals-v2"><h3>Öğünlerin</h3><div class="fit-meal-v2"><span>🍳</span><div><strong>Kahvaltı</strong><small>Avokadolu yumurta</small></div><b>420 kcal ✓</b></div><div class="fit-meal-v2"><span>🥗</span><div><strong>Öğle yemeği</strong><small>Tavuklu kinoalı salata</small></div><b>610 kcal ✓</b></div><div class="fit-meal-v2"><span>🍣</span><div><strong>Akşam için öneri</strong><small>Somon ve sebzeler · yaklaşık</small></div><b>＋</b></div></div><div class="fit-wellness-v2"><div>💧 Su takibi<strong>1,6 / 2,5 L</strong></div><div>👟 Günlük hareket<strong>6.840 adım</strong></div></div></section>');
+fit.insertAdjacentHTML('beforeend','<section class="fit-dashboard-v2" aria-label="Sofra Fit tasarım önizlemesi"><div class="fit-greeting-v2"><strong>İyi hisset, güçlü kal.</strong><span class="fit-streak-v2">🔥 4 günlük seri</span></div><div class="fit-days-v2"><button>Pzt<strong>12</strong></button><button>Sal<strong>13</strong></button><button class="active">Çar<strong>14</strong></button><button>Per<strong>15</strong></button><button>Cum<strong>16</strong></button><button>Cmt<strong>17</strong></button><button>Paz<strong>18</strong></button></div><div class="fit-calorie-v2"><span class="fit-kicker-v2">YAKLAŞIK GÜNLÜK HEDEF</span><div class="fit-calorie-main-v2"><strong>Profil bilgisi bekleniyor</strong><span>Öğün takibi bağlandığında günlük kalan miktar burada görünür.</span></div><div class="fit-macros-v2"><div>Protein<strong>130 / 170 g</strong></div><div>Karbonhidrat<strong>190 / 260 g</strong></div><div>Yağ<strong>63 / 75 g</strong></div></div></div><div class="fit-actions-v2"><button type="button" onclick="toast(\'Öğün ekleme akışı açılacak\')">＋ Öğün ekle</button><button type="button" onclick="toast(\'Barkod tarama yakında\')">▣ Barkod tara</button><button type="button" onclick="toast(\'Antrenman planı yakında\')">🏋 Antrenman</button></div><div class="fit-workout-v2"><div><strong>Bugünkü antrenman</strong><small>Üst vücut · 45 dk · 6 hareket</small></div><button type="button" onclick="toast(\'Antrenman başlangıcı yakında\')">Başla ↗</button></div><div class="fit-meals-v2"><h3>Öğünlerin</h3><div class="fit-meal-v2"><span>🍳</span><div><strong>Kahvaltı</strong><small>Avokadolu yumurta</small></div><b>Besin verisi bekleniyor</b></div><div class="fit-meal-v2"><span>🥗</span><div><strong>Öğle yemeği</strong><small>Tavuklu kinoalı salata</small></div><b>Besin verisi bekleniyor</b></div><div class="fit-meal-v2"><span>🍣</span><div><strong>Akşam için öneri</strong><small>Somon ve sebzeler · ölçü doğrulanıyor</small></div><b>＋</b></div></div><div class="fit-wellness-v2"><div>💧 Su takibi<strong>1,6 / 2,5 L</strong></div><div>👟 Günlük hareket<strong>6.840 adım</strong></div></div></section>');
   }
   renderHomeBlocks();renderFit();
   const originalGo=window.go;window.go=function(screen){originalGo(screen);if(screen==='home'){renderHomeBlocks()}if(screen==='fit'){renderFit()}};
@@ -1341,6 +1341,25 @@ body.reference-v2 .bottomnav{border-radius:0 0 30px 30px}
   }
   replace();
   const list=document.getElementById('fit-reference-recipes-v2');if(list)new MutationObserver(replace).observe(list,{childList:true});
+})();
+</script>
+<script>
+(function(){
+  function format(value){return Number(value).toLocaleString('tr-TR')}
+  function renderFitNutritionBoundary(){
+    document.querySelectorAll('#fit .fit-insight small').forEach(node=>{if(node.textContent.includes('Doğrulanmış'))node.textContent='Yaklaşık profil hedefi'});
+    const fit=document.getElementById('fit');if(!fit)return;
+    const dashboard=fit.querySelector('.fit-dashboard-v2');if(!dashboard)return;
+    dashboard.querySelectorAll('.fit-meal-v2 b').forEach((node,index)=>{if(index<2&&node.textContent.includes('kcal'))node.textContent='Besin verisi bekleniyor'});
+    const age=Number(document.getElementById('fit-v2-age')?.value),height=Number(document.getElementById('fit-v2-height')?.value),weight=Number(document.getElementById('fit-v2-weight')?.value);
+    const gender=document.getElementById('fit-v2-gender')?.value||'';
+    const goal=fit.querySelector('[data-fit-reference-goal].active')?.dataset.fitReferenceGoal||'balanced';
+    const calorie=dashboard.querySelector('.fit-calorie-main-v2 strong');const meta=dashboard.querySelector('.fit-calorie-main-v2 span');const macros=dashboard.querySelectorAll('.fit-macros-v2 strong');
+    if(!age||!height||!weight){if(calorie&&calorie.textContent!=='Profil bilgisi bekleniyor')calorie.textContent='Profil bilgisi bekleniyor';if(meta&&meta.innerHTML!=='Öğün takibi bağlandığında günlük kalan miktar burada görünür.')meta.innerHTML='Öğün takibi bağlandığında günlük kalan miktar burada görünür.';macros.forEach(node=>{if(node.textContent!=='Profil bilgisi bekleniyor')node.textContent='Profil bilgisi bekleniyor'});return}
+    const adjustment=gender==='Erkek'?5:gender==='Kadın'?-161:-78;const bmr=(10*weight)+(6.25*height)-(5*age)+adjustment;const delta=goal==='lose'?-300:goal==='gain'?250:0;const target=Math.max(1200,Math.round(bmr*1.375+delta));const protein=Math.round(weight*(goal==='lose'?1.5:1.2));const carbs=Math.round(target*.45/4);const fat=Math.round(target*.3/9);
+    const calorieText=`≈ ${format(target)} kcal hedef`;const metaHtml='Profil bilgilerine göre yaklaşık hedef<br>Öğün takibi bağlanınca kalan görünür';if(calorie&&calorie.textContent!==calorieText)calorie.textContent=calorieText;if(meta&&meta.innerHTML!==metaHtml)meta.innerHTML=metaHtml;[protein,carbs,fat].forEach((value,index)=>{const text=`≈ ${format(value)} g hedef`;if(macros[index]&&macros[index].textContent!==text)macros[index].textContent=text});
+  }
+  const fit=document.getElementById('fit');if(!fit)return;renderFitNutritionBoundary();new MutationObserver(renderFitNutritionBoundary).observe(fit,{childList:true,subtree:true,characterData:true});
 })();
 </script>
 </body>

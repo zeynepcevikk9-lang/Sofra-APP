@@ -28,6 +28,7 @@ assert.ok((html.match(/onerror=/g) || []).length >= 3, 'görsel yüklenememe fal
 assert.match(html, /Apple Health ile bağlan/, 'Fit sağlık bağlantısı arayüz kancası eksik');
 assert.match(html, /data-theme="gece"|theme-switch|gece/, 'koyu tema kancası eksik');
 assert.match(html, /Dolabıma not al|parseNoteV44/, 'doğal dolap girişi eksik');
+assert.match(html, /Zeytinyağlı patlıcan/, 'patlıcan tarif örneği eksik');
 assert.match(html, /function parseQuickInventory\(value\)/, 'miktar ayrıştırma fonksiyonu eksik');
 assert.match(html, /quantity:`\$\{number\} \$\{unit\}`/, 'hızlı ekle miktarı ayrı saklamıyor');
 assert.match(html, /sofraSafetyProfileV46/, 'gıda güvenliği tercihi saklama kancası eksik');

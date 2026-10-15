@@ -23,6 +23,8 @@ const requiredFiles = [
   'SOFRA-API-SERVER-TEST.mjs',
   'SOFRA-API-V1.openapi.yaml',
   'SOFRA-BACKEND-V1.md',
+  'SOFRA-STORE-V1.mjs',
+  'SOFRA-STORE-CONTRACT-TEST.mjs',
   'SOFRA-DESIGN-HANDOFF.md',
   'SOFRA-HEALTH-V1.md',
   'SOFRA-HEALTH-CONTRACT-TEST.mjs',

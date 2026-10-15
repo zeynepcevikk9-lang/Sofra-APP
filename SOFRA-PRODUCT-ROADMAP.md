@@ -313,6 +313,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Kişisel Fit hesabı: 30 yaş / 170 cm / 70 kg örneğinde Fit kartı 1.996 kcal, Planım Fit özeti de 1.996 kcal olarak eşleşti.
 - Market güvenli akışı: Planım’da listeyi kontrol etme, açıkça onaylama ve ardından örnek teklifleri görme sırası geçti; onay ekranı canlı markete gönderim yapmadığını belirtiyor.
 - Market sözleşmesi: API yalnızca Planım’dan üretilen adayları kabul ediyor; teklif yanıtı `demo_only`, minimum sepet ve karşılaştırılabilirlik durumlarını açıkça taşıyor.
+- Geliştirme kalıcılığı: `SOFRA-STORE-V1.mjs` atomik JSON yazma/okuma ve şema doğrulaması sağlıyor; referans sunucu bunu yalnızca `SOFRA_STORE_PATH` verildiğinde kullanıyor.
 
 Henüz demo/placeholder olanlar:
 

@@ -6,7 +6,7 @@ Makine tarafından okunabilir endpoint ve veri şeması: `SOFRA-API-V1.openapi.y
 
 Bağımlılıksız sözleşme smoke testi: `node SOFRA-API-CONTRACT-TEST.mjs`. Test, gerçek kullanıcı veya market verisi kullanmaz; dolap CRUD, SKT önceliği, Fit filtresi, plan/alışveriş adayları ve kullanıcı onayı olmadan market teklifi alınamamasını doğrular. Test, ortak `SOFRA-ALGORITHM-V1.mjs` motorunu kullanır.
 
-Çalışan, bağımlılıksız referans HTTP iskeleti: `node SOFRA-API-SERVER.mjs` (varsayılan `127.0.0.1:8787`). Bu sunucu kalıcı veritabanı veya gerçek kimlik doğrulama içermez; mobil/backend stack seçilene kadar endpoint davranışını doğrulamak içindir. HTTP testi: `node SOFRA-API-SERVER-TEST.mjs`.
+Çalışan, bağımlılıksız referans HTTP iskeleti: `node SOFRA-API-SERVER.mjs` (varsayılan `127.0.0.1:8787`). Varsayılan çalışma bellektedir; geliştirme ortamında `SOFRA_STORE_PATH=./data/sofra-state.json node SOFRA-API-SERVER.mjs` ile atomik JSON store adapter’ı kullanılabilir. Bu adapter üretim veritabanı veya gerçek kimlik doğrulama yerine geçmez; mobil/backend stack seçilene kadar endpoint davranışını ve yeniden başlatma kalıcılığını doğrulamak içindir. HTTP testi: `node SOFRA-API-SERVER-TEST.mjs`; store testi: `node SOFRA-STORE-CONTRACT-TEST.mjs`.
 
 Referans sunucu, dolap güncellemesinde yalnızca sözleşmenin izin verdiği miktar, stok durumu ve son kullanma tarihi alanlarını kabul eder; `id`, `user_id` ve benzeri korumalı alanlar değiştirilemez. Stok durumu, kaynak, tarih, miktar, öneri modu ve Planım görünümü için geçersiz girdiler 422 ile reddedilir.
 

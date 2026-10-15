@@ -7,6 +7,7 @@ import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
 import { normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
 import { AI_SCHEMA_VERSION, AI_TASKS } from './SOFRA-AI-V1.mjs';
+import { emptyStoreState, loadStore, saveStore } from './SOFRA-STORE-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -27,7 +28,7 @@ function errorResponse(res, error) {
 }
 
 function createState() {
-  return { pantry: [], plans: [], feedback: [], nextId: 1 };
+  return emptyStoreState();
 }
 
 const pantryStates = ['available', 'low', 'finished', 'unknown'];
@@ -220,7 +221,8 @@ function recommendationResponse(state, input) {
   };
 }
 
-export function createSofraServer({ state = createState() } = {}) {
+export function createSofraServer({ state = createState(), saveState = null } = {}) {
+  const persist = async () => { if (typeof saveState === 'function') await saveState(state); };
   const server = http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://127.0.0.1');
@@ -249,6 +251,7 @@ export function createSofraServer({ state = createState() } = {}) {
         state.pantry = [];
         state.plans = [];
         state.feedback = [];
+        await persist();
         res.writeHead(204); return res.end();
       }
       if (method === 'GET' && path === '/v1/pantry') return json(res, 200, { items: state.pantry });
@@ -267,11 +270,13 @@ export function createSofraServer({ state = createState() } = {}) {
         const batch = buildPantryBatch(state, await readJson(req));
         state.nextId = batch.nextId;
         state.pantry.push(...batch.items);
+        await persist();
         return json(res, 201, { items: batch.items, count: batch.items.length });
       }
       if (method === 'POST' && path === '/v1/pantry/items') {
         const item = buildPantryItem(state, await readJson(req));
         state.pantry.push(item);
+        await persist();
         return json(res, 201, item);
       }
       const itemMatch = path.match(/^\/v1\/pantry\/items\/([^/]+)$/);
@@ -281,10 +286,12 @@ export function createSofraServer({ state = createState() } = {}) {
         if (method === 'PATCH') {
           const patch = buildPantryPatch(await readJson(req));
           Object.assign(item, patch, { updated_at: new Date().toISOString() });
+          await persist();
           return json(res, 200, item);
         }
         if (method === 'DELETE') {
           state.pantry = state.pantry.filter((entry) => entry !== item);
+          await persist();
           res.writeHead(204); return res.end();
         }
       }
@@ -310,6 +317,7 @@ export function createSofraServer({ state = createState() } = {}) {
         if (!recipeById(feedbackMatch[1].replace(/^recommendation_/, ''))) throw validationError('geçersiz recommendation_id');
         if (!['helpful', 'not_helpful'].includes(input.value)) throw validationError('geçersiz feedback');
         state.feedback.push({ recommendation_id: feedbackMatch[1], value: input.value, created_at: new Date().toISOString() });
+        await persist();
         res.writeHead(204); return res.end();
       }
       if (method === 'GET' && path === '/v1/plans') {
@@ -320,6 +328,7 @@ export function createSofraServer({ state = createState() } = {}) {
       if (method === 'POST' && path === '/v1/plans') {
         const plan = buildPlan(state, await readJson(req));
         state.plans.push(plan);
+        await persist();
         return json(res, 201, plan);
       }
       if (method === 'GET' && path === '/v1/shopping/candidates') return json(res, 200, { items: shoppingCandidates(state) });
@@ -349,6 +358,12 @@ export function createSofraServer({ state = createState() } = {}) {
 }
 
 if (process.argv[1] && process.argv[1].endsWith('SOFRA-API-SERVER.mjs')) {
-  const port = Number(process.env.PORT || 8787);
-  createSofraServer().server.listen(port, '127.0.0.1', () => console.log(`Sofra API reference server: http://127.0.0.1:${port}`));
+  const start = async () => {
+    const port = Number(process.env.PORT || 8787);
+    const storePath = process.env.SOFRA_STORE_PATH?.trim();
+    const state = storePath ? await loadStore(storePath, { fallback: createState() }) : createState();
+    const { server } = createSofraServer({ state, saveState: storePath ? () => saveStore(storePath, state) : null });
+    server.listen(port, '127.0.0.1', () => console.log(`Sofra API reference server: http://127.0.0.1:${port}${storePath ? ' · kalıcı store açık' : ''}`));
+  };
+  start().catch((error) => { console.error(error.message); process.exitCode = 1; });
 }

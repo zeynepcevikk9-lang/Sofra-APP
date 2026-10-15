@@ -85,7 +85,8 @@ Kesin kalori ve makro yalnızca `fit_verification: verified` olan tariflerde gö
   "time_fit": true,
   "expiry_boost": true,
   "reason_code": "inventory_match|expiry_priority|fit_goal|general",
-  "score_version": "deterministic-v1"
+  "score_version": "deterministic-v1.2",
+  "fit_goal_boost": 20
 }
 ```
 

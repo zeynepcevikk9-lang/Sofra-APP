@@ -100,6 +100,11 @@ try {
   assert.equal(result.body.fit_goal_boost, 20, 'Fit hedefi öneri puanına yansımadı');
   assert.equal(result.body.reason_code, 'fit_goal', 'Fit hedefi açıklaması dönmedi');
 
+  result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 1, pantry_item_ids: [], fit_profile: { gender: 'Kadın', age: 30, height: 165, weight: 60, activityFactor: 1.375, goalKey: 'gain' } }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.recipe_id, 'recipe_avocado_egg_toast', 'kilo alma hedefi enerji yoğun Fit tarifi öne çıkarmadı');
+  assert.equal(result.body.fit_goal_boost, 20);
+
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 4, fit_profile: { age: 30, unknown_field: true } }) });
   assert.equal(result.response.status, 422, 'tanımsız Fit profil alanı kabul edilmemeli');
 

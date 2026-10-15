@@ -24,7 +24,8 @@ Her öneri backend’de şu sinyallerle birlikte tutulabilir:
   "timeFit": true,
   "fitVerified": false,
   "reasonCode": "inventory_match",
-  "scoreVersion": "deterministic-v1"
+  "scoreVersion": "deterministic-v1.2",
+  "fitGoalBoost": 20
 }
 ```
 
@@ -54,6 +55,8 @@ v43 prototipinde ana öneri kartına iki küçük seçenek eklendi: “İşe yar
 Dolap notu girişinde de güvenli bir deterministik önizleme bulunur: “6 yumurta aldım, peynir azaldı, süt bitti” gibi temel cümlelerde bilinen ürün, miktar ve durum ayrıştırılır; kullanıcı onaylamadan dolaba yazılmaz. Tanınmayan cümleler ürün uydurulmadan not olarak saklanabilir. Bu katman gerçek model değildir ve düşük güvenli sonuçları kesin stok olarak göstermemelidir.
 
 Fit öneri API’si Apple HealthKit veya Health Connect’ten gelen normalize edilmiş `health_summary` bağlamını kabul edebilir. V1’de bu bağlam yalnızca izinli veri sınırını ve güncelliği taşır; kalori yakımından “daha fazla ye” sonucu çıkarmaz, market/sponsor akışına aktarılmaz ve besin verisi doğrulanmadan tarif kalorisi üretmez.
+
+Fit profili hedefi (`balanced`, `lose`, `gain`) öneri sıralamasında ayrı ve açıklanabilir bir `fit_goal_boost` sinyalidir. Bu sinyal tarifin hedefe uygun metadata’sından gelir; tek başına tıbbi veya kesin kalori iddiası değildir.
 
 ## Öğrenme sırası
 

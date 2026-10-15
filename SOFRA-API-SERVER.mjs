@@ -220,14 +220,14 @@ function shoppingCandidates(state) {
 
 function demoMarketQuotes() {
   return [
-    { provider: 'CarrefourSA', retailer: 'CarrefourSA', subtotal: 331, deliveryFee: 29.9, minimumBasket: null, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 1440, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: false },
-    { provider: 'Getir', retailer: 'Getir', subtotal: 342.1, deliveryFee: 0, minimumBasket: 350, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 25, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: true, partnershipLabel: 'İş birliği' },
-    { provider: 'Migros', retailer: 'Migros', subtotal: 348, deliveryFee: 29.9, minimumBasket: 400, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 35, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: false },
+    { provider: 'CarrefourSA', retailer: 'CarrefourSA', subtotal: 331, deliveryFee: 29.9, minimumBasket: null, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 1440, singleStore: true, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: false },
+    { provider: 'Getir', retailer: 'Getir', subtotal: 342.1, deliveryFee: 0, minimumBasket: 350, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 25, singleStore: false, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: true, partnershipLabel: 'İş birliği' },
+    { provider: 'Migros', retailer: 'Migros', subtotal: 348, deliveryFee: 29.9, minimumBasket: 400, quantityMatch: true, stockState: 'complete', deliveryEtaMinutes: 35, singleStore: false, source: 'demo', updatedAt: new Date().toISOString(), isSponsored: false },
   ];
 }
 
 function serializeMarketQuote(quote) {
-  return {
+    return {
     ...quote,
     provider: quote.provider || quote.retailer,
     quoted_at: quote.updatedAt,
@@ -403,8 +403,9 @@ export function createSofraServer({ state = createState(), saveState = null } = 
         if (request.candidateIds.some((id) => !candidateIds.has(id))) throw validationError('Market listesi yalnızca Planım ürünlerinden oluşmalı');
         return json(res, 200, {
           market_status: 'demo_only',
-          quotes: rankQuotes(demoMarketQuotes()).map(serializeMarketQuote),
+          quotes: rankQuotes(demoMarketQuotes(), { sort: request.sort }).map(serializeMarketQuote),
           candidate_ids: request.candidateIds,
+          sort: request.sort,
         });
       }
       if (method === 'POST' && path === '/v1/market/handoff') {

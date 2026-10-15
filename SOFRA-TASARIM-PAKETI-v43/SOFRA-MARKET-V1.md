@@ -46,6 +46,9 @@ Prototip API, cevabı `market_status: demo_only` ile işaretler. Her teklif ayr�
 `comparison_state` (`comparable`, `minimum_basket_not_met`, `quantity_mismatch`,
 `stock_unknown` veya `stale`) ve `source: demo` taşır. Böylece kullanıcıya gösterilen
 toplam ile gelecekte bağlanacak canlı adaptörün durumu birbirine karışmaz.
+İstek ayrıca `sort` taşır: `total`, `fast` veya `single`. `fast` teslimat süresini,
+`single` tek markette tamamlanabilme bilgisini öne alır; bu sıralamalar fiyatı
+“en ucuz” ilan etmez.
 
 Demo akışında yalnızca Planım’dan üretilmiş `candidate_id` değerleri kabul edilir.
 Liste onaylansa bile dışarıdan uydurulmuş veya başka kullanıcıya ait bir aday market
@@ -68,7 +71,7 @@ isteğine sokulmaz.
 4. Stok bilgisi eskiyse sonuç `Stok doğrulanmalı` olarak gösterilir.
 5. Fiyatın güncellenme zamanı görünür olmalıdır.
 6. Kampanya, kupon ve teslimat ücreti hesaba katılmadan “en ucuz” iddiası yapılmaz.
-7. Varsayılan sıralama kullanıcıya sorulabilir: `En uygun toplam`, `En hızlı`, `Tek markette tamamla`.
+7. Varsayılan sıralama kullanıcıya sorulabilir: `En uygun toplam`, `En hızlı`, `Tek markette tamamla`; seçim API isteğinde korunur.
 8. Aynı miktar, stok ve güncellik koşullarını sağlayan diğer tekliflerde en uygun toplamla fark gösterilebilir; koşulları sağlamayan tekliflerde fiyat farkı iddia edilmez.
 
 ## Gizlilik ve izin

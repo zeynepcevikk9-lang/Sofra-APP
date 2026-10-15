@@ -28,6 +28,7 @@ assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı ek
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
 assert.ok(apiSpec.includes('callback_exchange: { type: string, enum: [server_only] }'), 'OAuth token değişimi sunucu sınırı eksik');
 assert.ok(apiSpec.includes('permission_level: { type: string, enum: [per_data_type] }'), 'sağlık izni veri türü kapsamı eksik');
+assert.ok(apiSpec.includes('enum: [total, fast, single]'), 'market sıralama sözleşmesi eksik');
 assert.ok(apiSpec.includes('safety_profile:'), 'gıda güvenliği profil alanı eksik');
 assert.ok(apiSpec.includes('SafetyProfile'), 'gıda güvenliği şeması eksik');
 assert.ok(apiSpec.includes('FitProfile'), 'Fit profil şeması eksik');

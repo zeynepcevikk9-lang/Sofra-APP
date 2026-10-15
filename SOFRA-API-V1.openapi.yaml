@@ -398,7 +398,7 @@ paths:
           application/json:
             schema:
               type: object
-              required: [candidateIds, userConfirmed]
+              required: [candidateIds, userConfirmed, sort]
               properties:
                 candidateIds:
                   type: array
@@ -408,6 +408,10 @@ paths:
                 userConfirmed:
                   type: boolean
                   description: true olmadan teklif alınmaz.
+                sort:
+                  type: string
+                  enum: [total, fast, single]
+                  description: Teklif sıralaması; fiyat etiketi yalnızca karşılaştırılabilir toplamda kullanılır.
       responses:
         '200':
           description: Market teklifleri
@@ -415,7 +419,7 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [market_status, quotes]
+                required: [market_status, quotes, sort]
                 properties:
                   market_status:
                     type: string
@@ -425,6 +429,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/MarketQuote'
+                  sort: { type: string, enum: [total, fast, single] }
         '409':
           description: Kullanıcı listesi onaylanmadı
           content:

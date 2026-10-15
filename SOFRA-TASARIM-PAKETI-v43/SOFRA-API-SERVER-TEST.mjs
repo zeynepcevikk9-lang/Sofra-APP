@@ -230,9 +230,14 @@ try {
   result = await request('/v1/market/quotes', { method: 'POST', body: JSON.stringify({ candidateIds: ['candidate_domates'], userConfirmed: true }) });
   assert.equal(result.response.status, 200);
   assert.equal(result.body.market_status, 'demo_only');
+  assert.equal(result.body.sort, 'total');
   assert.equal(result.body.quotes[0].provider, 'CarrefourSA');
   assert.equal(result.body.quotes[0].comparison_state, 'comparable');
   assert.equal(result.body.quotes.find((quote) => quote.provider === 'Getir').comparison_state, 'minimum_basket_not_met');
+  result = await request('/v1/market/quotes', { method: 'POST', body: JSON.stringify({ candidateIds: ['candidate_domates'], userConfirmed: true, sort: 'fast' }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.sort, 'fast');
+  assert.equal(result.body.quotes[0].retailer, 'Getir');
 
   result = await request('/v1/market/handoff', { method: 'POST', body: JSON.stringify({ provider: 'CarrefourSA', candidateIds: ['candidate_domates'], userConfirmed: true }) });
   assert.equal(result.response.status, 200);

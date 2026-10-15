@@ -316,6 +316,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Geliştirme kalıcılığı: `SOFRA-STORE-V1.mjs` atomik JSON yazma/okuma ve şema doğrulaması sağlıyor; referans sunucu bunu yalnızca `SOFRA_STORE_PATH` verildiğinde kullanıyor.
 - Hesap bağlama sınırı: `/v1/auth/status` anonim oturumu, Google/Apple sağlayıcılarının bağlı olmadığını ve veri hakları endpoint’lerini açıkça raporluyor; OAuth token saklama kapalı.
 - Bildirim izin sınırı: `/v1/notifications/status` iOS, Android ve web izin API’lerini, üç hatırlatıcı kanalını ve sağlık/market verisinin bildirime taşınmadığını açıkça raporluyor; sistem izni henüz istenmiyor.
+- Sofra Plus sınırı: `/v1/billing/status` ücretsiz planı aktif, Plus’ı pasif ve checkout sağlayıcısını bağlı değil olarak raporluyor; prototipte ücret veya ödeme bilgisi istenmiyor.
 
 Henüz demo/placeholder olanlar:
 

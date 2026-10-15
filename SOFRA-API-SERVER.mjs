@@ -10,6 +10,7 @@ import { AI_SCHEMA_VERSION, AI_TASKS } from './SOFRA-AI-V1.mjs';
 import { emptyStoreState, loadStore, saveStore } from './SOFRA-STORE-V1.mjs';
 import { buildAuthStatus } from './SOFRA-AUTH-V1.mjs';
 import { buildNotificationStatus } from './SOFRA-NOTIFICATIONS-V1.mjs';
+import { buildBillingStatus } from './SOFRA-BILLING-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -236,6 +237,7 @@ export function createSofraServer({ state = createState(), saveState = null } = 
       }
       if (method === 'GET' && path === '/v1/auth/status') return json(res, 200, buildAuthStatus());
       if (method === 'GET' && path === '/v1/notifications/status') return json(res, 200, buildNotificationStatus({ platform: url.searchParams.get('platform') || 'web' }));
+      if (method === 'GET' && path === '/v1/billing/status') return json(res, 200, buildBillingStatus());
       if (method === 'GET' && path === '/v1/ai/status') return json(res, 200, {
         schema_version: AI_SCHEMA_VERSION,
         provider_status: 'not_connected',

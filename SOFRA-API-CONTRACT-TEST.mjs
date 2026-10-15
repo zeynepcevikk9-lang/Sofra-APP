@@ -7,6 +7,7 @@ const requiredPaths = [
   '/v1/me:',
   '/v1/auth/status:',
   '/v1/notifications/status:',
+  '/v1/billing/status:',
   '/v1/ai/status:',
   '/v1/health/permission-plan:',
   '/v1/pantry:',

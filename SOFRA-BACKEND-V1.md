@@ -99,6 +99,7 @@ Kesin kalori ve makro yalnızca `fit_verification: verified` olan tariflerde gö
 | `GET` | `/v1/me` | Kullanıcı ve izin özeti |
 | `GET` | `/v1/auth/status` | Anonim oturum ve Google/Apple hesap bağlama durumunu getirir |
 | `GET` | `/v1/notifications/status` | iOS, Android veya web bildirim izin planını ve kanallarını getirir |
+| `GET` | `/v1/billing/status` | Ücretsiz plan, Sofra Plus ve checkout sınırını getirir |
 | `GET` | `/v1/me/export` | Sofra verilerinin makine okunabilir dışa aktarımı |
 | `DELETE` | `/v1/me/data` | Sofra’ya ait dolap, plan ve geri bildirim verilerini siler |
 | `GET` | `/v1/pantry` | Dolap kayıtlarını getirir |

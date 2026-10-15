@@ -29,6 +29,12 @@ try {
   assert.equal(result.body.live_permission, false);
   assert.equal(result.body.permission_plan.permission_api, 'UNUserNotificationCenter');
 
+  result = await request('/v1/billing/status');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.current_plan, 'free');
+  assert.equal(result.body.checkout.available, false);
+  assert.equal(result.body.checkout.live, false);
+
   result = await request('/v1/ai/status');
   assert.equal(result.response.status, 200);
   assert.equal(result.body.provider_status, 'not_connected');

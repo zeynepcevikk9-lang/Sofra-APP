@@ -75,6 +75,18 @@ paths:
                 $ref: '#/components/schemas/NotificationStatus'
         '422':
           $ref: '#/components/responses/ValidationError'
+  /v1/billing/status:
+    get:
+      tags: [User]
+      summary: Ücretsiz plan ve Sofra Plus durumunu getirir
+      operationId: getBillingStatus
+      responses:
+        '200':
+          description: Ödeme bağlı değildir; checkout açılmaz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingStatus'
   /v1/ai/status:
     get:
       tags: [Recommendations]
@@ -510,6 +522,36 @@ components:
             content_preview: { type: boolean }
             health_data_included: { type: boolean }
             market_data_included: { type: boolean }
+    BillingStatus:
+      type: object
+      required: [schema_version, current_plan, subscription_status, checkout, plans, entitlements, disclosure]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        current_plan: { type: string, enum: [free, plus] }
+        subscription_status: { type: string, enum: [inactive, active, past_due, canceled] }
+        checkout:
+          type: object
+          required: [available, provider, live, confirmation_required]
+          properties:
+            available: { type: boolean }
+            provider: { type: string, enum: [not_connected] }
+            live: { type: boolean }
+            confirmation_required: { type: boolean }
+        plans:
+          type: array
+          items:
+            type: object
+            required: [id, label, available, price_display, entitlements]
+            properties:
+              id: { type: string, enum: [free, plus] }
+              label: { type: string }
+              available: { type: boolean }
+              price_display: { type: string, nullable: true }
+              entitlements: { type: array, items: { type: string } }
+        entitlements:
+          type: object
+          additionalProperties: { type: boolean }
+        disclosure: { type: string }
     DataExport:
       type: object
       required: [schema_version, exported_at, user, data]

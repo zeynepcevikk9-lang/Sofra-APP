@@ -7,7 +7,7 @@ Bu sürüm gerçek AI değildir. Backend kurulana kadar ürün kararlarının ta
 - Seçili mod: `sofra`, `fit` veya `tatli`
 - Dolap ürünleri: ad, miktar/not, durum (`var`, `az`, `yok`)
 - İsteğe bağlı son kullanma tarihi: ürün kaydının beşinci alanı
-- İsteğe bağlı eklenme zamanı: ürün kaydının altıncı alanı veya API'de `added_at`
+- İsteğe bağlı eklenme zamanı: ürün kaydının altıncı alanı; API'de `added_at` varsa onu, yoksa ilk kayıt zamanı olan `updated_at` alanını kullanır
 - Tarif: malzemeler, süre, etiketler ve Fit uygunluğu
 - Fit hedefi: dengede kalma, kilo verme veya kilo alma
 

@@ -48,7 +48,7 @@ function toInventoryItem(item) {
     label: item.display_name || item.canonical_name,
     status: item.stock_state || item.status || 'available',
     expiry: item.expiry_date || item.expiry || '',
-    addedAt: item.added_at || item.addedAt || '',
+    addedAt: item.added_at || item.addedAt || item.updated_at || '',
   };
 }
 

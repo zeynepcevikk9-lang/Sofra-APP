@@ -132,6 +132,7 @@ try {
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'sofra', servings: 4, pantry_item_ids: [potatoId] }) });
   assert.equal(result.response.status, 200);
   assert.ok(result.body.matched_ingredients.includes('patates'), 'seçili dolap ürünü öneriye yansımadı');
+  assert.equal(result.body.recent_add_boost, 42, 'yeni eklenen dolap ürünü öneride öncelik sinyali taşımadı');
   assert.ok(!result.body.matched_ingredients.includes('domates'), 'seçili olmayan dolap ürünü öneriye sızdı');
 
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'sofra', servings: 4, pantry_item_ids: ['pantry_missing'] }) });

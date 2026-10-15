@@ -902,14 +902,15 @@ components:
           items: { type: string }
         time_fit: { type: boolean }
         expiry_boost: { type: boolean }
+        recent_add_boost: { type: integer, minimum: 0, maximum: 42 }
         learning_boost: { type: integer, minimum: -12, maximum: 12 }
         preference_boost: { type: integer, minimum: -6, maximum: 6 }
         repeat_penalty: { type: integer, minimum: -18, maximum: 0 }
         fit_goal_boost: { type: integer, minimum: -10, maximum: 20 }
         reason_code:
           type: string
-          enum: [inventory_match, expiry_priority, fit_goal, general]
-        score_version: { type: string, example: deterministic-v1.2 }
+          enum: [inventory_match, recent_inventory_add, expiry_priority, fit_goal, general]
+        score_version: { type: string, example: deterministic-v1.3 }
         safety:
           $ref: '#/components/schemas/RecipeSafetyAssessment'
         health_context:

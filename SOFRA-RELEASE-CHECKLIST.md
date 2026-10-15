@@ -5,22 +5,22 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 ## 1. Ürün akışı
 
 - [x] İlk girişte Sofra / Sofra Fit / Tatlı seçimi anlaşılır; üç seçim de ayrı akışa bağlanır ve sözleşme testiyle korunur.
-- [ ] Kullanıcı Dolap’a ürün eklemeden de tarif keşfedebilir.
+- [x] Kullanıcı Dolap’a ürün eklemeden de tarif keşfedebilir.
 - [x] Sofra ↔ Sofra Fit geçişi her iki yönde çalışır.
-- [ ] Tatlı önerisi ana yemek akışını zorunlu olarak etkilemez.
-- [ ] Menü birden fazla bölüm içerebilir ve Planım’a aktarılır.
+- [x] Tatlı önerisi ana yemek akışını zorunlu olarak etkilemez.
+- [x] Menü birden fazla bölüm içerebilir ve Planım’a aktarılır.
 - [ ] Planım hafta, ay ve geçmiş görünümünde aynı veriyi korur.
-- [ ] Alışveriş adayları kullanıcı eklemediği ürünü kesin eksik saymaz.
+- [x] Alışveriş adayları kullanıcı eklemediği ürünü kesin eksik saymaz.
 
 ## 2. Veri ve algoritma
 
 - [ ] Tarif malzemeleri kanonik adlarla tutulur.
 - [ ] Birim ve miktar eşleştirmesi yapılır.
-- [ ] Dolap durumu `var`, `azaldı`, `bitti` ayrımını korur.
-- [ ] Son kullanma tarihi opsiyoneldir; girilmediğinde kullanıcı cezalandırılmaz.
-- [ ] Boş dolapta genel öneri üretilebilir.
-- [ ] Fit kalorisi yalnızca doğrulanmış besin verisinde kesin ifade olarak gösterilir.
-- [ ] Öneri skoru açıklanabilir sinyallerden oluşur.
+- [x] Dolap durumu `var`, `azaldı`, `bitti` ayrımını korur.
+- [x] Son kullanma tarihi opsiyoneldir; girilmediğinde kullanıcı cezalandırılmaz.
+- [x] Boş dolapta genel öneri üretilebilir.
+- [x] Fit kalorisi yalnızca doğrulanmış besin verisinde kesin ifade olarak gösterilir.
+- [x] Öneri skoru açıklanabilir sinyallerden oluşur.
 
 ## 3. Hesap, sağlık ve izinler
 
@@ -36,12 +36,12 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 
 ## 4. Market ve gelir
 
-- [ ] Kullanıcı alışveriş listesini markete göndermeden önce onaylar.
-- [ ] Fiyat, stok ve teslimat zamanı güncellenme tarihiyle birlikte gösterilir.
-- [ ] Minimum sepet, teslimat ücreti ve kampanya toplam hesaba katılır.
-- [ ] Koşullar eşit değilse “en ucuz” iddiası kullanılmaz.
-- [ ] Sponsorlu ürün/tarif açıkça etiketlenir.
-- [ ] Sağlık ve Fit verisi sponsorlu sıralamayı etkilemez.
+- [x] Kullanıcı alışveriş listesini markete göndermeden önce onaylar.
+- [x] Fiyat, stok ve teslimat zamanı güncellenme tarihiyle birlikte gösterilir.
+- [x] Minimum sepet, teslimat ücreti ve kampanya toplam hesaba katılır.
+- [x] Koşullar eşit değilse “en ucuz” iddiası kullanılmaz.
+- [x] Sponsorlu ürün/tarif açıkça etiketlenir.
+- [x] Sağlık ve Fit verisi sponsorlu sıralamayı etkilemez.
 - [ ] Market komisyonu ve yönlendirme dili kullanıcıya açıklanır.
 
 ## 5. Teknik kalite
@@ -49,9 +49,9 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Gerçek cihazlarda iOS ve Android testleri tamamlanır.
 - [ ] En küçük desteklenen mobil genişlikte yatay taşma yoktur.
 - [ ] Klavye, ekran okuyucu ve kontrast kontrolleri yapılır.
-- [ ] Çevrimdışı/bozuk ağ durumunda anlamlı hata mesajı vardır.
-- [ ] Görseller yüklenemediğinde fallback içerik görünür.
-- [ ] Console error/warning ve kritik performans sorunları temizlenir.
+- [x] Çevrimdışı/bozuk ağ durumunda anlamlı hata mesajı vardır.
+- [x] Görseller yüklenemediğinde fallback içerik görünür.
+- [x] Console error/warning ve kritik performans sorunları temizlenir.
 - [x] Analitik olayları kişisel sağlık verisi içermeden tanımlanır; hassas alanlar sözleşme testiyle engellenir, gerçek sağlayıcı henüz bağlı değildir.
 - [ ] Gizlilik politikası, kullanım koşulları ve çerez/izin metinleri hazırdır; prototipteki sınırlar `SOFRA-PRIVACY-V1.md` ile görünür.
 - [ ] Hata izleme, yedekleme ve geri alma planı vardır.

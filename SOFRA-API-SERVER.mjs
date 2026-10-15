@@ -261,6 +261,7 @@ function recommendationResponse(state, input) {
     missing_ingredients: top.missing,
     time_fit: top.timeFit,
     expiry_boost: top.expiryBoost,
+    recent_add_boost: top.recentAddBoost,
     learning_boost: top.learningBoost,
     preference_boost: top.preferenceBoost,
     repeat_penalty: top.repeatPenalty,

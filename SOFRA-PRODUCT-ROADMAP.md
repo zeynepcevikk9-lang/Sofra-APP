@@ -569,3 +569,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Referans v2, kanonik v43 davranışını değiştirmeden ayrı bir karşılaştırma önizlemesi olarak tutuluyor; seçilen parçalar kullanıcı akışı onayından sonra kanonik frontend’e taşınacak.
 - Referans v2 kullanıcı gözüyle test edildi: Sofra → Sofra Fit, Fit → Sofra, ana sayfa → Dolabım ve haftalık plan/menü bağlantıları çalıştı; 30 script syntax kontrolü geçti.
 - Öneri motoru v1.1’e geçildi: açık geri bildirim benzer etiketli tariflere sınırlı tercih sinyali taşıyor, `recent_recipe_ids` yakın zamanda gösterilen tarifi tekrar azaltıyor; `preference_boost` ve `repeat_penalty` API yanıtında açıklanıyor ve API/server smoke testleriyle doğrulanıyor.
+- Öneri motoru v1.3’e geçildi: son 24 saatte dolaba eklenen ve tarifte eşleşen ürün `recent_inventory_add` nedeni ile +42 puan alıyor; patlıcan örneği ana sayfa, Tarifler araması ve API yanıtında kullanıcı testiyle doğrulandı.

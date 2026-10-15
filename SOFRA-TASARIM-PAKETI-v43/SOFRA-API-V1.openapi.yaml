@@ -1,0 +1,564 @@
+openapi: 3.0.3
+info:
+  title: Sofra API
+  version: 1.0.0
+  description: >-
+    Sofra'nın dolap, öneri, plan, alışveriş ve izin sınırlarını tanımlayan ilk
+    teknoloji bağımsız API sözleşmesi. Gerçek AI, sağlık ve market sağlayıcıları
+    bu sözleşmenin arkasına daha sonra bağlanır.
+servers:
+  - url: https://api.sofra.example.com
+    description: Placeholder; gerçek ortam adresi daha sonra belirlenecek.
+tags:
+  - name: User
+  - name: Pantry
+  - name: Recommendations
+  - name: Plans
+  - name: Shopping
+  - name: Market
+paths:
+  /v1/me:
+    get:
+      tags: [User]
+      summary: Kullanıcı ve izin özetini getirir
+      operationId: getMe
+      responses:
+        '200':
+          description: Kullanıcı özeti
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /v1/me/export:
+    get:
+      tags: [User]
+      summary: Kullanıcının Sofra verilerini dışa aktarır
+      operationId: exportMyData
+      responses:
+        '200':
+          description: Makine tarafından okunabilir veri dışa aktarımı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataExport'
+  /v1/me/data:
+    delete:
+      tags: [User]
+      summary: Kullanıcının Sofra verilerini siler
+      operationId: deleteMyData
+      description: Gerçek uygulamada kimlik doğrulama ve açık silme onayı gerekir.
+      responses:
+        '204':
+          description: Sofra verileri silindi
+  /v1/pantry:
+    get:
+      tags: [Pantry]
+      summary: Kullanıcının dolap kayıtlarını getirir
+      operationId: listPantryItems
+      responses:
+        '200':
+          description: Dolap kayıtları
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PantryItem'
+  /v1/pantry/parse-note:
+    post:
+      tags: [Pantry]
+      summary: Doğal cümleyi kullanıcı onayına sunulacak ürünlere ayırır
+      operationId: parsePantryNote
+      description: Sonuç kullanıcı açıkça onaylamadan dolap kaydına yazılmaz.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PantryNoteParseRequest'
+      responses:
+        '200':
+          description: Ayrıştırma önizlemesi
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PantryNoteParseResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/pantry/items:
+    post:
+      tags: [Pantry]
+      summary: Kullanıcı onaylı ürün ekler
+      operationId: createPantryItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PantryItemInput'
+      responses:
+        '201':
+          description: Oluşturulan kayıt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PantryItem'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/pantry/items/{itemId}:
+    parameters:
+      - $ref: '#/components/parameters/ItemId'
+    patch:
+      tags: [Pantry]
+      summary: Miktar, durum veya tarihi günceller
+      operationId: updatePantryItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PantryItemPatch'
+      responses:
+        '200':
+          description: Güncellenen kayıt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PantryItem'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Pantry]
+      summary: Dolap kaydını kaldırır
+      operationId: deletePantryItem
+      responses:
+        '204':
+          description: Kayıt kaldırıldı
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/pantry/items/bulk:
+    post:
+      tags: [Pantry]
+      summary: Kullanıcı onaylı ürünleri atomik toplu kaydeder
+      operationId: createPantryItemsBulk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PantryItemsBulkInput'
+      responses:
+        '201':
+          description: Oluşturulan toplu kayıtlar
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PantryItemsBulkResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/recommendations:
+    post:
+      tags: [Recommendations]
+      summary: Açıklanabilir öneri üretir
+      operationId: createRecommendation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecommendationRequest'
+      responses:
+        '200':
+          description: Öneri sonucu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommendation'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/recommendations/{recommendationId}/feedback:
+    parameters:
+      - name: recommendationId
+        in: path
+        required: true
+        schema: { type: string }
+    post:
+      tags: [Recommendations]
+      summary: Öneri geri bildirimini kaydeder
+      operationId: createRecommendationFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [value]
+              properties:
+                value:
+                  type: string
+                  enum: [helpful, not_helpful]
+      responses:
+        '204':
+          description: Geri bildirim kaydedildi
+  /v1/plans:
+    get:
+      tags: [Plans]
+      summary: Hafta, ay ve geçmiş planlarını getirir
+      operationId: listPlans
+      parameters:
+        - name: view
+          in: query
+          schema:
+            type: string
+            enum: [week, month, history]
+            default: week
+      responses:
+        '200':
+          description: Plan görünümü
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Plan'
+    post:
+      tags: [Plans]
+      summary: Menüyü plana ekler
+      operationId: createPlan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanInput'
+      responses:
+        '201':
+          description: Oluşturulan plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+  /v1/shopping/candidates:
+    get:
+      tags: [Shopping]
+      summary: Planlardan alışveriş adaylarını çıkarır
+      operationId: listShoppingCandidates
+      responses:
+        '200':
+          description: Alışveriş adayları
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ShoppingCandidate'
+  /v1/market/quotes:
+    post:
+      tags: [Market]
+      summary: Onaylanmış liste için market tekliflerini ister
+      operationId: createMarketQuotes
+      description: Kullanıcı listesi açıkça onaylanmadan canlı veya partner fiyatı istenmez.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [candidateIds, userConfirmed]
+              properties:
+                candidateIds:
+                  type: array
+                  minItems: 1
+                  uniqueItems: true
+                  items: { type: string }
+                userConfirmed:
+                  type: boolean
+                  description: true olmadan teklif alınmaz.
+      responses:
+        '200':
+          description: Market teklifleri
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [quotes]
+                properties:
+                  quotes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MarketQuote'
+        '409':
+          description: Kullanıcı listesi onaylanmadı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  parameters:
+    ItemId:
+      name: itemId
+      in: path
+      required: true
+      schema: { type: string }
+  responses:
+    NotFound:
+      description: Kayıt bulunamadı
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: Girdi doğrulanamadı
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    User:
+      type: object
+      required: [id, auth_provider, locale, created_at]
+      properties:
+        id: { type: string }
+        auth_provider:
+          type: string
+          enum: [google, apple, anonymous]
+        locale: { type: string, example: tr-TR }
+        created_at: { type: string, format: date-time }
+    DataExport:
+      type: object
+      required: [schema_version, exported_at, user, data]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        exported_at: { type: string, format: date-time }
+        user:
+          $ref: '#/components/schemas/User'
+        data:
+          type: object
+          required: [pantry, plans, feedback]
+          properties:
+            pantry:
+              type: array
+              items:
+                $ref: '#/components/schemas/PantryItem'
+            plans:
+              type: array
+              items: { $ref: '#/components/schemas/Plan' }
+            feedback:
+              type: array
+              items: { type: object }
+    PantryItemInput:
+      type: object
+      required: [display_name, stock_state, source]
+      properties:
+        canonical_name: { type: string, nullable: true }
+        display_name: { type: string, minLength: 1 }
+        quantity_text: { type: string, nullable: true }
+        quantity_value: { type: number, nullable: true }
+        quantity_unit: { type: string, nullable: true }
+        stock_state:
+          type: string
+          enum: [available, low, finished, unknown]
+        expiry_date: { type: string, format: date, nullable: true }
+        source:
+          type: string
+          enum: [manual, natural_note, receipt_ocr, voice]
+        confidence: { type: number, minimum: 0, maximum: 1, nullable: true }
+    PantryItemsBulkInput:
+      type: object
+      additionalProperties: false
+      required: [items]
+      properties:
+        items:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/PantryItemInput'
+    PantryItemsBulkResponse:
+      type: object
+      required: [items, count]
+      properties:
+        count: { type: integer, minimum: 1, maximum: 50 }
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PantryItem'
+    PantryNoteParseRequest:
+      type: object
+      additionalProperties: false
+      required: [text]
+      properties:
+        text: { type: string, minLength: 1 }
+    PantryNoteParseResponse:
+      type: object
+      required: [items, unparsed_text]
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            required: [canonical_name, display_name, emoji, stock_state, confidence]
+            properties:
+              canonical_name: { type: string }
+              display_name: { type: string }
+              emoji: { type: string }
+              quantity_text: { type: string, nullable: true }
+              stock_state:
+                type: string
+                enum: [available, low, finished]
+              confidence: { type: number, minimum: 0, maximum: 1 }
+        unparsed_text: { type: string }
+    HealthSummary:
+      type: object
+      additionalProperties: true
+      properties:
+        source: { type: string, enum: [apple_healthkit, health_connect, unknown] }
+        asOf: { type: string, format: date-time, nullable: true }
+        activeCalories: { type: number, minimum: 0, nullable: true }
+        steps: { type: number, minimum: 0, nullable: true }
+        exerciseMinutes: { type: number, minimum: 0, nullable: true }
+        weightKg: { type: number, exclusiveMinimum: 0, nullable: true }
+        permissions: { type: object }
+    PantryItem:
+      allOf:
+        - $ref: '#/components/schemas/PantryItemInput'
+        - type: object
+          required: [id, user_id, updated_at]
+          properties:
+            id: { type: string }
+            user_id: { type: string }
+            updated_at: { type: string, format: date-time }
+    PantryItemPatch:
+      type: object
+      minProperties: 1
+      properties:
+        quantity_text: { type: string, nullable: true }
+        quantity_value: { type: number, nullable: true }
+        quantity_unit: { type: string, nullable: true }
+        stock_state:
+          type: string
+          enum: [available, low, finished, unknown]
+        expiry_date: { type: string, format: date, nullable: true }
+    RecommendationRequest:
+      type: object
+      additionalProperties: false
+      required: [mode, servings]
+      properties:
+        mode:
+          type: string
+          enum: [sofra, fit, tatli]
+        max_minutes: { type: integer, minimum: 1, nullable: true }
+        servings: { type: integer, minimum: 1 }
+        pantry_item_ids:
+          type: array
+          uniqueItems: true
+          items: { type: string }
+        fit_profile_id: { type: string, nullable: true }
+        health_summary:
+          allOf:
+            - $ref: '#/components/schemas/HealthSummary'
+          nullable: true
+        recent_recipe_ids:
+          type: array
+          uniqueItems: true
+          description: Kullanıcının yakın zamanda gördüğü tarifler; tekrarları azaltmak için sınırlı sinyal.
+          items: { type: string }
+    Recommendation:
+      type: object
+      required: [recipe_id, mode, matched_ingredients, missing_ingredients, reason_code, score_version]
+      properties:
+        recipe_id: { type: string }
+        mode:
+          type: string
+          enum: [sofra, fit, tatli]
+        matched_ingredients:
+          type: array
+          items: { type: string }
+        missing_ingredients:
+          type: array
+          items: { type: string }
+        time_fit: { type: boolean }
+        expiry_boost: { type: boolean }
+        learning_boost: { type: integer, minimum: -12, maximum: 12 }
+        preference_boost: { type: integer, minimum: -6, maximum: 6 }
+        repeat_penalty: { type: integer, minimum: -18, maximum: 0 }
+        reason_code:
+          type: string
+          enum: [inventory_match, expiry_priority, fit_goal, general]
+        score_version: { type: string, example: deterministic-v1 }
+        health_context:
+          allOf:
+            - $ref: '#/components/schemas/HealthSummary'
+          nullable: true
+        fit_verification:
+          type: string
+          enum: [verified, unverified]
+        nutrition:
+          type: object
+          nullable: true
+          properties:
+            kcal: { type: number, minimum: 0 }
+            protein_g: { type: number, minimum: 0 }
+            carbs_g: { type: number, minimum: 0 }
+            fat_g: { type: number, minimum: 0 }
+            fiber_g: { type: number, minimum: 0 }
+    PlanInput:
+      type: object
+      additionalProperties: false
+      required: [date, servings, main_recipe_id]
+      properties:
+        date: { type: string, format: date }
+        servings: { type: integer, minimum: 1 }
+        main_recipe_id: { type: string }
+        optional_recipe_ids:
+          type: array
+          items: { type: string }
+    Plan:
+      allOf:
+        - $ref: '#/components/schemas/PlanInput'
+        - type: object
+          required: [id]
+          properties:
+            id: { type: string }
+    ShoppingCandidate:
+      type: object
+      required: [id, name, state]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        state:
+          type: string
+          enum: [check, missing, in_pantry]
+        reason: { type: string }
+    MarketQuote:
+      type: object
+      required: [provider, quoted_at, estimated_total, delivery_fee, minimum_basket, stock_state]
+      properties:
+        provider: { type: string }
+        quoted_at: { type: string, format: date-time }
+        estimated_total: { type: number, minimum: 0 }
+        delivery_fee: { type: number, minimum: 0 }
+        minimum_basket: { type: number, minimum: 0, nullable: true }
+        delivery_eta_minutes: { type: integer, minimum: 0, nullable: true }
+        stock_state:
+          type: string
+          enum: [complete, partial, unknown]
+        partnership_label: { type: string, nullable: true }
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string }
+        message: { type: string }

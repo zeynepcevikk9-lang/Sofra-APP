@@ -1,0 +1,55 @@
+/** Provider-neutral market quote rules. Live retailer adapters come later. */
+
+export function estimatedTotal({ subtotal = 0, deliveryFee = 0, mandatoryFees = 0 } = {}) {
+  return Number((Number(subtotal) + Number(deliveryFee) + Number(mandatoryFees)).toFixed(2));
+}
+
+export function normalizeQuote(input = {}, now = Date.now()) {
+  const total = estimatedTotal(input);
+  const minimumBasket = input.minimumBasket == null ? null : Number(input.minimumBasket);
+  const minimumBasketMet = minimumBasket == null || total >= minimumBasket;
+  const quantityMatch = input.quantityMatch !== false;
+  const stockKnown = input.stockState === 'complete';
+  const updatedAt = input.updatedAt ? new Date(input.updatedAt) : null;
+  const reference = new Date(now).getTime();
+  const fresh = updatedAt && !Number.isNaN(updatedAt.getTime()) ? (reference - updatedAt.getTime()) < 86400000 : false;
+  return {
+    ...input,
+    estimatedTotal: total,
+    minimumBasket,
+    minimumBasketMet,
+    quantityMatch,
+    stockKnown,
+    fresh,
+    eligibleForBestTotal: minimumBasketMet && quantityMatch && stockKnown && fresh,
+    displayLabel: 'Tahmini toplam',
+  };
+}
+
+export function rankQuotes(inputs = [], { now = Date.now() } = {}) {
+  const normalized = inputs.map((input) => normalizeQuote(input, now));
+  const eligible = normalized.filter((quote) => quote.eligibleForBestTotal).sort((a, b) => a.estimatedTotal - b.estimatedTotal);
+  const best = eligible[0] || null;
+  const quotes = [
+    ...(best ? [best] : []),
+    ...normalized.filter((quote) => quote !== best).sort((a, b) => a.estimatedTotal - b.estimatedTotal),
+  ];
+  return quotes.map((quote) => ({
+    ...quote,
+    displayLabel: best && quote === best ? 'En uygun toplam' : 'Tahmini toplam',
+    differenceFromBest: best && quote.eligibleForBestTotal
+      ? Number((quote.estimatedTotal - best.estimatedTotal).toFixed(2))
+      : null,
+    sponsorshipLabel: quote.isSponsored ? (quote.partnershipLabel || 'Sponsorlu') : null,
+  }));
+}
+
+export function buildMarketRequest(input = {}) {
+  const candidateIds = input?.candidateIds;
+  const userConfirmed = input?.userConfirmed;
+  if (userConfirmed !== true) throw Object.assign(new Error('Market teklifleri için alışveriş listesi onayı gerekir'), { status: 409 });
+  if (!Array.isArray(candidateIds) || candidateIds.length === 0 || candidateIds.some((id) => typeof id !== 'string' || !id.trim()) || new Set(candidateIds).size !== candidateIds.length) {
+    throw Object.assign(new Error('candidateIds boş olmayan ve benzersiz bir dizi olmalı'), { status: 422 });
+  }
+  return { candidateIds: [...candidateIds], userConfirmed: true };
+}

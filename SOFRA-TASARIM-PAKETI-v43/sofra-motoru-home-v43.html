@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#FAF8F4" />
+  <title>Sofra Motoru · Frontend Önizleme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,50,1;9..144,600,50,1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --cream:#faf8f4; --paper:#fffefa; --ink:#28312b; --muted:#7c827b; --sage:#607b65; --sage-dark:#395b42; --sage-light:#eff4ed; --clay:#d48c75; --line:#eae8e1; --shadow:0 28px 80px rgba(26,38,27,.13); --display: 'Fraunces', Georgia, serif; --sans:'DM Sans',system-ui,sans-serif }
+    * { box-sizing:border-box } html{scroll-behavior:smooth} body{margin:0;background:radial-gradient(ellipse at 4% 12%,#e8efe4 0,transparent 38%),radial-gradient(ellipse at 94% 75%,#f4e4d8 0,transparent 39%),#f8f5f0;font-family:var(--sans);color:var(--ink)}button,input{font:inherit} button{cursor:pointer} button:focus-visible,input:focus-visible{outline:3px solid #bd9f65;outline-offset:3px}
+    .workspace{min-height:100vh;padding:24px 20px 40px;display:flex;flex-direction:column;align-items:center;gap:17px} .switcher{display:flex;gap:5px;padding:5px;border-radius:99px;background:#e8e9e0;box-shadow:0 5px 20px #25302515}.switcher button{border:0;border-radius:99px;padding:9px 15px;font-size:12px;font-weight:700;color:#677269;background:none}.switcher button.active{background:#fffefa;color:#2b3930;box-shadow:0 2px 8px #273b2218} .intro-note{font-size:12px;color:#75796f;text-align:center;margin:0}.inventory-demo{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center}.inventory-demo span{font-size:10px;color:#7b8279;margin-right:3px}.inventory-demo button{border:1px solid #dfe6dc;border-radius:999px;background:#fffefa;color:#607b65;padding:6px 9px;font-size:10px;font-weight:800}.inventory-demo button.active{background:#607b65;color:#fff;border-color:#607b65} .app{width:min(100%,430px);min-height:770px;background:var(--cream);position:relative;box-shadow:var(--shadow);border:1px solid #eee7dd;border-radius:31px;overflow:hidden} .app-inner{height:min(850px,calc(100svh - 110px));min-height:680px;overflow:auto;scrollbar-width:none;padding:23px 22px 103px}.app-inner::-webkit-scrollbar{display:none}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}.brand{display:flex;align-items:center;gap:6px;color:#324b38;font-family:var(--display);font-size:27px;font-weight:650;letter-spacing:-1.35px}.brand-mark{display:inline-flex;width:25px;height:25px;border-radius:8px 8px 13px 13px;background:#dce9d9;align-items:center;justify-content:center;transform:rotate(-8deg)}.brand-mark svg{transform:rotate(8deg)}.profile{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#eed9cb;color:#7d513f;font-weight:800;border:2px solid #fff}
+    .eyebrow{display:block;color:#839083;font-size:11px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;margin-bottom:9px}.headline{font-family:var(--display);font-weight:600;font-size:42px;line-height:1.1;letter-spacing:-1.45px;margin:0 0 11px}.headline em{font-style:normal;color:var(--sage)}.subtitle{font-size:13.2px;line-height:1.7;color:#777e76;margin:0 0 24px;max-width:320px}
+    .searchrow{display:flex;gap:9px;margin-bottom:17px}.searchwrap{display:flex;align-items:center;gap:10px;flex:1;padding:0 13px;min-height:49px;background:#fff;border:1px solid #eeece7;border-radius:14px;box-shadow:0 6px 20px #443e3110}.searchwrap svg{color:#849184;flex:none}.searchwrap input{border:0;background:transparent;outline:none;min-width:0;width:100%;font-size:12px;color:#374237}.searchwrap input::placeholder{color:#a6aaa3}.mic{border:0;display:grid;place-items:center;border-radius:15px;min-width:49px;background:var(--sage);color:#fff;box-shadow:0 8px 15px #66816c2c}
+    .chips{display:flex;gap:8px;overflow:auto;scrollbar-width:none;white-space:nowrap;margin-bottom:26px}.chips::-webkit-scrollbar{display:none}.chip{flex:none;border:1px solid #e4e8df;background:#f3f5f0;color:#5c7261;padding:9px 13px;border-radius:99px;font-weight:700;font-size:11px}.chip.active{background:#607b65;color:#fff;border-color:#607b65}
+    .section-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px 0 13px}.section-row h2{font-family:var(--display);font-size:21px;line-height:1.2;letter-spacing:-.5px;margin:0}.mini-link{color:#69836c;background:none;border:0;padding:6px 1px;font-size:11px;font-weight:800;white-space:nowrap}
+    .herofood{width:100%;height:227px;border-radius:21px;position:relative;overflow:hidden;background:linear-gradient(125deg,#6b4a3b,#ba7654 60%,#d19c6a);isolation:isolate;box-shadow:0 12px 24px #74482a1c;cursor:pointer}.herofood>img,.foodpic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.herofood::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,23,18,.8) 0%,rgba(20,25,19,.22) 49%,transparent 80%);pointer-events:none}.fallback{position:absolute;inset:0;display:grid;place-items:center;font-size:115px;text-shadow:0 12px 30px #0005;opacity:.9}.herofood .hero-caption{position:absolute;z-index:1;bottom:18px;left:19px;right:17px;color:white}.pill-light{display:inline-block;font-size:10px;font-weight:800;padding:7px 10px;border-radius:40px;background:#fffc;backdrop-filter:blur(8px);color:#304d37;margin-bottom:9px}.hero-caption h3{font-family:var(--display);font-size:26px;letter-spacing:-.8px;line-height:1.1;margin:0 0 7px;text-wrap:balance}.hero-caption p{margin:0;font-size:11px;color:#f8f6ebdd}.hero-reason{font-size:10px;color:#fffbdcdd;margin-top:6px}.hero-arrow{position:absolute;right:3px;bottom:3px;border:1px solid #ffffff7d;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:17px}
+    .plan-preview{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:15px 0 2px;padding:12px 14px;border:1px solid #e7e5dd;border-radius:16px;background:#fffefa}.plan-preview .plan-copy{min-width:0}.plan-preview .plan-label{display:block;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#8a998e;font-weight:800}.plan-preview strong{display:block;font-family:var(--display);font-size:17px;line-height:1.15;margin-top:4px}.plan-preview p{font-size:10px;color:#7c857d;margin:4px 0 0}.plan-preview button{border:1px solid #dfe6dd;background:#f3f7f0;color:#53715a;border-radius:10px;padding:9px 10px;font-size:10px;font-weight:800;white-space:nowrap}
+    .tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.foodtile{border:0;background:none;padding:0;text-align:left;min-width:0}.foodpic{height:128px;border-radius:15px;overflow:hidden;position:relative;background:linear-gradient(130deg,#b8bfa3,#e7c7a2)}.foodpic .fallback{font-size:72px}.foodtile:nth-child(2n) .foodpic{background:linear-gradient(130deg,#a4b58d,#d3ab7f)}.foodname{display:block;font-size:12.4px;font-weight:800;margin:10px 0 4px;line-height:1.25}.foodmeta{display:block;color:#959a91;font-size:10px}.heart{position:absolute;z-index:1;top:8px;right:8px;border:0;background:#ffffffec;width:27px;height:27px;border-radius:50%;display:grid;place-items:center;color:#53685a;font-size:15px}
+    .featuregrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.feature{border:0;text-align:left;padding:15px 14px 13px;border-radius:17px;min-height:118px;position:relative;overflow:hidden}.feature.fit{background:#e8efe7}.feature.aile{background:#faeee8}.feature .icon{font-size:21px;display:block;margin-bottom:7px}.feature strong{font-family:var(--display);font-size:18px;display:block}.feature span:last-child{font-size:10px;line-height:1.5;display:block;margin-top:4px;color:#738070}.feature.aile span:last-child{color:#977b6e}
+    .dessert{margin-top:24px;border:1px solid #eadfd6;border-radius:20px;padding:16px;background:linear-gradient(135deg,#fffdfa 0%,#fff8f2 100%);box-shadow:0 10px 25px rgba(67,51,37,.06);position:relative;overflow:hidden}.dessert::after{content:"";position:absolute;right:-32px;bottom:-38px;width:116px;height:116px;border-radius:50%;background:#f7e1d6}.dessert-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:relative;z-index:1}.dessert-kicker{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;color:#a36f5d}.dessert h3{font-family:var(--display);font-size:20px;line-height:1.1;margin:5px 0 5px;color:var(--ink)}.dessert p{font-size:11px;line-height:1.5;color:#7b827a;margin:0;max-width:235px}.dessert-badge{background:#faeee8;color:#985f4e;border-radius:999px;padding:7px 9px;font-size:10px;font-weight:800;white-space:nowrap}.dessert-visual{position:absolute;right:21px;bottom:12px;z-index:1;width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#fff;border:5px solid #fff1e9;box-shadow:0 5px 12px rgba(144,91,68,.12);font-size:22px;transform:rotate(7deg)}.dessert-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px;position:relative;z-index:1}.dessert-actions button{border:0;border-radius:12px;padding:10px 8px;font-size:10px;font-weight:800}.dessert-actions .classic{background:#d48c75;color:white}.dessert-actions .fit{background:#e8efe7;color:#45664d}.dessert-note{margin-top:10px;font-size:10px;color:#7d877e;position:relative;z-index:1}.dessert-note strong{color:#4d6e55}
+    .today-choice{margin:23px 0 2px}.today-choice h2{font-family:var(--display);font-size:22px;line-height:1.15;margin:0 0 5px}.today-choice>p{font-size:11px;color:#7d857e;margin:0 0 12px}.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.choice{border:1px solid #e6e9e1;background:#fffefa;border-radius:15px;padding:11px 8px;text-align:left;color:var(--ink);min-height:78px}.choice:first-child{background:#607b65;color:#fff;border-color:#607b65}.choice .choice-icon{display:block;font-size:18px;margin-bottom:7px}.choice strong{display:block;font-size:11px;line-height:1.15}.choice small{display:block;font-size:9px;line-height:1.35;margin-top:4px;opacity:.72}.choice:first-child small{opacity:.85}
+.menu-builder{margin-top:4px}.menu-builder .nav-back{margin:0 0 22px}.step-row{display:flex;align-items:center;gap:7px;margin:18px 0 21px}.step{height:7px;flex:1;border-radius:10px;background:#e8ece5}.step.active{background:#607b65}.menu-card{border:1px solid #e7e5dd;border-radius:18px;padding:14px 15px;background:#fffefa;margin-bottom:9px}.menu-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.menu-card .menu-label{font-size:10px;letter-spacing:1.1px;text-transform:uppercase;color:#8a998e;font-weight:800}.menu-card strong{display:block;font-family:var(--display);font-size:19px;line-height:1.1;margin-top:5px}.menu-meta{font-size:10px;color:#7f887f;margin-top:5px}.menu-card .replace{border:1px solid #dfe5dd;background:#f7faf5;color:#53715a;border-radius:999px;padding:7px 9px;font-size:10px;font-weight:800}.menu-add{width:100%;border:1px dashed #cbd8c9;border-radius:15px;background:#f3f7f0;color:#53715a;padding:12px;font-size:11px;font-weight:800;margin:1px 0 14px}.menu-part-list{display:grid;gap:8px;margin:14px 0 18px}.menu-part-option{display:flex;align-items:center;gap:11px;width:100%;border:1px solid #e7e5dd;border-radius:14px;background:#fffefa;color:var(--ink);padding:11px 12px;text-align:left}.menu-part-option>span{font-size:22px;line-height:1}.menu-part-option strong{display:block;font-size:12px}.menu-part-option small{display:block;margin-top:3px;color:#879188;font-size:10px}.menu-card.optional{background:#fff8f3;border-color:#edd9cd}.menu-card.optional .menu-label{color:#b67862}.menu-card.optional .replace{color:#a36f5d;background:#fffdfa;border-color:#e8cfc2}.serve-row{display:flex;align-items:center;justify-content:space-between;border:1px solid #e7e5dd;border-radius:15px;padding:11px 13px;margin:15px 0}.serve-row span{font-size:11px;color:#778278}.serve-controls{display:flex;align-items:center;gap:10px}.serve-controls button{border:1px solid #dfe6dd;background:#fff;border-radius:50%;width:28px;height:28px;color:#53715a;font-weight:800}.serve-controls strong{font-size:12px}.menu-primary{width:100%;border:0;border-radius:14px;background:#607b65;color:#fff;padding:13px;font-size:12px;font-weight:800}.menu-secondary{text-align:center;font-size:10px;color:#7d877e;margin:12px 0 0}.menu-secondary strong{color:#a36f5d}
+    .smart-status{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0 2px;padding:14px 15px;border-radius:18px;background:#eef4eb;border:1px solid #e0eade}.smart-status .smart-label{font-size:9px;letter-spacing:1.1px;text-transform:uppercase;color:#6b866f;font-weight:800}.smart-status h3{font-family:var(--display);font-size:18px;line-height:1.1;margin:5px 0 4px}.smart-status p{font-size:10px;color:#748176;margin:0}.smart-status button{border:0;background:#607b65;color:white;border-radius:11px;padding:10px 11px;font-size:10px;font-weight:800;white-space:nowrap}.smart-facts{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.smart-facts span{display:inline-flex;align-items:center;border-radius:999px;background:#fffefa;color:#56715b;border:1px solid #dce7d9;padding:5px 7px;font-size:9px;font-weight:800}.smart-view{display:block!important;background:none!important;color:#5e7c64!important;padding:8px 0 0!important;font-size:10px!important;font-weight:800!important}.inventory-state{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%}.inventory-state:not(.active){display:none}.inventory-state-copy{min-width:0}
+    .meal-preset{margin:18px 0 15px}.meal-preset-label{font-size:10px;letter-spacing:1.1px;text-transform:uppercase;color:#8a998e;font-weight:800;display:block;margin-bottom:9px}.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.preset{border:1px solid #e2e7df;border-radius:13px;background:#fffefa;color:#66736a;padding:10px 9px;text-align:left;font-size:10px;line-height:1.25}.preset.active{border-color:#607b65;background:#edf4eb;color:#4e6b55;font-weight:800}
+    .bottomnav{background:#fffefaed;backdrop-filter:blur(18px);border-top:1px solid #e6e8df;position:absolute;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);padding:13px 10px 18px;z-index:10}.bottomnav button{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#9a9f96;font-size:9.2px;font-weight:750;padding:1px}.bottomnav button.active{color:#536f58}.bottomnav button svg{width:21px;height:21px;stroke-width:1.8}.bottomnav button.active::after{content:"";width:5px;height:5px;border-radius:50%;background:#6d8c71;margin-top:0;position:absolute;bottom:6px}
+    .screen{display:none}.screen.active{display:block;animation:show .2s ease}@keyframes show{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.screen-head{margin-top:3px;margin-bottom:20px}.screen-head h1{font:600 35px/1.18 var(--display);letter-spacing:-1px;margin:0 0 8px}.screen-head p{margin:0;font-size:12px;line-height:1.6;color:#859085}.nav-back{display:flex;align-items:center;gap:8px;color:var(--sage);font-weight:700;border:0;background:none;padding:0;margin-bottom:25px}.inventory-box{background:#eef2ec;border-radius:18px;padding:18px;margin-bottom:22px}.inventory-box h3{font:600 20px var(--display);margin:0 0 6px}.inventory-box p{font-size:11px;line-height:1.6;color:#748776;margin:0 0 14px}.white-btn{background:#fff;border:1px solid #e4e9e1;border-radius:10px;color:#58705b;padding:10px 13px;font-size:11px;font-weight:800}.inventory-row{display:flex;align-items:center;gap:12px;background:#fff;padding:13px 12px;border:1px solid #eff0e9;border-radius:13px;margin-bottom:9px}.item-emoji{width:39px;height:39px;display:grid;place-items:center;background:#f7f5ea;border-radius:12px;font-size:23px}.item-text{flex:1;font-size:12px;font-weight:800}.item-text small{display:block;color:#9b9c94;font-size:10px;margin-top:3px;font-weight:500}.tag{font-size:9px;border-radius:100px;padding:7px 9px;background:#e9f1e7;color:#5c785e;font-weight:800}.tag.warning{background:#fbf1e7;color:#bc8260}.tag.out{background:#f4ecea;color:#b77b71}.add-row{display:flex;gap:7px}.add-row input,.notearea{background:white;min-width:0;width:100%;border:1px solid #e6e6dd;border-radius:12px;padding:12px;font-size:12px;color:#343e34}.add-row button{border:0;background:var(--sage);border-radius:12px;padding:0 17px;color:white;font-size:19px}
+    .weekgrid{display:grid;gap:9px}.day{background:white;border:1px solid #eaece4;border-radius:14px;padding:14px;display:flex;justify-content:space-between;gap:8px;align-items:center}.day span{font-size:11px;color:#839085}.day strong{display:block;font-size:13px;margin-top:2px}.day i{font-style:normal;font-size:25px}.day-menu{background:white;border:1px solid #eaece4;border-radius:16px;padding:14px}.day-menu-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.day-menu-label{font-size:10px;letter-spacing:1px;color:#839085;font-weight:800}.day-menu-action{border:0;background:#f0f5ee;color:#53715a;border-radius:9px;padding:7px 9px;font-size:10px;font-weight:800}.menu-line{display:flex;align-items:flex-start;gap:9px;margin-top:11px}.menu-line i{font-style:normal;font-size:21px;line-height:1}.menu-line strong{display:block;font-size:13px;margin-bottom:3px}.menu-line small{display:block;color:#7d877e;font-size:10px;line-height:1.4}.day-menu.empty{background:#f7faf5;border-style:dashed}.day-menu.empty h3{font-family:var(--display);font-size:18px;margin:8px 0 4px}.day-menu.empty p{font-size:10px;color:#778278;margin:0}.info-card{background:#eef3eb;border-radius:20px;padding:19px;margin-bottom:14px}.info-card.terra{background:#f8eae3}.info-card h3{font:600 23px var(--display);margin:0 0 8px}.info-card p{font-size:12px;line-height:1.65;color:#657565;margin:0}.info-card.terra p{color:#876f65}.cta{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:12px;background:#607b65;padding:13px 16px;color:#fff;font-size:12px;font-weight:800;margin-top:14px}.age-row{display:flex;gap:8px;margin:13px 0}.age{background:#fff;border:1px solid #eadfd7;padding:9px 8px;border-radius:12px;flex:1;font-size:10px;color:#7e736d}.age.selected{border-color:#ca9781;background:#f4dccc;font-weight:800}
+    .weekgrid{display:grid;gap:9px}.day{background:white;border:1px solid #eaece4;border-radius:14px;padding:14px;display:flex;justify-content:space-between;gap:8px;align-items:center}.day span{font-size:11px;color:#839085}.day strong{display:block;font-size:13px;margin-top:2px}.day i{font-style:normal;font-size:25px}.day-menu{background:white;border:1px solid #eaece4;border-radius:16px;padding:14px}.day-menu-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.day-menu-label{font-size:10px;letter-spacing:1px;color:#839085;font-weight:800}.day-menu-action{border:0;background:#f0f5ee;color:#53715a;border-radius:9px;padding:7px 9px;font-size:10px;font-weight:800}.menu-line{display:flex;align-items:flex-start;gap:9px;margin-top:11px}.menu-line i{font-style:normal;font-size:21px;line-height:1}.menu-line strong{display:block;font-size:13px;margin-bottom:3px}.menu-line small{display:block;color:#7d877e;font-size:10px;line-height:1.4}.day-menu.empty{background:#f7faf5;border-style:dashed}.day-menu.empty h3{font-family:var(--display);font-size:18px;margin:8px 0 4px}.day-menu.empty p{font-size:10px;color:#778278;margin:0}.calendar-tabs{display:flex;gap:6px;padding:4px;background:#eef2ec;border-radius:13px;margin:18px 0 12px}.calendar-tabs button{flex:1;border:0;border-radius:10px;background:transparent;color:#718078;padding:9px 7px;font-size:10px;font-weight:800}.calendar-tabs button.active{background:#fffefa;color:#4d6e55;box-shadow:0 2px 7px #344c2e12}.calendar-period{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}.calendar-period strong{font-family:var(--display);font-size:18px}.calendar-period button{border:1px solid #e3e8e0;background:#fffefa;color:#5b7861;border-radius:50%;width:27px;height:27px;font-weight:800}.plan-insight{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 15px}.plan-insight div{background:#eef4eb;border-radius:14px;padding:11px}.plan-insight div:last-child{background:#fff1eb}.plan-insight span{display:block;font-size:9px;color:#7b877e}.plan-insight strong{display:block;font-family:var(--display);font-size:16px;margin-top:4px}.info-card{background:#eef3eb;border-radius:20px;padding:19px;margin-bottom:14px}.info-card.terra{background:#f8eae3}.info-card h3{font:600 23px var(--display);margin:0 0 8px}.info-card p{font-size:12px;line-height:1.65;color:#657565;margin:0}.info-card.terra p{color:#876f65}.cta{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:12px;background:#607b65;padding:13px 16px;color:#fff;font-size:12px;font-weight:800;margin-top:14px}.age-row{display:flex;gap:8px;margin:13px 0}.age{background:#fff;border:1px solid #eadfd7;padding:9px 8px;border-radius:12px;flex:1;font-size:10px;color:#7e736d}.age.selected{border-color:#ca9781;background:#f4dccc;font-weight:800}
+    .overlay{position:absolute;inset:0;background:#1d2923a3;z-index:20;display:none;align-items:flex-end}.overlay.open{display:flex}.modal{width:100%;max-height:92%;overflow:auto;position:relative;background:#fffefa;border-radius:24px 24px 0 0;padding:23px 22px 32px;box-shadow:0 -14px 40px #0002}.modal h2{font:600 29px var(--display);margin:0 38px 6px 0}.modal p{color:#7e887e;font-size:12px;line-height:1.6}.modal .close{position:absolute;right:20px;top:19px;border:0;border-radius:50%;width:34px;height:34px;background:#f2f1ec;font-size:19px;color:#607363}.modal .wide{width:100%;padding:14px}.notearea{min-height:92px;resize:vertical;margin:8px 0 0}.helper{color:#879288;font-size:10px;margin:7px 0}.preview-note{background:#eef3ea;border-radius:12px;padding:12px;margin-top:12px;color:#5b715d;font-size:11px;line-height:1.5;white-space:pre-wrap}.modal-recipe-img{width:100%;height:170px;object-fit:cover;border-radius:14px;background:#d2ad86;margin:12px 0}.steps{padding:0 0 0 20px;font-size:12px;line-height:1.8;color:#546257}.steps li{padding:3px 0} .toast{position:absolute;z-index:30;bottom:89px;left:50%;transform:translateX(-50%);max-width:90%;width:max-content;background:#324b39;color:#fff;padding:11px 17px;border-radius:20px;box-shadow:0 8px 30px #0003;font-size:11px;opacity:0;pointer-events:none;transition:opacity .25s}.toast.visible{opacity:1}
+    body[data-theme="canli"]{--cream:#fbfcf8;--sage:#4f7d59;--sage-dark:#2c6844;--sage-light:#e9f3e7;--clay:#da8567}body[data-theme="canli"] .app{border-color:#d9e6d6}body[data-theme="canli"] .top{background:#e4efe2;border-radius:16px;padding:12px;margin:-12px -12px 23px}body[data-theme="canli"] .brand{color:#366a45}body[data-theme="canli"] .herofood{border-radius:15px}body[data-theme="canli"] .feature{border-radius:13px}body[data-theme="canli"] .headline em{color:#d48365}body[data-theme="canli"] .chip.active{background:#d48c75;border-color:#d48c75}
+    @media (max-width:500px){.workspace{padding:0;gap:0}.switcher{border-radius:0 0 18px 18px;width:100%;justify-content:center}.intro-note{font-size:10px;padding:7px 12px}.app{width:100%;border-radius:0;border:0;box-shadow:none;min-height:unset}.app-inner{height:calc(100svh - 63px);min-height:500px}.bottomnav{padding-bottom:max(13px, env(safe-area-inset-bottom))}} 
+    @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.screen.active{animation:none}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+    .fit-insight{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#eef4eb;border-radius:17px;padding:12px;margin-bottom:16px}.fit-insight span{display:block;font-size:9px;color:#708275}.fit-insight strong{display:block;font-family:var(--display);font-size:19px;margin-top:4px}.fit-insight small{display:block;font-size:9px;color:#7a877d;margin-top:3px}
+    .fit-profile{border:1px solid #e5e9e1;border-radius:20px;background:#fffefa;padding:17px;margin:18px 0}.fit-profile-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:13px}.fit-profile h3{font:600 21px/1.1 var(--display);margin:0 0 5px}.fit-profile p{font-size:10px;line-height:1.5;color:#7c887d;margin:0}.fit-profile-badge{border-radius:999px;padding:7px 8px;background:#eef4eb;color:#5b775f;font-size:9px;font-weight:800;white-space:nowrap}.fit-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.fit-field label{display:block;color:#7f8a80;font-size:9px;font-weight:800;margin:0 0 5px}.fit-field input,.fit-field select{width:100%;border:1px solid #e3e8e0;background:#fff;border-radius:10px;padding:10px 9px;color:#39453b;font-size:11px;min-height:38px}.fit-goals{display:flex;gap:6px;overflow:auto;scrollbar-width:none;margin:12px 0}.fit-goals::-webkit-scrollbar{display:none}.fit-goal{flex:none;border:1px solid #e2e8df;background:#fff;border-radius:999px;color:#6f7d71;padding:8px 10px;font-size:10px}.fit-goal.active{border-color:#607b65;background:#edf4eb;color:#4f6d56;font-weight:800}.fit-save{width:100%;border:0;border-radius:12px;background:#607b65;color:#fff;padding:12px;font-size:11px;font-weight:800}
+    .recipe-context{display:none}.recipe-context-copy{min-width:0}.recipe-filter-row{display:flex;gap:7px;overflow:auto;scrollbar-width:none;margin:0 0 20px}.recipe-filter-row::-webkit-scrollbar{display:none}.recipe-filter{flex:none;border:1px solid #e2e8df;background:#fffefa;color:#617267;border-radius:999px;padding:8px 10px;font-size:10px;font-weight:800}.recipe-filter.active{border-color:#607b65;background:#607b65;color:#fff}
+    .pantry-overview{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:7px;margin:0 0 13px}.pantry-stat{background:#fffefa;border:1px solid #e7e8e1;border-radius:14px;padding:11px 10px}.pantry-stat strong{display:block;font-family:var(--display);font-size:20px;line-height:1}.pantry-stat span{display:block;color:#849086;font-size:9px;line-height:1.25;margin-top:5px}.pantry-stat:first-child{background:#eef4eb;border-color:#dfe9dc}.pantry-stat:first-child span{color:#5f7b65}.pantry-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 15px}.pantry-action{border:1px solid #e1e8df;background:#fffefa;border-radius:13px;padding:11px 9px;text-align:left;color:#526c58;font-size:10px;font-weight:800}.pantry-action span{display:block;font-size:19px;margin-bottom:5px}.expiry-card{border:1px solid #eadfd6;border-radius:17px;background:#fff8f3;padding:14px;margin:18px 0 19px}.expiry-card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.expiry-card-kicker{color:#a36f5d;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase}.expiry-card-badge{background:#f4dccc;color:#98624f;border-radius:999px;padding:6px 8px;font-size:9px;font-weight:800}.expiry-card strong{display:block;font-family:var(--display);font-size:19px;margin:7px 0 3px}.expiry-card p{color:#8a766c;font-size:10px;margin:0;line-height:1.45}.expiry-card button{border:0;background:#d48c75;color:#fff;border-radius:10px;padding:9px 11px;font-size:10px;font-weight:800;margin-top:11px}
+    .inventory-photo{width:39px;height:39px;object-fit:cover;border-radius:12px;display:block}.pantry-empty{border:1px dashed #cedbcf;border-radius:17px;background:#f4f8f2;padding:15px;margin:0 0 18px}.pantry-empty strong{display:block;font-family:var(--display);font-size:18px;margin-bottom:5px}.pantry-empty p{font-size:10px;line-height:1.5;color:#718074;margin:0 0 10px}.pantry-empty button{border:0;background:#607b65;color:#fff;border-radius:10px;padding:9px 11px;font-size:10px;font-weight:800}
+    .pantry-skip{display:block;width:100%;border:0;background:none;color:#708276;text-align:center;padding:2px 0 14px;font-size:10px;font-weight:700}.inventory-box-compact{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;margin-bottom:18px;border-radius:15px}.inventory-box-compact .compact-copy{min-width:0}.inventory-box-compact .compact-kicker{display:block;color:#6b866f;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}.inventory-box-compact h3{font:600 17px/1.1 var(--display);margin:0 0 3px}.inventory-box-compact p{font-size:10px;line-height:1.35;margin:0;color:#718074}.inventory-box-compact .compact-badge{flex:none;border-radius:999px;background:#fffefa;color:#5c775f;padding:7px 8px;font-size:9px;font-weight:800}
+    /* v24 kalite turu: v23 ölçeğini koruyup sadece taşma ve kırılmaları yerel olarak düzeltir. */
+    .app-inner,.screen,.screen-head,.section-row,.today-choice,.smart-status,.plan-preview,.dessert,.featuregrid,.fit-banner{min-width:0}
+    .section-row h2,.screen-head h1,.screen-head p,.smart-status h3,.plan-preview strong{min-width:0;overflow-wrap:anywhere}
+    .herofood>img{content-visibility:auto}
+    .fit-banner{position:relative;min-height:166px;margin:18px 0 16px;border-radius:20px;overflow:hidden;background:#526b58;isolation:isolate;box-shadow:0 12px 24px rgba(52,80,57,.14)}
+    .fit-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+    .fit-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(34,57,40,.88),rgba(46,68,49,.38) 58%,rgba(46,68,49,.08));z-index:-1}
+    .fit-banner-copy{position:relative;z-index:1;color:#fff;padding:18px 18px 17px;max-width:245px}
+    .fit-banner-copy .eyebrow{color:#e6f0e3;margin-bottom:7px;font-size:9px}
+    .fit-banner-copy h3{font:600 22px/1.08 var(--display);letter-spacing:-.5px;margin:0 0 7px}
+    .fit-banner-copy p{font-size:10px;line-height:1.45;color:#f2f5ee;margin:0 0 12px}
+    .fit-banner-copy button{border:0;border-radius:10px;background:#fffefa;color:#4d6b53;padding:9px 11px;font-size:10px;font-weight:800}
+    /* Oluşturulan banner görselleri: mevcut kart yapısını bozmadan kullanılır. */
+    .herofood>img{opacity:0}
+    .herofood::before{content:"";position:absolute;inset:0;background:url("sofra-banner-warm-v1.png") center/cover no-repeat;z-index:-1}
+    #fit>.info-card:first-of-type{background:linear-gradient(90deg,rgba(38,65,45,.9),rgba(48,77,55,.48)),url("sofra-banner-fit-v1.png") center/cover;color:#fff;min-height:184px}
+    #fit>.info-card:first-of-type h3{color:#fff}
+    #fit>.info-card:first-of-type p{color:#f1f5ef}
+    #fit>.info-card:first-of-type .cta{background:#fffefa;color:#4d6b53}
+    .choice,.pantry-action,.pantry-stat,.inventory-row,.day-menu,.calendar-period,.plan-insight{min-width:0}
+    .item-text,.day-menu-head,.calendar-period strong{min-width:0;overflow-wrap:anywhere}
+    .inventory-row .tag{flex:none}
+    /* v25 ana sayfa yoğunluk turu: tekrar eden dolap kartı kaldırıldı, tatlı kartı yatay alanı koruyacak kadar sıkılaştırıldı. */
+    #home .headline{font-size:39px;line-height:1.06;margin-bottom:8px}
+    #home .subtitle{font-size:12px;line-height:1.55;margin-bottom:18px}
+    #home .chips{margin-bottom:18px}
+    #home .today-choice{margin-top:18px}
+    #home .today-choice h2{font-size:19px}
+    #home .today-choice>p{font-size:10px;margin-bottom:9px}
+    #home .choice{min-height:68px;padding:9px 7px}
+    #home .choice .choice-icon{font-size:16px;margin-bottom:5px}
+    #home .choice strong{font-size:10px}
+    #home .choice small{font-size:8.5px}
+    #home .herofood{height:204px}
+    #home .section-row h2{font-size:19px}
+    #home .foodpic{height:112px}
+    #home .dessert{margin-top:18px;padding:13px 14px;border-radius:17px}
+    #home .dessert h3{font-size:17px}
+    #home .dessert p{font-size:10px;max-width:210px}
+    #home .dessert-actions{margin-top:10px}
+    #home .dessert-actions button{padding:8px 7px;font-size:9px}
+    #home .dessert-note{font-size:9px;margin-top:8px}
+    #home .dessert-visual{right:16px;bottom:10px;width:37px;height:37px;font-size:18px}
+    #home .dessert-badge{padding:6px 8px;font-size:9px}
+    .screen-head h1{font-size:32px}
+    .screen-head{margin-bottom:16px}
+    .info-card{padding:16px;border-radius:17px}
+    .info-card h3{font-size:21px}
+    .welcome-gate{position:absolute;inset:0;z-index:16;display:flex;align-items:flex-end;background:rgba(37,48,40,.3);backdrop-filter:blur(4px)}
+    .welcome-card{width:100%;background:#fffefa;border-radius:25px 25px 0 0;padding:22px 20px 24px;box-shadow:0 -12px 35px rgba(35,52,38,.16)}
+    .welcome-card .eyebrow{margin-bottom:7px;color:#6d866f;font-size:9px}
+    .welcome-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .welcome-close{width:30px;height:30px;border:0;border-radius:50%;background:#f1f1eb;color:#68766b;font-size:18px;line-height:1}
+    .welcome-card h2{font:600 27px/1.08 var(--display);letter-spacing:-.5px;margin:0 0 7px}
+    .welcome-card>p{font-size:11px;line-height:1.5;color:#778278;margin:0 0 15px;max-width:300px}
+    .mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+    .mode-card{border:1px solid #dfe7dc;border-radius:15px;background:#f1f6ef;color:#3e5d45;text-align:left;padding:11px 9px;min-width:0;min-height:102px}
+    .mode-card.fit{background:#edf2ed}.mode-card.sweet{background:#fcf0ea;border-color:#f0dfd6;color:#8e604f}
+    .mode-card span{display:block;font-size:20px;margin-bottom:7px}.mode-card strong{display:block;font-size:12px;margin-bottom:4px}.mode-card small{display:block;font-size:8.5px;line-height:1.35;color:#718074}
+    .mode-card.sweet small{color:#9a766a}.welcome-skip{display:block;width:100%;border:0;background:none;color:#718074;font-size:10px;font-weight:800;margin-top:13px;padding:5px}
+    @media (max-width:380px){#home .headline{font-size:36px}#home .herofood{height:190px}#home .foodpic{height:104px}#home .choice{padding-left:6px;padding-right:6px}.mode-card{padding:9px 7px;min-height:96px}.mode-card strong{font-size:11px}}
+    /* v26 kullanıcı akışı düzeltmeleri */
+    .herofood::before{background-image:url("sofra-pasta-hero.png")}
+    #home .choice:first-child{background:#d48c75;border-color:#d48c75}
+    #dolabim .screen-head{margin-top:-5px;margin-bottom:12px}
+    #dolabim .inventory-box-compact{margin-bottom:11px}
+    #dolabim .add-row{margin-bottom:10px}
+    #dolabim #inventory-list{margin-top:0}
+    .mode-change{display:inline-flex;align-items:center;border:1px solid #eadfd6;border-radius:999px;background:#fff8f3;color:#a36f5d;padding:7px 10px;font-size:10px;font-weight:800;margin:0 0 13px}
+    #fit .nav-back,#aile .nav-back{margin-bottom:16px}
+    /* v27 ana sayfa üst paneli: daha kısa ve yatay taşmasız. */
+    html,body{max-width:100%;overflow-x:hidden}
+    .app,.app-inner{width:100%;max-width:100%;overflow-x:hidden}
+    #home .top{margin-bottom:20px}
+    #home .brand{font-size:25px}
+    #home .profile{width:35px;height:35px}
+    #home .headline{font-size:35px;line-height:1.02;margin-bottom:6px}
+    #home .subtitle{font-size:11px;line-height:1.45;margin-bottom:14px}
+    #home .searchrow{margin-bottom:12px}
+    #home .chips{margin-bottom:14px;overflow:hidden;padding-right:0}
+    #home .chips .chip:nth-child(n+4){display:none}
+    #home .today-choice{margin-top:14px}
+    /* v28 Dolabım yoğunluk turu: başlık, özet ve işlem kartları tek bakışta daha fazla içerik gösterir. */
+    #dolabim .screen-head h1{font-size:30px;line-height:1.05;margin-bottom:5px}
+    #dolabim .screen-head p{font-size:10px;line-height:1.4}
+    #dolabim .pantry-overview{gap:6px;margin-bottom:9px}
+    #dolabim .pantry-stat{padding:8px 9px;border-radius:12px}
+    #dolabim .pantry-stat strong{font-size:18px}
+    #dolabim .pantry-stat span{font-size:8px;margin-top:4px}
+    #dolabim .pantry-actions{gap:7px;margin-bottom:8px}
+    #dolabim .pantry-action{padding:8px 8px;border-radius:12px;font-size:9px}
+    #dolabim .pantry-action span{font-size:16px;margin-bottom:3px}
+    #dolabim .pantry-skip{padding:1px 0 9px;font-size:9px}
+    #dolabim .inventory-box-compact{padding:10px 12px;margin-bottom:11px;border-radius:14px}
+    #dolabim .inventory-box-compact .compact-kicker{font-size:8px;margin-bottom:3px}
+    #dolabim .inventory-box-compact h3{font-size:15px;margin-bottom:2px}
+    #dolabim .inventory-box-compact p{font-size:9px;line-height:1.3}
+    #dolabim .inventory-box-compact .compact-badge{padding:6px 7px;font-size:8px}
+    /* v29: mobil uygulama kabını geri getir; web sayfası gibi tam genişlikte kalmasın. */
+    .app{width:min(100%,430px);max-width:430px;margin-inline:auto}
+    .app-inner{width:100%;max-width:100%}
+    .herofood .fallback{display:none}
+    /* v30 detaylı mobil QA: Dolabım daha yoğun, ana sayfa filtreleri kontrollü. */
+    #dolabim .section-row{margin:15px 0 9px}
+    #dolabim .section-row h2{font-size:18px;letter-spacing:-.35px}
+    #dolabim .inventory-row{padding:9px 10px;gap:8px;border-radius:11px;margin-bottom:6px}
+    #dolabim .item-emoji{width:32px;height:32px;border-radius:10px;font-size:18px}
+    #dolabim .item-text{font-size:11px}
+    #dolabim .item-text small{font-size:8.5px;margin-top:2px}
+    #dolabim .tag{padding:6px 8px;font-size:8px}
+    #dolabim .add-row input{padding:10px;font-size:11px}
+    #dolabim .add-row button{font-size:17px;padding:0 15px}
+    #home .chips .chip{padding:8px 8px;font-size:10px}
+    #home .chips .chip:nth-child(4){display:flex}
+    #home .chips .chip:nth-child(n+5){display:none}
+  </style>
+<style>
+  .home-mode-card{margin-top:21px;border:1px solid #e7e5dd;border-radius:18px;background:#fffefa;padding:14px 13px 12px}
+  .home-mode-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:11px}
+  .home-mode-head h2{font-family:var(--display);font-size:20px;line-height:1.08;margin:5px 0 0;color:var(--ink)}
+  .home-mode-state{border-radius:999px;background:#e8efe7;color:#55735b;font-size:9px;font-weight:800;padding:7px 9px;white-space:nowrap}
+  .home-mode-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .home-mode-option{min-width:0;display:flex;align-items:center;gap:7px;text-align:left;border:1px solid #e2e6df;border-radius:13px;background:#fff;padding:10px 9px;color:var(--ink)}
+  .home-mode-option.active{background:#607b65;color:#fff;border-color:#607b65}
+  .home-mode-icon{font-size:19px;line-height:1}
+  .home-mode-option strong{display:block;font-size:11px;line-height:1.1}
+  .home-mode-option small{display:block;margin-top:3px;font-size:8.5px;line-height:1.2;color:#7b867d}
+  .home-mode-option.active small{color:#e9f1e9}
+  .home-mode-check{display:none;margin-left:auto;font-size:11px;font-weight:900}
+  .home-mode-option.active .home-mode-check{display:block}
+  .home-mode-help{margin:10px 0 0;font-size:10px;line-height:1.45;color:#77847a}
+  .home-mode-link{border:0;background:none;padding:7px 0 0;color:#a36f5d;font-size:10px;font-weight:800}
+  @media (max-width:360px){.home-mode-option{padding:9px 7px;gap:5px}.home-mode-option small{font-size:8px}.home-mode-head h2{font-size:18px}}
+</style>
+<style>
+  .inventory-row .row-actions{display:flex;align-items:center;gap:5px;flex:none}
+  .inventory-edit{width:24px;height:24px;border:1px solid #e2e8df;border-radius:8px;background:#fffefa;color:#718074;font-size:14px;line-height:1;padding:0}
+  .inventory-edit:active{background:#eef4eb;color:#55735b}
+  .pantry-empty{display:block}
+  .inventory-edit-form{display:grid;gap:8px;margin:15px 0 17px}.inventory-edit-form label{font-size:10px;color:#7c887d;font-weight:800}.inventory-edit-form input,.inventory-edit-form select{width:100%;box-sizing:border-box;border:1px solid #e1e7df;border-radius:11px;background:#fffefa;padding:11px 10px;font-size:12px;color:#354238}.inventory-modal-actions{display:flex;gap:8px}.inventory-modal-actions button{flex:1}.danger-btn{border:1px solid #edd8d1;background:#fff6f2;color:#a36f5d;border-radius:10px;padding:10px 12px;font-size:11px;font-weight:800}
+</style>
+<style>
+  .plan-month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:2px}
+  .plan-month-grid .month-day{min-height:43px;border:1px solid #e9ece5;border-radius:10px;background:#fffefa;padding:6px 5px;font-size:10px;color:#879187}
+  .plan-month-grid .month-day.is-today{border-color:#d48c75;background:#fff3ed;color:#9b674f;font-weight:800}
+  .plan-month-grid .month-day.has-plan{background:#eef4eb;color:#54725a;font-weight:800}
+  .plan-month-grid .month-day small{display:block;margin-top:4px;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#788879;font-weight:600}
+  .plan-month-grid .month-day.is-empty{border:0;background:transparent}
+  .plan-history{display:grid;gap:8px}
+  .history-entry{display:flex;align-items:center;gap:10px;border:1px solid #e9ece5;border-radius:14px;background:#fffefa;padding:11px 12px}
+  .history-entry>span{font-size:22px;flex:none}.history-entry strong{display:block;font-size:12px}.history-entry small{display:block;margin-top:3px;color:#879187;font-size:10px}.history-entry time{margin-left:auto;white-space:nowrap;color:#9b8a7f;font-size:9px;font-weight:800}
+  .plan-view-note{margin:12px 0 0;color:#7b877e;font-size:10px;line-height:1.5}
+</style>
+<style>
+  .fit-health-card{border:1px solid #eadfd7;border-radius:18px;background:#fff8f3;padding:14px;margin:0 0 18px}.fit-health-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.fit-health-card h3{font:600 18px/1.15 var(--display);margin:0 0 4px}.fit-health-card p{font-size:10px;line-height:1.5;color:#866f65;margin:0}.fit-health-status{flex:none;border-radius:999px;background:#f4dccc;color:#98624f;padding:7px 8px;font-size:9px;font-weight:800}.fit-health-data{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0}.fit-health-data div{border-radius:11px;background:#fffefa;border:1px solid #efdfd5;padding:9px}.fit-health-data span{display:block;color:#987e72;font-size:9px}.fit-health-data strong{display:block;margin-top:3px;color:#5c6d61;font-size:12px}.fit-health-button{border:0;border-radius:10px;background:#d48c75;color:#fff;padding:10px 12px;font-size:10px;font-weight:800}.fit-calc-note{font-size:9px!important;color:#92958c!important;margin-top:8px!important}
+</style>
+</head>
+<body data-theme="sicak">
+<div class="workspace">
+  <main class="app" aria-label="Sofra Motoru mobil uygulama demosu">
+    <div class="app-inner" id="scrollpane">
+      <header class="top"><div class="brand"><span class="brand-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52745A" stroke-width="1.7"><path d="M12 20c-4-4-5-10 2-15 0 4 5 5 5 9 0 4-3 6-7 6Z"/><path d="M8 20c1-6 4-9 8-11"/></svg></span>sofra<span style="color:#b8bdb4">.</span></div><button class="profile" onclick="go('profil')" aria-label="Profil">S</button></header>
+      <section id="home" class="screen active"><span class="eyebrow">Mutfağından güzel şeyler çıkar</span><h1 class="headline">Bugün ne<br><em>pişirsek?</em></h1><p class="subtitle">Lezzetli bir fikir için uzağa bakma.<br>İlham, tam da mutfağında.</p>
+      <div class="searchrow"><label class="searchwrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 5 5"/></svg><input id="homesearch" placeholder="Tarif veya malzeme ara..." aria-label="Tarif ara" onkeydown="if(event.key==='Enter')doSearch()"></label><button class="mic" onclick="showNote()" aria-label="Dolabıma sesli not al"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v3a7 7 0 0 0 14 0v-3M12 20v3m-4 0h8"/></svg></button></div>
+      <div class="chips" role="group" aria-label="Tarif filtreleri"><button class="chip active" onclick="filterChip(this,'Hepsi')">✦ Senin için</button><button class="chip" onclick="filterChip(this,'Pratik')">⚡ 30 dakikada</button><button class="chip" onclick="filterChip(this,'Dünya')">🌍 Dünya mutfağı</button><button class="chip" onclick="filterChip(this,'Fit')">🥬 Hafif</button><button class="chip" onclick="filterChip(this,'Ekonomik')">₺ Ekonomik</button><button class="chip" onclick="filterChip(this,'Tek tencere')">🍲 Tek tencere</button><button class="chip" onclick="filterChip(this,'Mevsimlik')">🌱 Mevsimlik</button></div>
+      <section class="today-choice" aria-label="Bugün sofrada ne olsun"><h2>Bugün sofrada ne olsun?</h2><p>İstersen tek tarif seç, istersen bütün sofrayı birlikte kuralım.</p><div class="choice-grid"><button class="choice" onclick="go('tarifler')"><span class="choice-icon">🍲</span><strong>Tek tarif</strong><small>Canın ne çekiyorsa</small></button><button class="choice" onclick="go('menu')"><span class="choice-icon">✦</span><strong>Menü oluştur</strong><small>Sofranı birlikte kur</small></button><button class="choice" onclick="go('dolabim')"><span class="choice-icon">🗄️</span><strong>Dolabımdan bul</strong><small>Elindekilerle başla</small></button></div></section>
+      <section class="smart-status" aria-label="Bugün senin mutfağında"><div class="inventory-state active" data-inventory-state="known"><div class="inventory-state-copy"><span class="smart-label">Bugün senin mutfağında</span><h3>Patlıcan, pirinç ve yoğurdun var.</h3><div class="smart-facts"><span>Patlıcan</span><span>Pirinç</span><span>Yoğurt</span></div><p>30 dk · 4 kişilik · Tek tencere · İsrafı azalt</p></div><button onclick="go('menu')">Menü kur ↗</button></div><div class="inventory-state" data-inventory-state="partial"><div class="inventory-state-copy"><span class="smart-label">Dolabından küçük bir ipucu</span><h3>2 malzemenizi biliyoruz.</h3><div class="smart-facts"><span>Yumurta</span><span>Peynir</span></div><p>Bazı ürünler eksik olabilir · Daha iyi öneri için tamamla.</p></div><button onclick="go('dolabim')">Hızlı ekle ↗</button></div><div class="inventory-state" data-inventory-state="empty"><div class="inventory-state-copy"><span class="smart-label">Dolabını doldurmak şart değil</span><h3>Genel önerilerle başlayalım.</h3><p>Mevsim, bütçe ve sürene göre sana uygun sofralar bulalım.</p></div><button onclick="go('tarifler')">Öneri bul ↗</button></div></section>
+      <div class="section-row" style="margin-top:0"><h2>Bugünün ilhamı</h2><span class="eyebrow" style="margin:0;letter-spacing:.5px;font-size:9px">Özenle seçildi</span></div>
+      <article class="herofood" tabindex="0" role="button" aria-label="Makarna tarifini görüntüle" onclick="recipe('Kremalı mantarlı makarna',25,'🍝','photo-1473093295043-cdd812d0e601')" onkeydown="if(event.key==='Enter')this.click()"><div class="fallback">🍝</div><img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85" alt="Makarna fotoğrafı" onerror="this.style.display='none'"/><div class="hero-caption"><span class="pill-light">✦ Bugünün tarifi</span><h3>Kremalı mantarlı<br>makarna</h3><p>◷ 25 dk &nbsp; · &nbsp; Kolay &nbsp; · &nbsp; İtalyan mutfağı</p><div class="hero-reason">Dolabındaki ürünlerle uyumlu · 2 malzeme eksik</div><div class="hero-arrow">↗</div></div></article>
+      <div class="plan-preview" aria-label="Planım özeti"><div class="plan-copy"><span class="plan-label">Bu haftanın planı</span><strong>İlk sofranı birlikte kuralım.</strong><p>Henüz plan yok · 2 dakikada hazır</p></div><button onclick="go('planim')">Planım ↗</button></div>
+      <div class="section-row"><h2>Bir de bunlara bak</h2><button class="mini-link" onclick="go('tarifler')">Tüm tarifler →</button></div>
+      <div class="tile-grid"><button class="foodtile" onclick="recipe('Renkli sebze bowl',20,'🥗','photo-1512621776951-a57141f2eefd')"><div class="foodpic"><div class="fallback">🥗</div><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=85" alt="Sebze bowl" onerror="this.style.display='none'"/></div><span class="foodname">Renkli sebze bowl</span><span class="foodmeta">20 dk · Hafif</span></button><button class="foodtile" onclick="recipe('Fırında sebzeli tabak',35,'🥘','photo-1547592180-85f173990554')"><div class="foodpic"><div class="fallback">🥘</div><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=85" alt="Fırın yemeği" onerror="this.style.display='none'"/></div><span class="foodname">Fırında sebzeli tabak</span><span class="foodmeta">35 dk · Pratik</span></button></div>
+      <section class="dessert" aria-label="Tatlı keşfi"><div class="dessert-head"><div><span class="dessert-kicker">Tatlıya da yer var</span><h3>Bugünün tatlı keşfi</h3><p>Fırınlanmış elmalı crumble · Klasik veya Fit versiyon</p></div><span class="dessert-badge">Yeni</span><span class="dessert-visual" aria-hidden="true">🧁</span></div><div class="dessert-actions"><button class="classic" onclick="recipe('Fırınlanmış elmalı crumble',30,'🍎','photo-1488477181946-6428a0291777')">Klasik tarifi aç ↗</button><button class="fit" onclick="go('fit')">Fit versiyona bak ↗</button></div><div class="dessert-note"><strong>Sevimli dokunuş:</strong> aynı tatlının sana uygun hâlini de keşfet.</div></section>
+      <section class="home-mode-card" aria-label="Sofra modu"><div class="home-mode-head"><div><span class="small-cap">SOFRA MODU</span><h2>Bugün hangi sofradasın?</h2></div><span class="home-mode-state" id="homeModeState">Günlük</span></div><div class="home-mode-options"><button class="home-mode-option active" data-home-mode="sofra" onclick="setHomeModeV34('sofra')"><span class="home-mode-icon">🍲</span><span><strong>Sofra</strong><small>Günlük yemek ve menü</small></span><span class="home-mode-check">✓</span></button><button class="home-mode-option" data-home-mode="fit" onclick="setHomeModeV34('fit')"><span class="home-mode-icon">🌿</span><span><strong>Sofra Fit</strong><small>Hedefine göre dengeli seçim</small></span><span class="home-mode-check">✓</span></button></div><p class="home-mode-help" id="homeModeHelp">Dolabındaki ürünlerle pratik bir sofra kur.</p><button class="home-mode-link" type="button" onclick="setHomeModeV34('fit')">Fit hedeflerini düzenle →</button></section>
+      
+      </section>
+      <section id="menu" class="screen"><div class="menu-builder"><button class="nav-back" onclick="go('home')">← Ana sayfa</button><div class="screen-head"><span class="eyebrow">Sofranı birlikte kuralım</span><h1>Bugünün<br><span style="color:var(--sage)">menüsü</span></h1><p>Bir ana yemekle başlayalım. İstersen sofrana başka bölümler ekleyebilirsin.</p></div><div class="step-row" aria-label="Menü adımları"><span class="step active"></span><span class="step active"></span><span class="step"></span></div><div class="menu-card"><div class="menu-card-top"><div><span class="menu-label">Ana yemek</span><strong>Fırında sebzeli tavuk</strong><div class="menu-meta">45 dk · 4 kişilik · Aileye uygun</div></div><button class="replace" onclick="go('tarifler')">Değiştir</button></div></div><button class="menu-add" onclick="toast('Çorba · salata / meze · yanına · tatlı seçenekleri')">+ Bölüm ekle <span style="opacity:.7">· isteğe bağlı</span></button><div class="serve-row"><span>Sofra kaç kişilik?</span><div class="serve-controls"><button onclick="toast('Porsiyon azaltıldı')">−</button><strong>4</strong><button onclick="toast('Porsiyon artırıldı')">+</button></div></div><button class="menu-primary" onclick="go('planim')">Menüyü planıma ekle →</button><p class="menu-secondary"><strong>Akıllı öneri:</strong> Dolabında bulunan ürünleri önce kullanacak şekilde düzenlendi.</p></div></section>
+      <section id="tarifler" class="screen"><div class="screen-head"><span class="eyebrow">Keşfetmenin tadı</span><h1>Tarifler</h1><p>Tanıdık lezzetler ve yeni mutfaklar.</p></div><div class="searchrow"><label class="searchwrap"><input id="search2" placeholder="Neye canın çekiyor?" oninput="liveFilter(this.value)"/></label><button class="mic" onclick="showNote()" aria-label="Sesli yardım">🎙</button></div><div class="section-row"><h2>Seçtiklerimiz</h2></div><div id="recipe-list" class="tile-grid"></div></section>
+      <section id="dolabim" class="screen"><div class="screen-head"><span class="eyebrow">Kolayca hatırla</span><h1>Dolabım</h1><p>Eksiksiz doldurmak zorunda değilsin. Bildiklerini eklemen yeterli.</p></div><div class="inventory-box"><h3>Bir şey mi aldın? 🌿</h3><p>“6 yumurta aldım, peynir azaldı” gibi doğal cümlelerle dolabını güncelle.</p><button class="white-btn" onclick="showNote()">🎙 Dolabıma not al</button></div><div class="section-row"><h2>Eklediklerin</h2><span class="eyebrow" style="margin:0">Örnek kayıtlar</span></div><div id="inventory-list"></div><div class="section-row"><h2>Hızlı ekle</h2></div><div class="add-row"><input id="quick-add" placeholder="Örn. 2 kg domates" aria-label="Malzeme ekle" onkeydown="if(event.key==='Enter')addInventory()"/><button onclick="addInventory()" aria-label="Ekle">+</button></div></section>
+      <section id="planim" class="screen"><div class="screen-head"><span class="eyebrow">Biraz plan, bolca keyif</span><h1>Planım</h1><p>Bugünü, bu haftayı ve daha önce kurduğun sofraları tek yerde gör.</p></div><div class="calendar-tabs"><button class="active" onclick="toast('Haftalık görünüm')">Hafta</button><button onclick="toast('Aylık görünüm yakında')">Ay</button><button onclick="toast('Geçmiş sofraların yakında')">Geçmiş</button></div><div class="calendar-period"><button onclick="toast('Önceki dönem')">‹</button><strong>13–19 Ekim 2026</strong><button onclick="toast('Sonraki dönem')">›</button></div><div class="plan-insight"><div><span>Bu haftanın planı</span><strong>3 sofra · 1 boş gün</strong></div><div><span>Sofra Fit özeti</span><strong>1.820 kcal ort.</strong></div></div><div class="weekgrid"><div class="day-menu"><div class="day-menu-head"><span class="day-menu-label">PAZARTESİ · AKŞAM MENÜSÜ</span><button class="day-menu-action" onclick="toast('Pazartesi menüsü açıldı')">Menüyü aç</button></div><div class="menu-line"><i>🍝</i><div><strong>Sebzeli makarna</strong><small>Roka salatası · Yoğurt</small></div></div></div><div class="day-menu"><div class="day-menu-head"><span class="day-menu-label">SALI · AKŞAM MENÜSÜ</span><button class="day-menu-action" onclick="toast('Salı menüsü açıldı')">Menüyü aç</button></div><div class="menu-line"><i>🍗</i><div><strong>Fırında tavuk</strong><small>Bulgur pilavı · Çoban salata</small></div></div></div><div class="day-menu empty"><span class="day-menu-label">ÇARŞAMBA</span><h3>Bu günün sofrasını sen kur.</h3><p>Tek tarifle başlayabilir, istersen çorba veya tatlı ekleyebilirsin.</p><button class="white-btn" style="margin-top:11px" onclick="go('menu')">Sofra kur ↗</button></div><div class="day-menu"><div class="day-menu-head"><span class="day-menu-label">PERŞEMBE · AKŞAM MENÜSÜ</span><button class="day-menu-action" onclick="toast('Perşembe menüsü açıldı')">Menüyü aç</button></div><div class="menu-line"><i>🥣</i><div><strong>Mercimek çorbası</strong><small>Fırında sebzeli börek · Mevsim salatası</small></div></div></div></div><div class="info-card" style="margin-top:20px"><h3>Alışveriş listem 🧺</h3><p>Planındaki menülere göre eksik malzemeleri burada görebilirsin. Stok durumu bilinmeyen ürünleri otomatik olarak “yok” saymayacağız.</p></div></section>
+      <section id="fit" class="screen"><button class="nav-back" onclick="go('home')">← Ana sayfa</button><div class="screen-head"><span class="eyebrow">Sofra'nın dengeli hâli</span><h1>Sofra <span style="color:var(--sage)">Fit</span></h1><p>Hedeflerine uygun, gerçek tariflerle daha kolay plan yap.</p></div><div class="info-card"><h3>Lezzet yerinde. Denge yanında.</h3><p>Kalori ve makro hesaplamaları tariflerin doğrulanmış besin verilerine dayanacak. Şu an görsel arayüz önizlemesini görüyorsun.</p><button class="cta" onclick="go('tarifler')">Tarifleri keşfet →</button></div><div class="tile-grid"><button class="foodtile" onclick="recipe('Renkli sebze bowl',20,'🥗','photo-1512621776951-a57141f2eefd')"><div class="foodpic"><div class="fallback">🥗</div><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=85" alt="Renkli sebze bowl" onerror="this.style.display='none'"/></div><span class="foodname">Renkli sebze bowl</span><span class="foodmeta">20 dk · Öğle yemeği</span></button><button class="foodtile" onclick="recipe('Yoğurtlu meyve kasesi',10,'🍓','photo-1546069901-ba9599a7e63c')"><div class="foodpic"><div class="fallback">🍓</div><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=85" alt="Kase" onerror="this.style.display='none'"/></div><span class="foodname">Yoğurtlu meyve kasesi</span><span class="foodmeta">10 dk · Kahvaltı</span></button></div></section>
+      <section id="aile" class="screen"><button class="nav-back" onclick="go('home')">← Ana sayfa</button><div class="screen-head"><span class="eyebrow">Birlikte sofraya</span><h1>Sofra <span style="color:#cc917a">Aile</span></h1><p>Ailelerin yemek planını kolaylaştıran sıcak bir alan.</p></div><div class="info-card terra"><h3>Miniklerin sofrası 🧡</h3><p>Çocuğun yaş aralığına uygun genel bilgilendirme kartları ve ebeveyn kullanımına yönelik uyarılar burada yer alacak.</p><div class="age-row"><button class="age selected" onclick="pickAge(this)">12–23 ay</button><button class="age" onclick="pickAge(this)">24–35 ay</button><button class="age" onclick="pickAge(this)">36+ ay</button></div></div><div class="info-card"><h3>Önce bilgi, sonra güven</h3><p>Çocuklar için kesin “güvenli” damgaları kullanılmayacak. Ebeveynlere dikkat gerektiren malzemeler ve hazırlık bilgileri, kaynaklarıyla sunulacak.</p></div></section>
+      <section id="profil" class="screen"><div class="screen-head"><span class="eyebrow">Senin mutfağın</span><h1>Profilim</h1><p>Tercihlerin, favorilerin ve üyelik bilgilerin.</p></div><div class="info-card"><h3>Merhaba, Sofra dostu 🌿</h3><p>Bu bir tasarım demosu. Hesap kaydı, giriş ve abonelik sistemi henüz aktif değil.</p></div><div class="day"><strong>♥ Kaydettiğim tarifler</strong><span>→</span></div><div class="day" style="margin-top:9px"><strong>⚙ Tercihlerim</strong><span>→</span></div><div class="info-card terra" style="margin-top:20px"><h3>Sofra Plus</h3><p>Ücretsiz deneyim değerli kalacak. Plus avantajları ve 7 günlük deneme ayrı ve şeffaf sunulacak.</p></div></section>
+    </div>
+    <nav class="bottomnav" aria-label="Ana menü"><button class="active" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Z"/><path d="M9 21v-8h6v8"/></svg>Ana sayfa</button><button data-tab="tarifler" onclick="go('tarifler')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5"/></svg>Tarifler</button><button data-tab="dolabim" onclick="go('dolabim')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M4 11h16M8 5v3M8 14v4"/></svg>Dolabım</button><button data-tab="planim" onclick="go('planim')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h3M8 17h7"/></svg>Planım</button><button data-tab="profil" onclick="go('profil')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3-7 8-7s8 3 8 7"/></svg>Profil</button></nav>
+    <div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()"><section class="modal" id="modal" role="dialog" aria-modal="true"></section></div><div class="toast" id="toast" role="status"></div>
+    <div class="welcome-gate" id="welcomeGate" role="dialog" aria-modal="true" aria-labelledby="welcome-title"><section class="welcome-card"><div class="welcome-top"><div><span class="eyebrow">SOFRANI KENDİNE GÖRE KUR</span><h2 id="welcome-title">Bugün nasıl ilerleyelim?</h2></div><button class="welcome-close" type="button" onclick="closeWelcome()" aria-label="Kapat">×</button></div><p>İstersen klasik sofrayla başla, istersen hedeflerine veya tatlı keşfine göre ilerle. Bunu daha sonra da değiştirebilirsin.</p><div class="mode-grid"><button class="mode-card" type="button" onclick="chooseMode('sofra')"><span>🍲</span><strong>Sofra</strong><small>Günlük yemek ve menü fikirleri.</small></button><button class="mode-card fit" type="button" onclick="chooseMode('fit')"><span>🌿</span><strong>Sofra Fit</strong><small>Hedefine göre dengeli seçimler.</small></button><button class="mode-card sweet" type="button" onclick="chooseMode('tatli')"><span>🧁</span><strong>Tatlı keşfi</strong><small>Klasik veya daha dengeli yorumlar.</small></button></div><button class="welcome-skip" type="button" onclick="closeWelcome()">Şimdilik ana sayfaya geç →</button></section></div>
+  </main>
+</div>
+<script>
+const images={ 'Kremalı mantarlı makarna':'photo-1473093295043-cdd812d0e601','Renkli sebze bowl':'photo-1512621776951-a57141f2eefd','Fırında sebzeli tabak':'photo-1547592180-85f173990554','Ev yapımı pizza':'photo-1565299624946-b28f40a0ae38','Yoğurtlu meyve kasesi':'photo-1546069901-ba9599a7e63c','Sebzeli noodle':'photo-1551183053-bf91a1d81141'};
+const recipes=[['Kremalı mantarlı makarna',25,'🍝'],['Renkli sebze bowl',20,'🥗'],['Fırında sebzeli tabak',35,'🥘'],['Ev yapımı pizza',45,'🍕'],['Yoğurtlu meyve kasesi',10,'🍓'],['Sebzeli noodle',25,'🍜']];
+const DEFAULT_INVENTORY=[['🥚','Yumurta','6 adet','var'],['🥔','Patates','1 kg','var'],['🧀','Peynir','Miktarı belirsiz','az'],['🥛','Süt','Bitti','yok']];
+function loadInventory(){try{const raw=localStorage.getItem('sofraInventory');if(raw!==null){const saved=JSON.parse(raw);return Array.isArray(saved)?saved:[]}const demo=new URLSearchParams(location.search).get('demo')==='1';return demo?DEFAULT_INVENTORY.map(item=>[...item]):[]}catch(e){return []}}
+function persistInventory(){try{localStorage.setItem('sofraInventory',JSON.stringify(inventory))}catch(e){}}
+let inventory=loadInventory();
+function selectPreset(button){button.parentElement.querySelectorAll('.preset').forEach(x=>x.classList.remove('active'));button.classList.add('active');toast(button.textContent+' seçildi')}
+function setInventoryState(state){document.querySelectorAll('[data-inventory-state]').forEach(x=>x.classList.toggle('active',x.dataset.inventoryState===state));document.querySelectorAll('[data-inventory-demo]').forEach(x=>x.classList.toggle('active',x.dataset.inventoryDemo===state))}
+function go(screen){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===screen));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===screen||(['fit','aile','menu'].includes(screen)&&b.dataset.tab==='home')));document.getElementById('scrollpane').scrollTop=0;if(screen==='dolabim')renderInventory();if(screen==='tarifler')renderRecipes();}
+function filterChip(button,kind){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));button.classList.add('active');if(kind==='Hepsi')return;if(kind==='Fit')return go('fit');go('tarifler');document.getElementById('search2').placeholder=kind==='Pratik'?'30 dakikada hazır tarifler':kind==='Dünya'?'Dünya mutfağından bir tarif ara':'Neye canın çekiyor?';if(kind==='Pratik')renderRecipes('pratik');else if(kind==='Dünya')renderRecipes('dunya');}
+function doSearch(){go('tarifler');const t=document.getElementById('homesearch').value;document.getElementById('search2').value=t;renderRecipes(t)}
+function renderRecipes(search=''){const list=document.getElementById('recipe-list');let arr=recipes.filter(r=>search==='pratik'?r[1]<=30:search==='dunya'?['Kremalı mantarlı makarna','Ev yapımı pizza','Sebzeli noodle'].includes(r[0]):r[0].toLocaleLowerCase('tr').includes(search.toLocaleLowerCase('tr')));list.innerHTML=arr.map(r=>`<button class="foodtile" data-recipe="${r[0]}"><div class="foodpic"><div class="fallback">${r[2]}</div><img src="https://images.unsplash.com/${images[r[0]]}?auto=format&fit=crop&w=500&q=80" alt="${r[0]}" onerror="this.style.display='none'"/></div><span class="foodname">${r[0]}</span><span class="foodmeta">${r[1]} dk · Tarif önizlemesi</span></button>`).join('')||'<p style="grid-column:1/-1;color:#7b867d;font-size:12px">Aramana uygun örnek tarif bulunamadı.</p>';list.querySelectorAll('[data-recipe]').forEach(b=>b.onclick=()=>{const r=recipes.find(r=>r[0]===b.dataset.recipe);recipe(r[0],r[1],r[2],images[r[0]])});}
+function liveFilter(value){renderRecipes(value)}
+function renderInventory(){const list=document.getElementById('inventory-list');if(!list)return;if(!inventory.length){list.innerHTML='<div class="pantry-empty"><strong>Dolabın henüz boş.</strong><p>Her şeyi eklemek zorunda değilsin. Bildiğin bir ürünü yazarak başlayabilirsin.</p><button type="button" onclick="document.getElementById(\'quick-add\')?.focus()">Hızlı ekle →</button></div>';return}list.innerHTML=inventory.map((i,index)=>`<div class="inventory-row"><span class="item-emoji">${i[0]}</span><span class="item-text">${escapeHtml(i[1])}<small>${escapeHtml(i[2])}</small></span><span class="row-actions"><span class="tag ${i[3]==='az'?'warning':i[3]==='yok'?'out':''}">${i[3]==='var'?'Var':i[3]==='az'?'Azaldı':'Bitti'}</span><button class="inventory-edit" type="button" onclick="openInventoryItemV36(${index})" aria-label="${escapeHtml(i[1])} düzenle">⋯</button></span></div>`).join('')}
+function ingredientEmoji(value){const v=value.toLocaleLowerCase('tr-TR');if(v.includes('domates'))return '🍅';if(v.includes('marul')||v.includes('roka'))return '🥬';if(v.includes('elma'))return '🍎';if(v.includes('yumurta'))return '🥚';if(v.includes('patates'))return '🥔';if(v.includes('peynir'))return '🧀';if(v.includes('süt'))return '🥛';return '🧺'}
+function parseQuickInventory(value){const raw=String(value||'').trim();const measured=raw.match(/^\s*(\d+(?:[,.]\d+)?)\s*(kg|kilo|gram|g|adet|litre|l|paket|kutu|demet)?\s+(.+?)\s*$/i);if(!measured)return {name:raw,quantity:'Miktarı ayrıca doğrula'};const number=measured[1].replace(',','.');const unit=measured[2]||'adet';return {name:measured[3].trim(),quantity:`${number} ${unit}`}}
+function addInventory(){const inp=document.getElementById('quick-add');const value=inp.value.trim();if(!value)return;const parsed=parseQuickInventory(value);inventory.unshift([ingredientEmoji(parsed.name),parsed.name,parsed.quantity,'var']);persistInventory();inp.value='';renderInventory();toast(`${parsed.name} · ${parsed.quantity} dolabına eklendi`)}
+function showNote(){document.getElementById('modal').innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Sofra seni dinliyor — tasarım demosu</span><h2>Dolabıma not al</h2><p>Malzemelerini doğal cümlelerle yaz. Mikrofon simgesiyle sesli girişi de deneyebilirsin (tarayıcı desteği gerekir).</p><textarea class="notearea" id="notetext" placeholder="Örn. 6 yumurta aldım, peynir azaldı, süt bitti..."></textarea><p class="helper">Gerçek envanter senkronizasyonu ve yapay zekâ çözümlemesi bu demoda bağlı değildir.</p><button class="white-btn" style="margin:5px 0" onclick="listenVoice()">🎙 Sesle doldur</button><button class="cta wide" onclick="previewNote()">Notumu kontrol et →</button><div id="parsed"></div>`;document.getElementById('overlay').classList.add('open')}
+function listenVoice(){const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Speech){toast('Tarayıcı ses tanımayı desteklemiyor; yazarak deneyebilirsin.');return}const r=new Speech();r.lang='tr-TR';r.interimResults=false;r.onresult=e=>{document.getElementById('notetext').value=e.results[0][0].transcript};r.onerror=()=>toast('Ses alınamadı; notunu yazarak da ekleyebilirsin.');r.start();toast('Konuşabilirsin…')}
+function previewNote(){const v=document.getElementById('notetext').value.trim();if(!v)return toast('Önce bir not yaz veya söyle.');document.getElementById('parsed').innerHTML=`<div class="preview-note">Kaydedilmeden önce kontrol et:\n${escapeHtml(v)}\n\nBu prototip cümleni aynen dolap notu olarak saklayacak; miktar veya stok durumu tahmin etmeyecek.</div><button class="cta wide" onclick="saveNote()">✓ Notu ekle</button>`}
+function saveNote(){const v=document.getElementById('notetext').value.trim();if(v){inventory.unshift(['📝','Dolap notu',v,'var']);persistInventory()}closeModal();go('dolabim');toast('Notun örnek dolaba eklendi')}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function recipe(title,mins,emoji,photo){document.getElementById('modal').innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Tarif detay önizlemesi</span><h2>${title}</h2><p>◷ ${mins} dk · 2 kişilik · Örnek ekran</p><div class="foodpic" style="height:177px;margin-top:13px"><div class="fallback">${emoji}</div><img src="https://images.unsplash.com/${photo}?auto=format&fit=crop&w=800&q=85" alt="${title}" onerror="this.style.display='none'"/></div><div class="section-row"><h2>Hazırlanış</h2><span class="eyebrow" style="margin:0">Demo adımlar</span></div><ol class="steps"><li>Malzemeleri ve ölçüleri kontrol et.</li><li>Tarifteki hazırlık adımlarını sırayla takip et.</li><li>Pişirmeyi tamamladığında servis et.</li></ol><p style="font-size:11px">Bu gerçek tarif içeriği değildir; ekran akışını göstermek için yer tutucu kullanılıyor.</p><button class="cta wide" onclick="toast('Pişirme modu sonraki aşamada etkinleşecek')">Pişirmeye başla →</button>`;document.getElementById('overlay').classList.add('open')}
+function pickAge(b){document.querySelectorAll('.age').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')}
+function closeModal(){document.getElementById('overlay').classList.remove('open')}
+function closeWelcome(mode='sofra'){try{localStorage.setItem('sofraMode',mode)}catch(e){}const gate=document.getElementById('welcomeGate');if(gate)gate.style.display='none'}
+function openWelcome(){const gate=document.getElementById('welcomeGate');if(gate)gate.style.display='flex'}
+function chooseMode(mode){closeWelcome(mode);if(typeof syncHomeModeV34==='function')syncHomeModeV34();if(mode==='fit'){go('fit');toast('Sofra Fit açıldı')}else if(mode==='tatli'){go('tarifler');const dessertFilter=[...document.querySelectorAll('.recipe-filter')].find(x=>x.textContent.trim()==='Tatlı');if(dessertFilter&&typeof recipeQuickFilter==='function')recipeQuickFilter(dessertFilter,'dessert');toast('Tatlı keşfi açıldı')}else{go('home');toast('Sofra açıldı')}}
+let toastTimer;function toast(text){const e=document.getElementById('toast');e.textContent=text;e.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('visible'),2500)}
+document.querySelectorAll('[data-theme-switch]').forEach(b=>b.onclick=()=>{document.body.dataset.theme=b.dataset.themeSwitch;document.querySelectorAll('[data-theme-switch]').forEach(x=>x.classList.toggle('active',x===b))});
+document.querySelectorAll('[data-inventory-demo]').forEach(b=>b.onclick=()=>setInventoryState(b.dataset.inventoryDemo));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});renderRecipes();renderInventory();
+</script>
+<script>
+  // Fit özeti yalnızca Sofra Fit ekranında görünür; normal Planım genel kalır.
+  const planInsight = document.querySelector('#planim .plan-insight');
+  if (planInsight) {
+    const detail = planInsight.children[1];
+    if (detail) detail.innerHTML = '<span>Alışveriş listesi</span><strong>8 eksik ürün</strong>';
+  }
+  const fitHead = document.querySelector('#fit .screen-head');
+  const fitCard = fitHead && fitHead.nextElementSibling;
+  if (fitCard && !fitCard.classList.contains('fit-insight')) {
+    fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>Bugünkü enerji hedefi</span><strong>1.820 kcal</strong><small>Profil bilgilerine göre</small></div><div><span>Protein hedefi</span><strong>86 g</strong><small>Doğrulanmış tarif verisi</small></div></div>');
+    fitCard.querySelector('p').textContent = 'Kalori ve makro hesaplamaları yalnızca doğrulanmış besin verisi bulunan tariflerde gösterilecek.';
+    fitCard.querySelector('.cta').textContent = 'Fit tarifleri keşfet →';
+  }
+</script>
+<script>
+  const fitScreen = document.getElementById('fit');
+  if (fitScreen && !fitScreen.querySelector('.fit-profile')) {
+    const fitInfo = fitScreen.querySelector('.info-card');
+    fitInfo.insertAdjacentHTML('afterend', `
+      <section class="fit-profile" aria-labelledby="fit-profile-title">
+        <div class="fit-profile-head">
+          <div><h3 id="fit-profile-title">Sana göre ayarla</h3><p>Boy, kilo ve hedef bilgilerin yalnızca Fit önerilerini kişiselleştirmek için kullanılır.</p></div>
+          <span class="fit-profile-badge">Önce profil</span>
+        </div>
+        <div class="fit-form-grid">
+          <div class="fit-field"><label for="fit-gender">Cinsiyet</label><select id="fit-gender"><option value="">Seç</option><option>Kadın</option><option>Erkek</option><option>Belirtmek istemiyorum</option></select></div>
+          <div class="fit-field"><label for="fit-age">Yaş</label><input id="fit-age" type="number" min="13" max="100" placeholder="Örn. 29" /></div>
+          <div class="fit-field"><label for="fit-height">Boy (cm)</label><input id="fit-height" type="number" min="120" max="230" placeholder="Örn. 168" /></div>
+          <div class="fit-field"><label for="fit-weight">Kilo (kg)</label><input id="fit-weight" type="number" min="35" max="250" placeholder="Örn. 64" /></div>
+        </div>
+        <div class="fit-field" style="margin-top:11px"><label>Hedefin</label><div class="fit-goals"><button class="fit-goal active" type="button" onclick="pickFitGoal(this)">Dengeli beslenme</button><button class="fit-goal" type="button" onclick="pickFitGoal(this)">Kilo verme</button><button class="fit-goal" type="button" onclick="pickFitGoal(this)">Kilo alma</button></div></div>
+        <button class="fit-save" type="button" onclick="saveFitProfile()">Fit profilini kaydet →</button>
+      </section>`);
+  }
+  function pickFitGoal(button){document.querySelectorAll('.fit-goal').forEach(x=>x.classList.remove('active'));button.classList.add('active')}
+  function saveFitProfile(){
+    const age=document.getElementById('fit-age')?.value;
+    const height=document.getElementById('fit-height')?.value;
+    const weight=document.getElementById('fit-weight')?.value;
+    if(!age||!height||!weight){toast('Fit önerilerini kişiselleştirmek için yaş, boy ve kilo bilgilerini doldur.');return}
+    const badge=document.querySelector('.fit-profile-badge'); if(badge) badge.textContent='Profil hazır';
+    const note=document.querySelector('.fit-insight small'); if(note) note.textContent='Girdiğin bilgilere göre';
+    toast('Fit profilin kaydedildi · hedeflerin hazır');
+  }
+</script>
+<script>
+  const recipeScreen = document.getElementById('tarifler');
+  const recipeSearch = recipeScreen && recipeScreen.querySelector('.searchrow');
+  if (recipeSearch && !recipeScreen.querySelector('.recipe-context')) {
+    recipeSearch.insertAdjacentHTML('afterend', `
+      <div class="recipe-context">
+        <div class="recipe-context-copy"><span class="recipe-context-kicker">Dolabından çıkanlar</span><h3>Patlıcan, pirinç ve yoğurtla başla.</h3><p>Elindeki ürünlerle uyumlu tarifleri öne çıkaralım.</p></div>
+        <button type="button" onclick="go('menu')">Menü kur ↗</button>
+      </div>
+      <div class="recipe-filter-row" aria-label="Tarif filtreleri">
+        <button class="recipe-filter active" type="button" onclick="recipeQuickFilter(this,'all')">Senin için</button>
+        <button class="recipe-filter" type="button" onclick="recipeQuickFilter(this,'quick')">30 dakikada</button>
+        <button class="recipe-filter" type="button" onclick="recipeQuickFilter(this,'pantry')">Dolabımdan</button>
+        <button class="recipe-filter" type="button" onclick="recipeQuickFilter(this,'season')">Mevsimlik</button>
+        <button class="recipe-filter" type="button" onclick="recipeQuickFilter(this,'world')">Dünya mutfağı</button>
+        <button class="recipe-filter" type="button" onclick="recipeQuickFilter(this,'dessert')">Tatlı</button>
+      </div>`);
+  }
+  function recipeQuickFilter(button, mode){
+    document.querySelectorAll('.recipe-filter').forEach(x=>x.classList.remove('active')); button.classList.add('active');
+    if(mode==='quick') renderRecipes('pratik'); else if(mode==='world') renderRecipes('dunya'); else if(mode==='dessert') renderRecipes('Yoğurtlu'); else renderRecipes('');
+    if(mode==='pantry') toast('Dolabındaki ürünlerle uyumlu örnekler gösteriliyor');
+    if(mode==='season') toast('Mevsimlik öneriler hazırlanıyor');
+  }
+</script>
+<script>
+  const pantryScreen = document.getElementById('dolabim');
+  const pantryHead = pantryScreen && pantryScreen.querySelector('.screen-head');
+  const pantryBox = pantryScreen && pantryScreen.querySelector('.inventory-box');
+  if (pantryHead && pantryBox && !pantryScreen.querySelector('.pantry-overview')) {
+    pantryHead.insertAdjacentHTML('afterend', `<div class="pantry-overview" aria-label="Dolap özeti"><div class="pantry-stat"><strong>4</strong><span>Kayıtlı ürün</span></div><div class="pantry-stat"><strong>1</strong><span>Azalan</span></div><div class="pantry-stat"><strong>1</strong><span>Biten</span></div></div><div class="pantry-actions" aria-label="Hızlı dolap işlemleri"><button class="pantry-action" type="button" onclick="showReceiptDemo()"><span>🧾</span>Fiş fotoğrafı ekle</button><button class="pantry-action" type="button" onclick="showNote()"><span>🎙</span>Sesle veya yazarak ekle</button></div>`);
+    pantryBox.querySelector('.white-btn').style.display='none';
+    const inventoryList = pantryScreen.querySelector('#inventory-list');
+    if (inventoryList) inventoryList.insertAdjacentHTML('afterend', `<div class="expiry-card"><div class="expiry-card-top"><span class="expiry-card-kicker">Öncelikli kullanım</span><span class="expiry-card-badge">2 gün kaldı</span></div><strong>Yoğurdu önce kullanalım.</strong><p>İsrafı azaltmak için yoğurtla yapılabilecek tarifleri ve menüleri öne çıkarıyorum.</p><button type="button" onclick="go('tarifler');toast('Yoğurdu önceleyen tarifler açıldı')">Tarifleri göster ↗</button></div>`);
+  }
+  function decorateInventoryRows(){
+    const photos=[
+      ['https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=120&q=80','yumurta','🥚'],
+      ['https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=120&q=80','patates','🥔'],
+      ['https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=120&q=80','peynir','🧀'],
+      ['https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=120&q=80','süt','🥛']
+    ];
+    document.querySelectorAll('#inventory-list .inventory-row').forEach(row=>{
+      const name=(row.querySelector('.item-text')?.childNodes[0]?.textContent||'').trim().toLocaleLowerCase('tr-TR');
+      const data=photos.find(item=>name.includes(item[1])); const icon=row.querySelector('.item-emoji');
+      if(data&&icon&&!icon.querySelector('.inventory-photo')) icon.innerHTML=`<img class="inventory-photo" src="${data[0]}" alt="${data[1]}" onerror="this.remove();this.parentElement.textContent='${data[2]}'" />`;
+    });
+  }
+  function updatePantryStatsV33(){const stats=document.querySelectorAll('#dolabim .pantry-stat strong');if(stats.length<3)return;stats[0].textContent=inventory.length;stats[1].textContent=inventory.filter(item=>item[3]==='az').length;stats[2].textContent=inventory.filter(item=>item[3]==='yok').length}
+  const originalRenderInventory=window.renderInventory;
+  if(originalRenderInventory){window.renderInventory=function(){originalRenderInventory();decorateInventoryRows();updatePantryStatsV33()};renderInventory()}
+  function showReceiptDemo(){document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Dolabını zahmetsiz güncelle</span><h2>Fişten ekle 🧾</h2><p>Fiş fotoğrafını yüklediğinde ürünleri ayıklayıp kontrolüne sunacağız. Yanlış eşleşmeleri kaydetmeden önce düzenleyebileceksin.</p><div class="info-card" style="margin:13px 0 12px"><h3 style="font-size:20px">Kontrol sende.</h3><p>Bu prototipte fotoğraf işleme aktif değil; sonraki aşamada kamera ve fiş okuma akışına bağlanacak.</p></div><button class="cta wide" onclick="closeModal();toast(\'Fiş fotoğrafı akışı sonraki aşamada açılacak\')">Fotoğraf seç →</button>';document.getElementById('overlay').classList.add('open')}
+</script>
+<script>
+  const pantryActions = document.querySelector('#dolabim .pantry-actions');
+  if(pantryActions && !document.querySelector('#dolabim .pantry-skip')) pantryActions.insertAdjacentHTML('afterend','<button class="pantry-skip" type="button" onclick="go(\'tarifler\');toast(\'Dolabını doldurmadan da önerilere bakabilirsin\')">Şimdilik dolap eklemeden tariflere bak →</button>');
+</script>
+<script>
+  const pantry = document.getElementById('dolabim');
+  const inventoryListForOrder = pantry && pantry.querySelector('#inventory-list');
+  const quickSection = pantry && Array.from(pantry.querySelectorAll('.section-row')).find(x => x.textContent.includes('Hızlı ekle'));
+  const quickAddRow = pantry && pantry.querySelector('.add-row');
+  if (inventoryListForOrder && quickSection && quickAddRow && quickSection.nextElementSibling !== inventoryListForOrder) {
+    inventoryListForOrder.parentNode.insertBefore(quickSection, inventoryListForOrder);
+    inventoryListForOrder.parentNode.insertBefore(quickAddRow, inventoryListForOrder);
+  }
+</script>
+<script>
+  const inventoryPanel=document.querySelector('#dolabim .inventory-box');
+  if(inventoryPanel){inventoryPanel.classList.add('inventory-box-compact');inventoryPanel.innerHTML='<div class="compact-copy"><span class="compact-kicker">Akıllı dolap</span><h3>Yeni ürünleri ekle.</h3><p>Fiş, ses veya yazıyla; önerilere bağlayalım.</p></div><span class="compact-badge">AI destekli</span>'}
+</script>
+<script>
+  const fitScreenHeadV26=document.querySelector('#fit .screen-head');
+  if(fitScreenHeadV26 && !document.querySelector('#fit .mode-change')) fitScreenHeadV26.insertAdjacentHTML('afterend','<button class="mode-change" type="button" onclick="openWelcome()">Sofra\'ya geç · Modu değiştir</button>');
+</script>
+<script>
+  // Kullanıcı akışı QA: ana sayfa dolap özetini gerçek demo kayıtlarıyla senkron tut.
+  function updateHomeSmartStatusV30(){
+    const card=document.querySelector('#home .smart-status'); if(!card||typeof inventory==='undefined')return;
+    const known=card.querySelector('[data-inventory-state="known"]');
+    const partial=card.querySelector('[data-inventory-state="partial"]');
+    const empty=card.querySelector('[data-inventory-state="empty"]');
+    const available=inventory.filter(item=>item[3]!=='yok');
+    [known,partial,empty].forEach(state=>state&&state.classList.remove('active'));
+    if(!available.length){empty?.classList.add('active');return}
+    known?.classList.add('active');
+    const names=available.slice(0,3).map(item=>item[1]);
+    const title=names.length===1?`${names[0]} ile ne yapalım?`:names.length===2?`${names[0]} ve ${names[1]} ile başlayalım.`:`${names[0]}, ${names[1]} ve ${names[2]} ile başlayalım.`;
+    const heading=known?.querySelector('h3'); if(heading)heading.textContent=title;
+    const facts=known?.querySelector('.smart-facts'); if(facts)facts.innerHTML=names.map(name=>`<span>${name}</span>`).join('');
+    const meta=known?.querySelector('p'); if(meta)meta.textContent='Dolabındaki ürünleri önceleyen öneri · 30 dk · 4 kişilik';
+  }
+  const inventoryRenderV30=window.renderInventory;
+  if(inventoryRenderV30){window.renderInventory=function(){inventoryRenderV30();updateHomeSmartStatusV30()};updateHomeSmartStatusV30()}
+
+  // Arama QA: tarif adı yanında sık kullanılan malzeme adları da sonuç üretsin.
+  const ingredientSearchV30={domates:'Fırında sebzeli tabak',patlıcan:'Fırında sebzeli tabak',mantar:'Kremalı mantarlı makarna',yoğurt:'Yoğurtlu meyve kasesi',peynir:'Kremalı mantarlı makarna',makarna:'Kremalı mantarlı makarna'};
+  const liveFilterV30=window.liveFilter;
+  window.liveFilter=function(value){const q=(value||'').trim().toLocaleLowerCase('tr-TR');liveFilterV30(ingredientSearchV30[q]||value)};
+  window.doSearch=function(){const input=document.getElementById('homesearch');const value=(input?.value||'').trim();go('tarifler');const target=document.getElementById('search2');if(target)target.value=value;renderRecipes(ingredientSearchV30[value.toLocaleLowerCase('tr-TR')]||value)};
+
+  // Ana sayfada dördüncü filtreyi kontrollü biçimde mevsimlik yap.
+  const homeChipsV30=document.querySelectorAll('#home .chips .chip');
+  if(homeChipsV30[3]){homeChipsV30[3].textContent='🌱 Mevsimlik';homeChipsV30[3].onclick=()=>filterChip(homeChipsV30[3],'Mevsimlik')}
+</script>
+<script>
+  // Menü / Planım QA: seçilen menü gerçekten plan özetine yansır.
+  function updateMenuFromPantryV31(){
+    if(typeof inventory==='undefined')return;
+    const names=inventory.filter(item=>item[3]!=='yok').map(item=>item[1].toLocaleLowerCase('tr-TR'));
+    let title='Fırında sebzeli tavuk';
+    let meta='45 dk · 4 kişilik · Aileye uygun';
+    if(names.some(x=>x.includes('domates'))&&names.some(x=>x.includes('patates'))){title='Domatesli patates tenceresi';meta='30 dk · 4 kişilik · Dolabındakilerle'}
+    else if(names.some(x=>x.includes('yumurta'))&&names.some(x=>x.includes('peynir'))){title='Peynirli sebzeli fırın';meta='35 dk · 4 kişilik · Dolabındakilerle'}
+    else if(names.some(x=>x.includes('patates'))){title='Fırında baharatlı patates';meta='30 dk · 4 kişilik · Dolabındaki ürünlerle'}
+    const titleNode=document.querySelector('#menu .menu-card strong');if(titleNode)titleNode.textContent=title;
+    const metaNode=document.querySelector('#menu .menu-meta');if(metaNode)metaNode.textContent=meta;
+  }
+  function updatePlanAfterMenuV31(){
+    const insight=document.querySelector('#planim .plan-insight>div:first-child strong');if(insight)insight.textContent='4 sofra · 0 boş gün';
+    const preview=document.querySelector('#home .plan-preview');if(preview){const title=preview.querySelector('strong');const text=preview.querySelector('p');if(title)title.textContent='Menün Planım’a eklendi.';if(text)text.textContent='Bugünkü sofran hazır · planını aç'}
+    const plannedTitle=document.querySelector('#menu .menu-card strong')?.textContent;
+    const firstMenu=document.querySelector('#planim .day-menu:not(.empty)');
+    if(firstMenu&&plannedTitle){const title=firstMenu.querySelector('.menu-line strong');const detail=firstMenu.querySelector('.menu-line small');if(title)title.textContent=plannedTitle;if(detail)detail.textContent='Yeni kurduğun menü · 4 kişilik'}
+  }
+  const goV31=window.go;
+  window.go=function(screen){goV31(screen);if(screen==='menu')updateMenuFromPantryV31();if(screen==='planim'&&window.menuAddedV31)updatePlanAfterMenuV31()};
+  const menuPrimaryV31=document.querySelector('#menu .menu-primary');
+  if(menuPrimaryV31)menuPrimaryV31.onclick=function(){window.menuAddedV31=true;go('planim');updatePlanAfterMenuV31();toast('Menün Planım’a eklendi')};
+
+  // Ana sayfa Mevsimlik filtresi boş sonuç yerine tarif listesine anlamlı bir sorgu taşır.
+  const filterChipV31=window.filterChip;
+  window.filterChip=function(button,kind){if(kind==='Mevsimlik'){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));button.classList.add('active');go('tarifler');const input=document.getElementById('search2');if(input)input.placeholder='Mevsimlik tarifler';renderRecipes('Fırında sebzeli');return}filterChipV31(button,kind)};
+</script>
+<script>
+  // v33: dolap ve ilk giriş tercihi yenilemede korunur; menü bölümleri gerçek bir seçim akışına bağlanır.
+  function openMenuPartsV33(){
+    document.getElementById('modal').innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Sofranı tamamla</span><h2>İstersen bir bölüm daha ekle.</h2><p>Başlangıç, yanına veya tatlıyı isteğe bağlı seçebilirsin.</p><div class="menu-part-list"><button class="menu-part-option" onclick="addMenuPartV33('Çorba','Mercimek çorbası','25 dk · 4 kişilik','🥣')"><span>🥣</span><span><strong>Çorba</strong><small>Mercimek çorbası · 25 dk</small></span></button><button class="menu-part-option" onclick="addMenuPartV33('Salata / meze','Çoban salata','10 dk · 4 kişilik','🥗')"><span>🥗</span><span><strong>Salata / meze</strong><small>Çoban salata · 10 dk</small></span></button><button class="menu-part-option" onclick="addMenuPartV33('Yanına','Bulgur pilavı','20 dk · 4 kişilik','🍚')"><span>🍚</span><span><strong>Yanına</strong><small>Bulgur pilavı · 20 dk</small></span></button><button class="menu-part-option" onclick="addMenuPartV33('Tatlı','Fırınlanmış elmalı crumble','30 dk · Klasik / Fit','🧁')"><span>🧁</span><span><strong>Tatlı</strong><small>Fırınlanmış elmalı crumble</small></span></button></div><button class="white-btn wide" onclick="closeModal()">Şimdilik sadece ana yemek</button>`;
+    document.getElementById('overlay').classList.add('open');
+  }
+  function removeMenuPartV33(button){
+    const card=button.closest('.menu-card');
+    const label=card?.dataset.part||'Bölüm';
+    if(card)card.remove();
+    updatePlanOptionalSummaryV33();
+    toast(label+' kaldırıldı');
+  }
+  function addMenuPartV33(label,title,meta,emoji){
+    const existing=[...document.querySelectorAll('#menu .menu-card.optional')].find(card=>card.dataset.part===label);
+    if(existing){closeModal();toast(label+' zaten eklendi');return}
+    const addButton=document.querySelector('#menu .menu-add');
+    if(!addButton){closeModal();return}
+    const card=document.createElement('div');
+    card.className='menu-card optional';
+    card.dataset.part=label;
+    card.innerHTML=`<div class="menu-card-top"><div><span class="menu-label">${label}</span><strong>${title}</strong><div class="menu-meta">${meta}</div></div><button class="replace" onclick="removeMenuPartV33(this)">Kaldır</button></div>`;
+    addButton.insertAdjacentElement('beforebegin',card);
+    closeModal();
+    updatePlanOptionalSummaryV33();
+    toast(label+' eklendi');
+  }
+  function updatePlanOptionalSummaryV33(){
+    const titles=[...document.querySelectorAll('#menu .menu-card.optional strong')].map(node=>node.textContent.trim());
+    const firstMenu=document.querySelector('#planim .day-menu:not(.empty)');
+    const detail=firstMenu?.querySelector('.menu-line small');
+    if(detail)detail.textContent=titles.length?`Ana yemek · ${titles.join(' · ')}`:'Yeni kurduğun menü · 4 kişilik';
+  }
+  const menuAddV33=document.querySelector('#menu .menu-add');
+  if(menuAddV33)menuAddV33.onclick=()=>openMenuPartsV33();
+  const menuPrimaryV33=document.querySelector('#menu .menu-primary');
+  if(menuPrimaryV33)menuPrimaryV33.onclick=function(){window.menuAddedV31=true;go('planim');updatePlanAfterMenuV31();updatePlanOptionalSummaryV33();toast('Menün Planım’a eklendi')};
+  try{const savedMode=localStorage.getItem('sofraMode');if(savedMode)closeWelcome(savedMode)}catch(e){}
+</script>
+<script>
+  function syncHomeModeV34(){
+    const mode=(()=>{try{return localStorage.getItem('sofraMode')==='fit'?'fit':'sofra'}catch(e){return 'sofra'}})();
+    document.querySelectorAll('[data-home-mode]').forEach(option=>option.classList.toggle('active',option.dataset.homeMode===mode));
+    const state=document.getElementById('homeModeState');
+    const help=document.getElementById('homeModeHelp');
+    const link=document.querySelector('.home-mode-link');
+    if(state)state.textContent=mode==='fit'?'Fit hedefi':'Günlük';
+    if(help)help.textContent=mode==='fit'?'Hedeflerine ve hareketine göre dengeli tarifler keşfet.':'Dolabındaki ürünlerle pratik bir sofra kur.';
+    if(link)link.textContent=mode==='fit'?'Fit ekranını aç →':'Fit hedeflerini düzenle →';
+  }
+  function setHomeModeV34(mode){
+    try{localStorage.setItem('sofraMode',mode)}catch(e){}
+    syncHomeModeV34();
+    if(mode==='fit')go('fit');else go('home');
+  }
+  syncHomeModeV34();
+</script>
+<script>
+  // v35: Tarifler ekranı filtreleri gerçek sonuçlara bağlanır ve arama/filtre geçişlerinde eski sorgu temizlenir.
+  const recipeHeadingV35=document.querySelector('#tarifler .section-row h2');
+  const pantryRecipeMapV35={domates:['Fırında sebzeli tabak'],patates:['Fırında sebzeli tabak'],yumurta:['Ev yapımı pizza'],peynir:['Kremalı mantarlı makarna'],süt:['Yoğurtlu meyve kasesi'],yoğurt:['Yoğurtlu meyve kasesi'],makarna:['Kremalı mantarlı makarna'],mantar:['Kremalı mantarlı makarna'],marul:['Renkli sebze bowl'],roka:['Renkli sebze bowl']};
+  function setRecipeQueryV35(value='',placeholder='Neye canın çekiyor?'){const input=document.querySelector('#tarifler #search2');if(input){input.value=value;input.placeholder=placeholder}}
+  function setRecipeHeadingV35(value){if(recipeHeadingV35)recipeHeadingV35.textContent=value}
+  function renderRecipeArrayV35(items){
+    const list=document.getElementById('recipe-list');if(!list)return;
+    list.innerHTML=items.map(r=>`<button class="foodtile" data-recipe="${escapeHtml(r[0])}" aria-label="${escapeHtml(r[0])} tarifini aç"><div class="foodpic"><div class="fallback">${r[2]}</div><img src="https://images.unsplash.com/${images[r[0]]}?auto=format&fit=crop&w=500&q=80" alt="${escapeHtml(r[0])}" onerror="this.style.display='none'"/></div><span class="foodname">${escapeHtml(r[0])}</span><span class="foodmeta">${r[1]} dk · Tarif önizlemesi</span></button>`).join('')||'<p style="grid-column:1/-1;color:#7b867d;font-size:12px">Aramana uygun örnek tarif bulunamadı.</p>';
+    list.querySelectorAll('[data-recipe]').forEach(button=>button.onclick=()=>{const r=recipes.find(item=>item[0]===button.dataset.recipe);if(r)recipe(r[0],r[1],r[2],images[r[0]])});
+  }
+  function recipeQuickFilterV35(button,mode){
+    document.querySelectorAll('.recipe-filter').forEach(x=>x.classList.remove('active'));button.classList.add('active');
+    setRecipeQueryV35();
+    if(mode==='quick'){setRecipeHeadingV35('30 dakikada hazır');renderRecipes('pratik');return}
+    if(mode==='world'){setRecipeHeadingV35('Dünya mutfağından');renderRecipes('dunya');return}
+    if(mode==='dessert'){setRecipeHeadingV35('Tatlı keşfi');renderRecipeArrayV35(recipes.filter(r=>r[0]==='Yoğurtlu meyve kasesi'));return}
+    if(mode==='season'){setRecipeHeadingV35('Mevsimlik seçtiklerimiz');renderRecipeArrayV35(recipes.filter(r=>['Renkli sebze bowl','Fırında sebzeli tabak','Yoğurtlu meyve kasesi'].includes(r[0])));return}
+    if(mode==='pantry'){
+      const names=inventory.filter(item=>item[3]!=='yok').map(item=>item[1].toLocaleLowerCase('tr-TR'));
+      const titles=[...new Set(names.flatMap(name=>Object.entries(pantryRecipeMapV35).filter(([key])=>name.includes(key)).flatMap(([,value])=>value)))];
+      const matches=recipes.filter(r=>titles.includes(r[0]));
+      setRecipeHeadingV35('Dolabındaki ürünlerle');
+      renderRecipeArrayV35(matches.length?matches:recipes.slice(0,3));
+      toast(matches.length?'Dolabındaki ürünlerle uyumlu tarifler gösteriliyor':'Dolabında eşleşen örnek az; genel önerileri de gösteriyorum.');
+      return;
+    }
+    setRecipeHeadingV35('Seçtiklerimiz');renderRecipes('');
+  }
+  window.recipeQuickFilter=recipeQuickFilterV35;
+  const liveFilterV35=window.liveFilter;
+  window.liveFilter=function(value){document.querySelectorAll('.recipe-filter').forEach(x=>x.classList.remove('active'));setRecipeHeadingV35(value.trim()?'Arama sonuçları':'Seçtiklerimiz');liveFilterV35(value)};
+  const doSearchV35=window.doSearch;
+  window.doSearch=function(){document.querySelectorAll('.recipe-filter').forEach(x=>x.classList.remove('active'));setRecipeHeadingV35('Arama sonuçları');doSearchV35()};
+  function updateRecipeContextV35(){
+    const context=document.querySelector('#tarifler .recipe-context');if(!context)return;
+    const active=inventory.filter(item=>item[3]!=='yok').slice(0,3).map(item=>item[1].replace(/^\d+\s*(kg|gr|g|adet|litre|lt)\s*/i,'')).filter(Boolean);
+    const title=context.querySelector('h3');const copy=context.querySelector('p');
+    if(title)title.textContent=active.length?`${active.join(', ')} ile başla.`:'Elindeki ürünlerle başla.';
+    if(copy)copy.textContent=active.length?'Elindeki ürünlerle uyumlu tarifleri öne çıkaralım.':'Dolabını doldurmak zorunda değilsin; genel önerilerle başlayabilirsin.';
+  }
+  updateRecipeContextV35();
+</script>
+<script>
+  function openInventoryItemV36(index){
+    const item=inventory[index];if(!item)return;
+    document.getElementById('modal').innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Dolap kaydı</span><h2>${escapeHtml(item[1])}</h2><p>Bu ürünün miktarını veya durumunu istediğin zaman güncelleyebilirsin.</p><div class="inventory-edit-form"><label for="inventory-qty-v36">Miktar / not</label><input id="inventory-qty-v36" value="${escapeHtml(item[2])}" aria-label="Miktar / not"><label for="inventory-state-v36">Durum</label><select id="inventory-state-v36" aria-label="Durum"><option value="var" ${item[3]==='var'?'selected':''}>Var</option><option value="az" ${item[3]==='az'?'selected':''}>Azaldı</option><option value="yok" ${item[3]==='yok'?'selected':''}>Bitti</option></select></div><div class="inventory-modal-actions"><button class="danger-btn" type="button" onclick="removeInventoryItemV36(${index})">Sil</button><button class="cta" style="margin:0;flex:1" type="button" onclick="saveInventoryItemV36(${index})">Kaydet</button></div>`;
+    document.getElementById('overlay').classList.add('open');
+  }
+  function saveInventoryItemV36(index){
+    const item=inventory[index];if(!item)return;
+    const qty=document.getElementById('inventory-qty-v36')?.value.trim();const status=document.getElementById('inventory-state-v36')?.value||'var';
+    if(!qty){toast('Miktar veya kısa bir not yazabilirsin.');return}
+    item[2]=qty;item[3]=status;persistInventory();closeModal();go('dolabim');toast(item[1]+' güncellendi');
+  }
+  function removeInventoryItemV36(index){
+    const item=inventory[index];if(!item)return;
+    if(!window.confirm(item[1]+' dolaptan kaldırılsın mı?'))return;
+    inventory.splice(index,1);persistInventory();closeModal();go('dolabim');toast(item[1]+' dolaptan kaldırıldı');
+  }
+</script>
+<script>
+  // v37: Planım sekmeleri artık yalnızca toast değil, gerçek görünüm değiştirir.
+  (function(){
+    const plan=document.getElementById('planim'); if(!plan)return;
+    const tabs=[...plan.querySelectorAll('.calendar-tabs button')];
+    const period=plan.querySelector('.calendar-period strong');
+    const prev=plan.querySelector('.calendar-period button:first-child');
+    const next=plan.querySelector('.calendar-period button:last-child');
+    const grid=plan.querySelector('.weekgrid'); if(!grid)return;
+    const weekMarkup=grid.innerHTML;
+    const periods=['6–12 Ekim 2026','13–19 Ekim 2026','20–26 Ekim 2026'];
+    let periodIndex=1;
+    let currentView='week';
+    try{currentView=localStorage.getItem('sofraPlanViewV37')||'week'}catch(e){}
+    function monthMarkup(){
+      const names=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+      const days=[...names.map(name=>`<div class="month-day is-empty" aria-hidden="true">${name}</div>`),
+        ...Array.from({length:31},(_,i)=>{const day=i+1;const planName=day===5?'Makarna':day===12?'Tavuk':day===19?'Çorba':day===26?'Bowl':'';return `<div class="month-day ${day===14?'is-today':''} ${planName?'has-plan':''}"><span>${day}</span>${planName?`<small>${planName}</small>`:''}</div>`})];
+      return `<div class="plan-month-grid" aria-label="Ekim 2026 aylık takvimi">${days.join('')}</div><p class="plan-view-note">Renkli günlerde planlı bir sofra var. Boş bir güne dokunarak yeni sofra kurabilirsin.</p>`;
+    }
+    function historyMarkup(){return `<div class="plan-history" aria-label="Geçmiş sofralar"><article class="history-entry"><span>🍝</span><div><strong>Sebzeli makarna menüsü</strong><small>Ana yemek · Roka salatası · Yoğurt</small></div><time>12 Ekim</time></article><article class="history-entry"><span>🍗</span><div><strong>Fırında tavuk sofrası</strong><small>Bulgur pilavı · Çoban salata</small></div><time>8 Ekim</time></article><article class="history-entry"><span>🥣</span><div><strong>Mercimek çorbası</strong><small>Mevsim salatası · Ekmek</small></div><time>3 Ekim</time></article><p class="plan-view-note">Geçmiş sofraların burada saklanır. Bir tarifi tekrar açıp yeni bir güne ekleyebilirsin.</p></div>`}
+    function setView(view){
+      currentView=view;
+      tabs.forEach((tab,index)=>tab.classList.toggle('active',['week','month','history'][index]===view));
+      if(view==='week'){grid.classList.remove('month-view');grid.innerHTML=weekMarkup;if(window.menuAddedV31&&typeof updatePlanAfterMenuV31==='function')updatePlanAfterMenuV31();if(typeof updatePlanOptionalSummaryV33==='function')updatePlanOptionalSummaryV33();if(period)period.textContent=periods[periodIndex]}
+      if(view==='month'){grid.classList.add('month-view');grid.innerHTML=monthMarkup();if(period)period.textContent='Ekim 2026'}
+      if(view==='history'){grid.classList.remove('month-view');grid.innerHTML=historyMarkup();if(period)period.textContent='Önceki sofralar'}
+      try{localStorage.setItem('sofraPlanViewV37',view)}catch(e){}
+    }
+    tabs.forEach((tab,index)=>tab.onclick=()=>setView(['week','month','history'][index]));
+    if(prev)prev.onclick=()=>{if(currentView==='week'){periodIndex=Math.max(0,periodIndex-1);if(period)period.textContent=periods[periodIndex]}else if(currentView==='month'){if(period)period.textContent='Eylül 2026';toast('Eylül 2026 görünümü hazırlandı')}else toast('Daha eski sofralar yakında burada')};
+    if(next)next.onclick=()=>{if(currentView==='week'){periodIndex=Math.min(periods.length-1,periodIndex+1);if(period)period.textContent=periods[periodIndex]}else if(currentView==='month'){if(period)period.textContent='Kasım 2026';toast('Kasım 2026 görünümü hazırlandı')}else toast('Daha yeni geçmiş sofran yok')};
+    setView(currentView==='month'||currentView==='history'?currentView:'week');
+  })();
+</script>
+<script>
+  // v38: deterministik öneri motoru. Gerçek AI/backend gelene kadar ürün kararlarını
+  // tek yerde, test edilebilir ve daha sonra sunucuya taşınabilir biçimde uygular.
+  (function(){
+    const catalog=[
+      {title:'Kremalı mantarlı makarna',mins:25,emoji:'🍝',ingredients:['mantar','makarna','peynir'],tags:['sofra','dunya','pratik'],fit:false},
+      {title:'Renkli sebze bowl',mins:20,emoji:'🥗',ingredients:['marul','roka','domates'],tags:['sofra','fit','mevsim'],fit:true},
+      {title:'Fırında sebzeli tabak',mins:35,emoji:'🥘',ingredients:['patates','domates','peynir'],tags:['sofra','mevsim'],fit:true},
+      {title:'Ev yapımı pizza',mins:45,emoji:'🍕',ingredients:['yumurta','peynir','domates'],tags:['sofra','dunya'],fit:false},
+      {title:'Yoğurtlu meyve kasesi',mins:10,emoji:'🍓',ingredients:['yoğurt','süt','elma'],tags:['tatli','fit','pratik'],fit:true},
+      {title:'Sebzeli noodle',mins:25,emoji:'🍜',ingredients:['mantar','marul','domates'],tags:['sofra','dunya','pratik'],fit:true}
+    ];
+    const normalize=value=>(value||'').toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/İ/g,'i').trim();
+    function currentMode(){try{const value=localStorage.getItem('sofraMode');return value==='fit'?'fit':value==='tatli'?'tatli':'sofra'}catch(e){return 'sofra'}}
+    function activeInventory(){const source=typeof inventory!=='undefined'?inventory:[];return source.map(item=>({name:normalize(item[1]),label:item[1],status:item[3]||'var',expiry:item[4]||''})).filter(item=>item.status!=='yok')}
+    function readFeedback(){try{const value=JSON.parse(localStorage.getItem('sofraFeedbackV1')||'[]');return Array.isArray(value)?value:[]}catch(e){return[]}}
+    function feedbackBoost(title,feedback){const raw=feedback.reduce((sum,event)=>event.recipeId===title?sum+(event.value==='helpful'?6:event.value==='not_helpful'?-6:0):sum,0);return Math.max(-12,Math.min(12,raw))}
+    function expiryBoost(item){if(!item.expiry)return 0;const date=new Date(item.expiry);if(Number.isNaN(date.getTime()))return 0;const days=(date-Date.now())/86400000;return days>=0&&days<=3?16:days>=0&&days<=7?8:0}
+    function recommend(options={}){
+      const mode=options.mode||currentMode();const maxMinutes=Number(options.maxMinutes)||0;const pantry=activeInventory();const feedback=Array.isArray(options.feedback)?options.feedback:readFeedback();
+      return catalog.map(recipeItem=>{
+        const matches=pantry.filter(item=>recipeItem.ingredients.some(ingredient=>item.name.includes(normalize(ingredient))||normalize(ingredient).includes(item.name))).filter(item=>item.status!=='yok');
+        const matchedIngredients=[...new Set(matches.flatMap(item=>recipeItem.ingredients.filter(ingredient=>item.name.includes(normalize(ingredient))||normalize(ingredient).includes(item.name))))];
+        const missing=recipeItem.ingredients.filter(ingredient=>!matchedIngredients.includes(ingredient));
+        const learningBoost=feedbackBoost(recipeItem.title,feedback);let score=matchedIngredients.length*28+matches.reduce((sum,item)=>sum+(item.status==='az'?8:0)+expiryBoost(item),0)+learningBoost;
+        if(mode==='fit')score+=(recipeItem.fit?42:-12);
+        if(mode==='tatli')score+=(recipeItem.tags.includes('tatli')?55:-20);
+        if(mode==='sofra')score+=(recipeItem.tags.includes('sofra')?12:0);
+        if(maxMinutes)score+=recipeItem.mins<=maxMinutes?18:-18;
+        score-=missing.length*2;
+        return {...recipeItem,score,learningBoost,matchedIngredients,missing,matchedCount:matchedIngredients.length};
+      }).filter(item=>!maxMinutes||item.mins<=maxMinutes||item.matchedCount>0).sort((a,b)=>b.score-a.score||a.mins-b.mins);
+    }
+    function top(){return recommend()[0]}
+    function syncHome(){
+      const recommendation=top();if(!recommendation)return;
+      const smart=document.querySelector('#home .smart-status [data-inventory-state="known"]');
+      if(smart){const title=smart.querySelector('h3');const facts=smart.querySelector('.smart-facts');const meta=smart.querySelector('p');const mode=currentMode();const modeLabel=mode==='fit'?'Dengeli seçim':mode==='tatli'?'Tatlı önerisi':'Dolabındaki ürünlerle';if(title)title.textContent=`${recommendation.title} ile başlayalım.`;if(facts)facts.innerHTML=(recommendation.matchedIngredients.length?recommendation.matchedIngredients:recommendation.ingredients.slice(0,3)).map(item=>`<span>${item}</span>`).join('');if(meta)meta.textContent=`${recommendation.matchedCount} malzeme uyumlu · ${recommendation.mins} dk · ${modeLabel}`} 
+      const reason=document.querySelector('#home .hero-reason');if(reason)reason.textContent=recommendation.matchedCount?`${recommendation.matchedCount} malzeme dolabınla uyumlu · ${recommendation.missing.length} ürün daha gerekebilir`:'Genel öneri · dolabını doldurmak zorunda değilsin';
+    }
+    function renderRanked(items){
+      if(typeof renderRecipeArrayV35==='function')renderRecipeArrayV35(items.map(item=>[item.title,item.mins,item.emoji]));
+    }
+    const originalFilter=window.recipeQuickFilter;
+    window.recipeQuickFilter=function(button,mode){
+      if(mode!=='pantry'){originalFilter?.(button,mode);return}
+      document.querySelectorAll('.recipe-filter').forEach(item=>item.classList.remove('active'));button.classList.add('active');setRecipeQueryV35();setRecipeHeadingV35('Dolabındaki ürünlerle');const ranked=recommend();renderRanked(ranked.slice(0,4));toast(ranked[0]?.matchedCount?'Dolap durumu ve azalan ürünler hesaba katıldı':'Dolap boş; genel önerileri gösteriyorum.');
+    };
+    const originalGo=window.go;
+    window.go=function(screen){originalGo(screen);if(screen==='home'||screen==='tarifler'||screen==='fit')syncHome()};
+    const originalRender=window.renderInventory;
+    if(originalRender)window.renderInventory=function(){originalRender();syncHome()};
+    window.sofraEngineV38={catalog,recommend,activeInventory,currentMode,readFeedback,feedbackBoost,syncHome};
+    syncHome();
+  })();
+</script>
+<script>
+  // v39: Fit hedefini manuel profil ile hesaplar; Apple Health için izin akışını hazırlar.
+  (function(){
+    const fit=document.getElementById('fit');if(!fit)return;
+    const grid=fit.querySelector('.fit-form-grid');
+    if(grid&&!document.getElementById('fit-activity'))grid.insertAdjacentHTML('beforeend','<div class="fit-field"><label for="fit-activity">Günlük hareket</label><select id="fit-activity"><option value="1.2">Az hareketli</option><option value="1.375" selected>Hafif hareketli</option><option value="1.55">Orta hareketli</option><option value="1.725">Yoğun hareketli</option></select></div>');
+    const profileKey='sofraFitProfileV39';
+    function goal(){return document.querySelector('.fit-goal.active')?.textContent.trim()||'Dengeli beslenme'}
+    function read(){try{return JSON.parse(localStorage.getItem(profileKey)||'null')}catch(e){return null}}
+    function write(profile){try{localStorage.setItem(profileKey,JSON.stringify(profile))}catch(e){}}
+    function calculate(profile){const weight=Number(profile.weight),height=Number(profile.height),age=Number(profile.age);if(!weight||!height||!age)return null;const adjustment=profile.gender==='Erkek'?5:profile.gender==='Kadın'?-161:-78;const bmr=(10*weight)+(6.25*height)-(5*age)+adjustment;const activity=Number(profile.activity)||1.375;const maintenance=bmr*activity;const goalDelta=profile.goal==='Kilo verme'?-300:profile.goal==='Kilo alma'?250:0;const kcal=Math.max(1200,Math.round(maintenance+goalDelta));const protein=Math.round(weight*(profile.goal==='Kilo verme'?1.5:1.2));return {kcal,protein,bmr:Math.round(bmr)}}
+    function sync(){const saved=read();if(saved){['gender','age','height','weight','activity'].forEach(key=>{const node=document.getElementById('fit-'+key);if(node&&saved[key]!=null)node.value=saved[key]});document.querySelectorAll('.fit-goal').forEach(button=>button.classList.toggle('active',button.textContent.trim()===saved.goal))}const profile={gender:document.getElementById('fit-gender')?.value||'',age:document.getElementById('fit-age')?.value,height:document.getElementById('fit-height')?.value,weight:document.getElementById('fit-weight')?.value,activity:document.getElementById('fit-activity')?.value,goal:goal()};const result=calculate(profile);const insight=document.querySelector('.fit-insight');if(result&&insight){const values=insight.querySelectorAll('strong');if(values[0])values[0].textContent=result.kcal.toLocaleString('tr-TR')+' kcal';if(values[1])values[1].textContent=result.protein+' g';const note=insight.querySelectorAll('small');note.forEach(item=>item.textContent='Yaklaşık hesap · profil bilgilerine göre')}const badge=document.querySelector('.fit-profile-badge');if(badge)badge.textContent=result?'Profil hazır':'Önce profil'}
+    window.saveFitProfile=function(){const profile={gender:document.getElementById('fit-gender')?.value||'',age:document.getElementById('fit-age')?.value,height:document.getElementById('fit-height')?.value,weight:document.getElementById('fit-weight')?.value,activity:document.getElementById('fit-activity')?.value,goal:goal()};if(!profile.age||!profile.height||!profile.weight){toast('Fit hedefini hesaplamak için yaş, boy ve kilo bilgilerini doldur.');return}write(profile);sync();toast('Fit profilin kaydedildi · yaklaşık hedefin hazır')};
+    const health=fit.querySelector('.fit-health-card');if(!health)fit.querySelector('.fit-profile')?.insertAdjacentHTML('afterend','<section class="fit-health-card" aria-labelledby="fit-health-title"><div class="fit-health-head"><div><h3 id="fit-health-title">Apple Health ile bağlan</h3><p>Aktivite verilerin Fit önerilerini kişiselleştirebilir. Bağlamak tamamen isteğe bağlıdır.</p></div><span class="fit-health-status">Bağlı değil</span></div><div class="fit-health-data"><div><span>Aktif kalori</span><strong>Henüz yok</strong></div><div><span>Adım / egzersiz</span><strong>Henüz yok</strong></div></div><button class="fit-health-button" type="button" onclick="openHealthConnectV39()">İzinleri incele →</button><p class="fit-calc-note">Sağlık verisi marketlere aktarılmaz; harcanan kalori otomatik olarak ek yemeğe çevrilmez.</p></section>');
+    window.openHealthConnectV39=function(){document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">İsteğe bağlı bağlantı</span><h2>Apple Health verilerini bağla</h2><p>Sofra Fit yalnızca izin verdiğin verileri kullanır: aktif kalori, adım, egzersiz ve kilo. Sağlık verilerin marketlere veya reklam ortaklarına aktarılmaz.</p><div class="info-card terra" style="margin:13px 0"><h3>Şeffaf başlangıç</h3><p>Bu prototipte gerçek HealthKit bağlantısı yok. Aşağıdaki seçim, iOS uygulamasındaki izin akışının tasarım provasıdır.</p></div><button class="cta wide" onclick="connectHealthDemoV39()">Apple Health izinlerini aç →</button><button class="white-btn wide" style="margin-top:8px" onclick="closeModal()">Şimdilik manuel devam et</button>';document.getElementById('overlay').classList.add('open')};
+    window.connectHealthDemoV39=function(){try{localStorage.setItem('sofraHealthDemoV39','connected')}catch(e){}closeModal();syncHealth();toast('Demo bağlantı hazır · iOS’ta HealthKit izni gerekir')};
+    function syncHealth(){const card=fit.querySelector('.fit-health-card');if(!card)return;let connected=false;try{connected=localStorage.getItem('sofraHealthDemoV39')==='connected'}catch(e){}const status=card.querySelector('.fit-health-status');const button=card.querySelector('.fit-health-button');if(status)status.textContent=connected?'Demo bağlantı hazır':'Bağlı değil';if(button)button.textContent=connected?'Bağlantıyı yönet →':'İzinleri incele →';if(connected){const values=card.querySelectorAll('.fit-health-data strong');if(values[0])values[0].textContent='iOS izni bekleniyor';if(values[1])values[1].textContent='iOS izni bekleniyor'}}
+    window.syncFitV39=sync;sync();syncHealth();
+  })();
+</script>
+<style>
+  .shopping-list-card{margin-top:20px;background:#f7faf5;border:1px solid #e2eade;border-radius:18px;padding:15px}
+  .shopping-list-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .shopping-list-head h3{font:600 21px var(--display);margin:0 0 4px}
+  .shopping-list-head p{font-size:10px;line-height:1.45;color:#718078;margin:0;max-width:245px}
+  .shopping-list-count{flex:none;background:#fffefa;border:1px solid #e0e8dc;color:#5d7963;border-radius:999px;padding:7px 9px;font-size:9px;font-weight:800}
+  .shopping-list-items{display:grid;gap:6px;margin-top:12px}
+  .shopping-item{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fffefa;border:1px solid #e7ece5;border-radius:11px;padding:8px 10px}
+  .shopping-item strong{font-size:11px;color:#35443a}
+  .shopping-item small{font-size:9px;color:#89948b}
+  .shopping-item .shopping-state{font-size:9px;color:#a66e58;background:#fff0e9;border-radius:999px;padding:5px 7px;white-space:nowrap}
+  .shopping-list-actions{display:flex;gap:7px;margin-top:11px}
+  .shopping-list-actions button{flex:1;border:1px solid #dce6da;background:#fffefa;color:#58745e;border-radius:10px;padding:9px 8px;font-size:10px;font-weight:800}
+  .shopping-list-actions button:first-child{background:#607b65;color:#fff;border-color:#607b65}
+  .shopping-list-note{font-size:9px;line-height:1.45;color:#849087;margin:10px 0 0}
+</style>
+<script>
+(function(){
+  const plannedIngredientsV40=['Makarna','Roka','Yoğurt','Tavuk','Bulgur','Çoban salata','Mercimek','Börek','Mevsim salatası'];
+  function inventoryStateV40(){
+    const source=typeof inventory!=='undefined'?inventory:[];
+    return source.map(item=>({name:String(item[1]||'').trim().toLocaleLowerCase('tr-TR'),state:item[3]}));
+  }
+  function deriveShoppingV40(){
+    const known=inventoryStateV40();
+    const result=plannedIngredientsV40.map(name=>{
+      const match=known.find(item=>item.name===name.toLocaleLowerCase('tr-TR'));
+      return {name,state:match?(match.state==='yok'?'Bitti':match.state==='az'?'Azaldı':'Dolapta kayıtlı'):'Kontrol et'};
+    }).filter(item=>item.state!=='Dolapta kayıtlı');
+    return {items:result,knownCount:plannedIngredientsV40.length-result.length};
+  }
+  function shoppingTextV40(){return deriveShoppingV40().items.map(item=>`- ${item.name} (${item.state})`).join('\n')}
+  function renderShoppingV40(){
+    const card=document.querySelector('#planim .info-card[style*="margin-top"]');
+    if(!card)return;
+    const data=deriveShoppingV40();
+    card.id='shopping-list-v40';
+    card.className='shopping-list-card';
+    card.removeAttribute('style');
+  card.innerHTML=`<div class="shopping-list-head"><div><span class="eyebrow" style="margin:0 0 5px;display:block">PLANDAN ÇIKANLAR</span><h3>Alışverişe adaylar 🧺</h3><p>Planındaki yemeklerden çıkardık. Dolabına eklemediğin ürünleri kesin eksik saymıyoruz.</p></div><span class="shopping-list-count">${data.items.length} kontrol</span></div><div class="shopping-list-items">${data.items.slice(0,6).map(item=>`<div class="shopping-item"><div><strong>${item.name}</strong><small> · ${item.state==='Bitti'||item.state==='Azaldı'?'Dolap durumuna göre':'Dolabında kayıt yok'}</small></div><span class="shopping-state">${item.state}</span></div>`).join('')}</div><div class="shopping-list-actions"><button type="button" onclick="copyShoppingListV40()">Listeyi kopyala</button><button type="button" onclick="go('dolabim')">Dolabımı kontrol et</button></div><p class="shopping-list-note">Listeyi kontrol ettikten sonra onaylayarak örnek market seçeneklerini görebilirsin. Canlı market bağlantısı henüz açık değil.</p>`;
+  }
+  window.copyShoppingListV40=async function(){
+    const text='Sofra alışverişe adaylar\n'+shoppingTextV40();
+    try{await navigator.clipboard.writeText(text);toast('Alışveriş listesi kopyalandı')}catch(e){toast('Liste hazır; kopyalama izni verilmedi')} 
+  };
+  const goV40=window.go;
+  window.go=function(screen){goV40(screen);if(screen==='planim')renderShoppingV40()};
+  const renderInventoryV40=window.renderInventory;
+  if(renderInventoryV40){window.renderInventory=function(){renderInventoryV40();renderShoppingV40()}}
+  const addInventoryV40=window.addInventory;
+  if(addInventoryV40){window.addInventory=function(){addInventoryV40();renderShoppingV40()}}
+  renderShoppingV40();
+  window.sofraShoppingV40={derive:deriveShoppingV40,render:renderShoppingV40};
+})();
+</script>
+<style>
+  .network-banner-v43{display:none;margin:-8px 0 14px;padding:9px 11px;border:1px solid #eadfd6;border-radius:11px;background:#fff3ed;color:#95624f;font-size:10px;line-height:1.35}
+  .network-banner-v43.visible{display:block}
+  body[data-theme="gece"] .network-banner-v43{background:#49352e;border-color:#68473b;color:#e7ad98}
+</style>
+<script>
+(function(){
+  const app=document.querySelector('.app');if(!app)return;
+  const banner=document.createElement('div');banner.className='network-banner-v43';banner.setAttribute('role','status');banner.setAttribute('aria-live','polite');app.insertAdjacentElement('afterbegin',banner);
+  function sync(){
+    if(navigator.onLine===false){banner.textContent='Çevrimdışısın. Dolap ve plan verilerin bu cihazda çalışır; canlı market ve bağlantı isteyen özellikler tekrar bağlanınca kullanılabilir.';banner.classList.add('visible');return}
+    if(banner.classList.contains('visible')){banner.textContent='Bağlantı geri geldi. Canlı bağlantılar yeniden kullanılabilir.';window.setTimeout(()=>banner.classList.remove('visible'),2600)}
+  }
+  window.addEventListener('offline',sync);window.addEventListener('online',sync);sync();
+})();
+</script>
+<script>
+(function(){
+  const staticSectionsV41=[
+    ['Fırında tavuk',['Tavuk','Bulgur','Çoban salata']],
+    ['Mercimek çorbası',['Mercimek','Börek','Mevsim salatası']]
+  ];
+  const menuIngredientsV41={
+    'Domatesli patates tenceresi':['Domates','Patates','Soğan','Biber','Salça'],
+    'Fırında sebzeli tavuk':['Tavuk','Patates','Havuç','Soğan'],
+    'Sebzeli makarna':['Makarna','Roka','Yoğurt'],
+    'Kremalı mantarlı makarna':['Makarna','Mantar','Krema','Parmesan']
+  };
+  function normalizeV41(value){return String(value||'').trim().toLocaleLowerCase('tr-TR').replace(/[.,]/g,'')}
+  function inventoryV41(){const source=typeof inventory!=='undefined'?inventory:[];return source.map(item=>({name:normalizeV41(item[1]),state:item[3]}))}
+  function currentMenuV41(){return document.querySelector('#menu .menu-card strong')?.textContent.trim()||'Fırında tavuk'}
+  function plannedIngredientsV41(){
+    const current=currentMenuV41();
+    const first=menuIngredientsV41[current]||['Tavuk','Patates','Soğan'];
+    return [...new Set([...first,...staticSectionsV41.flatMap(section=>section[1])])];
+  }
+  function deriveV41(){
+    const known=inventoryV41();
+    const candidates=plannedIngredientsV41();
+    const items=candidates.map(name=>{
+      const normalized=normalizeV41(name);
+      const match=known.find(item=>item.name===normalized||item.name.includes(normalized)||normalized.includes(item.name));
+      return {name,state:match?(match.state==='yok'?'Bitti':match.state==='az'?'Azaldı':'Dolapta kayıtlı'):'Kontrol et'};
+    }).filter(item=>item.state!=='Dolapta kayıtlı');
+    return {items,knownCount:candidates.length-items.length,menu:currentMenuV41()};
+  }
+  function renderV41(){
+    const card=document.getElementById('shopping-list-v40');
+    if(!card)return;
+    const data=deriveV41();
+    card.querySelector('.shopping-list-head h3').textContent='Alışverişe adaylar 🧺';
+    const count=card.querySelector('.shopping-list-count');if(count)count.textContent=data.items.length+' kontrol';
+    const intro=card.querySelector('.shopping-list-head p');if(intro)intro.textContent=`${data.menu} ve plandaki diğer sofralardan çıkardık. Dolabına eklemediğin ürünleri kesin eksik saymıyoruz.`;
+    const list=card.querySelector('.shopping-list-items');
+    if(list)list.innerHTML=data.items.slice(0,6).map(item=>`<div class="shopping-item"><div><strong>${item.name}</strong><small> · ${item.state==='Bitti'||item.state==='Azaldı'?'Dolap durumuna göre':'Dolabında kayıt yok'}</small></div><span class="shopping-state">${item.state}</span></div>`).join('');
+    window.sofraShoppingV41={derive:deriveV41,render:renderV41};
+  }
+  const goV41=window.go;
+  window.go=function(screen){goV41(screen);if(screen==='planim')renderV41()};
+  const addV41=window.addInventory;
+  if(addV41)window.addInventory=function(){addV41();renderV41()};
+  window.copyShoppingListV40=async function(){
+    const text='Sofra alışverişe adaylar\n'+deriveV41().items.map(item=>`- ${item.name} (${item.state})`).join('\n');
+    try{await navigator.clipboard.writeText(text);toast('Alışveriş listesi kopyalandı')}catch(e){toast('Liste hazır; kopyalama izni verilmedi')}
+  };
+  renderV41();
+})();
+</script>
+<script>
+  // v43 accessibility: return focus to the trigger and keep keyboard focus in dialogs.
+  (function(){
+    const overlay=document.getElementById('overlay');
+    if(!overlay)return;
+    let lastFocused=null;
+    overlay.setAttribute('aria-hidden','true');
+    function focusables(){return [...overlay.querySelectorAll('button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),[href],[tabindex]:not([tabindex="-1"])')].filter(node=>node.getClientRects().length>0&&getComputedStyle(node).visibility!=='hidden')}
+    function sync(){
+      const open=overlay.classList.contains('open');
+      overlay.setAttribute('aria-hidden',open?'false':'true');
+      if(open){
+        if(!lastFocused)lastFocused=document.activeElement;
+        requestAnimationFrame(()=>focusables()[0]?.focus());
+      }else if(lastFocused&&typeof lastFocused.focus==='function'){
+        const target=lastFocused;lastFocused=null;requestAnimationFrame(()=>target.focus());
+      }
+    }
+    overlay.addEventListener('keydown',event=>{
+      if(event.key==='Escape'){event.preventDefault();closeModal();return}
+      if(event.key!=='Tab')return;
+      const nodes=focusables();if(!nodes.length)return;
+      const first=nodes[0],last=nodes[nodes.length-1];
+      if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+    });
+    new MutationObserver(sync).observe(overlay,{attributes:true,attributeFilter:['class']});
+  })();
+</script>
+<style>
+  .profile-settings-v42,.profile-account-v42{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:14px;margin-top:12px}
+  .profile-settings-v42 h3,.profile-account-v42 h3{font:600 20px var(--display);margin:0 0 4px;color:var(--ink)}
+  .profile-settings-v42>p,.profile-account-v42>p{font-size:10px;line-height:1.45;color:var(--muted);margin:0 0 10px}
+  .profile-pref-v42{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+  .profile-pref-v42:first-of-type{border-top:0}
+  .profile-pref-v42 strong{display:block;font-size:11px;color:var(--ink)}
+  .profile-pref-v42 small{display:block;font-size:9px;color:var(--muted);margin-top:3px}
+  .profile-pref-v42 button,.profile-account-v42 button{border:1px solid #dce6da;background:var(--sage-light);color:var(--sage-dark);border-radius:10px;padding:8px 10px;font-size:10px;font-weight:800;white-space:nowrap}
+  .profile-account-v42{background:var(--sage-light)}
+  .profile-account-v42 p{color:var(--muted)}
+  .profile-account-actions-v42{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .profile-account-v42 button{background:var(--paper);color:var(--muted);border-color:var(--line);cursor:not-allowed}
+  body[data-theme="gece"]{--cream:#171d19;--paper:#242d27;--ink:#f5f1e9;--muted:#b4c0b6;--sage:#87a88c;--sage-dark:#c6dcc8;--sage-light:#304237;--clay:#d4947d;--line:#3a493f;--shadow:0 28px 80px rgba(0,0,0,.3);background:#101411}
+  body[data-theme="gece"] .app{border-color:var(--line)}
+  body[data-theme="gece"] .top,body[data-theme="gece"] .bottomnav{background:var(--paper);border-color:var(--line)}
+  body[data-theme="gece"] .choice,body[data-theme="gece"] .foodtile,body[data-theme="gece"] .day,body[data-theme="gece"] .day-menu,body[data-theme="gece"] .inventory-row,body[data-theme="gece"] .plan-preview,body[data-theme="gece"] .shopping-item{background:var(--paper);border-color:var(--line);color:var(--ink)}
+  body[data-theme="gece"] .info-card,body[data-theme="gece"] .fit-banner,body[data-theme="gece"] .smart-status{background:#2b372f;color:var(--ink);border-color:var(--line)}
+  body[data-theme="gece"] .info-card.terra{background:#49352e}
+  body[data-theme="gece"] .info-card p,body[data-theme="gece"] .smart-status p{color:var(--muted)}
+  body[data-theme="gece"] input,body[data-theme="gece"] select,body[data-theme="gece"] textarea{background:#1d261f;color:var(--ink);border-color:var(--line)}
+  body[data-theme="gece"] .profile-account-v42{background:#304237}
+  body[data-theme="gece"] .profile-account-v42 button{background:var(--paper)}
+  body[data-theme="gece"] .searchwrap,body[data-theme="gece"] .home-mode-option,body[data-theme="gece"] .dessert-visual{background:var(--paper);border-color:var(--line);color:var(--ink)}
+  body[data-theme="gece"] .searchwrap input{background:transparent;color:var(--ink)}
+  body[data-theme="gece"] .dessert{background:linear-gradient(135deg,#2d2925 0%,#382d29 100%);border-color:var(--line)}
+  body[data-theme="gece"] .dessert::after{background:#533a32}
+  body[data-theme="gece"] .dessert-badge{background:#49352e;color:#e7ad98}
+  body[data-theme="gece"] .home-mode-option small{color:var(--muted)}
+  body[data-theme="gece"] .home-mode-option.active small{color:#e9f1e9}
+  body[data-theme="gece"] .white-btn{background:var(--paper);border-color:var(--line);color:var(--sage-dark)}
+  body[data-theme="gece"] .modal,body[data-theme="gece"] .welcome-card{background:var(--paper);color:var(--ink);border-color:var(--line)}
+  body[data-theme="gece"] .modal p,body[data-theme="gece"] .welcome-card>p,body[data-theme="gece"] .helper{color:var(--muted)}
+  body[data-theme="gece"] .modal .close,body[data-theme="gece"] .welcome-close{background:var(--sage-light);color:var(--ink)}
+  body[data-theme="gece"] .preview-note{background:#2b372f;color:var(--sage-dark)}
+  body[data-theme="gece"] .inventory-box,body[data-theme="gece"] .day-menu.empty,body[data-theme="gece"] .calendar-tabs{background:#2b372f;color:var(--ink);border-color:var(--line)}
+  body[data-theme="gece"] .item-emoji{background:#354239}
+  body[data-theme="gece"] .day-menu-action,body[data-theme="gece"] .smart-facts span{background:#304237;color:var(--sage-dark);border-color:var(--line)}
+  body[data-theme="gece"] .calendar-tabs button.active,body[data-theme="gece"] .calendar-period button{background:var(--paper);color:var(--sage-dark);border-color:var(--line)}
+  body[data-theme="gece"] .plan-insight div{background:#2b372f;color:var(--ink)}
+  body[data-theme="gece"] .plan-insight div:last-child{background:#49352e}
+  body[data-theme="gece"] .menu-card,body[data-theme="gece"] .menu-part-option,body[data-theme="gece"] .serve-controls button,body[data-theme="gece"] .age,body[data-theme="gece"] .mode-card{background:var(--paper);border-color:var(--line);color:var(--ink)}
+  body[data-theme="gece"] .menu-card.optional,body[data-theme="gece"] .age.selected{background:#49352e;border-color:#68473b}
+  body[data-theme="gece"] .pantry-stat,body[data-theme="gece"] .pantry-action,body[data-theme="gece"] .inventory-box-compact,body[data-theme="gece"] .compact-badge,body[data-theme="gece"] .inventory-edit{background:var(--paper);border-color:var(--line);color:var(--ink)}
+  body[data-theme="gece"] .pantry-stat:first-child,body[data-theme="gece"] .pantry-empty{background:#2b372f;border-color:var(--line)}
+  body[data-theme="gece"] .pantry-stat span,body[data-theme="gece"] .inventory-box-compact p,body[data-theme="gece"] .pantry-empty p,body[data-theme="gece"] .pantry-skip{color:var(--muted)}
+  body[data-theme="gece"] .expiry-card{background:#382d29;border-color:#68473b}
+  body[data-theme="gece"] .expiry-card-badge{background:#49352e;color:#e7ad98}
+  body[data-theme="gece"] .inventory-edit-form input,body[data-theme="gece"] .inventory-edit-form select{background:#1d261f;color:var(--ink);border-color:var(--line)}
+  body[data-theme="gece"] .danger-btn{background:#49352e;border-color:#68473b;color:#e7ad98}
+  body[data-theme="gece"] .chip{background:#304237;border-color:var(--line);color:var(--sage-dark)}
+  body[data-theme="gece"] .plan-preview button{background:#304237;color:var(--sage-dark);border-color:var(--line)}
+  body[data-theme="gece"] .dessert-actions .fit{background:#304237;color:var(--sage-dark)}
+  body[data-theme="gece"] .home-mode-card{background:var(--paper);border-color:var(--line)}
+  body[data-theme="gece"] .home-mode-state{background:#304237;color:var(--sage-dark)}
+  body[data-theme="gece"] .recipe-filter{background:var(--paper);border-color:var(--line);color:var(--sage-dark)}
+  body[data-theme="gece"] .mode-change{background:#382d29;border-color:#68473b;color:#e7ad98}
+  body[data-theme="gece"] .fit-insight{background:#2b372f;color:var(--ink)}
+  body[data-theme="gece"] .fit-profile{background:var(--paper);border-color:var(--line)}
+  body[data-theme="gece"] .fit-profile-badge{background:#304237;color:var(--sage-dark)}
+  body[data-theme="gece"] .fit-goal{background:#1d261f;border-color:var(--line);color:var(--muted)}
+  body[data-theme="gece"] .fit-goal.active{background:#304237;border-color:var(--sage);color:var(--sage-dark)}
+  body[data-theme="gece"] .fit-health-card{background:#382d29;border-color:#68473b}
+  body[data-theme="gece"] .fit-health-status{background:#49352e;color:#e7ad98}
+  body[data-theme="gece"] .fit-health-data div{background:var(--paper);border-color:var(--line)}
+  body[data-theme="gece"] .fit-health-data span,body[data-theme="gece"] .fit-health-data strong{color:var(--muted)}
+  body[data-theme="gece"] .shopping-list-card{background:#2b372f;border-color:var(--line)}
+  body[data-theme="gece"] .shopping-list-count,body[data-theme="gece"] .shopping-list-actions button{background:var(--paper);border-color:var(--line);color:var(--sage-dark)}
+  body[data-theme="gece"] .shopping-item{background:var(--paper);border-color:var(--line)}
+  body[data-theme="gece"] .shopping-item .shopping-state{background:#49352e;color:#e7ad98}
+  body[data-theme="gece"] .shopping-list-note{color:var(--muted)}
+  body[data-theme="gece"] .tag{background:#304237;color:var(--sage-dark)}
+  body[data-theme="gece"] .tag.warning{background:#49352e;color:#e7ad98}
+  body[data-theme="gece"] .tag.out{background:#3d3030;color:#e0aaa0}
+</style>
+<script>
+(function(){
+  const themeKeyV42='sofraThemeV42',notifyKeyV42='sofraNotificationsV42';
+  function readV42(key,fallback){try{return localStorage.getItem(key)||fallback}catch(e){return fallback}}
+  function writeV42(key,value){try{localStorage.setItem(key,value)}catch(e){}}
+  function applyThemeV42(){const theme=readV42(themeKeyV42,'acik');document.body.dataset.theme=theme==='gece'?'gece':'acik';const label=document.getElementById('theme-label-v42');const button=document.getElementById('theme-toggle-v42');if(label)label.textContent=theme==='gece'?'Koyu görünüm açık':'Açık görünüm açık';if(button)button.textContent=theme==='gece'?'Açık moda geç':'Koyu moda geç'}
+  function syncNotifyV42(){const enabled=readV42(notifyKeyV42,'kapali')==='acik';const label=document.getElementById('notify-label-v42');const button=document.getElementById('notify-toggle-v42');if(label)label.textContent=enabled?'Hatırlatıcı tercihi açık':'Hatırlatıcı tercihi kapalı';if(button)button.textContent=enabled?'Kapat':'Aç'}
+  function confirmNotifyV42(){writeV42(notifyKeyV42,'acik');syncNotifyV42();closeModal();toast('Hatırlatıcı tercihi kaydedildi · sistem izni sonraki aşamada')}
+  function openNotifyExplainV42(){
+    if(readV42(notifyKeyV42,'kapali')==='acik'){writeV42(notifyKeyV42,'kapali');syncNotifyV42();toast('Hatırlatıcı tercihi kapatıldı');return}
+    document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">İSTEĞE BAĞLI TERCİH</span><h2>Hatırlatıcılar ne için?</h2><p>Planladığın sofrayı, yaklaşan ürünleri veya gün içindeki Fit hedefini hatırlatabiliriz. Hangi bildirimi almak istediğini daha sonra değiştirebilirsin.</p><div class="info-card" style="margin:13px 0 12px"><h3 style="font-size:18px">Kontrol sende.</h3><p>Bu prototipte telefonun sistem bildirim izni açılmaz; yalnızca tercihini cihazında kaydederiz. Gerçek izin, bildirim içeriği ve sessiz saatler mobil sürümde ayrıca sorulacak.</p></div><button class="cta wide" onclick="confirmNotifyV42()">Hatırlatıcıları aç →</button><button class="white-btn wide" style="margin-top:8px" onclick="closeModal()">Şimdilik vazgeç</button>';
+    document.getElementById('overlay').classList.add('open');
+  }
+  window.confirmNotifyV42=confirmNotifyV42;
+  function renderProfileV42(){
+    const profile=document.getElementById('profil');if(!profile||document.getElementById('profile-settings-v42'))return;
+    const firstInfo=profile.querySelector('.info-card');
+    const settings=document.createElement('section');settings.id='profile-settings-v42';settings.className='profile-settings-v42';settings.innerHTML='<span class="eyebrow" style="margin:0 0 5px;display:block">UYGULAMA</span><h3>Tercihler</h3><p>Görünüm ve hatırlatıcı seçimini bu cihazda saklarız.</p><div class="profile-pref-v42"><div><strong>Görünüm</strong><small id="theme-label-v42"></small></div><button id="theme-toggle-v42" type="button"></button></div><div class="profile-pref-v42"><div><strong>Hatırlatıcılar</strong><small id="notify-label-v42"></small></div><button id="notify-toggle-v42" type="button"></button></div>';
+    const account=document.createElement('section');account.className='profile-account-v42';account.innerHTML='<span class="eyebrow" style="margin:0 0 5px;display:block">HESAP</span><h3>İstersen hesabını bağla</h3><p>Giriş ve senkronizasyon altyapısı sonraki backend adımında açılacak. Şimdilik verilerin bu cihazda çalışır.</p><div class="profile-account-actions-v42"><button type="button" disabled>Google · yakında</button><button type="button" disabled>Apple · yakında</button></div>';
+    if(firstInfo)firstInfo.insertAdjacentElement('afterend',settings);else profile.prepend(settings);settings.insertAdjacentElement('afterend',account);
+    document.getElementById('theme-toggle-v42').onclick=function(){writeV42(themeKeyV42,readV42(themeKeyV42,'acik')==='gece'?'acik':'gece');applyThemeV42();toast('Görünüm tercihi kaydedildi')};
+    document.getElementById('notify-toggle-v42').onclick=openNotifyExplainV42;
+    applyThemeV42();syncNotifyV42();
+  }
+  const goV42=window.go;
+  window.go=function(screen){goV42(screen);if(screen==='profil')renderProfileV42()};
+  renderProfileV42();applyThemeV42();
+  window.sofraProfileV42={applyTheme:applyThemeV42,syncNotifications:syncNotifyV42};
+})();
+</script>
+<style>
+  .profile-data-v44{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:14px;margin-top:12px}
+  .profile-data-v44 h3{font:600 20px var(--display);margin:0 0 4px;color:var(--ink)}
+  .profile-data-v44 p{font-size:10px;line-height:1.45;color:var(--muted);margin:0 0 10px}
+  .profile-data-actions-v44{display:flex;gap:7px;flex-wrap:wrap}
+  .profile-data-actions-v44 button{border:1px solid var(--line);background:var(--sage-light);color:var(--sage-dark);border-radius:10px;padding:8px 10px;font-size:10px;font-weight:800}
+  .profile-data-actions-v44 button:last-child{background:var(--paper);color:var(--clay)}
+  body[data-theme="gece"] .profile-data-v44{background:var(--paper);border-color:var(--line)}
+</style>
+<script>
+(function(){
+  const keys=['sofraInventory','sofraMode','sofraFitProfileV39','sofraHealthDemoV39','sofraNotificationsV42','sofraThemeV42','sofraFeedbackV1','sofraPlanViewV37','sofraShoppingV40','sofraShoppingV41'];
+  function read(){const data={};keys.forEach(key=>{try{const value=localStorage.getItem(key);if(value!==null){try{data[key]=JSON.parse(value)}catch(e){data[key]=value}}}catch(e){}});return data}
+  function exportData(){const payload={schemaVersion:1,exportedAt:new Date().toISOString(),data:read()};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='sofra-verilerim.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Veri dosyan hazır');}
+  function openReset(){document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Cihazındaki veriler</span><h2>Demo verilerini temizle?</h2><p>Yalnızca Sofra’nın bu cihazda tuttuğu dolap, Fit, tema, hatırlatıcı ve plan tercihleri silinir. Başka uygulamalara ait veriler etkilenmez.</p><button class="cta wide" style="background:var(--clay)" onclick="resetSofraDataV44()">Evet, Sofra verilerini temizle</button><button class="white-btn wide" style="margin-top:8px" onclick="closeModal()">Vazgeç</button>';document.getElementById('overlay').classList.add('open')}
+  window.resetSofraDataV44=function(){keys.forEach(key=>{try{localStorage.removeItem(key)}catch(e){}});closeModal();toast('Sofra verileri temizlendi');setTimeout(()=>location.reload(),80)};
+  function render(){const profile=document.getElementById('profil');if(!profile||profile.querySelector('.profile-data-v44'))return;const account=profile.querySelector('.profile-account-v42');if(!account)return;const card=document.createElement('section');card.className='profile-data-v44';card.innerHTML='<span class="eyebrow" style="margin:0 0 5px;display:block">VERİLERİN</span><h3>Kontrol sende.</h3><p>Bu prototipte verilerin cihazında tutulur. İstediğinde dışa aktarabilir veya yalnızca Sofra verilerini temizleyebilirsin.</p><div class="profile-data-actions-v44"><button type="button" id="profile-export-v44">Verileri dışa aktar</button><button type="button" id="profile-reset-v44">Sofra verilerini temizle</button></div>';account.insertAdjacentElement('afterend',card);document.getElementById('profile-export-v44')?.addEventListener('click',exportData);document.getElementById('profile-reset-v44')?.addEventListener('click',openReset)}
+  const previousGo=window.go;window.go=function(screen){previousGo(screen);if(screen==='profil')render()};render();
+  const observer=new MutationObserver(()=>render());observer.observe(document.getElementById('profil')||document.body,{childList:true,subtree:true});
+})();
+</script>
+<style>
+  .market-demo-intro{font-size:11px;line-height:1.5;color:var(--muted);margin:8px 0 13px}
+  .market-demo-card{border:1px solid var(--line);border-radius:13px;padding:11px;margin:8px 0;background:var(--paper)}
+  .market-demo-card.best{border-color:var(--clay);box-shadow:0 0 0 2px #d48c7520}
+  .market-demo-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .market-demo-top strong{font-size:13px;color:var(--ink)}
+  .market-demo-badge{font-size:8px;color:#9a624c;background:#fff0e9;border-radius:999px;padding:5px 7px;font-weight:800}
+  .market-demo-total{font:600 20px var(--display);color:var(--ink);margin-top:7px}
+  .market-demo-meta{font-size:9px;color:var(--muted);line-height:1.5;margin-top:3px}
+  .market-demo-note{font-size:9px;color:#9a624c;margin-top:7px}
+  .market-demo-diff{font-size:9px;color:#8b6a5a;margin-top:7px;font-weight:700}
+  .market-demo-foot{font-size:9px;line-height:1.45;color:var(--muted);margin:13px 0 0}
+  .market-confirm-list{display:grid;gap:6px;margin:11px 0 13px}.market-confirm-list div{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--sage-light);font-size:10px;color:var(--ink)}.market-confirm-note{font-size:9px;line-height:1.45;color:var(--muted);margin:0 0 11px}
+</style>
+<script>
+(function(){
+  const marketsV43=[
+    {name:'CarrefourSA',total:'360,90 TL',totalValue:360.9,eta:'Yarın teslim',fee:'29,90 TL teslimat',minimum:'Minimum sepet yok',best:true,comparable:true},
+    {name:'Getir',total:'372,00 TL',totalValue:372,eta:'25 dk',fee:'Teslimat dahil',minimum:'350 TL minimum sepet',comparable:true},
+    {name:'Migros',total:'377,90 TL',totalValue:377.9,eta:'35 dk',fee:'29,90 TL teslimat',minimum:'400 TL minimum sepet',note:'Minimum sepet tamamlanmalı',comparable:false}
+  ];
+  function marketMarkupV43(){const best=marketsV43.find(m=>m.best);return marketsV43.map(m=>{const diff=best&&m.comparable&&!m.best?Number((m.totalValue-best.totalValue).toFixed(2)):null;const diffLabel=diff==null?'':`<div class="market-demo-diff">En uygun toplama göre ${diff.toLocaleString('tr-TR',{minimumFractionDigits:2})} TL daha pahalı</div>`;return `<article class="market-demo-card ${m.best?'best':''}"><div class="market-demo-top"><strong>${m.name}</strong>${m.best?'<span class="market-demo-badge">En uygun toplam</span>':''}</div><div class="market-demo-total">${m.total}</div><div class="market-demo-meta">${m.eta} · ${m.fee}<br>${m.minimum}</div>${diffLabel}${m.note?`<div class="market-demo-note">${m.note}</div>`:''}</article>`}).join('')}
+  window.openMarketConfirmV43=function(){
+    const names=[...document.querySelectorAll('#shopping-list-v40 .shopping-item strong')].map(item=>item.textContent.trim());
+    const list=names.length?names.map(name=>`<div><span>${escapeHtml(name)}</span><span>Kontrol edildi</span></div>`).join(''):'<div><span>Liste öğesi yok</span><span>Genel öneriler</span></div>';
+    document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">MARKET ÖNCESİ</span><h2>Listeyi kontrol ettin mi?</h2><p class="market-confirm-note">Market seçeneklerini göstermeden önce hangi ürünlerin alınacağını birlikte doğrulayalım. Bu adım canlı markete gönderim yapmaz.</p><div class="market-confirm-list">'+list+'</div><button class="cta wide" onclick="showMarketDemoV43(true)">Listeyi onayla ve marketleri gör →</button><button class="white-btn wide" style="margin-top:8px" onclick="closeModal()">Şimdilik vazgeç</button>';
+    document.getElementById('overlay').classList.add('open');
+  };
+  window.showMarketDemoV43=function(userConfirmed=false){
+    if(!userConfirmed)return window.openMarketConfirmV43();
+    document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">ÖRNEK KARŞILAŞTIRMA</span><h2>Market seçenekleri</h2><p class="market-demo-intro">Bu ekran canlı market bağlantısı değildir. Fiyatlar, teslimat ve sepet koşullarının birlikte değerlendirilmesi için örnek veridir.</p>'+marketMarkupV43()+'<p class="market-demo-foot">Sağlık, kilo veya Sofra Fit verisi marketlere aktarılmaz. Gerçek yönlendirme, listeyi onayladığın ve market bağlantısı kurulduğu zaman ayrıca izin isteyecek.</p><button class="white-btn wide" style="margin-top:12px" onclick="closeModal()">Şimdilik kapat</button>';
+    document.getElementById('overlay').classList.add('open');
+  };
+  function addMarketButtonV43(){
+    const card=document.getElementById('shopping-list-v40');const actions=card?.querySelector('.shopping-list-actions');if(!actions||document.getElementById('market-demo-button-v43'))return;
+    const button=document.createElement('button');button.id='market-demo-button-v43';button.type='button';button.textContent='Listeyi kontrol et';button.onclick=window.openMarketConfirmV43;actions.appendChild(button);
+  }
+  const goV43=window.go;
+  window.go=function(screen){goV43(screen);if(screen==='planim')addMarketButtonV43()};
+  addMarketButtonV43();
+})();
+</script>
+<style>
+  .smart-feedback{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;color:var(--muted);font-size:9px;line-height:1.2}
+  .smart-feedback span{margin-right:2px}
+  .smart-feedback button{border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--sage-dark);padding:5px 7px;font-size:9px;font-weight:800;white-space:nowrap}
+  .smart-feedback button:hover{border-color:var(--clay)}
+  body[data-theme="gece"] .smart-feedback button{background:var(--paper);color:var(--sage-dark);border-color:var(--line)}
+</style>
+<script>
+(function(){
+  const host=document.querySelector('#home .smart-status');if(!host)return;
+  const markup='<div class="smart-feedback" role="group" aria-label="Öneri geri bildirimi"><span>Bu öneri işine yarar mı?</span><button type="button" data-recommendation-feedback="helpful">İşe yaradı</button><button type="button" data-recommendation-feedback="not_helpful">Başka fikir</button></div>';
+  host.querySelectorAll('.inventory-state-copy').forEach(copy=>{if(!copy.querySelector('.smart-feedback'))copy.insertAdjacentHTML('beforeend',markup)});
+  function read(){try{const value=JSON.parse(localStorage.getItem('sofraFeedbackV1')||'[]');return Array.isArray(value)?value:[]}catch(e){return[]}}
+  function record(value){
+    const recommendation=window.sofraEngineV38?.top?.();
+    const event={event:'recommendation_feedback',recipeId:recommendation?.title||'unknown',value,mode:localStorage.getItem('sofraMode')||'sofra',source:'home_smart_card',createdAt:new Date().toISOString()};
+    try{const all=read();all.push(event);localStorage.setItem('sofraFeedbackV1',JSON.stringify(all.slice(-50)))}catch(e){}
+    window.sofraEngineV38?.syncHome?.();
+    toast(value==='helpful'?'Öneriyi not aldım.':'Başka fikirleri öne çıkaracağım.');
+  }
+  host.addEventListener('click',event=>{const button=event.target.closest('[data-recommendation-feedback]');if(button)record(button.dataset.recommendationFeedback)});
+  window.sofraFeedbackV44={read,record};
+})();
+</script>
+<style>
+  .inventory-expiry-help-v44{font-size:9px;color:var(--muted);line-height:1.35;margin-top:-3px}
+  .inventory-expiry-v44{display:block!important;color:var(--clay)!important;font-size:9px!important;margin-top:3px!important;font-weight:700!important}
+</style>
+<script>
+(function(){
+  function daysUntilV44(value){
+    if(!value)return null;
+    const date=new Date(value+'T00:00:00');if(Number.isNaN(date.getTime()))return null;
+    const today=new Date();today.setHours(0,0,0,0);return Math.round((date-today)/86400000);
+  }
+  function expiryLabelV44(days){return days<0?'Tarihi geçti':days===0?'Bugün':days===1?'1 gün kaldı':`${days} gün kaldı`}
+  function renderExpiryCardV44(){
+    const screen=document.getElementById('dolabim');if(!screen)return;
+    screen.querySelectorAll('.expiry-card').forEach(card=>card.remove());
+    const candidates=(typeof inventory!=='undefined'?inventory:[]).map((item,index)=>({item,index,days:daysUntilV44(item[4])})).filter(entry=>entry.days!==null&&entry.item[3]!=='yok').sort((a,b)=>a.days-b.days);
+    const list=screen.querySelector('#inventory-list');if(!list||!candidates.length)return;
+    const entry=candidates[0];const card=document.createElement('div');card.className='expiry-card';
+    card.innerHTML=`<div class="expiry-card-top"><span class="expiry-card-kicker">Tarihi yaklaşan ürün</span><span class="expiry-card-badge">${expiryLabelV44(entry.days)}</span></div><strong>${escapeHtml(entry.item[1])} önce kullanalım.</strong><p>İsrafı azaltmak için bu ürünü önceleyen tarifleri öne çıkarıyorum.</p><button type="button" data-expiry-action="show-recipes">Tarifleri göster ↗</button>`;
+    card.querySelector('[data-expiry-action]')?.addEventListener('click',()=>{go('tarifler');toast(`${entry.item[1]} ürününü önceleyen tarifler açıldı`)});
+    list.insertAdjacentElement('afterend',card);
+  }
+  function decorateExpiryRowsV44(){
+    document.querySelectorAll('#inventory-list .inventory-row').forEach((row,index)=>{
+      const item=inventory[index];const text=row.querySelector('.item-text');if(!text||!item?.[4]||text.querySelector('.inventory-expiry-v44'))return;
+      const days=daysUntilV44(item[4]);const line=document.createElement('small');line.className='inventory-expiry-v44';line.textContent=`SKT: ${item[4]} · ${expiryLabelV44(days)}`;text.appendChild(line);
+    });
+  }
+  window.openInventoryItemV36=function(index){
+    const item=inventory[index];if(!item)return;
+    document.getElementById('modal').innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Dolap kaydı</span><h2>${escapeHtml(item[1])}</h2><p>Bu ürünün miktarını veya durumunu istediğin zaman güncelleyebilirsin.</p><div class="inventory-edit-form"><label for="inventory-qty-v36">Miktar / not</label><input id="inventory-qty-v36" value="${escapeHtml(item[2])}" aria-label="Miktar / not"><label for="inventory-state-v36">Durum</label><select id="inventory-state-v36" aria-label="Durum"><option value="var" ${item[3]==='var'?'selected':''}>Var</option><option value="az" ${item[3]==='az'?'selected':''}>Azaldı</option><option value="yok" ${item[3]==='yok'?'selected':''}>Bitti</option></select><label for="inventory-expiry-v44">Son kullanma tarihi <span style="font-weight:500;color:var(--muted)">(isteğe bağlı)</span></label><input id="inventory-expiry-v44" type="date" value="${escapeHtml(item[4]||'')}" aria-label="Son kullanma tarihi (isteğe bağlı)"><small class="inventory-expiry-help-v44">Tarih girmezsen ürün normal dolap kaydı olarak kalır.</small></div><div class="inventory-modal-actions"><button class="danger-btn" type="button" onclick="removeInventoryItemV36(${index})">Sil</button><button class="cta" style="margin:0;flex:1" type="button" onclick="saveInventoryItemV36(${index})">Kaydet</button></div>`;
+    document.getElementById('overlay').classList.add('open');
+  };
+  window.saveInventoryItemV36=function(index){
+    const item=inventory[index];if(!item)return;
+    const qty=document.getElementById('inventory-qty-v36')?.value.trim();const status=document.getElementById('inventory-state-v36')?.value||'var';const expiry=document.getElementById('inventory-expiry-v44')?.value||'';
+    if(!qty){toast('Miktar veya kısa bir not yazabilirsin.');return}
+    item[2]=qty;item[3]=status;item[4]=expiry;persistInventory();closeModal();go('dolabim');toast(item[1]+' güncellendi');
+  };
+  const oldRenderV44=window.renderInventory;
+  if(oldRenderV44)window.renderInventory=function(){oldRenderV44();decorateExpiryRowsV44();renderExpiryCardV44()};
+  const oldGoV44=window.go;
+  window.go=function(screen){oldGoV44(screen);if(screen==='dolabim'){decorateExpiryRowsV44();renderExpiryCardV44()}};
+  if(typeof renderInventory==='function')renderInventory();
+})();
+</script>
+<style>
+  .note-parse-v44{display:grid;gap:6px;margin-top:12px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--sage-light);color:var(--ink);font-size:10px;line-height:1.4}
+  .note-parse-row-v44{display:flex;align-items:center;justify-content:space-between;gap:8px}.note-parse-row-v44 strong{font-size:11px}.note-parse-row-v44 span{color:var(--muted);font-size:9px}
+  body[data-theme="gece"] .note-parse-v44{background:#304237}
+</style>
+<script>
+(function(){
+  const termsV44=['yumurta','patates','peynir','süt','domates','soğan','yoğurt','elma','marul','pirinç','makarna','biber','salça','tavuk','mantar','roka'];
+  const statusLabelV44={var:'Var',az:'Azaldı',yok:'Bitti'};
+  function normalizeV44(value){return String(value||'').toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/İ/g,'i').trim()}
+  function parseNoteV44(value){
+    const chunks=String(value||'').replace(/[;]/g,',').split(/,|\s+ve\s+/i).map(chunk=>chunk.trim()).filter(Boolean);const found=[];
+    chunks.forEach(chunk=>{
+      const normalized=normalizeV44(chunk);const term=termsV44.find(candidate=>normalized.includes(normalizeV44(candidate)));if(!term)return;
+      const measured=chunk.match(/\b\d+(?:[,.]\d+)?\s*(?:kg|kilo|gram|g|adet|litre|l|paket|kutu|demet)\b/i)?.[0];const number=chunk.match(/\b\d+(?:[,.]\d+)?\b/)?.[0];const quantity=measured||(number?`${number} ${term}`:'Miktarı ayrıca doğrula');
+      const status=/(bitti|tükendi|yok)\b/i.test(chunk)?'yok':/(azaldı|azald|az)\b/i.test(chunk)?'az':'var';
+      const key=normalizeV44(term);const existing=found.find(item=>item.key===key);if(existing){existing.qty=quantity;existing.status=status}else found.push({key,name:term,emoji:ingredientEmoji(term),qty:quantity,status});
+    });
+    return found;
+  }
+  function previewNoteV44(){
+    const input=document.getElementById('notetext');const value=input?.value.trim();if(!value)return toast('Önce bir not yaz veya söyle.');
+    const parsed=parseNoteV44(value);window.pendingParsedNoteV44={value,items:parsed};const target=document.getElementById('parsed');if(!target)return;
+    if(parsed.length){target.innerHTML='<div class="note-parse-v44"><strong>Kontrol etmeden kaydetme</strong>'+parsed.map(item=>`<div class="note-parse-row-v44"><strong>${item.emoji} ${escapeHtml(item.name)}</strong><span>${escapeHtml(item.qty)} · ${statusLabelV44[item.status]}</span></div>`).join('')+'</div><button class="cta wide" onclick="saveNote()">✓ Bu ürünleri ekle</button>'}
+    else target.innerHTML='<div class="preview-note">Bu cümlede tanınan bir ürün bulamadım. Notu aynen saklayabilir veya ürün adını daha açık yazabilirsin.</div><button class="cta wide" onclick="saveNote()">✓ Notu ekle</button>';
+  }
+  function saveNoteV44(){
+    const pending=window.pendingParsedNoteV44;const value=document.getElementById('notetext')?.value.trim();if(!value)return;
+    if(pending?.items?.length){pending.items.slice().reverse().forEach(parsed=>{const existing=inventory.find(item=>normalizeV44(item[1])===parsed.key);if(existing){existing[0]=parsed.emoji;existing[2]=parsed.qty;existing[3]=parsed.status}else inventory.unshift([parsed.emoji,parsed.name,parsed.qty,parsed.status])});persistInventory();window.pendingParsedNoteV44=null;closeModal();go('dolabim');toast(`${pending.items.length} ürün dolabına eklendi`);return}
+    inventory.unshift(['📝','Dolap notu',value,'var']);persistInventory();window.pendingParsedNoteV44=null;closeModal();go('dolabim');toast('Notun örnek dolaba eklendi');
+  }
+  const oldShowNoteV44=window.showNote;
+  window.showNote=function(){oldShowNoteV44();const helper=document.querySelector('#overlay .helper');if(helper)helper.textContent='Temel ürün, miktar ve durum eşleşmesini dener; belirsiz alanları kaydetmeden önce kontrol edersin. Gerçek AI çözümlemesi backend aşamasında bağlanacak.'};
+  window.previewNote=previewNoteV44;window.saveNote=saveNoteV44;window.sofraNoteParserV44={parse:parseNoteV44};
+})();
+</script>
+<script>
+(function(){
+  function modeV45(){try{return localStorage.getItem('sofraMode')==='fit'?'fit':'sofra'}catch(e){return 'sofra'}}
+  function syncPlanInsightV45(){const detail=document.querySelector('#planim .plan-insight>div:nth-child(2)');if(!detail)return;const fit=modeV45()==='fit';const kcal=document.querySelector('#fit .fit-insight strong')?.textContent.trim()||'1.820 kcal';detail.innerHTML=fit?`<span>Sofra Fit özeti</span><strong>${escapeHtml(kcal)} ort.</strong>`:'<span>Alışveriş listesi</span><strong>8 eksik ürün</strong>';detail.classList.toggle('fit-plan-insight-v45',fit)}
+  const oldGoV45=window.go;window.go=function(screen){oldGoV45(screen);syncPlanInsightV45()};syncPlanInsightV45();window.syncPlanInsightV45=syncPlanInsightV45;
+})();
+</script>
+<style>
+.child-entry-v45{display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;border:1px solid #eadfd7;border-radius:13px;background:#fff8f3;color:#62483e;padding:10px 11px;margin:12px 0 0;text-align:left}.child-entry-v45>span{font-size:18px}.child-entry-v45 strong{display:block;font-size:10px}.child-entry-v45 small{display:block;color:#987b70;font-size:8px;margin-top:2px}.child-entry-v45 b{margin-left:auto;color:#a36f5d;font-size:10px}.child-recipes-v45{border:1px solid #eadfd7;border-radius:16px;background:#fff8f3;padding:11px;margin:0 0 14px}.child-recipes-v45 h2{font:600 18px var(--display);margin:0 0 5px}.child-recipes-v45 button{display:flex;align-items:center;gap:8px;width:100%;border:0;border-top:1px solid #f0dfd6;background:transparent;padding:8px 0;text-align:left;color:var(--ink)}.child-recipes-v45 button>span{font-size:20px}.child-recipes-v45 button strong{display:block;font-size:10px}.child-recipes-v45 button small{display:block;color:#987b70;font-size:8px;margin-top:2px}.child-recipes-v45 button b{margin-left:auto;color:#a36f5d;font-size:10px}
+</style>
+<script>
+(function(){
+  const home=document.getElementById('home');const menu=home?.querySelector('.dessert');if(home&&menu&&!home.querySelector('.child-entry-v45'))menu.insertAdjacentHTML('afterend','<button class="child-entry-v45" type="button" onclick="go(\'aile\')"><span>🧡</span><div><strong>Çocuğum için</strong><small>Yaşa uygun, besleyici tarifleri ve hazırlama notları.</small></div><b>→</b></button>');
+  const screen=document.getElementById('aile');if(!screen||screen.querySelector('.child-recipes-v45'))return;
+  const eyebrow=screen.querySelector('.screen-head .eyebrow');const title=screen.querySelector('.screen-head h1');const lead=screen.querySelector('.screen-head p');if(eyebrow)eyebrow.textContent='ÇOCUĞUM İÇİN';if(title)title.innerHTML='Besleyici<br><span style="color:#cc917a">fikirler</span>';if(lead)lead.textContent='Yaş dönemine uygun, pratik ve besleyici tarifleri birlikte keşfet.';
+  const first=screen.querySelector('.info-card.terra');if(first){const h=first.querySelector('h3');const p=first.querySelector('p');if(h)h.textContent='Hangi yaş dönemi? 🧡';if(p)p.textContent='Tarifleri yaşa göre sadeleştirir, porsiyon ve dikkat edilmesi gereken malzemeleri ayrıca gösterir.';first.insertAdjacentHTML('afterend','<section class="child-recipes-v45"><h2>Bugünün fikirleri</h2><button type="button" onclick="toast(\'Sebzeli yoğurt kasesi önizlemesi\')"><span>🥣</span><div><strong>Sebzeli yoğurt kasesi</strong><small>Yumuşak kıvam · pratik · besleyici</small></div><b>→</b></button><button type="button" onclick="toast(\'Mercimekli mini köfte önizlemesi\')"><span>🥕</span><div><strong>Mercimekli mini köfte</strong><small>Demir ve lif odaklı · fırında</small></div><b>→</b></button><button type="button" onclick="toast(\'Meyveli yulaf kasesi önizlemesi\')"><span>🍎</span><div><strong>Meyveli yulaf kasesi</strong><small>Şekersiz seçenek · kahvaltı</small></div><b>→</b></button></section>')}
+  const second=screen.querySelectorAll('.info-card')[1];if(second){const h=second.querySelector('h3');const p=second.querySelector('p');if(h)h.textContent='Güvenli hazırlama notları';if(p)p.textContent='Bu alan tıbbi öneri vermez; alerjen, kıvam, porsiyon ve hazırlama notlarını açıkça gösterir. Şüpheli durumda çocuk doktoruna danışılır.'}
+})();
+</script>
+<style>
+  .photo-choice-v46,.photo-feature-v46,.photo-child-v46,.photo-dessert-v46{background-size:cover!important;background-position:center!important;color:transparent!important;font-size:0!important;overflow:hidden}
+  .choice .photo-choice-v46{width:42px;height:42px;border-radius:50%;margin-bottom:7px;box-shadow:inset 0 0 0 1px #ffffff80}
+  .feature .photo-feature-v46{width:32px;height:32px;border-radius:10px;margin-bottom:7px}
+  .child-entry-v45>.photo-child-v46{flex:none;width:34px;height:34px;border-radius:10px}
+  .child-recipes-v45 button>.photo-child-v46{flex:none;width:34px;height:34px;border-radius:10px}
+  .dessert-visual.photo-dessert-v46{width:43px;height:43px;border-radius:50%;background-color:#fff!important}
+</style>
+<script>
+(function(){
+  const base='https://images.unsplash.com/';
+  const setPhoto=(node,id,cls,size)=>{if(!node||!id)return;node.classList.add(cls);node.style.backgroundImage=`url("${base}${id}?auto=format&fit=crop&w=${size}&q=82")`};
+  const categories=['photo-1547592180-85f173990554','photo-1512621776951-a57141f2eefd','photo-1473093295043-cdd812d0e601','photo-1488477181946-6428a0291777'];
+  document.querySelectorAll('#home .choice .choice-icon').forEach((node,index)=>setPhoto(node,categories[index],'photo-choice-v46',120));
+  const featurePhotos=['photo-1547592180-85f173990554','photo-1488477181946-6428a0291777'];
+  document.querySelectorAll('#home .feature .icon').forEach((node,index)=>setPhoto(node,featurePhotos[index],'photo-feature-v46',100));
+  const childPhotos=['photo-1547592180-85f173990554','photo-1529042410759-befb1204b468','photo-1512621776951-a57141f2eefd'];
+  document.querySelectorAll('.child-entry-v45>span,.child-recipes-v45 button>span').forEach((node,index)=>setPhoto(node,childPhotos[index%childPhotos.length],'photo-child-v46',120));
+  const dessert=document.querySelector('#home .dessert-visual');if(dessert)setPhoto(dessert,'photo-1488477181946-6428a0291777','photo-dessert-v46',120);
+})();
+</script>
++<style>
+  .safety-card-v46{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:14px;margin-top:12px}
+  .safety-card-v46 h3{font:600 20px var(--display);margin:0 0 4px;color:var(--ink)}
+  .safety-card-v46 p{font-size:10px;line-height:1.45;color:var(--muted);margin:0 0 10px}
+  .safety-card-head-v46{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .safety-badge-v46{flex:none;border-radius:999px;padding:6px 8px;background:var(--sage-light);color:var(--sage-dark);font-size:8px;font-weight:800}
+  .safety-card-v46 button{border:1px solid var(--line);background:var(--sage-light);color:var(--sage-dark);border-radius:10px;padding:8px 10px;font-size:10px;font-weight:800}
+  .safety-modal-v46{display:grid;gap:8px;margin:12px 0}
+  .safety-option-v46{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:11px;background:var(--paper);padding:9px 10px;color:var(--ink);font-size:10px}
+  .safety-option-v46 input{accent-color:var(--sage);width:16px;height:16px}
+  .safety-option-v46 small{display:block;color:var(--muted);font-size:8px;margin-top:2px}
+  .safety-warning-v46{border:1px solid #ecd6c9;border-radius:12px;background:#fff4ed;color:#8d604f;padding:10px;font-size:9px;line-height:1.45}
+  body[data-theme="gece"] .safety-warning-v46{background:#49352e;border-color:#68473b;color:#e7ad98}
+</style>
+<script>
+(function(){
+  const KEY='sofraSafetyProfileV46';
+  const options=[
+    ['milk','Süt ürünleri','süt · yoğurt · peynir'],
+    ['egg','Yumurta','yumurta ve yumurta içerenler'],
+    ['peanut','Yer fıstığı','yer fıstığı ve ezmesi'],
+    ['nuts','Kuruyemiş','badem · ceviz · fındık · kaju'],
+    ['fish','Balık','somon · ton balığı ve diğer balıklar'],
+    ['shellfish','Kabuklu deniz ürünleri','karides · midye · kalamar'],
+    ['soy','Soya','soya sosu · tofu ve soya içerenler'],
+    ['gluten','Gluten / çölyak','buğday · arpa · çavdar; çapraz bulaş ayrıca kontrol edilir']
+  ];
+  function read(){try{const raw=JSON.parse(localStorage.getItem(KEY)||'{}');return {selected:Array.isArray(raw.selected)?raw.selected:[]}}catch(e){return {selected:[]}}}
+  function labels(selected){return options.filter(item=>selected.includes(item[0])).map(item=>item[1])}
+  function summary(selected){const names=labels(selected);return names.length?names.slice(0,2).join(' · ')+(names.length>2?' +'+(names.length-2):''):'Henüz ayarlanmadı'}
+  function open(){
+    const selected=read().selected;
+    document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">GIDA GÜVENLİĞİ</span><h2>Alerji ve beslenme tercihleri</h2><p>Seçtiğin kısıtları tarif önerilerinde ve malzeme kontrolünde dikkate alacağız.</p><div class="safety-modal-v46">'+options.map(item=>'<label class="safety-option-v46"><input type="checkbox" value="'+item[0]+'" '+(selected.includes(item[0])?'checked':'')+'><span><strong>'+item[1]+'</strong><small>'+item[2]+'</small></span></label>').join('')+'</div><div class="safety-warning-v46"><strong>Önemli:</strong> Bu özellik tıbbi onay vermez. Özellikle çölyak ve ciddi alerjilerde ambalaj etiketini, “eser miktarda” bilgisini ve mutfaktaki çapraz bulaş riskini ayrıca kontrol et.</div><button class="cta wide" type="button" onclick="saveSafetyProfileV46()">Tercihleri kaydet →</button><button class="white-btn wide" style="margin-top:8px" onclick="closeModal()">Şimdilik vazgeç</button>';
+    document.getElementById('overlay').classList.add('open');
+  }
+  window.openSafetyProfileV46=open;
+  window.saveSafetyProfileV46=function(){
+    const selected=[...document.querySelectorAll('.safety-modal-v46 input:checked')].map(input=>input.value);
+    try{localStorage.setItem(KEY,JSON.stringify({schemaVersion:1,selected,updatedAt:new Date().toISOString()}))}catch(e){}
+    closeModal();render();toast(selected.length?'Gıda güvenliği tercihlerin kaydedildi':'Gıda güvenliği filtresi kapatıldı');
+  };
+  function render(){
+    const profile=document.getElementById('profil');if(!profile)return;
+    let card=profile.querySelector('.safety-card-v46');
+    if(!card){
+      const account=profile.querySelector('.profile-account-v42')||profile.querySelector('.profile-data-v44');
+      if(!account)return;
+      card=document.createElement('section');card.className='safety-card-v46';card.innerHTML='<div class="safety-card-head-v46"><div><span class="eyebrow" style="margin:0 0 5px;display:block">GIDA GÜVENLİĞİ</span><h3>Alerji ve beslenme</h3></div><span class="safety-badge-v46"></span></div><p>Alerji veya çölyak gibi kısıtları tarif önerilerinden önce belirt.</p><button type="button" onclick="openSafetyProfileV46()">Ayarla →</button>';
+      account.insertAdjacentElement('beforebegin',card);
+    }
+    const badge=card.querySelector('.safety-badge-v46');if(badge)badge.textContent=summary(read().selected);
+  }
+  const oldGo=window.go;
+  window.go=function(screen){oldGo(screen);if(screen==='profil')render()};
+  render();
+  window.sofraSafetyV46={read,options,summary};
+})();
+</script>
+</body>
+</html>
+

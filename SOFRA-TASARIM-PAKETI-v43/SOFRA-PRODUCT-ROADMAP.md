@@ -405,6 +405,7 @@ v38 öneri motoru kontrolü:
 - Dolabımdan filtresinde puanlanmış tarif sırası: geçti
 - Sofra Fit modunda dengeli tarif puanının artması: geçti
 - Dolap boş olsa da genel öneri üretebilme kuralı: motor kodunda mevcut; boş-dolap UI akışı sonraki QA turunda genişletilecek
+- Boş dolap QA senaryosu: `sofra-motoru-reference-v2.html?demo=empty` mevcut cihaz dolabını değiştirmeden genel öneri, boş Dolabım görünümü ve Tarifler geçişini test ediyor.
 - İsteğe bağlı son kullanma tarihi alanı: ürün düzenleme modalında ürün bazlı olarak eklendi; tarih girilmezse ürün normal stok kaydı olarak kalır
 - Mobil yatay taşma: v37 temel mobil görünümünde geçti; v38 yalnızca davranış katmanı ekledi
 - Tarayıcı console error/warning: bulunmadı

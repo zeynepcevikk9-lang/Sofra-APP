@@ -48,6 +48,8 @@ Not: Tek dosyalık HTML önizlemesi internetsiz açılabilsin diye motorun taray
 
 Yeni kullanıcı açılışı dolap boş olacak şekilde başlar; yalnızca tasarımda örnek ürünleri görmek için `sofra-motoru-home-v43.html?demo=1` kullanılabilir.
 
+Boş dolap akışını mevcut cihaz verisine dokunmadan test etmek için referans ekranını `sofra-motoru-reference-v2.html?demo=empty` ile açabilirsin; bu senaryoda genel tarif önerisi, boş Dolabım mesajı ve Tarifler geçişi doğrulanır.
+
 Bu dosya şu an gerçek backend’e bağlı değildir. LocalStorage ile örnek kullanıcı tercihlerini ve dolap verisini cihaz üzerinde saklar.
 
 ## Ana akışlar

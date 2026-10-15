@@ -29,6 +29,15 @@ try {
   assert.equal(result.body.live_permission, false);
   assert.equal(result.body.permission_plan.permission_api, 'UNUserNotificationCenter');
 
+  result = await request('/v1/recipes?mode=fit&query=patl%C4%B1can&max_minutes=45');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.items[0].id, 'recipe_eggplant_olive_oil');
+  assert.equal(result.body.items[0].fit_verification, 'unverified');
+  assert.equal(result.body.items[0].nutrition, null);
+  result = await request('/v1/recipes?mode=tatli&query=patl%C4%B1can');
+  assert.equal(result.response.status, 200);
+  assert.deepEqual(result.body.items, [], 'Tatlı filtresi sebze tarifini döndürmemeli');
+
   result = await request('/v1/billing/status');
   assert.equal(result.response.status, 200);
   assert.equal(result.body.current_plan, 'free');

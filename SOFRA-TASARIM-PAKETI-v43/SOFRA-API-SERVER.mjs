@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { catalog, recommend } from './SOFRA-ALGORITHM-V1.mjs';
+import { catalog, normalize as normalizeRecipeText, recommend } from './SOFRA-ALGORITHM-V1.mjs';
 import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { parsePantryNote } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
@@ -89,6 +89,46 @@ function buildPantryPatch(input) {
 }
 
 function recipeById(id) { return catalog.find((recipe) => recipe.id === id); }
+
+function serializeRecipe(recipe) {
+  const nutrition = recipeNutrition(recipe);
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    minutes: recipe.mins,
+    emoji: recipe.emoji,
+    ingredients: recipe.ingredients,
+    tags: recipe.tags,
+    fit: recipe.fit,
+    fit_goals: recipe.fitGoals || [],
+    fit_verification: nutrition.fit_verification,
+    nutrition: nutrition.nutrition,
+    safety: {
+      allergens: recipe.safety?.allergens || [],
+      verified: recipe.safety?.verified === true,
+      cross_contamination: recipe.safety?.crossContamination || 'unknown',
+    },
+  };
+}
+
+function recipeCatalogResponse(searchParams) {
+  const mode = searchParams.get('mode') || 'sofra';
+  if (!['sofra', 'fit', 'tatli'].includes(mode)) throw validationError('geçersiz recipe mode');
+  const query = normalizeRecipeText(searchParams.get('query') || '');
+  const maxMinutesValue = searchParams.get('max_minutes');
+  const maxMinutes = maxMinutesValue == null || maxMinutesValue === '' ? null : Number(maxMinutesValue);
+  if (maxMinutes != null && (!Number.isInteger(maxMinutes) || maxMinutes < 1 || maxMinutes > 240)) throw validationError('geçersiz max_minutes');
+  const items = catalog
+    .filter((recipe) => mode === 'sofra' || (mode === 'fit' ? recipe.fit === true : recipe.tags.includes('tatli')))
+    .filter((recipe) => maxMinutes == null || recipe.mins <= maxMinutes)
+    .filter((recipe) => {
+      if (!query) return true;
+      const haystack = [recipe.title, ...recipe.ingredients, ...recipe.tags].map(normalizeRecipeText).join(' ');
+      return haystack.includes(query);
+    })
+    .map(serializeRecipe);
+  return { mode, query, max_minutes: maxMinutes, items };
+}
 
 function buildRecommendationInput(state, input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('geçersiz öneri gövdesi');
@@ -252,6 +292,7 @@ export function createSofraServer({ state = createState(), saveState = null } = 
       if (method === 'GET' && path === '/v1/health/permission-plan') {
         return json(res, 200, buildHealthPermissionPlan(url.searchParams.get('provider') || ''));
       }
+      if (method === 'GET' && path === '/v1/recipes') return json(res, 200, recipeCatalogResponse(url.searchParams));
       if (method === 'GET' && path === '/v1/me/export') return json(res, 200, exportUserData(state));
       if (method === 'DELETE' && path === '/v1/me/data') {
         state.pantry = [];

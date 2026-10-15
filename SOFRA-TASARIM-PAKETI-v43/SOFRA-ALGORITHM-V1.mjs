@@ -15,6 +15,7 @@ export const catalog = [
   { id: 'recipe_yogurt_bowl', title: 'Yoğurtlu meyve kasesi', mins: 10, emoji: '🍓', ingredients: ['yoğurt', 'süt', 'elma'], tags: ['tatli', 'fit', 'pratik'], fit: true, fitGoals: ['balanced', 'lose'], safety: { allergens: ['milk'], verified: false, crossContamination: 'unknown' } },
   { id: 'recipe_noodle', title: 'Sebzeli noodle', mins: 25, emoji: '🍜', ingredients: ['mantar', 'marul', 'domates'], tags: ['sofra', 'dunya', 'pratik'], fit: true, fitGoals: ['balanced', 'gain'], safety: { allergens: ['gluten'], verified: false, crossContamination: 'unknown' } },
   { id: 'recipe_avocado_egg_toast', title: 'Avokadolu yumurta tost', mins: 12, emoji: '🥑', ingredients: ['yumurta', 'ekmek', 'avokado'], tags: ['fit', 'pratik'], fit: true, fitGoals: ['balanced', 'gain'], safety: { allergens: ['egg', 'gluten'], verified: false, crossContamination: 'unknown' } },
+  { id: 'recipe_eggplant_olive_oil', title: 'Zeytinyağlı patlıcan', mins: 30, emoji: '🍆', ingredients: ['patlıcan', 'domates', 'soğan'], tags: ['sofra', 'mevsim', 'sebze'], fit: true, fitGoals: ['balanced', 'lose'], safety: { allergens: [], verified: false, crossContamination: 'unknown' } },
 ];
 
 export function normalize(value) {

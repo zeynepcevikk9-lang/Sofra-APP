@@ -87,6 +87,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BillingStatus'
+  /v1/recipes:
+    get:
+      tags: [Recommendations]
+      summary: Tarif kataloğunu mod, arama ve süreyle listeler
+      operationId: listRecipes
+      parameters:
+        - name: mode
+          in: query
+          required: false
+          schema: { type: string, enum: [sofra, fit, tatli], default: sofra }
+        - name: query
+          in: query
+          required: false
+          schema: { type: string }
+        - name: max_minutes
+          in: query
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 240 }
+      responses:
+        '200':
+          description: Filtrelenmiş tarif kataloğu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeCatalogResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/ai/status:
     get:
       tags: [Recommendations]
@@ -552,6 +579,46 @@ components:
           type: object
           additionalProperties: { type: boolean }
         disclosure: { type: string }
+    RecipeCatalogResponse:
+      type: object
+      required: [mode, query, max_minutes, items]
+      properties:
+        mode: { type: string, enum: [sofra, fit, tatli] }
+        query: { type: string }
+        max_minutes: { type: integer, nullable: true }
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeCatalogItem'
+    RecipeCatalogItem:
+      type: object
+      required: [id, title, minutes, ingredients, tags, fit, fit_goals, fit_verification, nutrition, safety]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        minutes: { type: integer, minimum: 0 }
+        emoji: { type: string }
+        ingredients: { type: array, items: { type: string } }
+        tags: { type: array, items: { type: string } }
+        fit: { type: boolean }
+        fit_goals: { type: array, items: { type: string, enum: [balanced, lose, gain] } }
+        fit_verification: { type: string, enum: [verified, unverified] }
+        nutrition:
+          type: object
+          nullable: true
+          properties:
+            kcal: { type: number, minimum: 0 }
+            protein_g: { type: number, minimum: 0 }
+            carbs_g: { type: number, minimum: 0 }
+            fat_g: { type: number, minimum: 0 }
+            fiber_g: { type: number, minimum: 0 }
+        safety:
+          type: object
+          required: [allergens, verified, cross_contamination]
+          properties:
+            allergens: { type: array, items: { type: string } }
+            verified: { type: boolean }
+            cross_contamination: { type: string }
     DataExport:
       type: object
       required: [schema_version, exported_at, user, data]

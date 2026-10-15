@@ -109,6 +109,7 @@ Kesin kalori ve makro yalnızca `fit_verification: verified` olan tariflerde gö
 | `PATCH` | `/v1/pantry/items/:id` | Miktar, durum veya tarihi günceller |
 | `DELETE` | `/v1/pantry/items/:id` | Ürünü kaldırır |
 | `POST` | `/v1/recommendations` | Mod, süre ve dolapla öneri üretir |
+| `GET` | `/v1/recipes` | Sofra/Fit/Tatlı moduna, aramaya ve süreye göre tarif kataloğunu listeler |
 | `POST` | `/v1/recommendations/:id/feedback` | `helpful` veya `not_helpful` kaydeder |
 | `GET` | `/v1/plans` | Hafta, ay ve geçmiş planları getirir |
 | `POST` | `/v1/plans` | Menü/sofrayı plana ekler |

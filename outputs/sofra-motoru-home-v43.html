@@ -1208,6 +1208,22 @@ fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>G
 })();
 </script>
 <style>
+  .profile-privacy-v47{background:var(--paper)!important;color:var(--sage-dark)!important}
+  .privacy-list-v47{display:grid;gap:7px;padding:0;margin:12px 0 0;list-style:none}.privacy-list-v47 li{border:1px solid var(--line);border-radius:10px;background:var(--sage-light);padding:9px 10px;color:var(--ink);font-size:10px;line-height:1.45}.privacy-list-v47 strong{display:block;margin-bottom:2px}
+</style>
+<script>
+(function(){
+  function openPrivacy(){
+    document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">VERİLERİN</span><h2>Gizlilik ve veri sınırları</h2><p>Bu prototipte kontrol sende: hangi verinin cihazda kaldığını ve hangi bağlantıların henüz açık olmadığını açıkça gösteriyoruz.</p><ul class="privacy-list-v47"><li><strong>Cihazında kalanlar</strong>Dolap, plan, Fit profili, tema, hatırlatıcı ve öneri geri bildirimi.</li><li><strong>Sağlık verisi</strong>HealthKit / Health Connect gerçek bağlantısı açık değil; sağlık verisi marketlere, markalara veya reklama aktarılmaz.</li><li><strong>Market</strong>Örnek market akışı yalnızca onayladığın alışveriş adaylarını kullanır; Fit hedefin ve sağlık verin gönderilmez.</li><li><strong>Hesap</strong>Google ve Apple girişi henüz bağlı değil; bu prototipte hesap oluşturulmuş gibi davranılmaz.</li><li><strong>Hakların</strong>Profildeki dışa aktarma ve temizleme seçenekleri yalnızca Sofra’nın bu cihazdaki verilerini kapsar.</li></ul><button class="white-btn wide" style="margin-top:12px" onclick="closeModal()">Anladım</button>';
+    document.getElementById('overlay').classList.add('open');
+  }
+  window.openPrivacyV47=openPrivacy;
+  function render(){const card=document.querySelector('.profile-data-v44');const actions=card?.querySelector('.profile-data-actions-v44');if(!actions||actions.querySelector('.profile-privacy-v47'))return;const button=document.createElement('button');button.type='button';button.className='profile-privacy-v47';button.textContent='Gizlilik özeti';button.onclick=openPrivacy;actions.appendChild(button)}
+  render();
+  const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='profil')render()};
+})();
+</script>
+<style>
   .fit-goal-recommendations-v47{border:1px solid var(--line);border-radius:18px;background:var(--paper);padding:14px;margin-top:14px}
   .fit-goal-recommendations-v47 h3{font:600 18px/1.15 var(--display);margin:0 0 4px;color:var(--ink)}
   .fit-goal-recommendations-v47>p{font-size:10px;line-height:1.45;color:var(--muted);margin:0 0 10px}

@@ -17,6 +17,8 @@ assert.match(html, /fit-v2-gender|Cinsiyet/, 'Fit cinsiyet alanı eksik');
 assert.match(html, /data-fit-reference-goal="lose"/, 'kilo verme hedefi eksik');
 assert.match(html, /data-fit-reference-goal="gain"/, 'kilo alma hedefi eksik');
 assert.match(html, /Apple Health \/ Health Connect/, 'sağlık bağlantısı referansta eksik');
+assert.match(html, /openPrivacyV47/, 'referans profil gizlilik özeti kancası eksik');
+assert.match(html, /Gizlilik ve veri sınırları/, 'referans profil gizlilik özeti metni eksik');
 assert.match(html, /Bu prototipte gerçek HealthKit bağlantısı yok/, 'HealthKit demo sınırı görünür değil');
 assert.match(html, /fit-recipe-reference-v2/, 'hedefe göre Fit tarif kartları eksik');
 assert.match(html, /fit-reference-photo|images\.unsplash\.com/, 'Fit tariflerinde canlı görsel kancası eksik');

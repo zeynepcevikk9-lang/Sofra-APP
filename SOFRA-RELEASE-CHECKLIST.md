@@ -52,7 +52,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Görseller yüklenemediğinde fallback içerik görünür.
 - [ ] Console error/warning ve kritik performans sorunları temizlenir.
 - [ ] Analitik olayları kişisel sağlık verisi içermeden tanımlanır.
-- [ ] Gizlilik politikası, kullanım koşulları ve çerez/izin metinleri hazırdır.
+- [ ] Gizlilik politikası, kullanım koşulları ve çerez/izin metinleri hazırdır; prototipteki sınırlar `SOFRA-PRIVACY-V1.md` ile görünür.
 - [ ] Hata izleme, yedekleme ve geri alma planı vardır.
 - [x] GitHub Actions kalite kapısı sözleşme ve release smoke testlerini her push/pull request’te çalıştırır.
 

@@ -27,6 +27,8 @@ for (const tab of ['home', 'tarifler', 'dolabim', 'planim', 'profil']) {
 assert.match(html, /class="fallback"/, 'görsel fallback alanı eksik');
 assert.ok((html.match(/onerror=/g) || []).length >= 3, 'görsel yüklenememe fallbackleri eksik');
 assert.match(html, /Apple Health ile bağlan/, 'Fit sağlık bağlantısı arayüz kancası eksik');
+assert.match(html, /openPrivacyV47/, 'profil gizlilik özeti kancası eksik');
+assert.match(html, /Gizlilik ve veri sınırları/, 'profil gizlilik özeti metni eksik');
 assert.match(html, /fit-goal-recommendations-v47/, 'Fit hedefe göre tarif önerileri eksik');
 assert.match(html, /Daha hafif seçenekler/, 'Fit kilo verme tarif yönlendirmesi eksik');
 assert.match(html, /data-theme="gece"|theme-switch|gece/, 'koyu tema kancası eksik');

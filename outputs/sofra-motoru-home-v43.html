@@ -1203,6 +1203,41 @@ fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>G
   window.sofraSafetyV46={read,options,summary};
 })();
 </script>
+<style>
+  .fit-goal-recommendations-v47{border:1px solid var(--line);border-radius:18px;background:var(--paper);padding:14px;margin-top:14px}
+  .fit-goal-recommendations-v47 h3{font:600 18px/1.15 var(--display);margin:0 0 4px;color:var(--ink)}
+  .fit-goal-recommendations-v47>p{font-size:10px;line-height:1.45;color:var(--muted);margin:0 0 10px}
+  .fit-goal-recipe-v47{display:flex;align-items:center;gap:9px;width:100%;border:0;border-top:1px solid var(--line);background:transparent;padding:9px 0;text-align:left;color:var(--ink)}
+  .fit-goal-recipe-v47:first-of-type{border-top:0}
+  .fit-goal-recipe-v47 img{width:48px;height:42px;flex:none;object-fit:cover;border-radius:10px;background:var(--sage-light)}
+  .fit-goal-recipe-v47 strong{display:block;font-size:10px}.fit-goal-recipe-v47 small{display:block;color:var(--muted);font-size:8px;margin-top:3px}.fit-goal-recipe-v47 b{margin-left:auto;color:var(--sage);font-size:12px}
+  body[data-theme="gece"] .fit-goal-recommendations-v47{background:var(--paper);border-color:var(--line)}
+</style>
+<script>
+(function(){
+  const fit=document.getElementById('fit');if(!fit)return;
+  const goalRecipes={
+    'Dengeli beslenme':{title:'Dengeli seçenekler',copy:'Hedef yönüne göre örnek tarifleri öne çıkarıyoruz. Besin verisi doğrulanmadıkça kalori iddiası göstermiyoruz.',items:[['Renkli sebze bowl',20,'photo-1512621776951-a57141f2eefd','Sebze ve lif ağırlıklı'],['Fırında sebzeli tabak',35,'photo-1547592180-85f173990554','Doyurucu, ev yapımı'] ]},
+    'Kilo verme':{title:'Daha hafif seçenekler',copy:'Daha hafif ve sebze ağırlıklı fikirleri öne çıkarıyoruz; bu sıralama tıbbi öneri değildir.',items:[['Renkli sebze bowl',20,'photo-1512621776951-a57141f2eefd','Hafif ve pratik'],['Yoğurtlu meyve kasesi',10,'photo-1546069901-ba9599a7e63c','Kahvaltı veya ara öğün'] ]},
+    'Kilo alma':{title:'Daha yoğun seçenekler',copy:'Daha doyurucu tarifleri öne çıkarıyoruz; kişisel sağlık hedefin için uzman önerisi gerekebilir.',items:[['Sebzeli noodle',25,'photo-1551183053-bf91a1d81141','Doyurucu tek tabak'],['Fırında sebzeli tabak',35,'photo-1547592180-85f173990554','Patates ve peynirli'] ]}
+  };
+  function currentGoal(){return fit.querySelector('.fit-goal.active')?.textContent.trim()||'Dengeli beslenme'}
+  function render(){
+    let section=fit.querySelector('.fit-goal-recommendations-v47');
+    if(!section){const grid=fit.querySelector(':scope > .tile-grid');if(!grid)return;section=document.createElement('section');section.className='fit-goal-recommendations-v47';grid.replaceWith(section)}
+    const data=goalRecipes[currentGoal()]||goalRecipes['Dengeli beslenme'];
+    section.innerHTML=`<h3>${data.title}</h3><p>${data.copy}</p>${data.items.map(item=>`<button class="fit-goal-recipe-v47" type="button"><img src="https://images.unsplash.com/${item[2]}?auto=format&fit=crop&w=180&q=82" alt="${item[0]}" onerror="this.style.display='none'"><span><strong>${item[0]}</strong><small>${item[1]} dk · ${item[3]}</small></span><b>→</b></button>`).join('')}`;
+    section.querySelectorAll('.fit-goal-recipe-v47').forEach((button,index)=>button.addEventListener('click',()=>{const item=data.items[index];recipe(item[0],item[1],images[item[0]]?'🍽️':'🍽️',item[2])}));
+  }
+  const oldPick=window.pickFitGoal;
+  if(oldPick)window.pickFitGoal=function(button){oldPick(button);render()};
+  const oldSave=window.saveFitProfile;
+  if(oldSave)window.saveFitProfile=function(){oldSave();render()};
+  fit.querySelectorAll('.fit-goal').forEach(button=>button.addEventListener('click',render));
+  render();
+  window.syncFitGoalRecommendationsV47=render;
+})();
+</script>
 </body>
 </html>
 

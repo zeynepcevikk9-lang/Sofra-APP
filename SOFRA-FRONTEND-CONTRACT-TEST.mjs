@@ -27,6 +27,8 @@ for (const tab of ['home', 'tarifler', 'dolabim', 'planim', 'profil']) {
 assert.match(html, /class="fallback"/, 'görsel fallback alanı eksik');
 assert.ok((html.match(/onerror=/g) || []).length >= 3, 'görsel yüklenememe fallbackleri eksik');
 assert.match(html, /Apple Health ile bağlan/, 'Fit sağlık bağlantısı arayüz kancası eksik');
+assert.match(html, /fit-goal-recommendations-v47/, 'Fit hedefe göre tarif önerileri eksik');
+assert.match(html, /Daha hafif seçenekler/, 'Fit kilo verme tarif yönlendirmesi eksik');
 assert.match(html, /data-theme="gece"|theme-switch|gece/, 'koyu tema kancası eksik');
 assert.match(html, /Dolabıma not al|parseNoteV44/, 'doğal dolap girişi eksik');
 assert.match(html, /Öneri motoru/, 'deterministik öneri sınırı kullanıcıya görünür değil');

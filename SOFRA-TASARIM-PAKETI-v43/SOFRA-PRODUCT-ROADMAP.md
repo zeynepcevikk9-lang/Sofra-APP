@@ -314,6 +314,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Market güvenli akışı: Planım’da listeyi kontrol etme, açıkça onaylama ve ardından örnek teklifleri görme sırası geçti; onay ekranı canlı markete gönderim yapmadığını belirtiyor.
 - Market sözleşmesi: API yalnızca Planım’dan üretilen adayları kabul ediyor; teklif yanıtı `demo_only`, minimum sepet ve karşılaştırılabilirlik durumlarını açıkça taşıyor.
 - Geliştirme kalıcılığı: `SOFRA-STORE-V1.mjs` atomik JSON yazma/okuma ve şema doğrulaması sağlıyor; referans sunucu bunu yalnızca `SOFRA_STORE_PATH` verildiğinde kullanıyor.
+- Hesap bağlama sınırı: `/v1/auth/status` anonim oturumu, Google/Apple sağlayıcılarının bağlı olmadığını ve veri hakları endpoint’lerini açıkça raporluyor; OAuth token saklama kapalı.
 
 Henüz demo/placeholder olanlar:
 

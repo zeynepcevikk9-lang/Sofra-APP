@@ -5,6 +5,7 @@ import { catalog, recommend } from './SOFRA-ALGORITHM-V1.mjs';
 const apiSpec = readFileSync(new URL('./SOFRA-API-V1.openapi.yaml', import.meta.url), 'utf8');
 const requiredPaths = [
   '/v1/me:',
+  '/v1/auth/status:',
   '/v1/ai/status:',
   '/v1/health/permission-plan:',
   '/v1/pantry:',

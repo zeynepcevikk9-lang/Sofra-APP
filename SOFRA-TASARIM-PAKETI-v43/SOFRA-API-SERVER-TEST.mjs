@@ -17,6 +17,12 @@ try {
   assert.equal(result.response.status, 200);
   assert.equal(result.body.auth_provider, 'anonymous');
 
+  result = await request('/v1/auth/status');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.session.provider, 'anonymous');
+  assert.equal(result.body.account_linking.available, false);
+  assert.deepEqual(result.body.providers.map((provider) => provider.id), ['google', 'apple']);
+
   result = await request('/v1/ai/status');
   assert.equal(result.response.status, 200);
   assert.equal(result.body.provider_status, 'not_connected');

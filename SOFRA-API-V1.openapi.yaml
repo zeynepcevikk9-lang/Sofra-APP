@@ -41,6 +41,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataExport'
+  /v1/auth/status:
+    get:
+      tags: [User]
+      summary: Anonim oturum ve hesap bağlama sınırını getirir
+      operationId: getAuthStatus
+      responses:
+        '200':
+          description: OAuth bağlı değil; gerçek hesap akışı daha sonra açılacak
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthStatus'
   /v1/ai/status:
     get:
       tags: [Recommendations]
@@ -409,6 +421,41 @@ components:
           enum: [google, apple, anonymous]
         locale: { type: string, example: tr-TR }
         created_at: { type: string, format: date-time }
+    AuthStatus:
+      type: object
+      required: [schema_version, session, account_linking, providers, data_rights]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        session:
+          type: object
+          required: [user_id, provider, status]
+          properties:
+            user_id: { type: string }
+            provider: { type: string, enum: [anonymous, google, apple] }
+            status: { type: string, enum: [anonymous, not_connected] }
+        account_linking:
+          type: object
+          required: [available, requires_external_oauth, token_storage, confirmation_required]
+          properties:
+            available: { type: boolean }
+            requires_external_oauth: { type: boolean }
+            token_storage: { type: string, enum: [not_enabled] }
+            confirmation_required: { type: boolean }
+        providers:
+          type: array
+          items:
+            type: object
+            required: [id, status, available]
+            properties:
+              id: { type: string, enum: [google, apple] }
+              status: { type: string, enum: [not_connected] }
+              available: { type: boolean }
+        data_rights:
+          type: object
+          required: [export_endpoint, delete_endpoint]
+          properties:
+            export_endpoint: { type: string }
+            delete_endpoint: { type: string }
     DataExport:
       type: object
       required: [schema_version, exported_at, user, data]

@@ -22,6 +22,9 @@ try {
   assert.equal(result.body.fallback, 'deterministic');
   assert.equal(result.body.auto_save, false);
   assert.equal(result.body.tasks.pantry_note.confirmation_required, true);
+  assert.equal(result.body.tasks.pantry_note.ready, true);
+  assert.equal(result.body.tasks.recipe_normalization.ready, false);
+  assert.equal(result.body.tasks.recommendation_explanation.ready, false);
 
   result = await request('/v1/health/permission-plan?provider=apple_healthkit');
   assert.equal(result.response.status, 200);

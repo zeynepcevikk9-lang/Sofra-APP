@@ -526,7 +526,18 @@ components:
         auto_save: { type: boolean, description: Model sonucu kullanıcı onayı olmadan dolaba yazılamaz. }
         tasks:
           type: object
-          additionalProperties: true
+          required: [pantry_note, recipe_normalization, recommendation_explanation]
+          properties:
+            pantry_note: { $ref: '#/components/schemas/AiTaskStatus' }
+            recipe_normalization: { $ref: '#/components/schemas/AiTaskStatus' }
+            recommendation_explanation: { $ref: '#/components/schemas/AiTaskStatus' }
+    AiTaskStatus:
+      type: object
+      required: [ready, live_model, confirmation_required]
+      properties:
+        ready: { type: boolean }
+        live_model: { type: boolean }
+        confirmation_required: { type: boolean }
     HealthPermissionPlan:
       type: object
       required: [schema_version, provider, live_connection, read_only, write_permissions, manual_fallback, permissions]

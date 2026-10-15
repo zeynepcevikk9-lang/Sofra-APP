@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { buildHealthPermissionPlan, fitContext, marketPayload, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
+import { buildHealthPermissionPlan, fitContext, healthConnectionState, marketPayload, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 
 function assertNoHealthData(value) {
   const serialized = JSON.stringify(value);
@@ -68,9 +68,16 @@ const androidPlan = buildHealthPermissionPlan('health_connect');
 assert.equal(iosPlan.live_connection, false);
 assert.equal(iosPlan.read_only, true);
 assert.deepEqual(iosPlan.write_permissions, []);
+assert.deepEqual(iosPlan.connection, { state: 'not_connected', revoke_supported: true, provider_settings_fallback: true });
+assert.deepEqual(iosPlan.consent, { explain_before_system_prompt: true, permission_level: 'per_data_type' });
 assert.equal(iosPlan.permissions.find((item) => item.key === 'activeCalories').platform_type, 'HKQuantityTypeIdentifierActiveEnergyBurned');
 assert.equal(androidPlan.permissions.find((item) => item.key === 'activeCalories').platform_type, 'ActiveCaloriesBurned');
 assert.throws(() => buildHealthPermissionPlan('unknown'), /geçersiz sağlık sağlayıcısı/);
+assert.equal(healthConnectionState({ provider: 'apple_healthkit', liveConnection: false }), 'not_connected');
+assert.equal(healthConnectionState({ provider: 'apple_healthkit', liveConnection: true, permissions: { activeCalories: 'granted', steps: 'granted', exercise: 'granted', weightKg: 'granted' } }), 'connected');
+assert.equal(healthConnectionState({ provider: 'health_connect', liveConnection: true, permissions: { activeCalories: 'granted', steps: 'denied', exercise: 'not_requested', weightKg: 'not_requested' } }), 'partial');
+assert.equal(healthConnectionState({ provider: 'health_connect', liveConnection: true, permissions: { activeCalories: 'denied', steps: 'denied', exercise: 'denied', weightKg: 'denied' } }), 'denied');
+assert.equal(healthConnectionState({ provider: 'health_connect', liveConnection: true, permissions: { activeCalories: 'unavailable', steps: 'unavailable', exercise: 'unavailable', weightKg: 'unavailable' } }), 'unavailable');
 
 console.log('SOFRA_HEALTH_CONTRACT_TEST_OK');
 console.log(`fullSource=${full.source} partialSource=${partial.source} readOnlyPlans=true marketHealthLeak=false`);

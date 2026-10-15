@@ -792,7 +792,7 @@ components:
         confirmation_required: { type: boolean }
     HealthPermissionPlan:
       type: object
-      required: [schema_version, provider, live_connection, read_only, write_permissions, manual_fallback, permissions]
+      required: [schema_version, provider, live_connection, read_only, write_permissions, manual_fallback, connection, consent, permissions]
       properties:
         schema_version: { type: integer, example: 1 }
         provider:
@@ -805,6 +805,19 @@ components:
           maxItems: 0
           items: { type: string }
         manual_fallback: { type: boolean }
+        connection:
+          type: object
+          required: [state, revoke_supported, provider_settings_fallback]
+          properties:
+            state: { type: string, enum: [not_connected, not_requested, connected, partial, denied, unavailable] }
+            revoke_supported: { type: boolean }
+            provider_settings_fallback: { type: boolean }
+        consent:
+          type: object
+          required: [explain_before_system_prompt, permission_level]
+          properties:
+            explain_before_system_prompt: { type: boolean }
+            permission_level: { type: string, enum: [per_data_type] }
         permissions:
           type: array
           items:

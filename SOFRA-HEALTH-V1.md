@@ -27,6 +27,8 @@ Sofra ilk sürümde sağlık verisine yazma izni istemez; yalnızca gerekli okum
 
 Kod tarafında `buildHealthPermissionPlan()` iOS ve Android için aynı ürün alanlarını platforma özgü izin adıyla listeler. `/v1/health/permission-plan?provider=apple_healthkit` veya `health_connect` yalnızca sözleşme/izin önizlemesidir: canlı bağlantı kapalıdır, yazma izni boş dizidir ve manuel Fit profili her zaman kullanılabilir.
 
+İzin akışı bağlantı durumunu da açıkça taşır: `not_connected`, `not_requested`, `connected`, `partial`, `denied` veya `unavailable`. Kısmi izinlerde yalnızca izin verilen veri kullanılır; tüm bağlantı durumlarında “Ayarlar’dan izni yönet” ve manuel profile dönüş yolu bulunur. Sistem izin penceresinden önce her veri türü için açıklama gösterilir.
+
 ## Uygulama sözleşmesi
 
 Mobil katman veriyi şu normalize edilmiş yapıya dönüştürür:

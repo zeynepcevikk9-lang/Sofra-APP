@@ -2,6 +2,7 @@
 
 export const allowedPermissionStates = ['granted', 'denied', 'not_requested', 'unavailable'];
 export const healthProviders = ['apple_healthkit', 'health_connect'];
+export const healthConnectionStates = ['not_connected', 'not_requested', 'connected', 'partial', 'denied', 'unavailable'];
 
 const permissionDefinitions = [
   { key: 'activeCalories', label: 'Aktif kalori', ios: 'HKQuantityTypeIdentifierActiveEnergyBurned', android: 'ActiveCaloriesBurned', rationale: 'Günlük hareket bağlamı' },
@@ -23,6 +24,8 @@ export function buildHealthPermissionPlan(provider) {
     read_only: true,
     write_permissions: [],
     manual_fallback: true,
+    connection: { state: 'not_connected', revoke_supported: true, provider_settings_fallback: true },
+    consent: { explain_before_system_prompt: true, permission_level: 'per_data_type' },
     permissions: permissionDefinitions.map((item) => ({
       key: item.key,
       label: item.label,
@@ -31,6 +34,17 @@ export function buildHealthPermissionPlan(provider) {
       requested: false,
     })),
   };
+}
+
+export function healthConnectionState({ provider, permissions = {}, liveConnection = false } = {}) {
+  if (!healthProviders.includes(provider)) throw Object.assign(new Error('geçersiz sağlık sağlayıcısı'), { status: 422 });
+  if (!liveConnection) return 'not_connected';
+  const states = permissionDefinitions.map((item) => allowedPermissionStates.includes(permissions[item.key]) ? permissions[item.key] : 'not_requested');
+  if (states.every((state) => state === 'unavailable')) return 'unavailable';
+  if (states.every((state) => state === 'denied')) return 'denied';
+  if (states.every((state) => state === 'not_requested')) return 'not_requested';
+  if (states.every((state) => state === 'granted')) return 'connected';
+  return 'partial';
 }
 
 export function normalizeHealthSummary(input = {}) {

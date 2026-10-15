@@ -41,13 +41,14 @@ export function normalize(value) {
 
 function toInventoryItem(item) {
   if (Array.isArray(item)) {
-    return { name: normalize(item[1]), label: item[1], status: item[3] || 'var', expiry: item[4] || '' };
+    return { name: normalize(item[1]), label: item[1], status: item[3] || 'var', expiry: item[4] || '', addedAt: item[5] || '' };
   }
   return {
     name: normalize(item.canonical_name || item.display_name),
     label: item.display_name || item.canonical_name,
     status: item.stock_state || item.status || 'available',
     expiry: item.expiry_date || item.expiry || '',
+    addedAt: item.added_at || item.addedAt || '',
   };
 }
 
@@ -62,6 +63,15 @@ export function expiryBoost(item, now = new Date()) {
   const reference = now instanceof Date ? now : new Date(now);
   const days = (date - reference) / 86400000;
   return days >= 0 && days <= 3 ? 16 : days >= 0 && days <= 7 ? 8 : 0;
+}
+
+export function recentAddBoost(item, now = new Date()) {
+  if (!item.addedAt) return 0;
+  const added = new Date(item.addedAt);
+  const reference = now instanceof Date ? now : new Date(now);
+  if (Number.isNaN(added.getTime()) || Number.isNaN(reference.getTime())) return 0;
+  const hours = (reference - added) / 3600000;
+  return hours >= 0 && hours <= 24 ? 42 : 0;
 }
 
 function statusLowBoost(item) {
@@ -115,7 +125,7 @@ export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feed
       const repeatPenaltyValue = repeatPenalty(recipe.id, recentRecipeIds);
       const fitGoalBoostValue = mode === 'fit' ? fitGoalBoost(recipe, fitGoal) : 0;
       const score = matchedIngredients.length * 28
-        + matches.reduce((sum, item) => sum + statusLowBoost(item) + expiryBoost(item, now), 0)
+        + matches.reduce((sum, item) => sum + statusLowBoost(item) + expiryBoost(item, now) + recentAddBoost(item, now), 0)
         + learningBoost
         + preferenceBoostValue
         + repeatPenaltyValue
@@ -138,8 +148,9 @@ export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feed
         repeatPenalty: repeatPenaltyValue,
         fitGoalBoost: fitGoalBoostValue,
         safety,
-        reasonCode: fitGoalBoostValue > 0 ? 'fit_goal' : matches.some((item) => expiryBoost(item, now) > 0) ? 'expiry_priority' : matchedIngredients.length ? 'inventory_match' : 'general',
-        scoreVersion: 'deterministic-v1.2',
+        recentAddBoost: matches.reduce((sum, item) => sum + recentAddBoost(item, now), 0),
+        reasonCode: fitGoalBoostValue > 0 ? 'fit_goal' : matches.some((item) => recentAddBoost(item, now) > 0) ? 'recent_inventory_add' : matches.some((item) => expiryBoost(item, now) > 0) ? 'expiry_priority' : matchedIngredients.length ? 'inventory_match' : 'general',
+        scoreVersion: 'deterministic-v1.3',
       };
     })
     .filter((item) => item && (!maxMinutes || item.mins <= maxMinutes || item.matchedCount > 0))

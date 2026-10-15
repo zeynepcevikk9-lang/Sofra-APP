@@ -7,6 +7,7 @@ Bu sürüm gerçek AI değildir. Backend kurulana kadar ürün kararlarının ta
 - Seçili mod: `sofra`, `fit` veya `tatli`
 - Dolap ürünleri: ad, miktar/not, durum (`var`, `az`, `yok`)
 - İsteğe bağlı son kullanma tarihi: ürün kaydının beşinci alanı
+- İsteğe bağlı eklenme zamanı: ürün kaydının altıncı alanı veya API'de `added_at`
 - Tarif: malzemeler, süre, etiketler ve Fit uygunluğu
 - Fit hedefi: dengede kalma, kilo verme veya kilo alma
 
@@ -18,6 +19,7 @@ Bu sürüm gerçek AI değildir. Backend kurulana kadar ürün kararlarının ta
 | Durumu `az` olan eşleşme | +8 |
 | Tarihe 3 gün veya daha az kalması | +16 |
 | Tarihe 7 gün veya daha az kalması | +8 |
+| Son 24 saatte eklenen ve tarifte eşleşen ürün | +42 |
 | Fit modunda Fit tarifi | +42 |
 | Fit hedefiyle eşleşen tarif | +20 |
 | Fit hedefiyle eşleşmeyen tarif | -10 |
@@ -57,7 +59,7 @@ Demo kataloğundaki tarifler şu anda `verified: false` olduğu için kısıtlı
 
 Kullanıcının açık “İşe yaradı / Başka fikir” seçimi, aynı tarifi doğrudan `learning_boost` ile etkiler. Ayrıca aynı etiketleri taşıyan diğer tariflere sınırlı `preference_boost` yansır. Yakın zamanda gösterilen tarif kimlikleri `recent_recipe_ids` ile gönderilirse aynı tarif tekrarını azaltan `repeat_penalty` uygulanır. Bu sinyaller açıklanabilir, sınırlı ve silinebilir tutulur; sağlık, kimlik veya market davranışı öğrenme girdisine katılmaz.
 
-API yanıtı bu sinyalleri `preference_boost`, `repeat_penalty` ve Fit hedefi verildiyse `fit_goal_boost` alanlarıyla açıkça döndürür. Skor sürümü `deterministic-v1.2` olarak işaretlenir.
+API yanıtı bu sinyalleri `preference_boost`, `repeat_penalty`, `recent_add_boost` ve Fit hedefi verildiyse `fit_goal_boost` alanlarıyla açıkça döndürür. Son 24 saatte eklenen tek bir ürünün tarif önerisinde görünür olması için `recent_inventory_add` nedeni ve `deterministic-v1.3` skor sürümü kullanılır.
 
 ## Sonraki adım
 

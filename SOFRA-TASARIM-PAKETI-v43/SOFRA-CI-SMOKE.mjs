@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = dirname(fileURLToPath(import.meta.url));
 const tests = [
   'SOFRA-AI-CONTRACT-TEST.mjs',
+  'SOFRA-ALGORITHM-CONTRACT-TEST.mjs',
   'SOFRA-ANALYTICS-CONTRACT-TEST.mjs',
   'SOFRA-API-CONTRACT-TEST.mjs',
   'SOFRA-API-PERSISTENCE-TEST.mjs',

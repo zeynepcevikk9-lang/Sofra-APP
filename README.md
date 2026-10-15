@@ -62,8 +62,9 @@ Bu dosya şu an gerçek backend’e bağlı değildir. LocalStorage ile örnek k
 5. Bir ürünü düzenleyip son kullanma tarihini istersen ekle; tarih girilmediğinde önerileri zorlamadığını kontrol et.
 6. Menü’yü Planım’a aktar; alışveriş adaylarını kontrol et ve listeyi kopyala.
 7. Alışveriş adaylarını kontrol et, açıkça onayla ve örnek market karşılaştırmasını aç; fiyatların canlı değil, tasarım verisi olduğunu ve her teklifin örnek güncelleme zamanını unutma. Minimum sepeti karşılanmayan teklifler “Tahmini toplam” olarak kalır.
-8. Sofra modunda Planım’daki ikinci kartın alışveriş özeti, Sofra Fit modunda ise kalori özeti olduğunu kontrol et.
-9. Profil’den açık/koyu tema ve hatırlatıcı tercihini dene; hatırlatıcıyı açmadan önce nedenini açıklayan ekranı gör.
+8. Market modalında “En uygun toplam”, “En hızlı” ve “Tek markette tamamla” sıralamalarını dene; bu sıralamalar yalnızca örnek teklif verisini yeniden düzenler.
+9. Sofra modunda Planım’daki ikinci kartın alışveriş özeti, Sofra Fit modunda ise kalori özeti olduğunu kontrol et.
+10. Profil’den açık/koyu tema ve hatırlatıcı tercihini dene; hatırlatıcıyı açmadan önce nedenini açıklayan ekranı gör.
 10. Profil’de cihazdaki Sofra verilerini dışa aktarma ve temizleme seçeneklerini incele.
 11. Fit’te manuel profil hesabını ve Apple Health izin akışı demosunu incele.
 12. Profil’den gıda güvenliği tercihlerini aç; süt, yumurta veya gluten/çölyak gibi kısıtları seç ve çapraz bulaş uyarısını incele.

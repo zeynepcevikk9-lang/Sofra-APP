@@ -35,6 +35,8 @@ assert.match(html, /Öneri motoru/, 'deterministik öneri sınırı kullanıcıy
 assert.doesNotMatch(html, /AI destekli/, 'canlı AI bağlı değilken arayüz AI destekli iddiası taşıyor');
 assert.match(html, /Örnek güncelleme: \$\{m\.updated\}/, 'market örnek tekliflerinde güncelleme zamanı eksik');
 assert.match(html, /Kaynak: örnek veri/, 'market tekliflerinin örnek veri sınırı eksik');
+assert.match(html, /data-sort="fast"/, 'market tekliflerinde hız sıralaması eksik');
+assert.match(html, /data-sort="single"/, 'market tekliflerinde tek market sıralaması eksik');
 assert.match(html, /Zeytinyağlı patlıcan/, 'patlıcan tarif örneği eksik');
 assert.match(html, /const recipeDetails=/, 'tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'tarif malzeme bölümü eksik');

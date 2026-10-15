@@ -526,6 +526,7 @@ v43 kapsamlı kullanıcı akışı yeniden kontrolü (14 Ekim 2026):
 - Karşılaştırılabilir market tekliflerinde en uygun toplamdan fark gösterimi: geçti; minimum sepeti karşılanmayan Migros teklifinde yanıltıcı fiyat farkı gösterilmedi.
 - Market tekliflerinde örnek güncelleme zamanı ve `Kaynak: örnek veri` etiketi hem kanonik v43 hem referans v2 akışında görünür; iki yüzeyde de modal akışı console hatasız geçti.
 - Sofra Fit kanonik v43’te hedef seçimi tarif kartlarını da değiştiriyor: kilo verme için daha hafif, kilo alma için daha doyurucu örnekler; karttan tarif detayına geçiş ve antrenmansız akış doğrulandı.
+- Market modalında örnek teklifleri `En uygun toplam`, `En hızlı` ve `Tek markette tamamla` ölçütleriyle yeniden sıralama eklendi; sıralama kaynak veriyi değiştirmiyor ve iki frontend akışında test edildi.
 
 Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “mantar” kayıtları eklendi. Prototip verisi yalnızca tarayıcı LocalStorage’ında tutulur; ZIP paketindeki kaynak dosyaya yazılmaz.
 

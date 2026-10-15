@@ -30,6 +30,8 @@ assert.match(html, /data-theme="gece"|theme-switch|gece/, 'koyu tema kancası ek
 assert.match(html, /Dolabıma not al|parseNoteV44/, 'doğal dolap girişi eksik');
 assert.match(html, /Öneri motoru/, 'deterministik öneri sınırı kullanıcıya görünür değil');
 assert.doesNotMatch(html, /AI destekli/, 'canlı AI bağlı değilken arayüz AI destekli iddiası taşıyor');
+assert.match(html, /Örnek güncelleme: \$\{m\.updated\}/, 'market örnek tekliflerinde güncelleme zamanı eksik');
+assert.match(html, /Kaynak: örnek veri/, 'market tekliflerinin örnek veri sınırı eksik');
 assert.match(html, /Zeytinyağlı patlıcan/, 'patlıcan tarif örneği eksik');
 assert.match(html, /const recipeDetails=/, 'tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'tarif malzeme bölümü eksik');

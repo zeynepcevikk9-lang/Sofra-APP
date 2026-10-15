@@ -293,6 +293,12 @@ export function createSofraServer({ state = createState(), saveState = null } = 
         return json(res, 200, buildHealthPermissionPlan(url.searchParams.get('provider') || ''));
       }
       if (method === 'GET' && path === '/v1/recipes') return json(res, 200, recipeCatalogResponse(url.searchParams));
+      const recipeDetailMatch = path.match(/^\/v1\/recipes\/([^/]+)$/);
+      if (method === 'GET' && recipeDetailMatch) {
+        const recipe = recipeById(recipeDetailMatch[1]);
+        if (!recipe) return json(res, 404, { code: 'not_found', message: 'Tarif bulunamadı' });
+        return json(res, 200, { ...serializeRecipe(recipe), source: 'catalog_v1', instructions_available: false });
+      }
       if (method === 'GET' && path === '/v1/me/export') return json(res, 200, exportUserData(state));
       if (method === 'DELETE' && path === '/v1/me/data') {
         state.pantry = [];

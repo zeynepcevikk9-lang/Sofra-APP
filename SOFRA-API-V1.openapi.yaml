@@ -114,6 +114,22 @@ paths:
                 $ref: '#/components/schemas/RecipeCatalogResponse'
         '422':
           $ref: '#/components/responses/ValidationError'
+  /v1/recipes/{recipeId}:
+    get:
+      tags: [Recommendations]
+      summary: Tek tarifin güvenlik ve besin doğrulama görünümünü getirir
+      operationId: getRecipe
+      parameters:
+        - $ref: '#/components/parameters/RecipeId'
+      responses:
+        '200':
+          description: Tarif detay görünümü
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /v1/ai/status:
     get:
       tags: [Recommendations]
@@ -453,6 +469,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   parameters:
+    RecipeId:
+      name: recipeId
+      in: path
+      required: true
+      schema: { type: string }
     ItemId:
       name: itemId
       in: path
@@ -619,6 +640,14 @@ components:
             allergens: { type: array, items: { type: string } }
             verified: { type: boolean }
             cross_contamination: { type: string }
+    RecipeDetail:
+      allOf:
+        - $ref: '#/components/schemas/RecipeCatalogItem'
+        - type: object
+          required: [source, instructions_available]
+          properties:
+            source: { type: string, enum: [catalog_v1] }
+            instructions_available: { type: boolean }
     DataExport:
       type: object
       required: [schema_version, exported_at, user, data]

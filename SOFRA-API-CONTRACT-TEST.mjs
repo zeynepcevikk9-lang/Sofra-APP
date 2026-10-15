@@ -9,6 +9,7 @@ const requiredPaths = [
   '/v1/notifications/status:',
   '/v1/billing/status:',
   '/v1/recipes:',
+  '/v1/recipes/{recipeId}:',
   '/v1/ai/status:',
   '/v1/health/permission-plan:',
   '/v1/pantry:',

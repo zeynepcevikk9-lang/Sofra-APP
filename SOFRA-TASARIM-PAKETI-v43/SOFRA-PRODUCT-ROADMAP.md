@@ -318,6 +318,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Bildirim izin sınırı: `/v1/notifications/status` iOS, Android ve web izin API’lerini, üç hatırlatıcı kanalını ve sağlık/market verisinin bildirime taşınmadığını açıkça raporluyor; sistem izni henüz istenmiyor.
 - Sofra Plus sınırı: `/v1/billing/status` ücretsiz planı aktif, Plus’ı pasif ve checkout sağlayıcısını bağlı değil olarak raporluyor; prototipte ücret veya ödeme bilgisi istenmiyor.
 - Tarif katalog sınırı: `GET /v1/recipes` Sofra/Fit/Tatlı, doğal arama ve süre filtresini backend’e taşıyor; patlıcan örneği katalogda yer alıyor ve doğrulanmamış besin verisi `null` kalıyor.
+- Tarif detay sınırı: `GET /v1/recipes/:id` aynı güvenlik ve besin doğrulama görünümünü tek tarifte sunuyor; katalog tarif adımları henüz bağlı olmadığı için `instructions_available: false` açıkça dönüyor.
 
 Henüz demo/placeholder olanlar:
 

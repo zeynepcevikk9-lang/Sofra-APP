@@ -23,6 +23,15 @@ try {
   assert.equal(result.body.auto_save, false);
   assert.equal(result.body.tasks.pantry_note.confirmation_required, true);
 
+  result = await request('/v1/health/permission-plan?provider=apple_healthkit');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.live_connection, false);
+  assert.deepEqual(result.body.write_permissions, []);
+  assert.equal(result.body.permissions.find((item) => item.key === 'activeCalories').platform_type, 'HKQuantityTypeIdentifierActiveEnergyBurned');
+
+  result = await request('/v1/health/permission-plan?provider=unknown');
+  assert.equal(result.response.status, 422, 'bilinmeyen sağlık sağlayıcısı kabul edilmemeli');
+
   result = await request('/v1/pantry/parse-note', { method: 'POST', body: JSON.stringify({ text: '6 yumurta aldım, peynir azaldı, süt bitti, bilinmeyen ürün' }) });
   assert.equal(result.response.status, 200);
   assert.deepEqual(result.body.items.map((item) => [item.canonical_name, item.stock_state]), [['yumurta', 'available'], ['peynir', 'low'], ['süt', 'finished']]);

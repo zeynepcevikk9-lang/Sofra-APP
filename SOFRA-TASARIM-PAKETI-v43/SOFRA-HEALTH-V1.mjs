@@ -1,10 +1,37 @@
 /** Shared, provider-neutral health summary normalization for Sofra Fit. */
 
 export const allowedPermissionStates = ['granted', 'denied', 'not_requested', 'unavailable'];
+export const healthProviders = ['apple_healthkit', 'health_connect'];
+
+const permissionDefinitions = [
+  { key: 'activeCalories', label: 'Aktif kalori', ios: 'HKQuantityTypeIdentifierActiveEnergyBurned', android: 'ActiveCaloriesBurned', rationale: 'Günlük hareket bağlamı' },
+  { key: 'steps', label: 'Adım', ios: 'HKQuantityTypeIdentifierStepCount', android: 'Steps', rationale: 'Hareket yoğunluğu bağlamı' },
+  { key: 'exercise', label: 'Egzersiz', ios: 'HKWorkoutType', android: 'ExerciseSession', rationale: 'Aktivite süresi ve türü' },
+  { key: 'weightKg', label: 'Kilo', ios: 'HKQuantityTypeIdentifierBodyMass', android: 'Weight', rationale: 'Manuel Fit profilini desteklemek' },
+];
 
 const validDateTime = (value) => typeof value === 'string' && !Number.isNaN(new Date(value).getTime());
 const nonNegative = (value) => Number.isFinite(value) && value >= 0;
 const positive = (value) => Number.isFinite(value) && value > 0;
+
+export function buildHealthPermissionPlan(provider) {
+  if (!healthProviders.includes(provider)) throw Object.assign(new Error('geçersiz sağlık sağlayıcısı'), { status: 422 });
+  return {
+    schema_version: 1,
+    provider,
+    live_connection: false,
+    read_only: true,
+    write_permissions: [],
+    manual_fallback: true,
+    permissions: permissionDefinitions.map((item) => ({
+      key: item.key,
+      label: item.label,
+      platform_type: provider === 'apple_healthkit' ? item.ios : item.android,
+      rationale: item.rationale,
+      requested: false,
+    })),
+  };
+}
 
 export function normalizeHealthSummary(input = {}) {
   const permissions = Object.fromEntries(

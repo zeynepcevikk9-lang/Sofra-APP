@@ -53,6 +53,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AiStatus'
+  /v1/health/permission-plan:
+    get:
+      tags: [Recommendations]
+      summary: HealthKit veya Health Connect izin planını getirir
+      operationId: getHealthPermissionPlan
+      parameters:
+        - name: provider
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [apple_healthkit, health_connect]
+      responses:
+        '200':
+          description: Salt okunur, henüz canlı bağlantı kurmayan izin planı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthPermissionPlan'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/me/data:
     delete:
       tags: [User]
@@ -470,6 +491,32 @@ components:
         tasks:
           type: object
           additionalProperties: true
+    HealthPermissionPlan:
+      type: object
+      required: [schema_version, provider, live_connection, read_only, write_permissions, manual_fallback, permissions]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        provider:
+          type: string
+          enum: [apple_healthkit, health_connect]
+        live_connection: { type: boolean }
+        read_only: { type: boolean }
+        write_permissions:
+          type: array
+          maxItems: 0
+          items: { type: string }
+        manual_fallback: { type: boolean }
+        permissions:
+          type: array
+          items:
+            type: object
+            required: [key, label, platform_type, rationale, requested]
+            properties:
+              key: { type: string }
+              label: { type: string }
+              platform_type: { type: string }
+              rationale: { type: string }
+              requested: { type: boolean }
     PantryItem:
       allOf:
         - $ref: '#/components/schemas/PantryItemInput'

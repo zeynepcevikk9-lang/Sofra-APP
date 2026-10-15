@@ -2,7 +2,7 @@ import http from 'node:http';
 import { catalog, recommend } from './SOFRA-ALGORITHM-V1.mjs';
 import { buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { parsePantryNote } from './SOFRA-INGEST-V1.mjs';
-import { fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
+import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
 import { normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
@@ -237,6 +237,9 @@ export function createSofraServer({ state = createState() } = {}) {
         auto_save: false,
         tasks: { pantry_note: { ready: true, live_model: false, confirmation_required: true } },
       });
+      if (method === 'GET' && path === '/v1/health/permission-plan') {
+        return json(res, 200, buildHealthPermissionPlan(url.searchParams.get('provider') || ''));
+      }
       if (method === 'GET' && path === '/v1/me/export') return json(res, 200, exportUserData(state));
       if (method === 'DELETE' && path === '/v1/me/data') {
         state.pantry = [];

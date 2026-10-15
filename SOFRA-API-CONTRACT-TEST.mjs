@@ -6,6 +6,7 @@ const apiSpec = readFileSync(new URL('./SOFRA-API-V1.openapi.yaml', import.meta.
 const requiredPaths = [
   '/v1/me:',
   '/v1/ai/status:',
+  '/v1/health/permission-plan:',
   '/v1/pantry:',
   '/v1/pantry/items:',
   '/v1/pantry/items/bulk:',

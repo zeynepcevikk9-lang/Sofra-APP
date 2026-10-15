@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { fitContext, marketPayload, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
+import { buildHealthPermissionPlan, fitContext, marketPayload, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 
 function assertNoHealthData(value) {
   const serialized = JSON.stringify(value);
@@ -63,5 +63,14 @@ assert.deepEqual(context, {
 });
 assertNoHealthData(marketPayload({ candidateIds: ['candidate_domates'] }));
 
+const iosPlan = buildHealthPermissionPlan('apple_healthkit');
+const androidPlan = buildHealthPermissionPlan('health_connect');
+assert.equal(iosPlan.live_connection, false);
+assert.equal(iosPlan.read_only, true);
+assert.deepEqual(iosPlan.write_permissions, []);
+assert.equal(iosPlan.permissions.find((item) => item.key === 'activeCalories').platform_type, 'HKQuantityTypeIdentifierActiveEnergyBurned');
+assert.equal(androidPlan.permissions.find((item) => item.key === 'activeCalories').platform_type, 'ActiveCaloriesBurned');
+assert.throws(() => buildHealthPermissionPlan('unknown'), /geçersiz sağlık sağlayıcısı/);
+
 console.log('SOFRA_HEALTH_CONTRACT_TEST_OK');
-console.log(`fullSource=${full.source} partialSource=${partial.source} marketHealthLeak=false`);
+console.log(`fullSource=${full.source} partialSource=${partial.source} readOnlyPlans=true marketHealthLeak=false`);

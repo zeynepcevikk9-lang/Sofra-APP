@@ -25,6 +25,8 @@ Bağımlılıksız sözleşme testi: `node SOFRA-HEALTH-CONTRACT-TEST.mjs`. Test
 
 Sofra ilk sürümde sağlık verisine yazma izni istemez; yalnızca gerekli okuma izinleri kullanılır.
 
+Kod tarafında `buildHealthPermissionPlan()` iOS ve Android için aynı ürün alanlarını platforma özgü izin adıyla listeler. `/v1/health/permission-plan?provider=apple_healthkit` veya `health_connect` yalnızca sözleşme/izin önizlemesidir: canlı bağlantı kapalıdır, yazma izni boş dizidir ve manuel Fit profili her zaman kullanılabilir.
+
 ## Uygulama sözleşmesi
 
 Mobil katman veriyi şu normalize edilmiş yapıya dönüştürür:

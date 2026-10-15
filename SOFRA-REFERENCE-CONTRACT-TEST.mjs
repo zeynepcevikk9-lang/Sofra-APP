@@ -19,6 +19,11 @@ assert.match(html, /Bu prototipte gerçek HealthKit bağlantısı yok/, 'HealthK
 assert.match(html, /fit-recipe-reference-v2/, 'hedefe göre Fit tarif kartları eksik');
 assert.match(html, /fit-reference-photo|images\.unsplash\.com/, 'Fit tariflerinde canlı görsel kancası eksik');
 assert.match(html, /dashboard\.querySelector\('\.fit-workout-v2'\)\?\.remove/, 'referans Fit ekranı antrenman bölümünü kaldırmıyor');
+assert.match(html, /reference-family-v2/, 'Çocuğum için giriş kartı eksik');
+assert.match(html, /childRecipeData/, 'çocuk yaş grubu tarif verisi eksik');
+for (const age of ['12–23 ay', '24–35 ay', '36+ ay']) assert.match(html, new RegExp(age.replace(/[+]/g, '\\+')), `çocuk yaş grubu eksik: ${age}`);
+assert.match(html, /child-age-note-v2/, 'çocuk yaş filtresi açıklaması eksik');
+assert.match(html, /photo-child-v2|childPhotoBase/, 'çocuk tariflerinde canlı görsel kancası eksik');
 
 const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)];
 for (const [index, match] of scripts.entries()) {

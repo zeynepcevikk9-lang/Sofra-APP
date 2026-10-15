@@ -550,6 +550,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Çocuk özelliğinin ayrı bir Aile modu yerine Sofra içinde `Çocuğum için` girişinden açılması; yaş dönemi, besleyici örnek tarifler ve güvenli hazırlama notlarıyla ilerlemesi kararlaştırıldı.
 - Dolap hızlı eklemede `2 kg domates`, `6 adet yumurta`, `1 paket makarna` gibi ölçülerin ayrıştırılması; ölçü yoksa `Miktarı ayrıca doğrula` olarak bırakılması kararlaştırıldı.
 - Kategori, çocuk tarifi ve Fit öğün kartlarında emoji yerine mümkün olduğunca gerçek yemek fotoğrafı kullanılması kararlaştırıldı; fotoğraf yüklenemezse mevcut görsel fallback korunacak.
+- Çocuğum için akışında 12–23 ay, 24–35 ay ve 36+ ay seçimlerinin yalnızca görsel işaret değil, yaşa göre değişen örnek tarif ve hazırlama notu üretmesi kararlaştırıldı.
 - Gıda güvenliği için Profil’de alerji/kısıt tercihi, gluten/çölyak seçimi ve açık çapraz bulaş uyarısı eklenmesi; tariflerin ileride yapılandırılmış alerjen metadata’sı olmadan “güvenli” diye etiketlenmemesi kararlaştırıldı.
 - Referans v2, kanonik v43 davranışını değiştirmeden ayrı bir karşılaştırma önizlemesi olarak tutuluyor; seçilen parçalar kullanıcı akışı onayından sonra kanonik frontend’e taşınacak.
 - Referans v2 kullanıcı gözüyle test edildi: Sofra → Sofra Fit, Fit → Sofra, ana sayfa → Dolabım ve haftalık plan/menü bağlantıları çalıştı; 30 script syntax kontrolü geçti.

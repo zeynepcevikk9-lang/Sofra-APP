@@ -1215,11 +1215,32 @@ body.reference-v2 .bottomnav{border-radius:0 0 30px 30px}
   if(lead)lead.textContent='Yaş dönemine uygun, pratik ve besleyici tarifleri birlikte keşfet.';
   const first=screen.querySelector('.info-card.terra');if(first){const h=first.querySelector('h3');const p=first.querySelector('p');if(h)h.textContent='Hangi yaş dönemi? 🧡';if(p)p.textContent='Tarifleri yaşa göre sadeleştirir, porsiyon ve dikkat edilmesi gereken malzemeleri ayrıca gösteririz.'}
   const second=screen.querySelectorAll('.info-card')[1];if(second){const h=second.querySelector('h3');const p=second.querySelector('p');if(h)h.textContent='Güvenli hazırlama notları';if(p)p.textContent='Bu alan tıbbi öneri vermez; alerjen, kıvam, porsiyon ve hazırlama notlarını açıkça gösterir. Şüpheli durumda çocuk doktoruna danışılır.'}
-  first?.insertAdjacentHTML('afterend','<section class="child-recipes-v2" aria-label="Çocuğum için besleyici tarifler"><div class="child-recipes-head-v2"><h2>Bugünün fikirleri</h2><span>ÖRNEK</span></div><button type="button" onclick="toast(\'Sebzeli yoğurt kasesi önizlemesi\')"><span>🥣</span><div><strong>Sebzeli yoğurt kasesi</strong><small>Yumuşak kıvam · pratik · besleyici</small></div><b>→</b></button><button type="button" onclick="toast(\'Mercimekli mini köfte önizlemesi\')"><span>🥕</span><div><strong>Mercimekli mini köfte</strong><small>Demir ve lif odaklı · fırında</small></div><b>→</b></button><button type="button" onclick="toast(\'Meyveli yulaf kasesi önizlemesi\')"><span>🍎</span><div><strong>Meyveli yulaf kasesi</strong><small>Şekersiz seçenek · kahvaltı</small></div><b>→</b></button></section>');
+  const childRecipeData={
+    '12–23 ay':[
+      ['photo-1547592180-85f173990554','Sebzeli yoğurt kasesi','Yumuşak kıvam · sebze + yoğurt','Ezilebilir kıvam ve küçük porsiyon notu'],
+      ['photo-1529042410759-befb1204b468','Mercimekli mini köfte','Fırında · demir ve lif odağı','Tuz ve baharatı yaşa göre sadeleştir'],
+      ['photo-1512621776951-a57141f2eefd','Meyveli yulaf kasesi','Şekersiz seçenek · kahvaltı','Meyveyi küçük ve yumuşak parçalarla sun']
+    ],
+    '24–35 ay':[
+      ['photo-1498837167922-ddd27525d352','Renkli sebze makarnası','Yumuşak sebze · pratik öğün','Sebzeleri iyice pişir, porsiyonu küçült'],
+      ['photo-1547592180-85f173990554','Nohutlu sebze çorbası','Lif ve enerji · kaşıkla kolay','Bakliyatı yumuşak kıvamda sun'],
+      ['photo-1512621776951-a57141f2eefd','Yoğurtlu meyve tabağı','Ara öğün · ilave şekersiz','Alerjenleri ayrıca kontrol et']
+    ],
+    '36+ ay':[
+      ['photo-1529042410759-befb1204b468','Fırında sebzeli mini köfte','Protein + sebze · fırında','İç sıcaklığı ve lokma boyutunu kontrol et'],
+      ['photo-1473093295043-cdd812d0e601','Mercimekli sebze makarnası','Doyurucu · lifli öğün','Sebzeyi görünür ve kolay çiğnenir bırak'],
+      ['photo-1488477181946-6428a0291777','Meyveli yoğurt kasesi','Pratik tatlı alternatifi','İlave şeker ve alerjen bilgisini kontrol et']
+    ]
+  };
+  const childPhotoBase='https://images.unsplash.com/';
+  first?.insertAdjacentHTML('afterend','<section class="child-recipes-v2" aria-label="Çocuğum için besleyici tarifler"><div class="child-recipes-head-v2"><h2>Bugünün fikirleri</h2><span>YAŞA GÖRE</span></div><p class="child-age-note-v2" id="child-age-note-v2">12–23 ay için sadeleştirilmiş örnekler</p><div id="child-recipes-list-v2"></div></section>');
+  const renderChildRecipes=(ageLabel)=>{const recipes=childRecipeData[ageLabel]||childRecipeData['12–23 ay'];const list=document.getElementById('child-recipes-list-v2');if(!list)return;list.innerHTML=recipes.map(([photo,title,meta,note])=>`<button type="button" onclick="toast('${title} önizlemesi')"><span class="photo-child-v2" style="background-image:url('${childPhotoBase}${photo}?auto=format&fit=crop&w=160&q=82')"></span><div><strong>${title}</strong><small>${meta}</small><em>${note}</em></div><b>→</b></button>`).join('');const note=document.getElementById('child-age-note-v2');if(note)note.textContent=`${ageLabel} için sadeleştirilmiş örnekler`};
+  window.pickAge=(button)=>{document.querySelectorAll('#aile .age').forEach(item=>item.classList.remove('selected'));button.classList.add('selected');renderChildRecipes(button.textContent.trim())};
+  renderChildRecipes('12–23 ay');
 })();
 </script>
 <style>
-.child-recipes-v2{border:1px solid #eadfd7;border-radius:16px;background:#fff8f3;padding:11px;margin:0 0 14px}.child-recipes-head-v2{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}.child-recipes-head-v2 h2{font:600 18px var(--display);margin:0}.child-recipes-head-v2 span{font-size:8px;letter-spacing:.1em;color:#a36f5d;font-weight:800}.child-recipes-v2>button{display:flex;align-items:center;gap:8px;width:100%;border:0;border-top:1px solid #f0dfd6;background:transparent;padding:8px 0;text-align:left;color:var(--ink)}.child-recipes-v2>button>span{font-size:20px}.child-recipes-v2>button strong{display:block;font-size:10px}.child-recipes-v2>button small{display:block;color:#987b70;font-size:8px;margin-top:2px}.child-recipes-v2>button b{margin-left:auto;color:#a36f5d;font-size:10px}
+.child-recipes-v2{border:1px solid #eadfd7;border-radius:16px;background:#fff8f3;padding:11px;margin:0 0 14px}.child-recipes-head-v2{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}.child-recipes-head-v2 h2{font:600 18px var(--display);margin:0}.child-recipes-head-v2 span{font-size:8px;letter-spacing:.1em;color:#a36f5d;font-weight:800}.child-age-note-v2{font-size:8px;color:#987b70;margin:0 0 4px}.child-recipes-v2>div:last-child>button{display:flex;align-items:center;gap:8px;width:100%;border:0;border-top:1px solid #f0dfd6;background:transparent;padding:8px 0;text-align:left;color:var(--ink)}.child-recipes-v2>div:last-child>button>span{font-size:20px}.child-recipes-v2>div:last-child>button strong{display:block;font-size:10px}.child-recipes-v2>div:last-child>button small{display:block;color:#987b70;font-size:8px;margin-top:2px}.child-recipes-v2>div:last-child>button em{display:block;color:#a36f5d;font-size:7px;font-style:normal;margin-top:2px}.child-recipes-v2>div:last-child>button b{margin-left:auto;color:#a36f5d;font-size:10px}
 .photo-category-v2{background-size:cover!important;background-position:center!important;color:transparent!important;font-size:0!important;box-shadow:inset 0 0 0 1px #ffffff80}.photo-child-v2{flex:none!important;width:34px;height:34px;border-radius:9px;background-size:cover!important;background-position:center!important;color:transparent!important;font-size:0!important}.photo-fit-v2{display:block!important;width:34px;height:34px;border-radius:9px;background-size:cover!important;background-position:center!important;color:transparent!important;font-size:0!important}
 </style>
 <script>

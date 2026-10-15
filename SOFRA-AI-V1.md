@@ -2,6 +2,8 @@
 
 Sofra’da “AI” yalnızca gizemli bir sonuç üretmek anlamına gelmez. İlk aşamada deterministik öneri motoru güvenilir bir temel oluşturur; gerçek model ancak veri kalitesi, izinler ve geri bildirim sözleşmesi hazır olduğunda eklenir.
 
+Kod tarafındaki `SOFRA-AI-V1.mjs`, gelecekteki model sağlayıcısı için güvenli sınırdır. İstek `auto_save: false` ve `user_confirmation_required: true` olarak kurulur; model cevabı `known_item_required` kontrolünden geçmeyen ürünü dolaba yazamaz. Canlı sağlayıcı bağlı değilken `/v1/ai/status` deterministik fallback durumunu açıkça bildirir.
+
 ## AI’nin ilk görevleri
 
 1. Kullanıcının doğal cümlesini malzeme kaydına ayırmak: “6 yumurta aldım, peynir azaldı”.

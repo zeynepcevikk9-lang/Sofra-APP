@@ -14,6 +14,8 @@ const canonicalHtml = join(bundleMode ? root : outputs, 'sofra-motoru-home-v43.h
 const requiredFiles = [
   'README.md',
   'SOFRA-AI-V1.md',
+  'SOFRA-AI-V1.mjs',
+  'SOFRA-AI-CONTRACT-TEST.mjs',
   'SOFRA-ALGORITHM-V1.md',
   'SOFRA-ALGORITHM-V1.mjs',
   'SOFRA-API-CONTRACT-TEST.mjs',
@@ -68,6 +70,7 @@ const zipListing = zip ? execFileSync('tar', ['-tf', zip], { encoding: 'utf8' })
 if (zip) for (const file of requiredFiles) assert.ok(zipListing.includes(file), `ZIP içinde dosya eksik: ${file}`);
 
 const tests = [
+  'SOFRA-AI-CONTRACT-TEST.mjs',
   'SOFRA-FRONTEND-CONTRACT-TEST.mjs',
   'SOFRA-API-CONTRACT-TEST.mjs',
   'SOFRA-API-SERVER-TEST.mjs',

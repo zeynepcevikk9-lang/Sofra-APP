@@ -6,6 +6,7 @@ import { fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
 import { normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
+import { AI_SCHEMA_VERSION } from './SOFRA-AI-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -229,6 +230,13 @@ export function createSofraServer({ state = createState() } = {}) {
       if (method === 'GET' && path === '/v1/me') {
         return json(res, 200, { id: 'usr_anonymous_demo', auth_provider: 'anonymous', locale: 'tr-TR', created_at: '2026-10-14T12:00:00Z' });
       }
+      if (method === 'GET' && path === '/v1/ai/status') return json(res, 200, {
+        schema_version: AI_SCHEMA_VERSION,
+        provider_status: 'not_connected',
+        fallback: 'deterministic',
+        auto_save: false,
+        tasks: { pantry_note: { ready: true, live_model: false, confirmation_required: true } },
+      });
       if (method === 'GET' && path === '/v1/me/export') return json(res, 200, exportUserData(state));
       if (method === 'DELETE' && path === '/v1/me/data') {
         state.pantry = [];

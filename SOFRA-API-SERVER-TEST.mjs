@@ -16,6 +16,13 @@ try {
   assert.equal(result.response.status, 200);
   assert.equal(result.body.auth_provider, 'anonymous');
 
+  result = await request('/v1/ai/status');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.provider_status, 'not_connected');
+  assert.equal(result.body.fallback, 'deterministic');
+  assert.equal(result.body.auto_save, false);
+  assert.equal(result.body.tasks.pantry_note.confirmation_required, true);
+
   result = await request('/v1/pantry/parse-note', { method: 'POST', body: JSON.stringify({ text: '6 yumurta aldım, peynir azaldı, süt bitti, bilinmeyen ürün' }) });
   assert.equal(result.response.status, 200);
   assert.deepEqual(result.body.items.map((item) => [item.canonical_name, item.stock_state]), [['yumurta', 'available'], ['peynir', 'low'], ['süt', 'finished']]);

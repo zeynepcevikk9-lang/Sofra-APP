@@ -41,6 +41,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataExport'
+  /v1/ai/status:
+    get:
+      tags: [Recommendations]
+      summary: AI sağlayıcısı ve güvenli fallback durumunu getirir
+      operationId: getAiStatus
+      responses:
+        '200':
+          description: AI sözleşme durumu; canlı model bağlı değilse deterministik fallback kullanılır
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiStatus'
   /v1/me/data:
     delete:
       tags: [User]
@@ -435,6 +447,21 @@ components:
         exerciseMinutes: { type: number, minimum: 0, nullable: true }
         weightKg: { type: number, exclusiveMinimum: 0, nullable: true }
         permissions: { type: object }
+    AiStatus:
+      type: object
+      required: [schema_version, provider_status, fallback, auto_save, tasks]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        provider_status:
+          type: string
+          enum: [not_connected, connected]
+        fallback:
+          type: string
+          enum: [deterministic]
+        auto_save: { type: boolean, description: Model sonucu kullanıcı onayı olmadan dolaba yazılamaz. }
+        tasks:
+          type: object
+          additionalProperties: true
     PantryItem:
       allOf:
         - $ref: '#/components/schemas/PantryItemInput'

@@ -15,6 +15,7 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Makine tarafından okunabilir API sözleşmesi: `SOFRA-API-V1.openapi.yaml`
 - Backend sözleşme smoke testi: `node SOFRA-API-CONTRACT-TEST.mjs`
 - Referans HTTP API iskeleti: `node SOFRA-API-SERVER.mjs` · HTTP testi: `node SOFRA-API-SERVER-TEST.mjs`
+- API yeniden başlatma kalıcılık testi: `node SOFRA-API-PERSISTENCE-TEST.mjs`
 - Geliştirme kalıcılık adapter’ı: `SOFRA-STORE-V1.mjs` · `node SOFRA-STORE-CONTRACT-TEST.mjs`; `SOFRA_STORE_PATH=...` ile referans sunucu yeniden başlatmalar arasında JSON store kullanabilir.
 - Bağımsız deterministik öneri motoru: `SOFRA-ALGORITHM-V1.mjs`
 - Fit/sağlık sözleşme testi: `node SOFRA-HEALTH-CONTRACT-TEST.mjs`

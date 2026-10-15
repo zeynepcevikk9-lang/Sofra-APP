@@ -517,12 +517,15 @@ components:
             status: { type: string, enum: [anonymous, not_connected] }
         account_linking:
           type: object
-          required: [available, requires_external_oauth, token_storage, confirmation_required]
+          required: [available, requires_external_oauth, token_storage, confirmation_required, pkce, callback_exchange, redirect_uri_allowlist]
           properties:
             available: { type: boolean }
             requires_external_oauth: { type: boolean }
             token_storage: { type: string, enum: [not_enabled] }
             confirmation_required: { type: boolean }
+            pkce: { type: string, enum: [required] }
+            callback_exchange: { type: string, enum: [server_only] }
+            redirect_uri_allowlist: { type: string, enum: [required] }
         providers:
           type: array
           items:

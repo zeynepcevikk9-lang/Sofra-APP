@@ -10,7 +10,7 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Ürün kararları: `SOFRA-PRODUCT-ROADMAP.md`
 - Öneri motoru kuralları: `SOFRA-ALGORITHM-V1.md`
 - AI ve geri bildirim sınırı: `SOFRA-AI-V1.md`
-- Hesap bağlama sınırı: `SOFRA-AUTH-V1.mjs` · `node SOFRA-AUTH-CONTRACT-TEST.mjs` (anonim oturum; Google/Apple OAuth henüz bağlı değil)
+- Hesap bağlama sınırı: `SOFRA-AUTH-V1.md` · `SOFRA-AUTH-V1.mjs` · `node SOFRA-AUTH-CONTRACT-TEST.mjs` (PKCE/state/redirect allowlist sınırı; Google/Apple OAuth henüz bağlı değil)
 - Bildirim izin sınırı: `SOFRA-NOTIFICATIONS-V1.mjs` · `node SOFRA-NOTIFICATIONS-CONTRACT-TEST.mjs` (iOS, Android ve web planı; sistem izni henüz istenmez)
 - Sofra Plus/ödeme sınırı: `SOFRA-BILLING-V1.mjs` · `node SOFRA-BILLING-CONTRACT-TEST.mjs` (ücretsiz plan aktif; checkout ve ödeme bağlı değil)
 - Market veri sözleşmesi: `SOFRA-MARKET-V1.md`

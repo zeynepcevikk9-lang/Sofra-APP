@@ -14,6 +14,7 @@ const canonicalHtml = join(bundleMode ? root : outputs, 'sofra-motoru-home-v43.h
 const requiredFiles = [
   'README.md',
   'SOFRA-AI-V1.md',
+  'SOFRA-AUTH-V1.md',
   'SOFRA-ANALYTICS-V1.md',
   'SOFRA-ANALYTICS-V1.mjs',
   'SOFRA-ANALYTICS-CONTRACT-TEST.mjs',

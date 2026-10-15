@@ -13,6 +13,7 @@ assert.match(html, /<html\s+lang="tr"/i, 'Türkçe html dili eksik');
 assert.match(html, /name="viewport"[^>]+width=device-width/i, 'mobil viewport eksik');
 assert.match(html, /overflow-x:hidden/i, 'yatay taşma koruması eksik');
 assert.match(html, /prefers-reduced-motion/i, 'hareket azaltma desteği eksik');
+assert.doesNotMatch(html, /\n\+<style>/, 'patch artığı HTML etiketi kaldı');
 
 for (const screen of ['home', 'tarifler', 'dolabim', 'planim', 'fit', 'profil']) {
   const matches = html.match(new RegExp(`id=["']${screen}["']`, 'g')) || [];

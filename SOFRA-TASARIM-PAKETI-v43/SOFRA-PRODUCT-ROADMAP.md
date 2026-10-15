@@ -406,6 +406,7 @@ v38 öneri motoru kontrolü:
 - Sofra Fit modunda dengeli tarif puanının artması: geçti
 - Dolap boş olsa da genel öneri üretebilme kuralı: motor kodunda mevcut; boş-dolap UI akışı sonraki QA turunda genişletilecek
 - Boş dolap QA senaryosu: `sofra-motoru-reference-v2.html?demo=empty` mevcut cihaz dolabını değiştirmeden genel öneri, boş Dolabım görünümü ve Tarifler geçişini test ediyor.
+- Çocuğum için yaş akışı: 12–23, 24–35 ve 36+ ay seçimleri farklı tarif/not seti üretiyor; kart tıklaması yaş, gerçek görsel, hazırlama notu ve genel güvenlik uyarısı içeren detay önizlemesi açıyor.
 - İsteğe bağlı son kullanma tarihi alanı: ürün düzenleme modalında ürün bazlı olarak eklendi; tarih girilmezse ürün normal stok kaydı olarak kalır
 - Mobil yatay taşma: v37 temel mobil görünümünde geçti; v38 yalnızca davranış katmanı ekledi
 - Tarayıcı console error/warning: bulunmadı

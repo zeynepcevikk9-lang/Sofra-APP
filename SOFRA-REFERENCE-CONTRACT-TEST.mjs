@@ -31,6 +31,7 @@ assert.match(html, /childRecipeData/, 'çocuk yaş grubu tarif verisi eksik');
 for (const age of ['12–23 ay', '24–35 ay', '36+ ay']) assert.match(html, new RegExp(age.replace(/[+]/g, '\\+')), `çocuk yaş grubu eksik: ${age}`);
 assert.match(html, /child-age-note-v2/, 'çocuk yaş filtresi açıklaması eksik');
 assert.match(html, /photo-child-v2|childPhotoBase/, 'çocuk tariflerinde canlı görsel kancası eksik');
+assert.match(html, /data-child-recipe|Hazırlama notu/, 'çocuk tarif detay önizlemesi eksik');
 assert.match(html, /Zeytinyağlı patlıcan/, 'referans tarif kataloğunda patlıcan örneği eksik');
 assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');

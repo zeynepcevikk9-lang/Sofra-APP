@@ -1362,6 +1362,27 @@ fit.insertAdjacentHTML('beforeend','<section class="fit-dashboard-v2" aria-label
   const fit=document.getElementById('fit');if(!fit)return;renderFitNutritionBoundary();new MutationObserver(renderFitNutritionBoundary).observe(fit,{childList:true,subtree:true,characterData:true});
 })();
 </script>
+<script>
+(function(){
+  function enhanceChildRecipeCards(){
+    document.querySelectorAll('#child-recipes-list-v2 > button').forEach(button=>{
+      if(button.dataset.detailBound)return;
+      button.dataset.detailBound='1';
+      button.onclick=()=>{
+        const title=button.querySelector('strong')?.textContent.trim()||'Çocuk tarifi';
+        const meta=button.querySelector('small')?.textContent.trim()||'';
+        const note=button.querySelector('em')?.textContent.trim()||'';
+        const age=document.getElementById('child-age-note-v2')?.textContent.replace(' için sadeleştirilmiş örnekler','')||'';
+        const photo=button.querySelector('.photo-child-v2')?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1]||'';
+        document.getElementById('modal').innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Çocuğum için · ${escapeHtml(age)}</span><h2>${escapeHtml(title)}</h2><p>${escapeHtml(meta)}</p><div class="foodpic" style="height:150px;margin-top:13px"><div class="fallback">🥣</div><img src="${photo}" alt="${escapeHtml(title)}" onerror="this.style.display='none'"/></div><div class="info-card terra" style="margin:13px 0 0"><h3 style="font-size:18px">Hazırlama notu</h3><p>${escapeHtml(note)}</p></div><p class="helper" style="margin-top:12px">Bu içerik genel bilgilendirmedir; alerjenleri kontrol et ve şüpheli durumda çocuk doktoruna danış.</p>`;
+        document.getElementById('overlay').classList.add('open');
+      };
+    });
+  }
+  enhanceChildRecipeCards();
+  const list=document.getElementById('child-recipes-list-v2');if(list)new MutationObserver(enhanceChildRecipeCards).observe(list,{childList:true});
+})();
+</script>
 </body>
 </html>
 

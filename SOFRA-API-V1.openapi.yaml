@@ -628,7 +628,7 @@ components:
         reason_code:
           type: string
           enum: [inventory_match, expiry_priority, fit_goal, general]
-        score_version: { type: string, example: deterministic-v1 }
+        score_version: { type: string, example: deterministic-v1.2 }
         safety:
           $ref: '#/components/schemas/RecipeSafetyAssessment'
         health_context:

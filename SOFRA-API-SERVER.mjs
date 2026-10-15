@@ -292,7 +292,8 @@ export function createSofraServer({ state = createState() } = {}) {
           matched_ingredients: [],
           missing_ingredients: [],
           reason_code: input.safety_profile?.selected?.length ? 'safety_review_required' : 'general',
-          score_version: 'deterministic-v1',
+          score_version: 'deterministic-v1.2',
+          fit_goal_boost: 0,
           safety: input.safety_profile?.selected?.length
             ? { status: 'review_required', blocked: true, conflicts: [], reason: 'no_verified_match' }
             : { status: 'not_requested', blocked: false, conflicts: [], reason: null },

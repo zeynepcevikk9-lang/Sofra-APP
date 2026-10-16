@@ -619,6 +619,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Bildirim v1.19 kullanici turunda ogun, yaklasan urunler ve Planim kanallari ayri secildi; tercih yenileme sonrasi korundu ve native sistem izni prototipte acilmadan sinir acikca gosterildi.
 - Gida guvenligi v1.20 kullanici turunda gluten/colyak secimi Tarifler ve Sofra Fit onerilerine birlikte uygulandi; eslesmeyen durumda guvenli bos durum gosterildi ve canonical/reference filtre kancasi kontrat testiyle kilitlendi.
 - Fit v1.21 kullanici turunda hedef degisince kcal/protein ozetinin eski kayitli hedefe donmesi bulundu ve duzeltildi; dengeli/kilo verme/kilo alma degerleri canli akista ve yenileme sonrasinda dogrulandi.
+- Mod gecisi v1.22 kullanici turunda Fit'ten Sofra'ya donus test edildi; aktif mod, ana sayfa ve `Sofra acildi` bildirimi birlikte guncellendi, stale Fit bildirimi kalmadi.
 
 - Release ops v1.16 taslak operasyon plani icin staging/production kapilari, izleme, yedekleme, rollback ve P0-P2 olay seviyelerini kontrol eden `SOFRA-OPS-CONTRACT-TEST.mjs` eklendi; gercek servis kurulumu ve sorumlular hala yayin oncesi acik madde olarak tutuluyor.
 - Fit palet v1.15 ile Fit modulundeki profil, hedef, saglik, ogun ve tarif kartlari tek bir Sofra adacayi-krem-clay kilidine baglandi; yeni v65 modul kilidi mavi/mor varyantlari engelliyor.

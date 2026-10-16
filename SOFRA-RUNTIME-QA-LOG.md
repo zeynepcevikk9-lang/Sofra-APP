@@ -211,3 +211,11 @@ Sonuç: Gıda güvenliği tercihi artık Tarifler, ana öneriler ve Sofra Fit ö
 4. Reference v2’de hedef özeti sırasıyla `2.224`, `1.924` ve `2.474 kcal` olarak güncellendi.
 
 Sonuç: Fit hedef seçimi artık yalnızca tarif sıralamasını değil, kullanıcıya gösterilen yaklaşık hesap özetini de aynı anda güncelliyor; kaydedilen hedef yenileme sonrası korunuyor.
+
+## Sofra ↔ Sofra Fit geçiş turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=mode-v84&demo=empty`
+
+1. Ana sayfadan Fit ekranı açıldı; Fit profili ve önerileri görünür kaldı.
+2. `Sofra’ya geç · Modu değiştir` seçildi; ana sayfa geri geldi ve Sofra modu aktif olarak işaretlendi.
+3. Geçiş bildirimi `Sofra açıldı` oldu; eski `Sofra Fit açıldı` mesajı ekranda kalmadı.
+
+Sonuç: İki mod arasındaki dönüş akışı görünür ekran, aktif mod ve toast mesajı bakımından tutarlı.

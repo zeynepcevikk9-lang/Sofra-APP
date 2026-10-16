@@ -193,3 +193,12 @@ Sonuç: Bildirim tercihleri kanal bazında cihazda korunuyor; native sistem izni
 3. İzin planı kaydedilince Fit kartı `Demo izin akışı · iOS · Apple HealthKit` olarak güncellendi ve gerçek bağlantının sonraki mobil aşamada açılacağı korundu.
 
 Sonuç: Apple HealthKit / Health Connect ayrımı, veri kapsamı ve manuel/prototip sınırı kullanıcı akışı içinde görünür ve çalışır durumda.
+
+## Gıda güvenliği ve Fit filtre turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=safety-v75&demo=empty`
+
+1. Profil > Gıda güvenliği ekranında `Gluten / çölyak` seçildi; tercih kaydedildi ve profil özeti güncellendi.
+2. Tarifler ekranında doğrulanmış güvenli tarif kalmadığında açık boş durum mesajı görüldü; uygunsuz tarif kartları gösterilmedi.
+3. Aynı tercih Sofra Fit'e geçildiğinde de korundu; Fit öneri listesi tarif kartlarını gizleyip güvenlik tercihlerini gözden geçirme mesajını gösterdi.
+4. Tercih filtresi canonical ve reference v2 akışlarına bağlandı; regresyon için `SOFRA-SAFETY-CONTRACT-TEST.mjs` iki HTML çıktısında Fit filtresini de denetliyor.
+
+Sonuç: Gıda güvenliği tercihi artık Tarifler, ana öneriler ve Sofra Fit önerileri arasında tutarlı uygulanıyor; doğrulanmamış Fit tarifi çölyak profiline rağmen önerilmiyor.

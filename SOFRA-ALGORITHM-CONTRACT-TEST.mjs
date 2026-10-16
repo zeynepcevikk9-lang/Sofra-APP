@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { recommend, recentAddBoost } from './SOFRA-ALGORITHM-V1.mjs';
+import { expiryBoost, recommend, recentAddBoost } from './SOFRA-ALGORITHM-V1.mjs';
 
 const now = new Date('2026-10-15T12:00:00.000Z');
 const inventory = [
@@ -14,6 +14,19 @@ assert.equal(ranked[0].id, 'recipe_eggplant_olive_oil', 'yeni eklenen patlıcan 
 assert.equal(ranked[0].reasonCode, 'recent_inventory_add');
 assert.equal(ranked[0].recentAddBoost, 42);
 assert.equal(recentAddBoost({ addedAt: '2026-10-13T08:00:00.000Z' }, now), 0, '24 saatten eski ekleme boost almamalı');
+
+const expiryInventory = [
+  { display_name: 'Domates', canonical_name: 'domates', stock_state: 'available', expiry_date: '2026-10-17' },
+  { display_name: 'Roka', canonical_name: 'roka', stock_state: 'available' },
+  { display_name: 'Peynir', canonical_name: 'peynir', stock_state: 'finished', expiry_date: '2026-10-16' },
+];
+const expiryRanked = recommend({ mode: 'sofra', inventory: expiryInventory, now });
+const expiryMatch = expiryRanked.find((item) => item.id === 'recipe_vegetable_bowl');
+assert.equal(expiryMatch?.expiryBoost, true, 'urunun kendi yakin tarihi oneriyi one cikarmali');
+assert.equal(expiryMatch?.reasonCode, 'expiry_priority');
+assert.equal(expiryBoost({ expiry: '' }, now), 0, 'tarihi olmayan urun boost almamali');
+assert.equal(expiryBoost({ expiry: '2026-10-30' }, now), 0, 'uzak tarih boost almamali');
+assert.equal(expiryRanked.some((item) => item.matchedIngredients.includes('peynir') && item.expiryBoost), false, 'biten urun tarih boostu vermemeli');
 
 const fitOnly = recommend({ mode: 'fit', inventory: [], now });
 assert.ok(fitOnly.length > 0 && fitOnly.every((item) => item.fit === true), 'Fit modu normal tarifleri döndürmemeli');

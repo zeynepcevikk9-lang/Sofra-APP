@@ -594,3 +594,9 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Bildirim v1.10'da tek bir aç/kapat yerine öğün, yaklaşan ürün ve Planım kanalları ayrı seçilebilir hale getirildi; sistem izni prototipte istenmiyor, ön açıklama ve manuel devam sınırı korunuyor.
 - Health v1.11'de gelecekteki mobil katman için HealthKit ve Health Connect adapter sınırı ayrıştırıldı; platform alanları ortak normalize çıktıya çevriliyor, izin verilmemiş ham değerler bloke ediliyor ve adapter sözleşmesi testle korunuyor.
 - Market v1.12'de gelecekteki CarrefourSA, Getir ve Migros adapter sınırı eklendi; partner teklifleri ortak fiyat/güncellik kurallarından geçiyor, sağlık/Fit alanları teklif payload'ında reddediliyor ve canlı bağlantı açılmadan demo sınırı korunuyor.
+
+### 16 Ekim 2026
+
+- Planım kullanıcı öğünü akışı canlı tarayıcı turunda test edildi: metin, öğün bölümü, kaydetme ve yeni sekmede kalıcılık birlikte geçti; serbest metin malzemeleri onaysız alışverişe eklenmiyor.
+- Sofra Fit paleti canonical ve reference ekranlarında adaçayı-krem-clay olarak kilitlendi; mavi/mor referans stillerinin geri dönüşü için ayrı kontrat testi eklendi.
+- Son kullanma tarihi motoru ürün bazında testle korundu: tarihi olmayan ürün boost almaz, biten ürün öne alınmaz, her ürünün opsiyonel tarihi ayrı değerlendirilir.

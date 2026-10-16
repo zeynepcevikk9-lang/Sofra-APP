@@ -40,7 +40,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Sağlık verisi marketlere, markalara veya reklam ortaklarına aktarılmaz.
 - [x] Bildirim izni açıklaması sistem izninden önce gösterilir; prototipte sistem istemi açılmaz ve üç kanal ayrı seçilebilir.
 - [x] İzin reddedildiğinde manuel kullanım devam eder; bildirim tercihi kapalı olsa da Planım ve Fit akışları kullanılabilir.
-- [ ] Kullanıcı verisini silme ve dışa aktarma yolu bulunur.
+- [x] Profilde kullanıcı verisini JSON olarak dışa aktarma ve yalnızca Sofra verilerini onay ekranından temizleme yolu bulunur; başka uygulama verilerine dokunulmaz.
 
 ## 4. Market ve gelir
 

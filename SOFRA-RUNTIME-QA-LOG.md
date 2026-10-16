@@ -241,6 +241,15 @@ Sonuc: Market akisi liste onayi, kosullu fiyat karsilastirmasi ve gizlilik/gelir
 
 ## Fit Sofra paleti son kontrol turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=fit-palette-v86&demo=onboarding`
 
+## Hesap ve saglik entegrasyon siniri turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=auth-health-v88&demo=empty`
+
+1. Profil ekraninda Google ve Apple butonlarinin pasif oldugu, hesap baglantisinin prototipte acik olmadigi ve cihaz-verisi/senkron sinirinin gorundugu kontrol edildi.
+2. Sofra Fit saglik modalinda iOS Apple HealthKit ve Android Health Connect ayri platform secenekleri olarak gorundu; aktif kalori, adim ve kilo okuma izinleri ayri checkbox olarak kaldirildi.
+3. Modal, gercek sistem API'sine baglanmadigini ve saglik verisinin market/marka/reklam ortaklarina aktarilmayacagini acikca belirtti.
+4. Android Health Connect secilip `Manuel devam et` kullanildi; modal kapandi ve Fit profili kullanilabilir kaldi.
+
+Sonuc: Prototip, gercek OAuth veya native saglik izni verilmis gibi davranmiyor; iki saglayici ve izin reddi/manuel devam siniri kullaniciya acik.
+
 1. Onboarding üzerinden Sofra Fit açıldı; profil, sağlık bağlantısı, hedef ve öneri kartları birlikte kontrol edildi.
 2. Fit ekranında mavi/mor aksan kalmadı; aksiyonlar sage, ikincil vurgu clay, yüzeyler cream/sage-soft olarak kilitlendi.
 3. CSS son kilidi canonical ve reference v2 çıktılarının sonuna eklendi; form kontrolleri de sage accent-color kullanıyor.

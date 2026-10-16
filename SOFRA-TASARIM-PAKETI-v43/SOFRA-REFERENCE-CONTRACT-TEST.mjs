@@ -81,6 +81,9 @@ assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');
 assert.match(html, /<strong>Hazırlanış<\/strong>/, 'referans tarif hazırlanış bölümü eksik');
 
+assert.match(html, /fit-sofra-palette-v61/, 'Fit palette contract missing');
+assert.match(html, /fit-sofra-palette-v61[\s\S]*#607b65[\s\S]*#d48c75/, 'Fit palette accents missing');
+
 const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)];
 for (const [index, match] of scripts.entries()) {
   try { Function(match[1]); } catch (error) { throw new Error(`referans HTML script ${index + 1} parse edilemedi: ${error.message}`); }

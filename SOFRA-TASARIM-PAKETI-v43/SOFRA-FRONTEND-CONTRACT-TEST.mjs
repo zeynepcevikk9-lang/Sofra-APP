@@ -77,6 +77,7 @@ assert.match(html, /dayPlans|currentPlans/, 'gün bazlı plan verisi eksik');
 assert.match(html, /renderMonth\(\)|renderHistory\(\)/, 'gün bazlı plan Ay/Geçmiş görünümlerine taşınmıyor');
 assert.match(html, /plan-day-picker-v54|selectPlanDayV54/, 'hafta görünümü mobilde kompakt gün seçicisi kullanmıyor');
 assert.match(html, /cumartesi|pazar/, 'hafta sonu günleri Planım seçicisinde eksik');
+assert.match(html, /plan-status-v55|sofraPlanMeaningV55/, 'plan kartı öneri ile kullanıcı seçimini ayırmıyor');
 assert.match(html, /sofraSafetyProfileV46/, 'gıda güvenliği tercihi saklama kancası eksik');
 assert.match(html, /Gluten \/ çölyak/, 'çölyak tercihi eksik');
 assert.match(html, /çapraz bulaş/, 'çapraz bulaş uyarısı eksik');

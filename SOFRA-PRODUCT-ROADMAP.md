@@ -116,6 +116,8 @@ Bu karar dört günlük görünüm için de geçerlidir: hafta kartları yalnız
 
 Hafta görünümü mobilde yedi günlük yatay seçiciye indirgenir; aynı anda yalnızca seçilen günün kartı açılır. Bu, planı işlevsel tutarken kullanıcının her günü görmek için uzun bir kart listesi kaydırmasını engeller.
 
+Plan kartları artık “Sistem önerisi”, “Senin planın” ve “Boş gün” durumlarını açıkça ayırır. Kullanıcı öneriyi özelleştirip kaydettiğinde kartın durumu değişir; böylece uygulama otomatik öneriyi kullanıcının kesin kararı gibi göstermez.
+
 Normal Sofra görünümünde Fit özeti ve kalori kartı gösterilmeyecek. Kalori ve makro özeti yalnızca Sofra Fit bölümünde aktif olacak.
 
 Plan API’si de bu kararı korur: kayıtlar geçerli tarih, porsiyon ve katalog tarifleriyle oluşturulur; hatalı veya tekrarlı tarif kimlikleri kabul edilmez.

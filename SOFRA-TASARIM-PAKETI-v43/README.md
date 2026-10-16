@@ -68,6 +68,7 @@ Bu dosya şu an gerçek backend’e bağlı değildir. LocalStorage ile örnek k
 7. Planım'a gir; bugün kartında **Düzenle** ile ana yemeği değiştir, bir tarif ekle, kendi öğününü yazıp kaydet. Hafta görünümünde planın sadece bugün kartında olduğunu, Ay ve Geçmiş'te de korunduğunu kontrol et.
 8. Hafta görünümünde Pazartesi, Salı veya Perşembe kartındaki **Düzenle** ile o güne farklı tarif ve kendi öğününü kaydet; Ay ve Geçmiş görünümlerinde doğru günün korunduğunu kontrol et.
 9. Hafta görünümündeki yatay gün seçicisinden hafta sonunu da seç; boş bir güne plan ekleyip kartın yalnızca seçilen gün için açıldığını kontrol et.
+   Planım'da “Sistem önerisi” etiketli bir günü aç; **Özelleştir** ile ana yemeği veya ek öğünü değiştirip kaydet. Kartın “Senin planın” durumuna geçtiğini kontrol et.
 10. Alışveriş adaylarını kontrol et, açıkça onayla ve örnek market karşılaştırmasını aç; fiyatların canlı değil, tasarım verisi olduğunu ve her teklifin örnek güncelleme zamanını unutma. Minimum sepeti karşılanmayan teklifler "Tahmini toplam" olarak kalır.
 11. Market modalında "En uygun toplam", "En hızlı" ve "Tek markette tamamla" sıralamalarını dene; bu sıralamalar yalnızca örnek teklif verisini yeniden düzenler.
 12. Sofra modunda Planım'daki ikinci kartın alışveriş özeti, Sofra Fit modunda ise kalori özeti olduğunu kontrol et.

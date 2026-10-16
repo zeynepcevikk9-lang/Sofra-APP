@@ -622,6 +622,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Mod gecisi v1.22 kullanici turunda Fit'ten Sofra'ya donus test edildi; aktif mod, ana sayfa ve `Sofra acildi` bildirimi birlikte guncellendi, stale Fit bildirimi kalmadi.
 - Fit paleti v1.23 kullanici turunda mavi/mor renk sapmasi yeniden kontrol edildi; canonical/reference v2 ekranlarinda sage/cream/clay son kilidi ve form accent rengi birlikte uygulandi.
 - Dolap onerisi v1.24 kullanici turunda bos demo dolabina domates ve patates eklendi; ana sayfa onerisi, Dolabindakilerle menu kurulumu ve Planim kaydi ayni akista dogrulandi.
+- Market akis v1.25 kullanici turunda eksik tarif malzemeleri liste onayindan sonra ornek tekliflere donustu; minimum sepet kosulu, uc siralama ve Fit/saglik verisi aktarilmadigi aciklamasi canli ekranda dogrulandi.
 
 - Release ops v1.16 taslak operasyon plani icin staging/production kapilari, izleme, yedekleme, rollback ve P0-P2 olay seviyelerini kontrol eden `SOFRA-OPS-CONTRACT-TEST.mjs` eklendi; gercek servis kurulumu ve sorumlular hala yayin oncesi acik madde olarak tutuluyor.
 - Fit palet v1.15 ile Fit modulundeki profil, hedef, saglik, ogun ve tarif kartlari tek bir Sofra adacayi-krem-clay kilidine baglandi; yeni v65 modul kilidi mavi/mor varyantlari engelliyor.

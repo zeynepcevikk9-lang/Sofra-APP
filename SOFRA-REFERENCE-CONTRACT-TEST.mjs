@@ -8,6 +8,7 @@ const referencePath = existsSync(join(root, 'sofra-motoru-reference-v2.html'))
   ? join(root, 'sofra-motoru-reference-v2.html')
   : join(root, 'outputs', 'sofra-motoru-reference-v2.html');
 const html = readFileSync(referencePath, 'utf8');
+assert.match(html, /market-clarity-v87/, 'reference market comparison clarity rule missing');
 
 assert.match(html, /reference-v2-fit/, 'referans Fit ekranı eksik');
 assert.match(html, /sofraThemeV42.*dataset\.theme.*gece.*acik/s, 'referans kayıtlı tema ekrana uygulanmıyor');

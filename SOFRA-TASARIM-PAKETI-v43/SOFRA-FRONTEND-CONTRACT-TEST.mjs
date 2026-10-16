@@ -8,6 +8,7 @@ const htmlPath = existsSync(join(root, 'sofra-motoru-home-v43.html'))
   ? join(root, 'sofra-motoru-home-v43.html')
   : join(root, 'outputs', 'sofra-motoru-home-v43.html');
 const html = readFileSync(htmlPath, 'utf8');
+assert.match(html, /market-clarity-v87/, 'market comparison clarity rule missing');
 
 assert.match(html, /<html\s+lang="tr"/i, 'Türkçe html dili eksik');
 assert.match(html, /name="viewport"[^>]+width=device-width/i, 'mobil viewport eksik');

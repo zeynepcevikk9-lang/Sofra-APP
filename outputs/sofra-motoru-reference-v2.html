@@ -2183,6 +2183,20 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   .reference-v2-fit .fit-workout-v2 button{background:var(--fit-clay)!important;color:#fff!important}
   .reference-v2-fit input,.reference-v2-fit select{accent-color:var(--fit-sage)!important}
 </style>
+<style id="market-clarity-v87">
+  .market-demo-rule{border:1px solid #eadfd7;border-radius:11px;background:#fff8f3;color:#805e50;padding:9px 10px;margin:0 0 10px;font-size:9px;line-height:1.45}
+</style>
+<script id="market-clarity-v87-script">
+(function(){
+  function addRule(){
+    const intro=document.querySelector('.market-demo-intro');
+    if(!intro||document.querySelector('.market-demo-rule'))return;
+    intro.insertAdjacentHTML('afterend','<div class="market-demo-rule"><strong>Nasıl karşılaştırıyoruz?</strong> En uygun toplam sıralaması minimum sepet ve teslimat koşulları karşılanan teklifleri karşılaştırır. Koşulu eksik teklifler “Tahmini toplam” olarak gösterilir.</div>');
+  }
+  new MutationObserver(addRule).observe(document.body,{childList:true,subtree:true});
+  addRule();
+})();
+</script>
 </body>
 </html>
 

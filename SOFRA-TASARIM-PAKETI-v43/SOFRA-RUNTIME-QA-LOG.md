@@ -229,6 +229,16 @@ Sonuç: İki mod arasındaki dönüş akışı görünür ekran, aktif mod ve to
 
 Sonuc: Dolap girdisi ana sayfa onerisine, menu kurulumuna ve Planim kaydina kadar kesintisiz tasiniyor.
 
+## Market aday listesi ve karsilastirma turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=market-v87&demo=empty`
+
+1. Planim'da ana yemek `Kremali mantarli makarna` ile degistirildi; 4 aday urun ve gerekli miktarlar gorundu.
+2. `Listeyi kontrol et` acilmadan market teklifleri gosterilmedi; aday liste onay modalinda tek tek kontrol edildi.
+3. Onaydan sonra CarrefourSA, Getir ve Migros teklifleri; tahmini toplam, teslimat, minimum sepet, guncelleme zamani ve ornek veri kaynagi ile gorundu.
+4. `En uygun toplam`, `En hizli` ve `Tek markette tamamla` siralamalari canli akista test edildi.
+5. Daha dusuk gorunen fakat minimum sepeti karsilamayan tekliflerin neden `Tahmini toplam` oldugu market ekraninda acik bir kuralla anlatildi; Fit/saglik verisinin markete aktarilmayacagi disclosure korunuyor.
+
+Sonuc: Market akisi liste onayi, kosullu fiyat karsilastirmasi ve gizlilik/gelir seffafligi sinirlarini kullaniciya gorunur sekilde koruyor.
+
 ## Fit Sofra paleti son kontrol turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=fit-palette-v86&demo=onboarding`
 
 1. Onboarding üzerinden Sofra Fit açıldı; profil, sağlık bağlantısı, hedef ve öneri kartları birlikte kontrol edildi.

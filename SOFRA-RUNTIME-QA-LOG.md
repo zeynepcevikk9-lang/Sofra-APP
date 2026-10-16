@@ -148,3 +148,11 @@ Sonuc: Ana sayfanin ana secim kartlari onceki fotografli tarif kartlariyla ayni 
 3. Mevcut son kullanma tarihi, yeni eklenen ürün, Fit hedefi ve dolap eşleşmesi testleri değişmeden geçti.
 
 Sonuç: Türkçe yazım ve Unicode farkları, dolap malzemesi eşleşmesini sessizce kaçırmıyor.
+
+## Fit sağlık bağlantısı turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=health-v50&demo=onboarding`
+
+1. Fit ekranında isteğe bağlı sağlık bağlantısı açıldı; platform seçiminde iOS Apple HealthKit ve Android Health Connect görüldü.
+2. iOS Apple HealthKit seçildi; aktif kalori, adım ve kilo okuma kapsamlarından adım eklendi.
+3. İzin planı kaydedilince Fit kartı `Demo izin akışı · iOS · Apple HealthKit` olarak güncellendi ve gerçek bağlantının sonraki mobil aşamada açılacağı korundu.
+
+Sonuç: Apple HealthKit / Health Connect ayrımı, veri kapsamı ve manuel/prototip sınırı kullanıcı akışı içinde görünür ve çalışır durumda.

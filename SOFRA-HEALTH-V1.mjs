@@ -65,6 +65,12 @@ export function normalizeHealthSummary(input = {}) {
 
 export function fitContext(summary) {
   const normalized = normalizeHealthSummary(summary);
+  const asOfTime = normalized.asOf ? new Date(normalized.asOf).getTime() : NaN;
+  const options = arguments[1] || {};
+  const nowTime = options.now ? new Date(options.now).getTime() : Date.now();
+  const ageHours = Number.isFinite(asOfTime) && Number.isFinite(nowTime) ? (nowTime - asOfTime) / 3600000 : null;
+  const freshnessState = ageHours == null ? 'unknown' : ageHours >= 0 && ageHours <= 36 ? 'fresh' : 'stale';
+  const availableFields = ['activeCalories', 'steps', 'exerciseMinutes', 'weightKg'].filter((key) => normalized[key] != null);
   return {
     source: normalized.source,
     asOf: normalized.asOf,
@@ -72,6 +78,13 @@ export function fitContext(summary) {
     steps: normalized.steps,
     exerciseMinutes: normalized.exerciseMinutes,
     weightKg: normalized.weightKg,
+    availableFields,
+    freshnessState,
+    usagePolicy: {
+      mode: 'fit_only',
+      ranking: 'not_applied_without_verified_nutrition',
+      marketForwarding: false,
+    },
   };
 }
 

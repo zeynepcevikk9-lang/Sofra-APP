@@ -52,7 +52,7 @@ assert.equal(invalid.asOf, null);
 assert.equal(invalid.activeCalories, null);
 assert.equal(partial.asOf, null);
 
-const context = fitContext(full);
+const context = fitContext(full, { now: '2026-10-14T18:00:00Z' });
 assert.deepEqual(context, {
   source: 'apple_healthkit',
   asOf: '2026-10-14T12:00:00Z',
@@ -60,7 +60,12 @@ assert.deepEqual(context, {
   steps: 6840,
   exerciseMinutes: 32,
   weightKg: 64,
+  availableFields: ['activeCalories', 'steps', 'exerciseMinutes', 'weightKg'],
+  freshnessState: 'fresh',
+  usagePolicy: { mode: 'fit_only', ranking: 'not_applied_without_verified_nutrition', marketForwarding: false },
 });
+assert.equal(fitContext(full, { now: '2026-10-17T18:00:00Z' }).freshnessState, 'stale');
+assert.equal(fitContext({ source: 'health_connect' }).freshnessState, 'unknown');
 assertNoHealthData(marketPayload({ candidateIds: ['candidate_domates'] }));
 
 const iosPlan = buildHealthPermissionPlan('apple_healthkit');

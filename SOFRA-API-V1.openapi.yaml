@@ -778,6 +778,25 @@ components:
         exerciseMinutes: { type: number, minimum: 0, nullable: true }
         weightKg: { type: number, exclusiveMinimum: 0, nullable: true }
         permissions: { type: object }
+    HealthContext:
+      allOf:
+        - $ref: '#/components/schemas/HealthSummary'
+      type: object
+      required: [availableFields, freshnessState, usagePolicy]
+      properties:
+        availableFields:
+          type: array
+          items: { type: string, enum: [activeCalories, steps, exerciseMinutes, weightKg] }
+        freshnessState:
+          type: string
+          enum: [fresh, stale, unknown]
+        usagePolicy:
+          type: object
+          required: [mode, ranking, marketForwarding]
+          properties:
+            mode: { type: string, enum: [fit_only] }
+            ranking: { type: string, enum: [not_applied_without_verified_nutrition] }
+            marketForwarding: { type: boolean, enum: [false] }
     AiStatus:
       type: object
       required: [schema_version, provider_status, fallback, auto_save, tasks]
@@ -924,7 +943,7 @@ components:
           $ref: '#/components/schemas/RecipeSafetyAssessment'
         health_context:
           allOf:
-            - $ref: '#/components/schemas/HealthSummary'
+            - $ref: '#/components/schemas/HealthContext'
           nullable: true
         fit_target:
           allOf:

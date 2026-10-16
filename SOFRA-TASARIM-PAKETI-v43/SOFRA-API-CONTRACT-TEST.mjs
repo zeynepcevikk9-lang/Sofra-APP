@@ -26,6 +26,8 @@ const requiredPaths = [
 for (const path of requiredPaths) assert.ok(apiSpec.includes(path), `OpenAPI yolu eksik: ${path}`);
 assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı eksik');
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
+assert.ok(apiSpec.includes('HealthContext'), 'Fit sağlık kullanım politikası şeması eksik');
+assert.ok(apiSpec.includes('not_applied_without_verified_nutrition'), 'Fit sağlık sıralama güvenlik sınırı eksik');
 assert.ok(apiSpec.includes('callback_exchange: { type: string, enum: [server_only] }'), 'OAuth token değişimi sunucu sınırı eksik');
 assert.ok(apiSpec.includes('permission_level: { type: string, enum: [per_data_type] }'), 'sağlık izni veri türü kapsamı eksik');
 assert.ok(apiSpec.includes('enum: [total, fast, single]'), 'market sıralama sözleşmesi eksik');

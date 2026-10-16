@@ -58,6 +58,7 @@ assert.match(html, /<strong>Hazırlanış<\/strong>/, 'tarif hazırlanış böl�
 assert.doesNotMatch(html, /Malzemeleri ve ölçüleri kontrol et\./, 'bağlı olmayan sahte tarif adımı geri eklenmiş');
 assert.match(html, /Tarif adımları henüz bağlı değil\./, 'tarif içeriği bağlantı durumu açıkça belirtilmiyor');
 assert.match(html, /function parseQuickInventory\(value\)/, 'miktar ayrıştırma fonksiyonu eksik');
+assert.match(html, /makarna.*spagetti.*parseQuickInventoryV50/s, 'hızlı giriş kanonik alias eşlemesi eksik');
 assert.match(html, /quantity:`\$\{number\} \$\{unit\}`/, 'hızlı ekle miktarı ayrı saklamıyor');
 assert.match(html, /sofraSafetyProfileV46/, 'gıda güvenliği tercihi saklama kancası eksik');
 assert.match(html, /Gluten \/ çölyak/, 'çölyak tercihi eksik');

@@ -573,3 +573,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Fit v1.4 prototipinde tarif kartları ortak öneri motoruna bağlandı: hedefe göre sıralama, dolap eşleşmesi, gerçek yemek fotoğrafı ve güvenlik filtresi korunuyor; antrenman arayüzü kapsam dışında bırakıldı.
 - Health v1.5 prototipinde Fit bağlantı ekranı iOS Apple HealthKit ve Android Health Connect sağlayıcısını ayrı gösteriyor; veri türü seçimi, kısmi izin, manuel devam ve gerçek bağlantının kapalı olduğu sınır kullanıcıya açıklanıyor.
 - Market v1.6 prototipinde yönlendirme/komisyon açıklaması karşılaştırma ekranında görünür; gerçek partner bağlantısı açılmadan canlı gelir iddiası ve yönlendirme yapılmıyor.
+- Algoritma v1.7’de doğal dolap notu ve API kayıtları kanonik malzeme adına indirgeniyor; kg/g/adet/litre/paket gibi miktar-birim alanları normalize edilip `SOFRA-INGEST-CONTRACT-TEST.mjs` ile korunuyor.

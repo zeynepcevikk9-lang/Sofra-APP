@@ -77,7 +77,9 @@ try {
   result = await request('/v1/pantry/parse-note', { method: 'POST', body: JSON.stringify({ text: '6 yumurta aldım, peynir azaldı, süt bitti, bilinmeyen ürün' }) });
   assert.equal(result.response.status, 200);
   assert.deepEqual(result.body.items.map((item) => [item.canonical_name, item.stock_state]), [['yumurta', 'available'], ['peynir', 'low'], ['süt', 'finished']]);
-  assert.equal(result.body.items[0].quantity_text, '6 yumurta');
+  assert.equal(result.body.items[0].quantity_text, '6 adet');
+  assert.equal(result.body.items[0].quantity_value, 6);
+  assert.equal(result.body.items[0].quantity_unit, 'adet');
   assert.equal(result.body.unparsed_text, 'bilinmeyen ürün');
   assert.equal(result.body.parser, 'deterministic_fallback');
   assert.equal(result.body.ai_status, 'not_connected');

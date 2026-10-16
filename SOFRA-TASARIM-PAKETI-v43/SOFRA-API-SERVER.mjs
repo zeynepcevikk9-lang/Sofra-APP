@@ -1,7 +1,7 @@
 import http from 'node:http';
 import { catalog, normalize as normalizeRecipeText, recipeDetails, recommend } from './SOFRA-ALGORITHM-V1.mjs';
 import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
-import { parsePantryNote } from './SOFRA-INGEST-V1.mjs';
+import { canonicalizeIngredient, parsePantryNote, parseQuantityText } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
 import { normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
@@ -48,14 +48,15 @@ function buildPantryItem(state, input) {
   if (!isoDate(input.expiry_date)) throw validationError('geçersiz expiry_date');
   if (input.quantity_value != null && (!Number.isFinite(input.quantity_value) || input.quantity_value < 0)) throw validationError('geçersiz quantity_value');
   if (input.confidence != null && (!Number.isFinite(input.confidence) || input.confidence < 0 || input.confidence > 1)) throw validationError('geçersiz confidence');
+  const parsedQuantity = input.quantity_text && input.quantity_value == null ? parseQuantityText(input.quantity_text) : { value: input.quantity_value ?? null, unit: input.quantity_unit ?? null };
   return {
     id: `pantry_${state.nextId++}`,
     user_id: 'usr_anonymous_demo',
-    canonical_name: input.canonical_name || displayName.toLocaleLowerCase('tr-TR'),
+    canonical_name: canonicalizeIngredient(input.canonical_name || displayName),
     display_name: displayName,
     quantity_text: input.quantity_text ?? null,
-    quantity_value: input.quantity_value ?? null,
-    quantity_unit: input.quantity_unit ?? null,
+    quantity_value: parsedQuantity.value,
+    quantity_unit: parsedQuantity.unit,
     stock_state: input.stock_state,
     expiry_date: input.expiry_date ?? null,
     source: input.source || 'manual',

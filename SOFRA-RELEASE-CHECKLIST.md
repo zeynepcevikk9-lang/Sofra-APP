@@ -14,8 +14,8 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 
 ## 2. Veri ve algoritma
 
-- [ ] Tarif malzemeleri kanonik adlarla tutulur.
-- [ ] Birim ve miktar eşleştirmesi yapılır.
+- [x] Tarif malzemeleri kanonik adlarla tutulur; doğal not ve API dolap kayıtları alias’ları tek ürün adına indirger.
+- [x] Birim ve miktar eşleştirmesi temel kg/g/adet/litre/paket/kutu/demet alanlarında yapılır; belirsiz metin kullanıcı onayına bırakılır.
 - [x] Dolap durumu `var`, `azaldı`, `bitti` ayrımını korur.
 - [x] Son kullanma tarihi opsiyoneldir; girilmediğinde kullanıcı cezalandırılmaz.
 - [x] Boş dolapta genel öneri üretilebilir.

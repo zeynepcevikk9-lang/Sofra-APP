@@ -1528,6 +1528,17 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   window.showMarketDemoV43=function(confirmed=false){oldShow(confirmed);if(confirmed)document.querySelector('.market-demo-foot')?.insertAdjacentHTML('beforebegin',disclosure)};
 })();
 </script>
+<script>
+/* v50: hızlı dolap girişini kanonik ad ve miktar/birim alanlarına bağlar. */
+(function(){
+  const aliases=[['yumurta',['yumurta','yumurtalar']],['patates',['patates','patatesler']],['peynir',['peynir']],['süt',['süt','sut']],['domates',['domates','domatesler']],['soğan',['soğan','sogan']],['yoğurt',['yoğurt','yogurt']],['elma',['elma','elmalar']],['marul',['marul']],['pirinç',['pirinç','pirinc']],['makarna',['makarna','spagetti','spaghetti']],['biber',['biber']],['salça',['salça','salca']],['tavuk',['tavuk']],['mantar',['mantar']],['roka',['roka']],['patlıcan',['patlıcan','patlican']]];
+  const normal=value=>String(value||'').toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/İ/g,'i').trim();
+  const canonical=value=>aliases.find(([name,values])=>values.some(alias=>normal(value).includes(normal(alias))))?.[0]||String(value||'').trim();
+  const parse=value=>{const raw=String(value||'').trim();const match=raw.match(/^\s*(\d+(?:[,.]\d+)?)\s*(kg|kilo|gram|g|adet|litre|l|paket|kutu|demet)?\s+(.+?)\s*$/i);if(!match)return {name:canonical(raw),quantity:'Miktarı ayrıca doğrula'};const unit=({kilo:'kg',gram:'g',litre:'l'}[match[2]?.toLocaleLowerCase('tr-TR')]||match[2]?.toLocaleLowerCase('tr-TR')||'adet');return {name:canonical(match[3]),quantity:`${match[1].replace(',','.')} ${unit}`}};
+  window.parseQuickInventoryV50=parse;
+  window.addInventory=function(){const input=document.getElementById('quick-add');const value=input?.value.trim();if(!value)return;const parsed=parse(value);inventory.unshift([ingredientEmoji(parsed.name),parsed.name,parsed.quantity,'var','',new Date().toISOString()]);persistInventory();input.value='';renderInventory();toast(`${parsed.name} · ${parsed.quantity} dolabına eklendi`)};
+})();
+</script>
 </body>
 </html>
 

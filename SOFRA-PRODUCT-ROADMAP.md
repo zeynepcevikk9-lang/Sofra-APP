@@ -600,6 +600,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Fit hedef ve mod degistirme akisi temiz oturumda canli test edildi: kilo verme ve kilo alma secimleri farkli tarif siralamasi/icerigi ve yaklasik hedef uretti; profil kaydi ve Fit'ten Sofra'ya donuste mod gostergesi dogru kaldı.
 - Fit kapsam temizligi yapildi: antrenman karti/aksiyonu ve egzersiz izin secenegi kaldirildi; Fit tarif, ogun, profil hedefi ve istege bagli saglik baglantisi odaginda tutuldu.
 - Fit acik/koyu tema turunda Sofra'nin yesil/krem/kil paleti dogrulandi; guvenlik tercihi nedeniyle bos kalan tarif alanina tercihi gozden gecirme aksiyonu eklendi.
+- Cocugum icin akisi ana v43'e tamamlandi: 12-23, 24-35 ve 36+ ay secimleri farkli tarif/not setleri uretiyor; kart detayinda gercek fotograf, malzeme, hazirlama notu ve genel alerjen/kivam uyarisi var.
 
 - Gida guvenligi akisi canli tarayici turunda dogrulandi: Profil'den Gluten / colyak secimi, kaydetme rozeti ve Tarifler ekraninda dogrulanmamis tariflerin filtrelenmesi birlikte calisti; koyu tema da kontrol edildi.
 

@@ -98,6 +98,10 @@ assert.match(html, /new URLSearchParams\(location\.search\).*demo.*DEFAULT_INVEN
 assert.match(html, /demo==='empty'.*return \[\]/s, 'boş dolap QA senaryosu eksik');
 assert.match(html, /Dolabın henüz boş\./, 'boş dolap geri dönüşü eksik');
 assert.doesNotMatch(html, /<button[^>]*class="heart"[^>]*>/, 'işlevsiz favori kalbi geri eklenmiş');
+assert.match(html, /child-nutrition-v64/, 'cocuk beslenmesi yas akisi eksik');
+for (const age of ['12–23 ay', '24–35 ay', '36+ ay']) assert.match(html, new RegExp(age.replace(/[+]/g, '\\+')), `cocuk yas grubu eksik: ${age}`);
+assert.match(html, /window\.pickAge=function/, 'cocuk yas secimi tarifleri yenilemiyor');
+assert.match(html, /Hazırlama notu/, 'cocuk tarif detay hazirlama notu eksik');
 
 assert.match(html, /id="day-custom-v53"/, 'kullanici ogunu metin alani eksik');
 assert.match(html, /day-custom-slot-v58/, 'kullanici ogunu bolum secimi eksik');

@@ -63,3 +63,13 @@ Sonuc: gluten/colyak tercihi profil -> kaydetme -> tarif filtreleme zincirinde c
 
 Sonuc: Fit hedefi -> oneriler -> profil kaydi -> Sofra modu donusu zinciri temiz oturumda canli olarak dogrulandi.
 
+## Cocuk beslenmesi turu - `http://localhost:8766/sofra-motoru-home-v43.html?qa=child-v64`
+
+1. Ana sayfadaki **Cocugum icin** girisi acildi; ekranin Aile yerine cocuk odakli basligi ve genel guvenlik notu goruldu.
+2. **12-23 ay** seciminde yumusak kivamli, ilave sekersiz ve yas donemine gore notlandirilmis uc tarif goruldu.
+3. **24-35 ay** seciminde tarif seti tavuklu sebze koftesi, peynirli omlet seritleri ve muzlu yulaf pankek olarak degisti.
+4. **36+ ay** seciminde firinda sebzeli mucver, mercimekli bulgur kofte ve elmali yogurt onerileri goruldu.
+5. Tarif karti acildi; gercek yemek fotografi, malzeme listesi, hazirlama notu ve alerjen/kivam uyarisi iceren detay onizlemesi goruldu.
+
+Sonuc: Cocuk akisi ana v43'te yas secimine ve detay tarif onizlemesine baglandi; bu icerik tibbi veya kesin guvenlik garantisi degildir.
+

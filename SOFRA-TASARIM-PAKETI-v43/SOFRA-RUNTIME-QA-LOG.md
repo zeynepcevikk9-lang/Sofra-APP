@@ -100,3 +100,10 @@ Sonuc: Eslesme bulunmamasi ile guvenlik filtresinin tarifleri elemesi artik ayni
 Sonuc: Fit modulu Sofra moduluyle ayni renk dilini kullaniyor; eski cache/preview acilirsa yeni v64 palette kilidini iceren dosya acilmali.
 
 Otomasyon: `SOFRA-FIT-PALETTE-CONTRACT-TEST.mjs` v64 kilidini ve kilit icindeki mavi hex token yoklugunu dogruladi.
+
+## Reference koyu tema turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=theme-v1&demo=onboarding`
+
+1. Kayitli koyu tema ile yeni reference oturumu acildi; ekran yuzeyleri gercekten koyu, Profil etiketi de `Koyu gorunum acik` olarak eslesti.
+2. Profilde `Acik moda gec` secildi; body/app yuzeyleri acik temaya dondu, etiket `Acik gorunum acik` ve sonraki dugme `Koyu moda gec` oldu.
+
+Sonuc: Reference v2, tema etiketini gostermekle kalmiyor; kayitli tema ile gorunen yuzeyleri de ayni duruma getiriyor.

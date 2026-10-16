@@ -1294,7 +1294,7 @@ body.reference-v2 .bottomnav{border-radius:0 0 30px 30px}
   const app=document.querySelector('.app'),home=document.getElementById('home'),fit=document.getElementById('fit');
   if(!app||!home||!fit)return;
   document.body.classList.add('reference-v2');app.classList.add('reference-v2-app');home.classList.add('reference-v2-home');fit.classList.add('reference-v2-fit');
-  document.body.removeAttribute('data-theme');
+  try{document.body.dataset.theme=localStorage.getItem('sofraThemeV42')==='gece'?'gece':'acik'}catch(e){document.body.dataset.theme='acik'}
   const top=document.querySelector('.top');
   if(top&&!document.querySelector('.reference-greeting-v2'))top.insertAdjacentHTML('afterend','<div class="reference-greeting-v2"><div><span class="reference-date-v2">14 Ekim · Çarşamba</span><strong>Merhaba, Zeynep</strong></div><button class="reference-bell-v2" type="button" onclick="toast(\'Bildirimler yakında burada olacak\')" aria-label="Bildirimler">♧</button></div>');
   const mode=home.querySelector('.home-mode-card');

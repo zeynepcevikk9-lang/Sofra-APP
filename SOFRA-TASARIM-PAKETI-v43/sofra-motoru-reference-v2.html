@@ -1516,6 +1516,18 @@ fit.insertAdjacentHTML('beforeend','<section class="fit-dashboard-v2" aria-label
 .health-v50-provider{display:block;color:var(--muted);font-size:10px;font-weight:800;margin:12px 0 8px}.health-v50-provider select{display:block;width:100%;box-sizing:border-box;margin-top:4px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);padding:9px;font-size:10px}.health-v50-list{display:grid;gap:6px;margin:10px 0}.health-v50-list label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:8px 9px}.health-v50-list input{accent-color:var(--sage);width:15px;height:15px}.health-v50-list strong{display:block;color:var(--ink);font-size:10px}.health-v50-list small{display:block;color:var(--muted);font-size:8px;margin-top:2px}.health-v50-note{border:1px solid #eadfd7;border-radius:10px;background:#fff8f3;color:#8b6758;padding:9px;font-size:9px;line-height:1.4}.health-v50-note strong{font-weight:800}
 body[data-theme="gece"] .health-v50-note{background:#49352e;border-color:#68473b;color:#e7ad98}
 </style>
+<style>
+.market-disclosure-v50{border:1px solid #eadfd7;border-radius:11px;background:#fff8f3;color:#805e50;padding:9px 10px;margin-top:10px;font-size:9px;line-height:1.45}.market-disclosure-v50 strong{display:block;margin-bottom:3px;color:#6b4b3d}
+body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#68473b;color:#e7ad98}.market-disclosure-v50 strong{color:inherit}
+</style>
+<script>
+/* v50: market yönlendirme/komisyon açıklaması; prototipte partner bağlantısı yoktur. */
+(function(){
+  const oldShow=window.showMarketDemoV43;if(!oldShow)return;
+  const disclosure='<div class="market-disclosure-v50"><strong>Yönlendirme ve gelir şeffaflığı</strong>Bu prototipte dış market bağlantısı yoktur. Gerçek üründe partner linki veya komisyon geliri oluşursa bu durum açıkça etiketlenir; sponsorlu tercih sağlık/Fit verisini ve organik fiyat sıralamasını değiştiremez.</div>';
+  window.showMarketDemoV43=function(confirmed=false){oldShow(confirmed);if(confirmed)document.querySelector('.market-demo-foot')?.insertAdjacentHTML('beforebegin',disclosure)};
+})();
+</script>
 </body>
 </html>
 

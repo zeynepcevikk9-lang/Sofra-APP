@@ -43,7 +43,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Koşullar eşit değilse “en ucuz” iddiası kullanılmaz.
 - [x] Sponsorlu ürün/tarif açıkça etiketlenir.
 - [x] Sağlık ve Fit verisi sponsorlu sıralamayı etkilemez.
-- [ ] Market komisyonu ve yönlendirme dili kullanıcıya açıklanır.
+- [x] Prototipte market komisyonu ve yönlendirme dili kullanıcıya açıklanır; gerçek partner bağlantısı açılmadan canlı gelir iddiası gösterilmez.
 
 ## 5. Teknik kalite
 

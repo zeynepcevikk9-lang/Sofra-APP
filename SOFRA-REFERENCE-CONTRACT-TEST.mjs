@@ -50,6 +50,7 @@ assert.match(html, /Örnek güncelleme: \$\{m\.updated\}/, 'market örnek teklif
 assert.match(html, /Kaynak: örnek veri/, 'market tekliflerinin örnek veri sınırı eksik');
 assert.match(html, /data-sort="fast"/, 'referans market hız sıralaması eksik');
 assert.match(html, /data-sort="single"/, 'referans tek market sıralaması eksik');
+assert.match(html, /market-disclosure-v50.*komisyon/s, 'referans market yönlendirme/komisyon açıklaması eksik');
 assert.match(html, /Zeytinyağlı patlıcan/, 'referans tarif kataloğunda patlıcan örneği eksik');
 assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');

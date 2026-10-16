@@ -645,3 +645,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Ana sayfa kesif v1.32 ile tek buyuk hero yerine `Bugunun secimi` yatay tarif seridine alindi; gercek fotograf, sure, dolap uyumu ve tarif modalina gecis korunuyor.
 - Marka v1.33 ile yaprak isareti yerine alcak yuvarlak yer sofrasini cagristiran kucuk kod cizimi denendi; bu bir tasarim prototipidir, son logo karari degildir.
 - Tarif kaydi v1.34: cihazdaki kayitli tarifler Profil ekraninda listeleniyor; kaldigin adim, tarifi yeniden acma ve kayittan cikarma akisi korunuyor.
+- Tarif guvenligi v1.35: detay modalinda alerjen metadata'si, dogrulama durumu ve gluten icin capraz bulas siniri gorunur hale getirildi; dogrulanmamis tarif guvenli sayilmiyor.

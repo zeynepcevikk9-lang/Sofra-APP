@@ -134,5 +134,7 @@ assert.match(html, /saved-recipes-panel-v94/, 'Kaydedilen tarif paneli hedefi ek
 assert.match(html, /recipe-detail-v95/, 'Tarif detay porsiyon ve yanina ne gider katmani eksik');
 assert.match(html, /data-serving-plus/, 'Tarif detay porsiyon secici eksik');
 assert.match(html, /Yan.{0,2}na ne gider/, 'Tarif eslikci onerileri eksik');
+assert.match(html, /recipe-safety-v96/, 'Tarif guvenligi bilgi karti eksik');
+assert.match(html, /crossContamination.*controlled|capraz bulas bilgisi yok/s, 'Colyak capraz bulas uyarisi eksik');
 console.log('SOFRA_FRONTEND_CONTRACT_TEST_OK');
 console.log('screens=6 navTabs=5 mobileGuards=ok fallbackImages=ok');

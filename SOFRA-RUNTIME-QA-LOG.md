@@ -306,3 +306,11 @@ Sonuc: Cihaz ici tarif kaydi, ilerleme bilgisi, acma ve kayittan cikarma akisi b
 3. Dogrulanmis veri olmadigi icin sahte kcal/makro gosterilmedi; detayda bu sinir aciklandi.
 
 Sonuc: Tarif detayi porsiyon kararini ve eslikci kesfini destekliyor; besin iddialari veri dogrulama kapisinda tutuluyor.
+## Tarif guvenligi detay karti - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=safety-v96&demo=empty`
+
+1. Kremali mantarli makarna detayinda `Sut urunu` ve `Gluten` etiketleri goruldu.
+2. Metadata dogrulanmadigi icin paket etiketi/uretici kontrolu uyarisi goruldu.
+3. Gluten iceren tarifte capraz bulas bilgisi `controlled` olmadigi icin colyak icin guvenli kabul edilmedigi aciklandi.
+4. Ayni kart canonical ve reference tarif modalina baglandi; browser console error/warning olusmadi.
+
+Sonuc: Kullanici alerjen bilgisini ve dogrulama sinirini tarifin icinde goruyor; sistem bilinmeyen icerigi guvenli varsaymiyor.

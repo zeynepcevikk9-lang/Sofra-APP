@@ -2188,6 +2188,20 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   window.enhanceRecipeDetailV95=enhance;
 })();
 </script>
+<style id="recipe-safety-v96-style">
+  .recipe-safety-v96{margin-top:10px;border:1px solid #eadfd7;border-radius:13px;background:#fff8f3;padding:10px}.recipe-safety-v96 strong{display:block;font:600 16px var(--display);color:var(--ink)}.recipe-safety-v96 p{margin:4px 0 8px;color:var(--muted);font-size:9px;line-height:1.45}.recipe-safety-tags-v96{display:flex;flex-wrap:wrap;gap:5px}.recipe-safety-tags-v96 span{border-radius:999px;background:#f4dfd5;color:#865847;padding:5px 7px;font-size:8px;font-weight:800}.recipe-safety-warning-v96{margin-top:8px;border-top:1px solid #eadfd7;padding-top:7px;color:#93634f;font-size:9px;line-height:1.45}body[data-theme="gece"] .recipe-safety-v96{background:#322a25;border-color:#5a493f}body[data-theme="gece"] .recipe-safety-tags-v96 span{background:#49352e;color:#f0c4b0}body[data-theme="gece"] .recipe-safety-warning-v96{border-color:#5a493f;color:#efbda7}
+</style>
+<script id="recipe-safety-v96">
+(function(){
+  const labels={milk:'Süt ürünü',egg:'Yumurta',peanut:'Yer fıstığı',nuts:'Kuruyemiş',fish:'Balık',shellfish:'Kabuklu deniz ürünü',soy:'Soya',gluten:'Gluten'};
+  const esc=value=>typeof escapeHtml==='function'?escapeHtml(String(value??'')):String(value??'');
+  const norm=value=>String(value||'').toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  function metadata(title){const catalog=window.sofraEngineV38?.catalog;if(!Array.isArray(catalog))return null;const wanted=norm(title);return catalog.find(item=>norm(item.title)===wanted)||null}
+  function enhance(title){const modal=document.getElementById('modal');if(!modal||modal.dataset.recipeSafetyV96===title)return;modal.dataset.recipeSafetyV96=title;const item=metadata(title);const safety=item?.safety;const allergens=Array.isArray(safety?.allergens)?safety.allergens:[];const verified=safety?.verified===true;const unknown=!item||!safety||!Array.isArray(safety.allergens);const card=document.createElement('section');card.className='recipe-safety-v96';const tags=allergens.length?allergens.map(key=>`<span>${esc(labels[key]||key)}</span>`).join(''):'<span>Tanımlı alerjen yok</span>';let warning=unknown?'Bu tarif için yapılandırılmış alerjen metadata’sı bağlı değil; güvenli kabul edilmiyor.':!verified?'İçerik doğrulaması tamamlanmadı. Paket etiketini ve üretici bilgisini kontrol et.':'';if(safety?.crossContamination!=='controlled'&&allergens.includes('gluten'))warning+=' Çölyak için çapraz bulaş bilgisi yok; glutensiz kabul edilmez.';card.innerHTML=`<strong>Gıda güvenliği</strong><p>Tarifte bildirilen alerjenler ve doğrulama durumu.</p><div class="recipe-safety-tags-v96">${tags}</div>${warning?`<div class="recipe-safety-warning-v96">${esc(warning)}</div>`:''}`;const anchor=modal.querySelector('.recipe-serving-v95')||modal.querySelector('.recipe-detail-card');if(anchor)anchor.before(card);else modal.append(card)}
+  const oldRecipe=window.recipe;if(typeof oldRecipe==='function'&&!window.recipeSafetyV96){window.recipeSafetyV96=true;window.recipe=function(title,mins,emoji,photo){oldRecipe(title,mins,emoji,photo);requestAnimationFrame(()=>enhance(title))}}
+  window.enhanceRecipeSafetyV96=enhance;
+})();
+</script>
 </body>
 </html>
 

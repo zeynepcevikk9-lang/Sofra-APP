@@ -55,3 +55,4 @@
 Bu dosya karar günlüğüdür; canlı bağlantı, gerçek sağlık izni, market fiyatı veya sosyal hesap entegrasyonu tamamlandı anlamına gelmez.
 - Profil icinde cihazda kaydedilen tarifleri listeleme, kaldigin adimi gosterme ve kayittan cikarma eklendi.
 - Tarif detayinda porsiyon secici, miktar olcekleme ve "yanina ne gider" karti eklendi; dogrulanmamis besin degeri bilincli olarak gosterilmiyor.
+- Tarif detayinda alerjen etiketi, metadata dogrulama durumu ve gluten icin capraz bulas bilinmiyorsa acik uyari gosterimi eklendi; guvenli iddiasi uretilmiyor.

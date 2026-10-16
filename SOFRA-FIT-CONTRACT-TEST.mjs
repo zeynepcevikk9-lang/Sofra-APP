@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
 
 const ready = normalizeFitProfile({ gender: 'Kadın', age: '30', height: '165', weight: '60', activityFactor: 1.375, goalKey: 'lose' });
@@ -30,6 +31,10 @@ const invalid = normalizeFitProfile({ age: 12, height: 300, weight: -1, goal: 'm
 assert.equal(invalid.ready, false);
 assert.equal(invalid.goal, 'balanced');
 assert.equal(invalid.activityFactor, 1.375);
+
+const canonical = fs.readFileSync('./outputs/sofra-motoru-home-v43.html', 'utf8');
+assert.match(canonical, /function pickFitGoal\(button\)\{[^}]*window\.syncFitV39\?\.\(\{restoreGoal:false\}\)/, 'Fit hedefi hesap özetini yenilemiyor');
+assert.match(canonical, /function sync\(options=\{\}\).*restoreGoal=options\.restoreGoal!==false/, 'Fit hedefi eski kaydedilmis hedefi geri yukluyor');
 
 console.log('SOFRA_FIT_CONTRACT_TEST_OK');
 console.log(`target=${target.targetKcal}kcal protein=${target.proteinTargetG}g incompleteGuard=${incomplete.ready === false}`);

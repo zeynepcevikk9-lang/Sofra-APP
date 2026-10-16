@@ -131,5 +131,8 @@ assert.match(html, /cleanSavedSlots/, 'kullanici ogunu saklama temizleme kapisi 
 assert.match(html, /Kendi yazd.{0,20}malzemeleri.{0,40}do.{0,2}rulanmadan/, 'serbest ogun alisveris siniri eksik');
 assert.match(html, /saved-recipes-v94/, 'Profil kaydedilen tarifler listesi eksik');
 assert.match(html, /saved-recipes-panel-v94/, 'Kaydedilen tarif paneli hedefi eksik');
+assert.match(html, /recipe-detail-v95/, 'Tarif detay porsiyon ve yanina ne gider katmani eksik');
+assert.match(html, /data-serving-plus/, 'Tarif detay porsiyon secici eksik');
+assert.match(html, /Yan.{0,2}na ne gider/, 'Tarif eslikci onerileri eksik');
 console.log('SOFRA_FRONTEND_CONTRACT_TEST_OK');
 console.log('screens=6 navTabs=5 mobileGuards=ok fallbackImages=ok');

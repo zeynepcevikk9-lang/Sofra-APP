@@ -299,3 +299,10 @@ Sonuç: Yemek.com'daki keşif mantığının Sofra'ya uygun sade bir dilde ilk k
 4. Kayit kaldirildi; panel `0 tarif` bos durumuna dondu.
 
 Sonuc: Cihaz ici tarif kaydi, ilerleme bilgisi, acma ve kayittan cikarma akisi birlikte dogrulandi.
+## Tarif detay porsiyon ve eslikci turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=recipe-v95&demo=empty`
+
+1. Kremali mantarli makarna tarif detayi acildi; porsiyon kontrolu ve `Yanina ne gider?` karti goruldu.
+2. Porsiyon 2 kisiden 4 kisiye cikarildi; 200 g makarna -> 400 g, 250 g mantar -> 500 g ve diger miktarlar ayni oranda guncellendi.
+3. Dogrulanmis veri olmadigi icin sahte kcal/makro gosterilmedi; detayda bu sinir aciklandi.
+
+Sonuc: Tarif detayi porsiyon kararini ve eslikci kesfini destekliyor; besin iddialari veri dogrulama kapisinda tutuluyor.

@@ -132,3 +132,11 @@ Sonuc: Fit hedef degisimi ve iki mod arasindaki gecis kullaniciya stale bildirim
 4. Ekranda bunun canli market baglantisi olmadigi, komisyon/sponsorlu siralamanin acik etiketlenecegi ve Fit/saglik verisinin marketlere aktarilmayacagi goruldu.
 
 Sonuc: Market yonlendirme prototipi kullanici onayi, fiyat seffafligi ve veri sinirlariyla birlikte calisiyor; canli partner baglantisi henuz acilmadi.
+
+## Ana sayfa secim kartlari gorsel turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=photos-v60`
+
+1. Tek tarif, Menu olustur ve Dolabimdan bul kartlarinda emoji yerine gercek yemek/urun fotografi goruldu.
+2. Dolabimdan bul kartinin gorsel kaynagi da yuklenebilir bir Unsplash fotografina alindi; onceki bos ikon alani giderildi.
+3. Dolabimdan bul kartina tiklaninca Dolabim ekrani acildi; fotograf degisikligi navigasyonu bozmadı.
+
+Sonuc: Ana sayfanin ana secim kartlari onceki fotografli tarif kartlariyla ayni gorsel dile getirildi.

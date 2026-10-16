@@ -1917,6 +1917,17 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   window.sofraPlanEditorCompactV59={removeSelectedAlternative};
 })();
 </script>
+<style id="choice-photos-v60">
+  .choice .photo-choice-v60{display:block;width:42px;height:42px;margin-bottom:7px;border-radius:50%;background-size:cover;background-position:center;box-shadow:inset 0 0 0 1px #ffffff80;color:transparent;font-size:0;overflow:hidden}
+  #home .choice .photo-choice-v60{width:36px;height:36px;margin-bottom:5px}
+</style>
+<script id="choice-photos-v60-script">
+(function(){
+  const base='https://images.unsplash.com/';
+  const photos=['photo-1547592180-85f173990554','photo-1512621776951-a57141f2eefd','photo-1518977676601-b53f82aba655'];
+  document.querySelectorAll('#home .choice .choice-icon').forEach((node,index)=>{const id=photos[index];if(!id)return;node.classList.add('photo-choice-v60');node.style.backgroundImage=`url("${base}${id}?auto=format&fit=crop&w=160&q=82")`;node.textContent='';node.setAttribute('aria-hidden','true')});
+})();
+</script>
 </body>
 </html>
 

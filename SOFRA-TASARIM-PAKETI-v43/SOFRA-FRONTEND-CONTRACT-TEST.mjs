@@ -26,6 +26,7 @@ for (const tab of ['home', 'tarifler', 'dolabim', 'planim', 'profil']) {
 
 assert.match(html, /class="fallback"/, 'görsel fallback alanı eksik');
 assert.ok((html.match(/onerror=/g) || []).length >= 3, 'görsel yüklenememe fallbackleri eksik');
+assert.match(html, /choice-photos-v60/, 'ana sayfa seçim kartlarında gerçek fotoğraf kapısı eksik');
 assert.match(html, /Apple Health ile bağlan/, 'Fit sağlık bağlantısı arayüz kancası eksik');
 assert.match(html, /health-v50-provider.*Health Connect/s, 'iOS/Android sağlık sağlayıcı seçimi eksik');
 assert.match(html, /Health Connect ile bağlan/, 'seçilen sağlık sağlayıcısı kartta görünmüyor');

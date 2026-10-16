@@ -42,6 +42,7 @@ assert.match(html, /fit-recipe-ranked-v48|sofraFitRankedV48/, 'Fit tarifleri ort
 assert.match(html, /data-fit-reference-goal.*gain|key\(\)==='gain'/s, 'Fit hedefe göre sıralama filtresi eksik');
 assert.match(html, /1 dolap eşleşmesi|matchedCount/, 'Fit dolap eşleşmesi açıklaması eksik');
 assert.match(html, /fit-reference-photo|images\.unsplash\.com/, 'Fit tariflerinde canlı görsel kancası eksik');
+assert.match(html, /choice-photos-v60/, 'referans ana sayfa seçim kartlarında gerçek fotoğraf kapısı eksik');
 assert.match(html, /reference-feedback-v2|sofraFeedbackReferenceV1/, 'referans öneri geri bildirimi eksik');
 assert.doesNotMatch(html, /yaklaşık (?:320|390|410|520|540|620|680|760) kcal/, 'doğrulanmamış Fit tarif kalori iddiası var');
 assert.match(html, /besin verisi bekleniyor/, 'Fit tarif besin verisi durumu açıkça belirtilmiyor');

@@ -23,6 +23,7 @@ assert.match(html, /data-fit-reference-goal="lose"/, 'kilo verme hedefi eksik');
 assert.match(html, /data-fit-reference-goal="gain"/, 'kilo alma hedefi eksik');
 assert.match(html, /Apple Health \/ Health Connect/, 'sağlık bağlantısı referansta eksik');
 assert.match(html, /health-v50-provider.*Health Connect/s, 'referans iOS/Android sağlık sağlayıcı seçimi eksik');
+assert.match(html, /Health Connect ile bağlan/, 'referans seçilen sağlık sağlayıcısı kartta görünmüyor');
 assert.match(html, /saveHealthDemoV50|liveConnection:false/, 'referans kısmi sağlık izinleri ve demo sınırı eksik');
 assert.match(html, /openPrivacyV47/, 'referans profil gizlilik özeti kancası eksik');
 assert.match(html, /Gizlilik ve veri sınırları/, 'referans profil gizlilik özeti metni eksik');

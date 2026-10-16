@@ -120,6 +120,8 @@ Plan kartları artık “Sistem önerisi”, “Senin planın” ve “Boş gün
 
 Fit hedef kataloğu frontend ve ortak öneri motoru arasında hizalanır; kilo alma seçimi boş kalmaz, avokadolu yumurta tost gibi hedefe uygun gerçek fotoğraflı öneriler de aynı tarif detay akışına girer.
 
+Sağlık bağlantı kartı seçilen platformu da doğru yansıtır: iOS için Apple Health, Android için Health Connect; kısmi izin ve manuel devam sınırı korunur.
+
 Normal Sofra görünümünde Fit özeti ve kalori kartı gösterilmeyecek. Kalori ve makro özeti yalnızca Sofra Fit bölümünde aktif olacak.
 
 Plan API’si de bu kararı korur: kayıtlar geçerli tarih, porsiyon ve katalog tarifleriyle oluşturulur; hatalı veya tekrarlı tarif kimlikleri kabul edilmez.

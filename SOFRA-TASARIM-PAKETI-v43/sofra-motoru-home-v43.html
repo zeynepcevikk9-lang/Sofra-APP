@@ -1589,6 +1589,14 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   requestAnimationFrame(()=>window.sofraFitRankedV48?.render?.());
 })();
 </script>
+<script>
+/* v57: Sağlık sağlayıcısı kartını seçilen platformla eşleştirir. */
+(function(){
+  const key='sofraHealthDemoV50';const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}};
+  function sync(){const state=read();const android=state?.provider==='health_connect';document.querySelectorAll('.fit-health-card h3').forEach(node=>node.textContent=android?'Health Connect ile bağlan':'Apple Health ile bağlan');document.querySelectorAll('.fit-health-data strong').forEach(node=>node.textContent=state?(android?'Android izni bekleniyor':'iOS izni bekleniyor'):'Henüz yok')}
+  const oldSave=window.saveHealthDemoV50;if(oldSave)window.saveHealthDemoV50=function(){oldSave();sync()};const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='fit')requestAnimationFrame(sync)};sync();window.syncHealthProviderV57=sync;
+})();
+</script>
 </body>
 </html>
 

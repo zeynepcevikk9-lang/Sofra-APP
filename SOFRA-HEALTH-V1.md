@@ -67,3 +67,16 @@ Eksik veya reddedilmiş izinler `null`/durum alanıyla taşınır; sıfır kabul
 - Market veya sponsor akışında sağlık verisi bulunmaz.
 - HealthKit ve Health Connect çıktısı aynı normalize edilmiş sözleşmeyle öneri katmanına ulaşır.
 - Gerçek entegrasyon testleri fiziksel iOS ve Android cihazlarda yapılmadan demo etiketi kaldırılmaz.
+
+## Mobil adapter sınırı
+
+Native katman izin isteme ve örnekleri toplama işini üstlenir; ortak sözleşmeye geçiş `SOFRA-HEALTH-ADAPTERS-V1.mjs` içindeki provider adapter'larına bırakılır. `adaptHealthKitPayload()` ve `adaptHealthConnectPayload()` platform alanlarını aynı `normalizeHealthSummary()` çıktısına dönüştürür. İzin durumu verilmezse varsayılan `not_requested` kabul edilir ve ham sağlık değeri çıktıya alınmaz.
+
+Adapter sınırı özellikle şu ayrımı korur:
+
+- iOS `activeEnergyBurned`, `stepCount`, `bodyMassKg` gibi alanları; Android `activeCaloriesBurned`, `steps`, `weightKg` gibi alanları kullanabilir.
+- Native SDK, sistem izin penceresi veya token bilgisi bu ortak JavaScript sözleşmesine girmez.
+- Kısmi izinlerde yalnızca `granted` alanlar normalize edilir; diğerleri `null` kalır.
+- Adapter çıktısı market payload'ına değil, yalnızca Fit öneri bağlamına verilir.
+
+Adapter sözleşmesi: `node SOFRA-HEALTH-ADAPTER-CONTRACT-TEST.mjs`.

@@ -577,3 +577,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Planım v1.8’de kullanıcı tarafından oluşturulan menü kaydı cihazdaki `sofraPlanDataV51` alanında korunuyor; Hafta/Ay/Geçmiş görünümleri aynı menü ve isteğe bağlı bölümleri gösteriyor, dışa aktarma kapsamına dahil ediliyor.
 - Hesap v1.9’da anonim kullanım sınırı netleştirildi: prototip verisi cihazla sınırlı, bulut/cihazlar arası senkron kapalı, senkronizasyon için hesap gerekiyor ve gerçek OAuth açılmadan kullanıcıya bu durum Profil’de anlatılıyor.
 - Bildirim v1.10'da tek bir aç/kapat yerine öğün, yaklaşan ürün ve Planım kanalları ayrı seçilebilir hale getirildi; sistem izni prototipte istenmiyor, ön açıklama ve manuel devam sınırı korunuyor.
+- Health v1.11'de gelecekteki mobil katman için HealthKit ve Health Connect adapter sınırı ayrıştırıldı; platform alanları ortak normalize çıktıya çevriliyor, izin verilmemiş ham değerler bloke ediliyor ve adapter sözleşmesi testle korunuyor.

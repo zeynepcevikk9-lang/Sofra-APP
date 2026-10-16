@@ -27,6 +27,8 @@ assert.match(html, /saveHealthDemoV50|liveConnection:false/, 'referans kısmi sa
 assert.match(html, /openPrivacyV47/, 'referans profil gizlilik özeti kancası eksik');
 assert.match(html, /Gizlilik ve veri sınırları/, 'referans profil gizlilik özeti metni eksik');
 assert.match(html, /Hesapsız kullanım bu cihazla sınırlı/, 'referans anonim kullanım ve cihaz verisi sınırı açıklanmıyor');
+assert.match(html, /notify-choices-v42|notifyChannelsV42/, 'referans bildirim kanalı seçimi eksik');
+assert.match(html, /sistem bildirim izni açılmaz/, 'referans bildirim sistem izni öncesi açıklama eksik');
 assert.match(html, /Bu prototipte gerçek HealthKit bağlantısı yok/, 'HealthKit demo sınırı görünür değil');
 assert.match(html, /fit-recipe-reference-v2/, 'hedefe göre Fit tarif kartları eksik');
 assert.match(html, /fit-recipe-ranked-v48|sofraFitRankedV48/, 'Fit tarifleri ortak öneri motoruna bağlanmamış');

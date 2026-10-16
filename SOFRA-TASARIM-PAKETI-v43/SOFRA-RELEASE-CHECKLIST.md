@@ -31,8 +31,8 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Apple HealthKit izinleri veri türü bazında istenir.
 - [ ] Android Health Connect izinleri ayrı ve eşdeğer kapsamda uygulanır.
 - [ ] Sağlık verisi marketlere, markalara veya reklam ortaklarına aktarılmaz.
-- [ ] Bildirim izni açıklaması sistem izninden önce gösterilir.
-- [ ] İzin reddedildiğinde manuel kullanım devam eder.
+- [x] Bildirim izni açıklaması sistem izninden önce gösterilir; prototipte sistem istemi açılmaz ve üç kanal ayrı seçilebilir.
+- [x] İzin reddedildiğinde manuel kullanım devam eder; bildirim tercihi kapalı olsa da Planım ve Fit akışları kullanılabilir.
 - [ ] Kullanıcı verisini silme ve dışa aktarma yolu bulunur.
 
 ## 4. Market ve gelir

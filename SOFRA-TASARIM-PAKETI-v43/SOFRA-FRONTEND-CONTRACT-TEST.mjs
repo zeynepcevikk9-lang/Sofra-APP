@@ -44,6 +44,9 @@ assert.match(html, /fit-recipe-ranked-v48|sofraFitRankedV48/, 'Fit tarifleri ort
 assert.match(html, /key==='gain'.*fitGoals/s, 'Fit kilo alma hedef filtresi eksik');
 assert.match(html, /Daha hafif seçenekler/, 'Fit kilo verme tarif yönlendirmesi eksik');
 assert.match(html, /data-theme="gece"|theme-switch|gece/, 'koyu tema kancası eksik');
+assert.match(html, /notify-choices-v42|notifyChannelsV42/, 'bildirim kanalı seçimi eksik');
+assert.match(html, /sistem bildirim izni açılmaz/, 'bildirim sistem izni öncesi açıklama eksik');
+assert.match(html, /Manuel devam et|manuel kullanım/, 'bildirim izin reddi manuel fallback eksik');
 assert.match(html, /Dolabıma not al|parseNoteV44/, 'doğal dolap girişi eksik');
 assert.match(html, /Öneri motoru/, 'deterministik öneri sınırı kullanıcıya görünür değil');
 assert.doesNotMatch(html, /AI destekli/, 'canlı AI bağlı değilken arayüz AI destekli iddiası taşıyor');

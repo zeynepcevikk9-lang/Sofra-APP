@@ -24,6 +24,12 @@ export function buildNotificationStatus({ platform = 'web' } = {}) {
     permission_plan: platformPlans[platform],
     channels: channels.map((channel) => ({ ...channel, enabled: false })),
     requires_user_action: true,
+    permission_explainer: {
+      required_before_system_prompt: true,
+      shown_in_prototype: true,
+      system_prompt_status: 'not_requested',
+    },
+    manual_fallback: { available: true, keeps_plan_and_fit_usable: true },
     privacy: { content_preview: false, health_data_included: false, market_data_included: false },
   };
 }

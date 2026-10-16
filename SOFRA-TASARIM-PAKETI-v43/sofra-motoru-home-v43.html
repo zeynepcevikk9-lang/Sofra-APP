@@ -233,6 +233,13 @@
   body[data-theme="gece"] #fit .fit-recipe-reference-v2{border-top-color:var(--line)!important}
   body[data-theme="gece"] #fit .fit-recipe-reference-v2 strong{color:var(--ink)!important}
 </style>
+<style id="fit-sofra-palette-v64-no-blue">
+  /* Fit controls stay inside the Sofra sage/cream/clay system, including native controls. */
+  #fit input,#fit select{accent-color:#607b65!important}
+  #fit input:focus,#fit select:focus,#fit button:focus{outline-color:#bd9f65!important}
+  #fit .fit-actions-v2 button:not(:first-child),#fit .fit-reference-goal-v2:not(.active){background:#fffefa!important;color:#4d6e55!important;border-color:#e7e5dd!important}
+  #fit .fit-health-reference-v2 button,#fit .fit-reference-save-v2,#fit .fit-save{background:#607b65!important;color:#fff!important}
+</style>
 <style>
   .inventory-row .row-actions{display:flex;align-items:center;gap:5px;flex:none}
   .inventory-edit{width:24px;height:24px;border:1px solid #e2e8df;border-radius:8px;background:#fffefa;color:#718074;font-size:14px;line-height:1;padding:0}
@@ -1718,7 +1725,11 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   }
   function render(){
     const card=document.getElementById('shopping-list-v40');if(!card)return;
-    const titles=planTitles();if(!titles.length)return;
+    const titles=planTitles();
+    const actions=card.querySelector('.shopping-list-actions');
+    const setActionsVisible=hasPlan=>{actions?.querySelectorAll('button').forEach(button=>{const pantryButton=button.textContent.includes('Dolab');button.hidden=!hasPlan&&!pantryButton});const marketButton=document.getElementById('market-demo-button-v43');if(marketButton)marketButton.hidden=!hasPlan};
+    if(!titles.length){const head=card.querySelector('.shopping-list-head p');const count=card.querySelector('.shopping-list-count');const list=card.querySelector('.shopping-list-items');if(head)head.textContent='Önce bir günü planla; alışveriş adayları seçtiğin tariflerden çıkarılır.';if(count)count.textContent='0 aday';if(list)list.innerHTML='<div class="shopping-item"><div><strong>Henüz alışveriş listesi yok</strong><small> · Bir gün planladığında burada görünür</small></div><span class="shopping-state">Bekliyor</span></div>';setActionsVisible(false);return}
+    setActionsVisible(true);
     const items=candidates();const expectedIntro=`${titles.join(' · ')} için eksik malzemeleri çıkardık.`;const head=card.querySelector('.shopping-list-head p');const visible=[...card.querySelectorAll('.shopping-item strong')].map(node=>node.textContent.trim());const expected=items.slice(0,6).map(item=>item.name);if(head?.textContent.startsWith(expectedIntro)&&expected.every((name,index)=>visible[index]===name))return;
     const count=card.querySelector('.shopping-list-count');if(count)count.textContent=`${items.length} kontrol`;
     if(head)head.textContent=`${expectedIntro} Kendi yazdığın öğünlerin malzemeleri doğrulanmadan listeye eklenmez.`;

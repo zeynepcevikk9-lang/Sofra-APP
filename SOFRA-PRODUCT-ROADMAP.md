@@ -611,3 +611,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 ### Arama v1.1
 
 - Arama bos durumu v65 ile ayrildi: hic eslesme yoksa kullaniciya aramasina uygun tarif bulunamadigi, eslesen tariflerin guvenlik filtresinden elenmesi durumunda ise guvenlik tercihini gozden gecirmesi anlatiliyor; kanonik ve referans ekranlarda canli test edildi.
+
+### Fit v1.2
+
+- Fit renkleri v64 ile Sofra'nin adaçayi yesili, kremi ve kil vurgusuna kilitlendi; native form kontrollerindeki varsayilan mavi odak/accent renkleri de kaldirildi.

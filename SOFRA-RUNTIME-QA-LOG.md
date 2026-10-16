@@ -90,3 +90,11 @@ Sonuc: Bos dolap kullanicisi zorunlu urun girmeden kesfe devam edebiliyor; demo 
 4. Ayni bos arama ayrimi referans v2 ekraninda da dogrulandi.
 
 Sonuc: Eslesme bulunmamasi ile guvenlik filtresinin tarifleri elemesi artik ayni hata mesaji gibi gorunmuyor.
+
+## Fit palette son kontrolu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?demo=onboarding`
+
+1. Temiz oturumda Sofra Fit acildi; ana eylemler ve aktif hedef `rgb(96, 123, 101)` adaçayi yesili olarak goruldu.
+2. Native input/select kontrollerinin accent rengi de Sofra yesiline kilitlendi; focus rengi mavi varsayilana birakilmadi.
+3. Fit ekranindaki saglik, profil, hedef ve tarif aksiyonlari Sofra'nin yesil-krem-kil paletinde kaldi; mavi/mor renk token'i bulunmadi.
+
+Sonuc: Fit modulu Sofra moduluyle ayni renk dilini kullaniyor; eski cache/preview acilirsa yeni v64 palette kilidini iceren dosya acilmali.

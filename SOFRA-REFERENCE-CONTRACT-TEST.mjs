@@ -85,6 +85,8 @@ assert.match(html, /fit-sofra-palette-v61/, 'Fit palette contract missing');
 assert.match(html, /fit-sofra-palette-v62-final[\s\S]*#607b65[\s\S]*#d48c75/, 'Fit palette accents missing');
 assert.match(html, /recipe-search-empty-v65/, 'reference search empty state split missing');
 assert.match(html, /Aramana uygun tarif/, 'reference no-match search copy missing');
+assert.match(html, /Henüz alışveriş listesi yok/, 'reference empty plan shopping state missing');
+assert.match(html, /fit-sofra-palette-v64-no-blue/, 'reference Fit Sofra palette lock missing');
 
 const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)];
 for (const [index, match] of scripts.entries()) {

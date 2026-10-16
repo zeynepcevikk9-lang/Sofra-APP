@@ -516,7 +516,7 @@ v43 kapsamlı kullanıcı akışı yeniden kontrolü (14 Ekim 2026):
 - Planım market adayları: geçti; dolapta kayıtlı ürünler düşürülerek bilinmeyenler “Kontrol et” olarak kaldı
 - Örnek market modalı: geçti; toplam, teslimat, minimum sepet ve örnek veri uyarısı görünür
 - Planım Hafta → Ay → Geçmiş görünümleri: geçti
-- Planım haftalık ileri dönem oku: geçti; 13–19 Ekim’den 20–26 Ekim 2026’ya ilerledi
+- Planım haftalık ileri dönem oku: geçti; 12–18 Ekim’den 19–25 Ekim 2026’ya ilerledi
 - Profil açık/koyu tema geçişi ve tekrar açık moda dönüş: geçti
 - Bildirim tercihi öncesi açıklama ekranı: geçti; prototipte sistem izni açılmadığı ve gerçek izin kapsamının mobil sürümde ayrıca sorulacağı açıkça gösterildi.
 - 390px mobil viewport yatay taşma: bulunmadı (`scrollWidth = clientWidth`)

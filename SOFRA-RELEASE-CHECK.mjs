@@ -61,6 +61,8 @@ const requiredFiles = [
   'SOFRA-MARKET-V1.md',
   'SOFRA-MARKET-V1.mjs',
   'SOFRA-MARKET-CONTRACT-TEST.mjs',
+  'SOFRA-MARKET-ADAPTERS-V1.mjs',
+  'SOFRA-MARKET-ADAPTER-CONTRACT-TEST.mjs',
   'sofra-motoru-home-v43.html',
   'SOFRA-PRODUCT-ROADMAP.md',
   'SOFRA-RELEASE-CHECKLIST.md',
@@ -107,6 +109,7 @@ const tests = [
   'SOFRA-FIT-CONTRACT-TEST.mjs',
   'SOFRA-REFERENCE-CONTRACT-TEST.mjs',
   'SOFRA-MARKET-CONTRACT-TEST.mjs',
+  'SOFRA-MARKET-ADAPTER-CONTRACT-TEST.mjs',
 ];
 for (const test of tests) {
   const result = spawnSync(process.execPath, [join(staging, test)], { encoding: 'utf8' });

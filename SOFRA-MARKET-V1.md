@@ -90,3 +90,7 @@ isteğine sokulmaz.
 - Market seçimi ve fiyat gösterimi, liste onayından önce tetiklenmez.
 - Demo toplamları API ile arayüzde aynı hesaplanır; minimum sepeti karşılanmayan teklif
   `Tahmini toplam` olarak kalır ve `En uygun toplam` etiketi alamaz.
+
+## Canlı adapter sınırı
+
+Gelecekteki CarrefourSA, Getir veya Migros entegrasyonları `SOFRA-MARKET-ADAPTERS-V1.mjs` sınırından geçer. Adapter'lar partner alanlarını ortak `normalizeQuote()` çıktısına çevirir; güncellik, stok, miktar ve minimum sepet kontrolleri ortak kurallarda kalır. Teklif payload'ında sağlık, Fit veya kilo alanı bulunması reddedilir. Adapter sözleşmesi `node SOFRA-MARKET-ADAPTER-CONTRACT-TEST.mjs` ile korunur.

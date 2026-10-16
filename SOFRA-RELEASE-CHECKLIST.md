@@ -14,6 +14,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Hafta görünümündeki her planlı gün ayrı ayrı düzenlenebilir; gün bazlı kayıtlar Ay ve Geçmiş görünümlerine taşınır.
 - [x] Hafta görünümü mobilde günleri yatay kompakt seçiciyle gösterir; yedi gün desteklenir ve yalnızca seçilen günün kartı açılır.
 - [x] Planım kartı sistem önerisini, boş günü ve kullanıcının kaydettiği planı ayrı durum etiketleriyle gösterir; öneri özelleştirilebilir.
+- [x] Sofra Fit hedefleri ortak katalogla hizalıdır; kilo alma seçimi boş kalmaz ve gerçek fotoğraflı öneri gösterir.
 - [x] Alışveriş adayları kullanıcı eklemediği ürünü kesin eksik saymaz.
 
 ## 2. Veri ve algoritma

@@ -70,6 +70,7 @@ assert.match(html, /renderMonth\(\)|renderHistory\(\)/, 'referans gün bazlı pl
 assert.match(html, /plan-day-picker-v54|selectPlanDayV54/, 'referans hafta görünümü mobilde kompakt gün seçicisi kullanmıyor');
 assert.match(html, /cumartesi|pazar/, 'referans hafta sonu günleri Planım seçicisinde eksik');
 assert.match(html, /plan-status-v55|sofraPlanMeaningV55/, 'referans plan kartı öneri ile kullanıcı seçimini ayırmıyor');
+assert.match(html, /Avokadolu yumurta tost|fitGoals.*gain/, 'referans Fit kilo alma önerileri frontend kataloğunda eksik');
 assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');
 assert.match(html, /<strong>Hazırlanış<\/strong>/, 'referans tarif hazırlanış bölümü eksik');

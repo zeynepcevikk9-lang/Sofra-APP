@@ -118,6 +118,8 @@ Hafta görünümü mobilde yedi günlük yatay seçiciye indirgenir; aynı anda 
 
 Plan kartları artık “Sistem önerisi”, “Senin planın” ve “Boş gün” durumlarını açıkça ayırır. Kullanıcı öneriyi özelleştirip kaydettiğinde kartın durumu değişir; böylece uygulama otomatik öneriyi kullanıcının kesin kararı gibi göstermez.
 
+Fit hedef kataloğu frontend ve ortak öneri motoru arasında hizalanır; kilo alma seçimi boş kalmaz, avokadolu yumurta tost gibi hedefe uygun gerçek fotoğraflı öneriler de aynı tarif detay akışına girer.
+
 Normal Sofra görünümünde Fit özeti ve kalori kartı gösterilmeyecek. Kalori ve makro özeti yalnızca Sofra Fit bölümünde aktif olacak.
 
 Plan API’si de bu kararı korur: kayıtlar geçerli tarih, porsiyon ve katalog tarifleriyle oluşturulur; hatalı veya tekrarlı tarif kimlikleri kabul edilmez.

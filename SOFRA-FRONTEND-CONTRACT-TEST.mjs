@@ -67,6 +67,10 @@ assert.match(html, /quantity:`\$\{number\} \$\{unit\}`/, 'hızlı ekle miktarı 
 assert.match(html, /sofraPlanDataV51/, 'Planım görünüm verisi cihazda saklanmıyor');
 assert.match(html, /data-current-plan/, 'Planım kaydı Geçmiş görünümüne taşınmıyor');
 assert.match(html, /monthMarkup\(value\)/, 'Planım kaydı Ay görünümüne taşınmıyor');
+assert.match(html, /openPlanEditorV52/, 'bugün planını düzenleme akışı eksik');
+assert.match(html, /addCustomPlanPartV52|Kendi öğününü ekle/, 'kullanıcı kendi öğününü Planım a ekleyemiyor');
+assert.match(html, /removePlanPartV52|Bugünün planını kaydet/, 'Planım öğün ekleme/çıkarma kaydı eksik');
+assert.match(html, /CARSAMBA|restoreTemplateMonday/, 'plan kaydı ilk dolu güne değil bugün kartına yazılmıyor');
 assert.match(html, /sofraSafetyProfileV46/, 'gıda güvenliği tercihi saklama kancası eksik');
 assert.match(html, /Gluten \/ çölyak/, 'çölyak tercihi eksik');
 assert.match(html, /çapraz bulaş/, 'çapraz bulaş uyarısı eksik');

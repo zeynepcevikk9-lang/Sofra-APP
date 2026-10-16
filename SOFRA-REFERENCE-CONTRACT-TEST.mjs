@@ -59,6 +59,10 @@ assert.match(html, /makarna.*spagetti.*parseQuickInventoryV50/s, 'referans hızl
 assert.match(html, /sofraPlanDataV51/, 'referans Planım görünüm verisi cihazda saklanmıyor');
 assert.match(html, /data-current-plan/, 'referans Planım kaydı Geçmiş görünümüne taşınmıyor');
 assert.match(html, /monthMarkup\(value\)/, 'referans Planım kaydı Ay görünümüne taşınmıyor');
+assert.match(html, /openPlanEditorV52/, 'referans bugün planını düzenleme akışı eksik');
+assert.match(html, /addCustomPlanPartV52|Kendi öğününü ekle/, 'referans kullanıcı kendi öğününü Planım a ekleyemiyor');
+assert.match(html, /removePlanPartV52|Bugünün planını kaydet/, 'referans Planım öğün ekleme/çıkarma kaydı eksik');
+assert.match(html, /CARSAMBA|restoreTemplateMonday/, 'referans plan kaydı bugün kartına yazılmıyor');
 assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');
 assert.match(html, /<strong>Hazırlanış<\/strong>/, 'referans tarif hazırlanış bölümü eksik');

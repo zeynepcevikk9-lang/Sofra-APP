@@ -2,7 +2,7 @@
 
 > Bu dosya Sofra’nın ürün kararlarını, algoritma mantığını ve ileride geliştirilecek özellikleri tek yerde tutar. Yeni bir özellik eklenmeden önce buradaki ilkelerle çelişip çelişmediği kontrol edilir.
 
-Son güncelleme: 15 Ekim 2026
+Son güncelleme: 16 Ekim 2026
 Mevcut prototip: `outputs/sofra-motoru-home-v43.html`
 
 ## 1. Ürün fikri
@@ -107,6 +107,10 @@ Sistem tek bir yemek önermekle kalmamalı:
 - alışveriş listesi
 
 içerebilmeli.
+
+### v1.13 - Bugünü kullanıcı kurar
+
+Hazır öneri yalnızca başlangıç noktası olarak kalır. Kullanıcı Planım ekranında bugünün ana yemeğini değiştirebilir, ek tarif ekleyebilir, kendi yazdığı bir öğünü ekleyebilir veya öğünü kaldırabilir. Kaydedilen plan tek bir güne yazılır; hafta, ay, geçmiş ve yenileme sonrasında aynı veri görülür. Planın alışveriş listesi, tarif malzemesi bağlı olmayan kullanıcı yazılarında malzeme uydurmaz; belirsiz kısımlar ileride onay akışı ile çözülecek.
 
 Normal Sofra görünümünde Fit özeti ve kalori kartı gösterilmeyecek. Kalori ve makro özeti yalnızca Sofra Fit bölümünde aktif olacak.
 

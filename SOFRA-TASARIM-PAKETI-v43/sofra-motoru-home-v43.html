@@ -1363,7 +1363,10 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   function current(){return currentState||read()}
   function applyWeek(value){
     if(!value)return;
-    const first=document.querySelector('#planim .day-menu:not(.empty)');if(!first)return;
+    const days=[...document.querySelectorAll('#planim .weekgrid .day-menu')];
+    const dayName=day=>String(day.querySelector('.day-menu-label')?.textContent||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+    const first=days.find(day=>dayName(day).includes('CARSAMBA'))||days.find(day=>day.classList.contains('empty'))||days[0];if(!first)return;
+    if(!first.querySelector('.menu-line')){first.classList.remove('empty');first.innerHTML='<div class="day-menu-head"><span class="day-menu-label">ÇARŞAMBA · BUGÜN</span><button class="day-menu-action" type="button">Düzenle</button></div><div class="menu-line"><i>🍽️</i><div><strong></strong><small></small></div></div>';}
     const title=first.querySelector('.menu-line strong');const detail=first.querySelector('.menu-line small');
     if(title)title.textContent=value.title;
     if(detail)detail.textContent=value.parts.length?['Yeni kurduğun menü',...value.parts.map(item=>item.title)].join(' · '):'Yeni kurduğun menü · 4 kişilik';
@@ -1391,6 +1394,77 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='planim')requestAnimationFrame(sync)};
   window.sofraPlanDataV51={read,current,capture:saveFromMenu,sync};
   if(document.getElementById('planim'))requestAnimationFrame(sync);
+})();
+</script>
+<style>
+  .plan-today-strip-v52{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 10px;padding:10px 11px;border:1px solid #eadfd7;border-radius:14px;background:#fff8f3}
+  .plan-today-strip-v52>div{min-width:0}.plan-today-strip-v52 span{display:block;color:#a16e5b;font-size:8px;letter-spacing:1px;font-weight:800;text-transform:uppercase}.plan-today-strip-v52 strong{display:block;margin-top:3px;font:600 15px/1.15 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.plan-today-strip-v52 small{display:block;margin-top:3px;color:#8a8078;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.plan-today-strip-v52 button{flex:none;border:0;border-radius:9px;background:#607b65;color:#fff;padding:8px 10px;font-size:9px;font-weight:800}
+  .plan-edit-v52{font-size:10px;line-height:1.35}.plan-edit-v52 h2{margin:0 0 5px}.plan-edit-v52>p{margin:0 0 12px;color:var(--muted);font-size:10px;line-height:1.45}.plan-edit-label-v52{display:block;margin:12px 0 6px;color:#8a998e;font-size:9px;letter-spacing:1px;font-weight:800;text-transform:uppercase}.plan-edit-list-v52{display:grid;gap:6px}.plan-edit-choice-v52,.plan-edit-part-v52{display:flex;align-items:center;gap:8px;width:100%;border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--ink);padding:9px 10px;text-align:left}.plan-edit-choice-v52 strong,.plan-edit-part-v52 strong{display:block;font-size:10px}.plan-edit-choice-v52 small,.plan-edit-part-v52 small{display:block;margin-top:2px;color:var(--muted);font-size:8px}.plan-edit-choice-v52 b{margin-left:auto;color:var(--sage-dark);font-size:9px;white-space:nowrap}.plan-edit-part-v52 button{margin-left:auto;border:0;background:#f5e8e0;color:#a36f5d;border-radius:999px;padding:5px 7px;font-size:8px;font-weight:800}.plan-edit-add-v52{display:flex;gap:6px}.plan-edit-add-v52 input{min-width:0;flex:1;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);padding:9px 10px;font-size:10px}.plan-edit-add-v52 button{border:0;border-radius:10px;background:var(--sage-dark);color:#fff;padding:0 11px;font-size:16px;font-weight:800}.plan-edit-save-v52{width:100%;margin-top:14px;border:0;border-radius:11px;background:var(--sage-dark);color:#fff;padding:11px;font-size:10px;font-weight:800}.plan-edit-note-v52{margin:8px 0 0;color:var(--muted);font-size:8px;line-height:1.4}.plan-edit-main-v52{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #dce7d9;border-radius:11px;background:#f3f7f0;padding:9px 10px}.plan-edit-main-v52 strong{font-size:11px}.plan-edit-main-v52 small{display:block;margin-top:2px;color:var(--muted);font-size:8px}.plan-edit-empty-v52{padding:8px 10px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);font-size:9px}
+  body[data-theme="gece"] .plan-today-strip-v52,body[data-theme="gece"] .plan-edit-choice-v52,body[data-theme="gece"] .plan-edit-part-v52,body[data-theme="gece"] .plan-edit-add-v52 input{background:var(--paper);border-color:var(--line);color:var(--ink)}
+</style>
+<script>
+/* v52: Bugunun planini kullanicinin degistirebilmesi, ogun ekleyebilmesi ve silme akisi. */
+(function(){
+  const KEY='sofraPlanDataV51';
+  let draft=null;
+  const esc=value=>typeof escapeHtml==='function'?escapeHtml(String(value||'')):String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const read=()=>{try{const value=JSON.parse(localStorage.getItem(KEY)||'null');return value&&typeof value.title==='string'?{...value,parts:Array.isArray(value.parts)?value.parts:[]}:null}catch(e){return null}};
+  const write=value=>{try{localStorage.setItem(KEY,JSON.stringify(value))}catch(e){}};
+  const recipesV52=typeof recipes!=='undefined'&&Array.isArray(recipes)?recipes:[];
+  function fallback(){
+    const title=document.querySelector('#menu .menu-card:not(.optional) strong')?.textContent.trim()||recipesV52[0]?.[0]||'Sebzeli makarna';
+    const meta=document.querySelector('#menu .menu-card:not(.optional) .menu-meta')?.textContent.trim()||'30 dk · 4 kişilik';
+    return {schemaVersion:2,title,meta,parts:[],day:14,month:'Ekim 2026'};
+  }
+  function state(){return read()||fallback()}
+  function partText(value){return (value.parts||[]).map(item=>item.title).filter(Boolean).join(' · ')||'Sadece ana yemek';}
+  function todayStrip(value){
+    const plan=document.getElementById('planim');if(!plan)return;
+    let strip=plan.querySelector('.plan-today-strip-v52');
+    if(!strip){strip=document.createElement('div');strip.className='plan-today-strip-v52';const insight=plan.querySelector('.plan-insight');if(insight)insight.insertAdjacentElement('afterend',strip);}
+    if(!strip)return;
+    const has=Boolean(value&&value.title);
+    strip.innerHTML=has?`<div><span>Bugünün planı</span><strong>${esc(value.title)}</strong><small>${esc(partText(value))}</small></div><button type="button" onclick="openPlanEditorV52()">Düzenle</button>`:`<div><span>Bugünün planı</span><strong>Henüz bir sofra yok</strong><small>Hazır öneriyi değiştir veya kendi öğününü ekle.</small></div><button type="button" onclick="openPlanEditorV52()">Planla</button>`;
+  }
+  function currentDay(){
+    const days=[...document.querySelectorAll('#planim .weekgrid .day-menu')];
+    const dayName=day=>String(day.querySelector('.day-menu-label')?.textContent||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+    return days.find(day=>dayName(day).includes('CARSAMBA'))||days.find(day=>day.classList.contains('empty'))||days[0];
+  }
+  function restoreTemplateMonday(){
+    const monday=[...document.querySelectorAll('#planim .weekgrid .day-menu')].find(day=>String(day.querySelector('.day-menu-label')?.textContent||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().includes('PAZARTESI'));
+    if(!monday)return;
+    monday.classList.remove('empty');
+    monday.innerHTML='<div class="day-menu-head"><span class="day-menu-label">PAZARTESİ · AKŞAM MENÜSÜ</span><button class="day-menu-action" type="button" onclick="toast(\'Pazartesi menüsü açıldı\')">Menüyü aç</button></div><div class="menu-line"><i>🍝</i><div><strong>Sebzeli makarna</strong><small>Roka salatası · Yoğurt</small></div></div>';
+  }
+  function applyToday(value){
+    const day=currentDay();if(!day)return;
+    if(!value){day.classList.add('empty');day.innerHTML='<span class="day-menu-label">ÇARŞAMBA · BUGÜN</span><h3>Bugünün sofrasını sen kur.</h3><p>Hazır öneriyi değiştirebilir veya kendi öğününü ekleyebilirsin.</p><button class="white-btn" style="margin-top:11px" type="button" onclick="openPlanEditorV52()">Bugünü planla ↗</button>';return;}
+    day.classList.remove('empty');day.innerHTML=`<div class="day-menu-head"><span class="day-menu-label">ÇARŞAMBA · BUGÜN</span><button class="day-menu-action" type="button" onclick="openPlanEditorV52()">Düzenle</button></div><div class="menu-line"><i>🍽️</i><div><strong>${esc(value.title)}</strong><small>${esc(partText(value))}</small></div></div>`;
+  }
+  function sync(){
+    const plan=document.getElementById('planim');if(!plan)return;
+    const value=read();todayStrip(value);
+    const active=plan.querySelector('.calendar-tabs button.active')?.textContent.trim();
+    if(!active||active==='Hafta'){restoreTemplateMonday();applyToday(value);}
+  }
+  function recipeChoices(){return recipesV52.filter(item=>item&&item[0]).slice(0,7)}
+  function renderEditor(){
+    const modal=document.getElementById('modal');if(!modal||!draft)return;
+    const choices=recipeChoices().map((item,index)=>`<button type="button" class="plan-edit-choice-v52" onclick="selectPlanRecipeV52(${index})"><span><strong>${esc(item[0])}</strong><small>${esc(item[1])} dk · Tarif</small></span><b>Değiştir</b></button>`).join('');
+    const parts=draft.parts.length?draft.parts.map((item,index)=>`<div class="plan-edit-part-v52"><span><strong>${esc(item.title)}</strong><small>${esc(item.label||'Ek öğün')} · ${esc(item.meta||'Kendi seçimin')}</small></span><button type="button" onclick="removePlanPartV52(${index})">Kaldır</button></div>`).join(''):'<div class="plan-edit-empty-v52">Henüz ek öğün yok. İstersen aşağıdan bir tarif veya kendi öğününü ekle.</div>';
+    const suggestions=recipeChoices().filter(item=>item[0]!==draft.title&&!draft.parts.some(part=>part.title===item[0])).slice(0,4).map((item,index)=>`<button type="button" class="plan-edit-choice-v52" onclick="addPlanRecipeV52(${index})"><span><strong>${esc(item[0])}</strong><small>${esc(item[1])} dk · Ek öğün</small></span><b>+ Ekle</b></button>`).join('');
+    modal.innerHTML=`<button class="close" type="button" onclick="closeModal()" aria-label="Kapat">×</button><div class="plan-edit-v52"><span class="eyebrow">Bugünün planı</span><h2>Dilediğini ekle, çıkar</h2><p>Önerilen menü sabit değil. Ana yemeği değiştirebilir, yanına başka bir tarif veya kendi yazdığın öğünü ekleyebilirsin.</p><span class="plan-edit-label-v52">Ana yemek</span><div class="plan-edit-main-v52"><span><strong>${esc(draft.title)}</strong><small>${esc(draft.meta||'Tarif')}</small></span><span style="color:var(--sage-dark);font-size:9px;font-weight:800">Seçili</span></div><div class="plan-edit-list-v52" style="margin-top:6px">${choices}</div><span class="plan-edit-label-v52">Eklediklerin</span><div class="plan-edit-list-v52">${parts}</div><span class="plan-edit-label-v52">Başka bir tarif ekle</span><div class="plan-edit-list-v52">${suggestions||'<div class="plan-edit-empty-v52">Başka öneri kalmadı; kendi öğününü yazabilirsin.</div>'}</div><span class="plan-edit-label-v52">Kendi öğününü ekle</span><div class="plan-edit-add-v52"><input id="plan-custom-v52" type="text" placeholder="Örn. zeytinyağlı fasulye" aria-label="Kendi öğünün" onkeydown="if(event.key==='Enter')addCustomPlanPartV52()"><button type="button" onclick="addCustomPlanPartV52()" aria-label="Öğün ekle">+</button></div><p class="plan-edit-note-v52">Kaydettiğinde bu seçim bugünün planında ve hafta/ay/geçmiş görünümlerinde korunur.</p><button class="plan-edit-save-v52" type="button" onclick="savePlanEditorV52()">Bugünün planını kaydet</button></div>`;
+  }
+  window.openPlanEditorV52=function(){draft=JSON.parse(JSON.stringify(state()));renderEditor();document.getElementById('overlay')?.classList.add('open')};
+  window.selectPlanRecipeV52=function(index){const item=recipeChoices()[index];if(!item)return;draft.title=item[0];draft.meta=`${item[1]} dk · Tarif`;renderEditor()};
+  window.addPlanRecipeV52=function(index){const item=recipeChoices().filter(item=>item[0]!==draft.title&&!draft.parts.some(part=>part.title===item[0]))[index];if(!item)return;draft.parts.push({label:'Ek öğün',title:item[0],meta:`${item[1]} dk · Tarif`});renderEditor()};
+  window.addCustomPlanPartV52=function(){const input=document.getElementById('plan-custom-v52');const title=input?.value.trim();if(!title)return toast('Önce eklemek istediğin öğünü yaz.');draft.parts.push({label:'Kendi seçimin',title,meta:'Kendi eklediğin öğün'});renderEditor()};
+  window.removePlanPartV52=function(index){draft.parts.splice(index,1);renderEditor()};
+  window.savePlanEditorV52=function(){if(!draft?.title)return toast('Ana yemek seç.');const value={...draft,schemaVersion:2,plannedAt:new Date().toISOString(),day:14,month:'Ekim 2026'};write(value);draft=null;closeModal();sync();toast('Bugünün planı güncellendi')};
+  const previousGo=window.go;window.go=function(screen){previousGo(screen);if(screen==='planim')requestAnimationFrame(sync)};
+  document.querySelectorAll('#planim .calendar-tabs button').forEach(tab=>{const old=tab.onclick;tab.onclick=function(event){const result=typeof old==='function'?old.call(this,event):undefined;requestAnimationFrame(sync);return result}});
+  sync();window.sofraPlanEditorV52={read,state,sync};
 })();
 </script>
 </body>

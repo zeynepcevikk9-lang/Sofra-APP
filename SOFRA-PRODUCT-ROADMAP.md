@@ -575,3 +575,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Market v1.6 prototipinde yönlendirme/komisyon açıklaması karşılaştırma ekranında görünür; gerçek partner bağlantısı açılmadan canlı gelir iddiası ve yönlendirme yapılmıyor.
 - Algoritma v1.7’de doğal dolap notu ve API kayıtları kanonik malzeme adına indirgeniyor; kg/g/adet/litre/paket gibi miktar-birim alanları normalize edilip `SOFRA-INGEST-CONTRACT-TEST.mjs` ile korunuyor.
 - Planım v1.8’de kullanıcı tarafından oluşturulan menü kaydı cihazdaki `sofraPlanDataV51` alanında korunuyor; Hafta/Ay/Geçmiş görünümleri aynı menü ve isteğe bağlı bölümleri gösteriyor, dışa aktarma kapsamına dahil ediliyor.
+- Hesap v1.9’da anonim kullanım sınırı netleştirildi: prototip verisi cihazla sınırlı, bulut/cihazlar arası senkron kapalı, senkronizasyon için hesap gerekiyor ve gerçek OAuth açılmadan kullanıcıya bu durum Profil’de anlatılıyor.

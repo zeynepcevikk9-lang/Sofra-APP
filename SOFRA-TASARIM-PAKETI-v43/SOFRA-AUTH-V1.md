@@ -11,3 +11,10 @@ Google ve Apple hesapları henüz bağlı değildir. Buna rağmen gerçek entegr
 
 Bu dosya OAuth sağlayıcısı bağlantısının tamamlandığı anlamına gelmez; client ID, redirect allowlist, sunucu token kasası, hesap birleştirme ve silme/export politikası ayrıca tamamlanmalıdır.
 
+## Anonim kullanım sınırı
+
+- Hesap açmadan kullanılan prototip verileri yalnızca bu cihazda tutulur.
+- Bulut kaydı ve cihazlar arası senkronizasyon açık değildir.
+- Cihazlar arası senkronizasyon gerçek üründe hesap bağlama ve açık onay gerektirir.
+- Prototipte yapay bir kullanım kotası uygulanmaz; bu, gerçek üründe olası kotanın belirlendiği anlamına gelmez.
+

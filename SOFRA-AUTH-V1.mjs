@@ -29,6 +29,13 @@ export function buildAuthStatus({ provider = 'anonymous', userId = 'usr_anonymou
       callback_exchange: 'server_only',
       redirect_uri_allowlist: 'required',
     },
+    anonymous_usage: {
+      device_only: true,
+      cloud_sync: false,
+      cross_device_sync: false,
+      account_required_for_sync: true,
+      prototype_usage_limit: 'not_enforced',
+    },
     providers: [
       { id: 'google', status: 'not_connected', available: false },
       { id: 'apple', status: 'not_connected', available: false },

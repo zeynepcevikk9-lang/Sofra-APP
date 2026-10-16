@@ -27,7 +27,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 
 - [ ] Google ve Apple oturum akışları backend ile tamamlanır.
 - [x] Sağlayıcı bağlantısı öncesi OAuth sınırı PKCE/state/redirect allowlist ile tanımlıdır; token değişimi sunucu tarafına ayrılmıştır.
-- [ ] Oturum açmadan kullanım sınırları ve cihaz verisi davranışı açıklanır.
+- [x] Oturum açmadan kullanım sınırları ve cihaz verisi davranışı açıklanır; anonim kullanım cihazla sınırlıdır, senkronizasyon için hesap gerekir ve prototipte kota uygulanmaz.
 - [ ] Apple HealthKit izinleri veri türü bazında istenir.
 - [ ] Android Health Connect izinleri ayrı ve eşdeğer kapsamda uygulanır.
 - [ ] Sağlık verisi marketlere, markalara veya reklam ortaklarına aktarılmaz.

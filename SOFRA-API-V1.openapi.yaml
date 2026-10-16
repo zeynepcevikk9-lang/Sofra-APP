@@ -510,7 +510,7 @@ components:
         created_at: { type: string, format: date-time }
     AuthStatus:
       type: object
-      required: [schema_version, session, account_linking, providers, data_rights]
+      required: [schema_version, session, account_linking, anonymous_usage, providers, data_rights]
       properties:
         schema_version: { type: integer, example: 1 }
         session:
@@ -531,6 +531,15 @@ components:
             pkce: { type: string, enum: [required] }
             callback_exchange: { type: string, enum: [server_only] }
             redirect_uri_allowlist: { type: string, enum: [required] }
+        anonymous_usage:
+          type: object
+          required: [device_only, cloud_sync, cross_device_sync, account_required_for_sync, prototype_usage_limit]
+          properties:
+            device_only: { type: boolean }
+            cloud_sync: { type: boolean }
+            cross_device_sync: { type: boolean }
+            account_required_for_sync: { type: boolean }
+            prototype_usage_limit: { type: string, enum: [not_enforced] }
         providers:
           type: array
           items:

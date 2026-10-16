@@ -205,8 +205,9 @@ Sonuç: Gıda güvenliği tercihi artık Tarifler, ana öneriler ve Sofra Fit ö
 
 ## Fit hedef özeti turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=fit-goals-v82&demo=empty`
 
-1. Temiz akışta Sofra Fit açıldı; `Dengeli beslenme`, `Kilo verme` ve `Kilo alma` hedefleri sırayla seçildi.
+1. Canonical ve reference v2 temiz akışlarında Sofra Fit açıldı; `Dengeli beslenme`, `Kilo verme` ve `Kilo alma` hedefleri sırayla seçildi.
 2. Hedef değişince tarif önerileriyle birlikte üstteki enerji/protein özeti de güncellendi: dengeli `2.224 kcal / 84 g`, kilo verme `1.924 kcal / 105 g`, kilo alma `2.474 kcal / 84 g`.
-3. Kilo verme hedefi kaydedildi; yeni sekme ve yenileme sonrası aynı hedef ile `1.924 kcal / 105 g` özeti korundu.
+3. Kilo verme hedefi kaydedildi; yeni sekme ve yenileme sonrası canonical ekranda aynı hedef ile `1.924 kcal / 105 g` özeti korundu.
+4. Reference v2’de hedef özeti sırasıyla `2.224`, `1.924` ve `2.474 kcal` olarak güncellendi.
 
 Sonuç: Fit hedef seçimi artık yalnızca tarif sıralamasını değil, kullanıcıya gösterilen yaklaşık hesap özetini de aynı anda güncelliyor; kaydedilen hedef yenileme sonrası korunuyor.

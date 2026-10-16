@@ -73,3 +73,12 @@ Sonuc: Fit hedefi -> oneriler -> profil kaydi -> Sofra modu donusu zinciri temiz
 
 Sonuc: Cocuk akisi ana v43'te yas secimine ve detay tarif onizlemesine baglandi; bu icerik tibbi veya kesin guvenlik garantisi degildir.
 
+## Bos dolap turu - `http://localhost:8766/sofra-motoru-home-v43.html?qa=empty-v64&demo=empty`
+
+1. Demo dolap verisi bos baslatildi; ana sayfada genel onerinin korundugu goruldu.
+2. Dolabim ekraninda `0 Kayitli urun`, `Dolabin henuz bos.` ve hizli ekleme yonlendirmesi goruldu.
+3. **Simdilik dolap eklemeden tariflere bak** aksiyonu Tarifler ekranina gecirdi.
+4. Tarifler listesi bos kalmadi; genel tarifler ve bos dolap toast'i goruldu.
+
+Sonuc: Bos dolap kullanicisi zorunlu urun girmeden kesfe devam edebiliyor; demo verisi kalici kullanici dolabina yazilmadi.
+

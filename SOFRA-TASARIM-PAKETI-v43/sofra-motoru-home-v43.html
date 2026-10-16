@@ -1260,6 +1260,27 @@ fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>G
   window.syncFitGoalRecommendationsV47=render;
 })();
 </script>
+<script>
+/* v48: Sofra Fit tarifleri ortak öneri motorundan sıralanır. */
+(function(){
+  const fit=document.getElementById('fit');if(!fit)return;
+  const imageBase='https://images.unsplash.com/';
+  const fallbackPhoto='photo-1512621776951-a57141f2eefd';
+  const photoFor=title=>typeof images!=='undefined'&&images[title]?images[title]:fallbackPhoto;
+  const keyFor=()=>{const label=fit.querySelector('.fit-goal.active')?.textContent.trim()||'Dengeli beslenme';return label.includes('Kilo verme')?'lose':label.includes('Kilo alma')?'gain':'balanced'};
+  function render(){
+    const section=fit.querySelector('.fit-goal-recommendations-v47');if(!section)return;
+    const key=keyFor();const engine=window.sofraEngineV38;const ranked=engine?.recommend?engine.recommend({mode:'fit',fitGoal:key}).filter(item=>item.fit&&!item.tags?.includes('tatli')&&(key==='gain'?(Array.isArray(item.fitGoals)&&item.fitGoals.includes(key)):(!Array.isArray(item.fitGoals)||item.fitGoals.includes(key)))).slice(0,3):[];
+    const copy=key==='lose'?'Daha hafif, tok tutan ve lifli seçimleri öne çıkarıyoruz.':key==='gain'?'Daha yoğun ve dengeli seçimleri öne çıkarıyoruz.':'Dengeli ve sürdürülebilir seçimleri öne çıkarıyoruz.';
+    section.innerHTML=`<h3>Hedefine uygun Fit tarifler</h3><p>${copy} Dolabındaki eşleşmeler sıralamayı etkiler; doğrulanmış besin verisi yoksa kesin kalori iddiası göstermiyoruz.</p>`+(ranked.length?ranked.map(item=>{const photo=photoFor(item.title);const pantry=item.matchedCount?`${item.matchedCount} dolap eşleşmesi · `:'';return `<button class="fit-goal-recipe-v47 fit-recipe-ranked-v48" type="button" data-title="${escapeHtml(item.title)}" data-mins="${item.mins}" data-photo="${photo}"><img src="${imageBase}${photo}?auto=format&fit=crop&w=180&q=82" alt="${escapeHtml(item.title)}" onerror="this.style.display='none'"><span><strong>${escapeHtml(item.title)}</strong><small>${pantry}${item.mins} dk · ${escapeHtml(item.missing.length?`${item.missing.length} ürün eksik`:'Dolapla uyumlu')}</small></span><b>→</b></button>`}).join(''):'<p>Bu güvenlik tercihiyle eşleşen doğrulanmış Fit tarifi bulunamadı.</p>');
+    section.querySelectorAll('.fit-recipe-ranked-v48').forEach(card=>card.addEventListener('click',()=>recipe(card.dataset.title,Number(card.dataset.mins),'🍽️',card.dataset.photo)));
+  }
+  fit.querySelectorAll('.fit-goal').forEach(button=>button.addEventListener('click',()=>requestAnimationFrame(render)));
+  fit.querySelector('.fit-save')?.addEventListener('click',()=>requestAnimationFrame(render));
+  const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='fit')requestAnimationFrame(render)};
+  render();window.sofraFitRankedV48={render};
+})();
+</script>
 </body>
 </html>
 

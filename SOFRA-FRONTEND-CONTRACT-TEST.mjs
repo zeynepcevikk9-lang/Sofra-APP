@@ -37,6 +37,8 @@ assert.match(html, /get\('demo'\).*onboarding.*openWelcome\(\)/s, 'onboarding QA
 assert.match(html, /openPrivacyV47/, 'profil gizlilik özeti kancası eksik');
 assert.match(html, /Gizlilik ve veri sınırları/, 'profil gizlilik özeti metni eksik');
 assert.match(html, /fit-goal-recommendations-v47/, 'Fit hedefe göre tarif önerileri eksik');
+assert.match(html, /fit-recipe-ranked-v48|sofraFitRankedV48/, 'Fit tarifleri ortak öneri motoruna bağlanmamış');
+assert.match(html, /key==='gain'.*fitGoals/s, 'Fit kilo alma hedef filtresi eksik');
 assert.match(html, /Daha hafif seçenekler/, 'Fit kilo verme tarif yönlendirmesi eksik');
 assert.match(html, /data-theme="gece"|theme-switch|gece/, 'koyu tema kancası eksik');
 assert.match(html, /Dolabıma not al|parseNoteV44/, 'doğal dolap girişi eksik');

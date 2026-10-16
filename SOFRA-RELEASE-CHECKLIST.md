@@ -20,6 +20,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Son kullanma tarihi opsiyoneldir; girilmediğinde kullanıcı cezalandırılmaz.
 - [x] Boş dolapta genel öneri üretilebilir.
 - [x] Fit kalorisi yalnızca doğrulanmış besin verisinde kesin ifade olarak gösterilir.
+- [x] Fit tarif kartları hedefe göre (dengeli/kilo verme/kilo alma) sıralanır; dolap eşleşmesi ve gerçek fotoğraf gösterilir, antrenman bölümü kapsam dışıdır.
 - [x] Öneri skoru açıklanabilir sinyallerden oluşur.
 
 ## 3. Hesap, sağlık ve izinler

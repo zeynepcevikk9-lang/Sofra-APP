@@ -6,6 +6,7 @@ const { server } = createSofraServer({ saveState: async (state) => { persistedSt
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const { port } = server.address();
 const base = `http://127.0.0.1:${port}`;
+const soonExpiry = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
 const request = async (path, options = {}) => {
   const response = await fetch(base + path, { headers: { 'content-type': 'application/json' }, ...options });
   const body = response.status === 204 ? null : await response.json();
@@ -106,10 +107,10 @@ try {
   result = await request('/v1/pantry/parse-note', { method: 'POST', body: JSON.stringify({ text: '' }) });
   assert.equal(result.response.status, 422, 'boş doğal not kabul edilmemeli');
 
-  result = await request('/v1/pantry/items', { method: 'POST', body: JSON.stringify({ display_name: 'Patates', canonical_name: 'patates', quantity_text: 'Miktarı belirsiz', stock_state: 'available', source: 'manual', expiry_date: '2026-10-16' }) });
+  result = await request('/v1/pantry/items', { method: 'POST', body: JSON.stringify({ display_name: 'Patates', canonical_name: 'patates', quantity_text: 'Miktarı belirsiz', stock_state: 'available', source: 'manual', expiry_date: soonExpiry }) });
   assert.equal(result.response.status, 201);
   const potatoId = result.body.id;
-  assert.equal(result.body.expiry_date, '2026-10-16');
+  assert.equal(result.body.expiry_date, soonExpiry);
 
   result = await request(`/v1/pantry/items/${potatoId}`, { method: 'PATCH', body: JSON.stringify({ stock_state: 'low' }) });
   assert.equal(result.response.status, 200);

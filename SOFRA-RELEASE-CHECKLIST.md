@@ -57,6 +57,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Gerçek cihazlarda iOS ve Android testleri tamamlanır.
 - [ ] En küçük desteklenen mobil genişlikte yatay taşma yoktur.
 - [ ] Klavye, ekran okuyucu ve kontrast kontrolleri yapılır.
+- [x] Kanonik ve referans HTML için klavye odak stili, reduced-motion, etiketli bölgeler, modal ve form etiketlerini koruyan otomatik erişilebilirlik smoke testi çalışır.
 - [x] Çevrimdışı/bozuk ağ durumunda anlamlı hata mesajı vardır.
 - [x] Görseller yüklenemediğinde fallback içerik görünür.
 - [x] Console error/warning ve kritik performans sorunları temizlenir.

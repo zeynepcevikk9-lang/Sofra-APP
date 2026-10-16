@@ -129,5 +129,7 @@ assert.match(html, /id="day-custom-v53"/, 'kullanici ogunu metin alani eksik');
 assert.match(html, /day-custom-slot-v58/, 'kullanici ogunu bolum secimi eksik');
 assert.match(html, /cleanSavedSlots/, 'kullanici ogunu saklama temizleme kapisi eksik');
 assert.match(html, /Kendi yazd.{0,20}malzemeleri.{0,40}do.{0,2}rulanmadan/, 'serbest ogun alisveris siniri eksik');
+assert.match(html, /saved-recipes-v94/, 'Profil kaydedilen tarifler listesi eksik');
+assert.match(html, /saved-recipes-panel-v94/, 'Kaydedilen tarif paneli hedefi eksik');
 console.log('SOFRA_FRONTEND_CONTRACT_TEST_OK');
 console.log('screens=6 navTabs=5 mobileGuards=ok fallbackImages=ok');

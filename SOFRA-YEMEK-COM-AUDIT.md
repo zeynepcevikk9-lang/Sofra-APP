@@ -53,3 +53,4 @@
 3. Sponsorlu içerik ile organik önerinin ayrılması; Fit ve sağlık verisinin reklam sıralamasına girmemesi.
 
 Bu dosya karar günlüğüdür; canlı bağlantı, gerçek sağlık izni, market fiyatı veya sosyal hesap entegrasyonu tamamlandı anlamına gelmez.
+- Profil icinde cihazda kaydedilen tarifleri listeleme, kaldigin adimi gosterme ve kayittan cikarma eklendi.

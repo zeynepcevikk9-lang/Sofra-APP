@@ -291,3 +291,11 @@ Sonuç: Arama, kategori ve dolap odaklı keşif akışı gerçek kullanıcı ad�
 5. Tarif kartları kaydetme, tarif modalına geçiş ve mevcut koyu tema kontratıyla birlikte korundu.
 
 Sonuç: Yemek.com'daki keşif mantığının Sofra'ya uygun sade bir dilde ilk katmanı çalışıyor; gerçek veri, porsiyon/besin modeli ve adım medyası sonraki P0 işleridir.
+## Kaydedilen tarifler ve devam akisi - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=saved-v94&demo=empty`
+
+1. Tarif modalindaki kayitli `Kremali mantarli makarna` kaydi Profil ekranina tasindi.
+2. Profil'de `Kaydettigim tarifler` satiri acildi; gercek fotograf ve `Kaldigin yerden · Adim 3/3` bilgisi goruldu.
+3. Kayitli tarif acilarak ayni tarif modalina donuldu.
+4. Kayit kaldirildi; panel `0 tarif` bos durumuna dondu.
+
+Sonuc: Cihaz ici tarif kaydi, ilerleme bilgisi, acma ve kayittan cikarma akisi birlikte dogrulandi.

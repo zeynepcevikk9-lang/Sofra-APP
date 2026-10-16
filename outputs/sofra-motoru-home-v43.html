@@ -2139,6 +2139,35 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
 <script id="resume-complete-v92">
 (function(){const card=document.querySelector('.reference-resume-v2');if(!card)return;function sync(){try{const map=JSON.parse(localStorage.getItem('sofraRecipeProgressV90')||'{}');const open=Object.values(map).some(item=>item&&Number(item.step)<Number(item.total));card.hidden=!open}catch(e){}}sync();new MutationObserver(sync).observe(card,{subtree:true,childList:true,characterData:true});})();
 </script>
+<style id="saved-recipes-v94-style">
+  .saved-recipes-v94{margin-top:10px;border:1px solid var(--line);border-radius:15px;background:var(--paper);padding:11px;display:grid;gap:8px}.saved-recipes-v94[hidden]{display:none}.saved-recipes-head-v94{display:flex;align-items:center;justify-content:space-between;gap:8px}.saved-recipes-head-v94 strong{font:600 17px var(--display);color:var(--ink)}.saved-recipes-head-v94 span{font-size:9px;color:var(--muted)}.saved-recipes-empty-v94{padding:9px;border-radius:11px;background:var(--sage-soft);color:var(--muted);font-size:10px;line-height:1.45}.saved-recipe-v94{display:flex;align-items:center;gap:9px;width:100%;border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:7px;text-align:left;color:var(--ink)}.saved-recipe-v94 img,.saved-recipe-fallback-v94{width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none}.saved-recipe-fallback-v94{display:grid;place-items:center;background:var(--sage-soft);font-size:19px}.saved-recipe-copy-v94{min-width:0;display:grid;gap:2px;flex:1}.saved-recipe-copy-v94 strong{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.saved-recipe-copy-v94 small{font-size:9px;color:var(--muted)}.saved-recipe-remove-v94{border:0;background:transparent;color:var(--muted);font-size:17px;padding:5px}.saved-recipes-toggle-v94{cursor:pointer}.saved-recipes-toggle-v94:focus-visible,.saved-recipe-v94:focus-visible,.saved-recipe-remove-v94:focus-visible{outline:2px solid var(--sage);outline-offset:2px}body[data-theme="gece"] .saved-recipes-v94,body[data-theme="gece"] .saved-recipe-v94{background:#202b25;border-color:#405047}body[data-theme="gece"] .saved-recipe-fallback-v94,body[data-theme="gece"] .saved-recipe-v94{color:#edf3eb}
+</style>
+<script id="saved-recipes-v94-script">
+(function(){
+  const savedKey='sofraSavedRecipesV90',progressKey='sofraRecipeProgressV90';
+  const esc=value=>typeof escapeHtml==='function'?escapeHtml(String(value??'')):String(value??'');
+  const read=(key,fallback)=>{try{const value=JSON.parse(localStorage.getItem(key)||'null');return value??fallback}catch(e){return fallback}};
+  const recipeList=()=>typeof recipes!=='undefined'&&Array.isArray(recipes)?recipes:[];
+  const imageMap=()=>typeof images!=='undefined'?images:{};
+  function titles(){const value=read(savedKey,[]);return Array.isArray(value)?value.filter(Boolean):[]}
+  function progress(title){const map=read(progressKey,{});const item=map?.[title];if(!item)return '';if(Number(item.step)>=Number(item.total))return 'Tarif tamamlandı';return `Kaldığın yerden · Adım ${(Number(item.step)||0)+1}/${item.total}`}
+  function openRecipe(title){const item=recipeList().find(entry=>entry[0]===title);if(item&&typeof recipe==='function')recipe(item[0],item[1],item[2],imageMap()[item[0]])}
+  function render(){
+    const profile=document.getElementById('profil');const row=profile?.querySelector('.day');if(!row)return;
+    row.classList.add('saved-recipes-toggle-v94');row.setAttribute('role','button');row.setAttribute('tabindex','0');row.setAttribute('aria-expanded','false');
+    if(!row.dataset.savedBound){row.dataset.savedBound='1';const toggle=()=>{const panel=document.getElementById('saved-recipes-panel-v94');if(!panel)return;const hidden=!panel.hidden;panel.hidden=hidden;row.setAttribute('aria-expanded',String(!hidden));if(!hidden)panel.scrollIntoView({block:'nearest',behavior:'smooth'})};row.onclick=toggle;row.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggle()}}}
+    let panel=document.getElementById('saved-recipes-panel-v94');if(!panel){panel=document.createElement('section');panel.id='saved-recipes-panel-v94';panel.className='saved-recipes-v94';panel.hidden=true;profile.insertBefore(panel,row.nextElementSibling)}
+    const list=titles();panel.innerHTML=`<div class="saved-recipes-head-v94"><strong>Kaydettiklerim</strong><span>${list.length} tarif</span></div>`;
+    if(!list.length){panel.insertAdjacentHTML('beforeend','<div class="saved-recipes-empty-v94"><strong>Henüz kayıtlı tarif yok.</strong><br>Tarif kartındaki kalp işaretine dokununca tarif burada görünür.</div>');return}
+    panel.insertAdjacentHTML('beforeend',list.map(title=>{const item=recipeList().find(entry=>entry[0]===title);const image=imageMap()[title];const meta=progress(title)||`${item?.[1]||''} dk · Kaydedildi`;return `<div class="saved-recipe-v94" data-saved-title="${esc(title)}"><button type="button" class="saved-recipe-open-v94" aria-label="${esc(title)} tarifini aç"><span class="saved-recipe-fallback-v94">🍽</span>${image?`<img src="https://images.unsplash.com/${esc(image)}?auto=format&fit=crop&w=160&q=80" alt="${esc(title)}" onerror="this.previousElementSibling.style.display='grid';this.style.display='none'">`:''}</button><span class="saved-recipe-copy-v94"><strong>${esc(title)}</strong><small>${esc(meta)}</small></span><button type="button" class="saved-recipe-remove-v94" aria-label="${esc(title)} kaydını kaldır">×</button></div>`}).join(''));
+    panel.querySelectorAll('.saved-recipe-open-v94').forEach(button=>button.addEventListener('click',()=>openRecipe(button.closest('[data-saved-title]')?.dataset.savedTitle)));
+    panel.querySelectorAll('.saved-recipe-remove-v94').forEach(button=>button.addEventListener('click',()=>{const title=button.closest('[data-saved-title]')?.dataset.savedTitle;const next=titles().filter(item=>item!==title);try{localStorage.setItem(savedKey,JSON.stringify(next))}catch(e){}render();toast('Tarif kayıtlardan çıkarıldı')}));
+  }
+  const original=window.toggleSavedRecipeV90;if(typeof original==='function'&&!window.toggleSavedRecipeV94){window.toggleSavedRecipeV94=true;window.toggleSavedRecipeV90=function(title){original(title);setTimeout(render,0)}}
+  const oldGo=window.go;if(typeof oldGo==='function'&&!window.savedRecipesGoV94){window.savedRecipesGoV94=true;window.go=function(screen){oldGo(screen);if(screen==='profil')setTimeout(render,0)}}
+  render();window.renderSavedRecipesV94=render;
+})();
+</script>
 </body>
 </html>
 

@@ -41,7 +41,11 @@ try {
   assert.equal(result.body.source, 'catalog_v1');
   assert.equal(result.body.instructions_available, true);
   assert.equal(result.body.servings, 2);
-  assert.equal(result.body.ingredients_detail[0][1], 'patlıcan');
+  assert.equal(result.body.ingredients_detail[0].canonical_name, 'patlican');
+  assert.equal(result.body.ingredients_detail[0].display_name, 'patlıcan');
+  assert.equal(result.body.ingredients_detail[0].quantity_text, '2 adet');
+  assert.equal(result.body.ingredients_detail[0].quantity_value, 2);
+  assert.equal(result.body.ingredients_detail[0].unit, 'adet');
   assert.equal(result.body.instructions.length, 3);
   result = await request('/v1/recipes/recipe_does_not_exist');
   assert.equal(result.response.status, 404);

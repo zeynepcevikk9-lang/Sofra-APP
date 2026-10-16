@@ -91,6 +91,37 @@ function buildPantryPatch(input) {
 
 function recipeById(id) { return catalog.find((recipe) => recipe.id === id); }
 
+const recipeUnitAliases = new Map([
+  ['kg', 'kg'], ['kilo', 'kg'], ['g', 'g'], ['gram', 'g'], ['adet', 'adet'],
+  ['l', 'litre'], ['litre', 'litre'], ['ml', 'ml'], ['paket', 'paket'],
+  ['kutu', 'kutu'], ['demet', 'demet'], ['sise', 'şişe'], ['şişe', 'şişe'],
+  ['kavanoz', 'kavanoz'], ['dilim', 'dilim'], ['avuç', 'avuç'], ['yemek kasigi', 'yemek kaşığı'],
+  ['cay kasigi', 'çay kaşığı'], ['su bardagi', 'su bardağı'], ['çay kasigi', 'çay kaşığı'],
+]);
+
+function parseRecipeQuantity(quantityText) {
+  const text = String(quantityText ?? '').trim();
+  const match = text.match(/^(\d+(?:[.,]\d+)?|\d+\/\d+)\s*(.*)$/);
+  if (!match) return { quantity_text: text || null, quantity_value: null, unit: null };
+  const rawNumber = match[1].replace(',', '.');
+  const value = rawNumber.includes('/')
+    ? (() => { const [numerator, denominator] = rawNumber.split('/').map(Number); return denominator ? numerator / denominator : null; })()
+    : Number(rawNumber);
+  const rest = match[2].trim();
+  const normalizedRest = normalizeRecipeText(rest);
+  const unit = recipeUnitAliases.get(normalizedRest) || recipeUnitAliases.get(normalizedRest.split(' ').slice(0, 2).join(' ')) || null;
+  return { quantity_text: text || null, quantity_value: Number.isFinite(value) ? value : null, unit };
+}
+
+function serializeIngredientDetail(entry) {
+  const [quantityText, displayName] = Array.isArray(entry) ? entry : [entry?.quantity_text, entry?.display_name || entry?.canonical_name];
+  return {
+    canonical_name: normalizeRecipeText(displayName),
+    display_name: displayName || null,
+    ...parseRecipeQuantity(quantityText),
+  };
+}
+
 function serializeRecipe(recipe) {
   const nutrition = recipeNutrition(recipe);
   return {
@@ -116,7 +147,7 @@ function serializeRecipeDetail(recipe) {
   const detail = recipeDetails[recipe.id] || {};
   return {
     servings: detail.servings || null,
-    ingredients_detail: detail.ingredients || [],
+    ingredients_detail: (detail.ingredients || []).map(serializeIngredientDetail),
     instructions: detail.instructions || [],
     tip: detail.tip || null,
     instructions_available: Array.isArray(detail.instructions) && detail.instructions.length > 0,

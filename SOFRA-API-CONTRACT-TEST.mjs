@@ -154,5 +154,8 @@ assert.equal(candidates.find((item) => item.name === 'patates')?.pantry_quantity
 assert.throws(() => marketQuotes({ candidateIds: ['candidate_domates'], userConfirmed: false }), /onayı gerekir/);
 assert.equal(marketQuotes({ candidateIds: ['candidate_domates'], userConfirmed: true })[0].provider, 'demo-market');
 
+assert.ok(apiSpec.includes('canonical_name:'), 'tarif malzemesinde kanonik ad alani eksik');
+assert.ok(apiSpec.includes('quantity_value:'), 'tarif malzemesinde sayisal miktar alani eksik');
+assert.ok(apiSpec.includes('quantity_text:'), 'tarif malzemesinde gorunen miktar alani eksik');
 console.log('SOFRA_API_CONTRACT_TEST_OK');
 console.log(`pantry=${store.pantry.length} plans=${store.plans.length} candidates=${candidates.length}`);

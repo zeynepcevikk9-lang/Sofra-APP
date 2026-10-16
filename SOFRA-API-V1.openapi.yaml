@@ -669,10 +669,14 @@ components:
             ingredients_detail:
               type: array
               items:
-                type: array
-                minItems: 2
-                maxItems: 2
-                items: { type: string }
+                type: object
+                required: [canonical_name, display_name, quantity_text, quantity_value, unit]
+                properties:
+                  canonical_name: { type: string }
+                  display_name: { type: string, nullable: true }
+                  quantity_text: { type: string, nullable: true }
+                  quantity_value: { type: number, minimum: 0, nullable: true }
+                  unit: { type: string, nullable: true }
             instructions: { type: array, items: { type: string } }
             tip: { type: string, nullable: true }
     DataExport:

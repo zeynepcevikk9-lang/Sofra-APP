@@ -314,3 +314,11 @@ Sonuc: Tarif detayi porsiyon kararini ve eslikci kesfini destekliyor; besin iddi
 4. Ayni kart canonical ve reference tarif modalina baglandi; browser console error/warning olusmadi.
 
 Sonuc: Kullanici alerjen bilgisini ve dogrulama sinirini tarifin icinde goruyor; sistem bilinmeyen icerigi guvenli varsaymiyor.
+
+## API malzeme miktari veri modeli - `SOFRA-API-SERVER-TEST.mjs`
+
+1. Tarif detayinda `ingredients_detail` nesne alanlarinin kanonik ad, gorunen ad, miktar metni, sayisal miktar ve birim olarak ayrildigi dogrulandi.
+2. `2 adet` orneginde `quantity_value=2` ve `unit=adet` dondugu dogrulandi; Turkce gorunen ad `patlican` korunuyor.
+3. API sunucu, sozlesme ve kalicilik testleri birlikte gecti.
+
+Sonuc: Dolap ve tarif akislari adet, kilo ve diger olculeri ileride miktar bazli eslestirmeye hazir bir sozlesmeyle tasiyor.

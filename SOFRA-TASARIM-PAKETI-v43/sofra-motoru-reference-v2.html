@@ -208,8 +208,8 @@
       <section id="home" class="screen active"><span class="eyebrow">Mutfağından güzel şeyler çıkar</span><h1 class="headline">Bugün ne<br><em>pişirsek?</em></h1><p class="subtitle">Lezzetli bir fikir için uzağa bakma.<br>İlham, tam da mutfağında.</p>
       <div class="searchrow"><label class="searchwrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 5 5"/></svg><input id="homesearch" placeholder="Tarif veya malzeme ara..." aria-label="Tarif ara" onkeydown="if(event.key==='Enter')doSearch()"></label><button class="mic" onclick="showNote()" aria-label="Dolabıma sesli not al"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v3a7 7 0 0 0 14 0v-3M12 20v3m-4 0h8"/></svg></button></div>
       <div class="chips" role="group" aria-label="Tarif filtreleri"><button class="chip active" onclick="filterChip(this,'Hepsi')">✦ Senin için</button><button class="chip" onclick="filterChip(this,'Pratik')">⚡ 30 dakikada</button><button class="chip" onclick="filterChip(this,'Dünya')">🌍 Dünya mutfağı</button><button class="chip" onclick="filterChip(this,'Fit')">🥬 Hafif</button><button class="chip" onclick="filterChip(this,'Ekonomik')">₺ Ekonomik</button><button class="chip" onclick="filterChip(this,'Tek tencere')">🍲 Tek tencere</button><button class="chip" onclick="filterChip(this,'Mevsimlik')">🌱 Mevsimlik</button></div>
-      <section class="today-choice" aria-label="Bugün sofrada ne olsun"><h2>Bugün sofrada ne olsun?</h2><p>İstersen tek tarif seç, istersen bütün sofrayı birlikte kuralım.</p><div class="choice-grid"><button class="choice" onclick="go('tarifler')"><span class="choice-icon">🍲</span><strong>Tek tarif</strong><small>Canın ne çekiyorsa</small></button><button class="choice" onclick="go('menu')"><span class="choice-icon">✦</span><strong>Menü oluştur</strong><small>Sofranı birlikte kur</small></button><button class="choice" onclick="go('dolabim')"><span class="choice-icon">🗄️</span><strong>Dolabımdan bul</strong><small>Elindekilerle başla</small></button></div></section>
-      <section class="smart-status" aria-label="Bugün senin mutfağında"><div class="inventory-state active" data-inventory-state="known"><div class="inventory-state-copy"><span class="smart-label">Bugün senin mutfağında</span><h3>Patlıcan, pirinç ve yoğurdun var.</h3><div class="smart-facts"><span>Patlıcan</span><span>Pirinç</span><span>Yoğurt</span></div><p>30 dk · 4 kişilik · Tek tencere · İsrafı azalt</p></div><button onclick="go('menu')">Menü kur ↗</button></div><div class="inventory-state" data-inventory-state="partial"><div class="inventory-state-copy"><span class="smart-label">Dolabından küçük bir ipucu</span><h3>2 malzemenizi biliyoruz.</h3><div class="smart-facts"><span>Yumurta</span><span>Peynir</span></div><p>Bazı ürünler eksik olabilir · Daha iyi öneri için tamamla.</p></div><button onclick="go('dolabim')">Hızlı ekle ↗</button></div><div class="inventory-state" data-inventory-state="empty"><div class="inventory-state-copy"><span class="smart-label">Dolabını doldurmak şart değil</span><h3>Genel önerilerle başlayalım.</h3><p>Mevsim, bütçe ve sürene göre sana uygun sofralar bulalım.</p></div><button onclick="go('tarifler')">Öneri bul ↗</button></div></section>
+      <section class="today-choice" aria-label="Bugün sofrada ne olsun"><h2>Bugün sofrada ne olsun?</h2><p>İstersen tek tarif seç, istersen bütün sofrayı birlikte kuralım.</p><div class="choice-grid"><button class="choice" onclick="go('tarifler')"><span class="choice-icon">🍽️</span><strong>Tek tarif</strong><small>Canın ne çekiyorsa</small></button><button class="choice" onclick="go('menu')"><span class="choice-icon">📋</span><strong>Menü oluştur</strong><small>Sofranı birlikte kur</small></button><button class="choice" onclick="go('dolabim')"><span class="choice-icon">🗄️</span><strong>Dolabımdan bul</strong><small>Elindekilerle başla</small></button></div></section>
+      <section class="smart-status" aria-label="Dolabında neler var"><div class="inventory-state active" data-inventory-state="known"><div class="inventory-state-copy"><span class="smart-label">🗄️ Dolabında neler var?</span><h3>Patlıcan, pirinç ve yoğurdun var.</h3><div class="smart-facts"><span>Patlıcan</span><span>Pirinç</span><span>Yoğurt</span></div><p>Bu ürünlerle 30 dk · 4 kişilik bir sofra kurabiliriz.</p></div><button onclick="go('menu')">Menü kur ↗</button></div><div class="inventory-state" data-inventory-state="partial"><div class="inventory-state-copy"><span class="smart-label">🗄️ Dolabından küçük bir ipucu</span><h3>2 malzemenizi biliyoruz.</h3><div class="smart-facts"><span>Yumurta</span><span>Peynir</span></div><p>Bazı ürünler eksik olabilir · Daha iyi öneri için tamamla.</p></div><button onclick="go('dolabim')">Hızlı ekle ↗</button></div><div class="inventory-state" data-inventory-state="empty"><div class="inventory-state-copy"><span class="smart-label">🗄️ Dolabını doldurmak şart değil</span><h3>Genel önerilerle başlayalım.</h3><p>Mevsim, bütçe ve sürene göre sana uygun sofralar bulalım.</p></div><button onclick="go('tarifler')">Öneri bul ↗</button></div></section>
       <div class="section-row" style="margin-top:0"><h2>Bugünün ilhamı</h2><span class="eyebrow" style="margin:0;letter-spacing:.5px;font-size:9px">Özenle seçildi</span></div>
       <article class="herofood" tabindex="0" role="button" aria-label="Makarna tarifini görüntüle" onclick="recipe('Kremalı mantarlı makarna',25,'🍝','photo-1473093295043-cdd812d0e601')" onkeydown="if(event.key==='Enter')this.click()"><div class="fallback">🍝</div><img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85" alt="Makarna fotoğrafı" onerror="this.style.display='none'"/><div class="hero-caption"><span class="pill-light">✦ Bugünün tarifi</span><h3>Kremalı mantarlı<br>makarna</h3><p>◷ 25 dk &nbsp; · &nbsp; Kolay &nbsp; · &nbsp; İtalyan mutfağı</p><div class="hero-reason">Dolabındaki ürünlerle uyumlu · 2 malzeme eksik</div><div class="hero-arrow">↗</div></div></article>
       <div class="plan-preview" aria-label="Planım özeti"><div class="plan-copy"><span class="plan-label">Bu haftanın planı</span><strong>İlk sofranı birlikte kuralım.</strong><p>Henüz plan yok · 2 dakikada hazır</p></div><button onclick="go('planim')">Planım ↗</button></div>
@@ -1797,6 +1797,42 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   window.syncPlanQuantitiesV58=decorate;decorate();
 })();
 </script>
+<style>
+  .plan-edit-add-v52 select{flex:none;max-width:91px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);padding:9px 7px;font-size:9px}
+</style>
+<script>
+/* v59: Kullanıcının kendi öğününü öğün bölümüyle birlikte saklar. */
+(function(){
+  const KEY='sofraPlanDataV51';const MARK='\u2063sofra-slot:';
+  const modal=document.getElementById('modal');
+  function ensureSlot(){
+    const input=document.getElementById('day-custom-v53');if(!input||document.getElementById('day-custom-slot-v58'))return;
+    const select=document.createElement('select');select.id='day-custom-slot-v58';select.setAttribute('aria-label','Öğün bölümü');select.innerHTML='<option>Akşam</option><option>Öğle</option><option>Kahvaltı</option><option>Ara öğün</option><option>Yanına</option>';input.parentElement.insertBefore(select,input);
+  }
+  if(modal)new MutationObserver(ensureSlot).observe(modal,{childList:true,subtree:true});
+  ensureSlot();
+  const originalAdd=window.addCustomDayPartV53;
+  if(originalAdd)window.addCustomDayPartV53=function(){const input=document.getElementById('day-custom-v53');const slot=document.getElementById('day-custom-slot-v58');if(input?.value.trim()&&slot)input.value=`${input.value.trim()}${MARK}${encodeURIComponent(slot.value)}`;originalAdd();requestAnimationFrame(()=>{const parts=document.querySelectorAll('.plan-edit-part-v52 small');const last=parts[parts.length-1];if(last&&slot)last.textContent=`${slot.value} · Kendi eklediğin öğün`})};
+  const originalSave=window.saveDayPlanV53;
+  function cleanSavedSlots(){try{const root=JSON.parse(localStorage.getItem(KEY)||'null');if(!root)return false;let changed=false;const cleanPlan=plan=>{if(!Array.isArray(plan?.parts))return;plan.parts.forEach(part=>{const title=String(part.title||'');const index=title.indexOf(MARK);if(index<0)return;const rawSlot=title.slice(index+MARK.length);const slot=decodeURIComponent(rawSlot);part.title=title.slice(0,index);part.label=slot;part.meta=`Kendi eklediğin ${slot.toLocaleLowerCase('tr-TR')}`;changed=true})};cleanPlan(root);Object.values(root.dayPlans||{}).forEach(cleanPlan);if(changed)localStorage.setItem(KEY,JSON.stringify(root));return changed}catch(e){return false}}
+  if(originalSave)window.saveDayPlanV53=function(){originalSave();cleanSavedSlots();requestAnimationFrame(()=>{if(window.sofraPlanMeaningV55?.render)window.sofraPlanMeaningV55.render();else window.sofraPlanEditorV53?.sync?.();window.syncPlanQuantitiesV58?.()})};
+})();
+</script>
 </body>
 </html>
+
+<script>
+/* v60: Fit kisa yolu genel tariflere atlamaz; Fit hedef onerilerine kayar. */
+(function(){
+  const fit=document.getElementById('fit');
+  const button=fit?.querySelector('.info-card .cta');
+  if(!fit||!button)return;
+  button.type='button';
+  button.textContent='Fit tariflerine bak →';
+  button.onclick=()=>{
+    const recommendations=fit.querySelector('.fit-goal-recommendations-v47');
+    if(recommendations)recommendations.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+})();
+</script>
 

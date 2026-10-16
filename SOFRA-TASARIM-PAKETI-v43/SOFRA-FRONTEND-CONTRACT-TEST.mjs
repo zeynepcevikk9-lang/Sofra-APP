@@ -37,6 +37,11 @@ for (const mode of ['sofra', 'fit', 'tatli']) {
 assert.match(html, /function chooseMode\(mode\)/, 'ilk giriş modu geçiş fonksiyonu eksik');
 assert.match(html, /localStorage\.setItem\('sofraMode',mode\)/, 'seçilen modun korunması eksik');
 assert.match(html, /get\('demo'\).*onboarding.*openWelcome\(\)/s, 'onboarding QA önizlemesi eksik');
+assert.match(html, /choice-icon">🍽️/, 'tek tarif karti anlamli ikon kullanmiyor');
+assert.match(html, /choice-icon">📋/, 'menu karti anlamli ikon kullanmiyor');
+assert.match(html, /choice-icon">🗄️.*Dolabımdan bul/s, 'dolap karti dolap ikonu kullanmiyor');
+assert.match(html, /smart-label">🗄️ Dolabında neler var\?/s, 'ana sayfa dolap ozeti iceriği acik gostermiyor');
+assert.match(html, /v60: Fit kisa yolu genel tariflere atlamaz/, 'Fit tarif kisayolu genel tarifler sayfasina sapabilir');
 assert.match(html, /openPrivacyV47/, 'profil gizlilik özeti kancası eksik');
 assert.match(html, /Gizlilik ve veri sınırları/, 'profil gizlilik özeti metni eksik');
 assert.match(html, /Hesapsız kullanım bu cihazla sınırlı/, 'anonim kullanım ve cihaz verisi sınırı açıklanmıyor');

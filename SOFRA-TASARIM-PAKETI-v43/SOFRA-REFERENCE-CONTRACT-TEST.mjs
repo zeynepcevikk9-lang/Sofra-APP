@@ -17,6 +17,11 @@ for (const mode of ['sofra', 'fit', 'tatli']) {
 assert.match(html, /get\('demo'\).*onboarding.*openWelcome\(\)/s, 'referans onboarding QA önizlemesi eksik');
 assert.doesNotMatch(html, /\n\+<style>/, 'referans HTML içinde patch artığı kaldı');
 assert.match(html, /demo==='empty'.*return \[\]/s, 'referans boş dolap QA senaryosu eksik');
+assert.match(html, /choice-icon">🍽️/, 'referans tek tarif karti anlamli ikon kullanmiyor');
+assert.match(html, /choice-icon">📋/, 'referans menu karti anlamli ikon kullanmiyor');
+assert.match(html, /choice-icon">🗄️.*Dolabımdan bul/s, 'referans dolap karti dolap ikonu kullanmiyor');
+assert.match(html, /smart-label">🗄️ Dolabında neler var\?/s, 'referans ana sayfa dolap ozeti iceriği acik gostermiyor');
+assert.match(html, /v60: Fit kisa yolu genel tariflere atlamaz/, 'referans Fit tarif kisayolu genel tariflere sapabilir');
 assert.match(html, /fit-profile-reference-v2/, 'referans Fit profil alanı eksik');
 assert.match(html, /fit-v2-gender|Cinsiyet/, 'Fit cinsiyet alanı eksik');
 assert.match(html, /data-fit-reference-goal="lose"/, 'kilo verme hedefi eksik');

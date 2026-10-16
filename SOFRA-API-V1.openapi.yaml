@@ -1039,6 +1039,8 @@ components:
         state:
           type: string
           enum: [check, missing, in_pantry]
+        required_quantity_text: { type: string, nullable: true, description: Tarif porsiyonuna gore gereken miktar; birden fazla tarifte ayni urun varsa toplanir veya ayri olculer korunur. }
+        pantry_quantity_text: { type: string, nullable: true, description: Dolapta kayitli kullanici miktari; bilinmiyorsa null olabilir. }
         reason: { type: string }
     MarketQuote:
       type: object

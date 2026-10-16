@@ -66,6 +66,7 @@ Bunlar uygulamanın temel yemek akışı oturduktan sonra ayrı bir büyüme kat
 - Kullanıcı bütün dolabını doldurmak zorunda değil.
 - Kullanıcının eklemediği ürün otomatik olarak “yok” kabul edilmez.
 - Bilinmeyen miktar, bilinmeyen olarak kalır; sistem kafasından miktar uydurmaz.
+- Plan alışveriş adayında tarifin gereken miktarı ile dolapta kayıtlı miktar ayrı gösterilir; birden fazla tarifte aynı ürün varsa aynı birim toplanır, farklı ölçüler korunur.
 - Son kullanma tarihi zorunlu değildir.
 - Tarih girilmişse ürün önceliklendirmesinde kullanılır.
 - Her ürünün tarihi ayrı olabilir; tek bir genel tarih varsayılmaz.

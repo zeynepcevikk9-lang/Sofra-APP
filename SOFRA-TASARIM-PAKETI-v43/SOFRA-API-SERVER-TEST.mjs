@@ -214,6 +214,8 @@ try {
   assert.equal(result.response.status, 200);
   assert.equal(result.body.items.find((item) => item.name === 'patates').state, 'in_pantry');
   assert.equal(result.body.items.find((item) => item.name === 'domates').state, 'check');
+  assert.equal(result.body.items.find((item) => item.name === 'patates').required_quantity_text, '3 adet', 'plan alisveris adayi gereken miktari tasimali');
+  assert.equal(result.body.items.find((item) => item.name === 'patates').pantry_quantity_text, 'Miktarı belirsiz', 'dolap miktari alisveris adayinda kaybolmamali');
 
   result = await request('/v1/plans?view=month');
   assert.equal(result.response.status, 200);

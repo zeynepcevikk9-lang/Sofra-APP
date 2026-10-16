@@ -209,13 +209,43 @@ function exportUserData(state) {
   };
 }
 
+function requiredQuantityText(recipeIds, ingredientName) {
+  const quantities = recipeIds.flatMap((id) => {
+    const detail = recipeDetails[id];
+    if (!Array.isArray(detail?.ingredients)) return [];
+    return detail.ingredients
+      .filter(([, name]) => {
+        const left = normalizeRecipeText(name);
+        const right = normalizeRecipeText(ingredientName);
+        return left === right || left.includes(right) || right.includes(left);
+      })
+      .map(([quantity]) => String(quantity).trim())
+      .filter(Boolean);
+  });
+  const unique = [...new Set(quantities)];
+  const parsed = unique.map((value) => value.match(/^(\d+(?:[.,]\d+)?)\s+(.+)$/u));
+  if (unique.length && parsed.every(Boolean) && new Set(parsed.map((match) => match[2].toLocaleLowerCase('tr-TR'))).size === 1) {
+    const total = parsed.reduce((sum, match) => sum + Number(match[1].replace(',', '.')), 0);
+    const number = Number.isInteger(total) ? String(total) : String(Number(total.toFixed(2))).replace('.', ',');
+    return `${number} ${parsed[0][2]}`;
+  }
+  return unique.length ? unique.join(' + ') : null;
+}
+
 function shoppingCandidates(state) {
   const recipeIds = state.plans.flatMap((plan) => [plan.main_recipe_id, ...(plan.optional_recipe_ids || [])]);
   const ingredients = [...new Set(recipeIds.flatMap((id) => recipeById(id)?.ingredients || []))];
   return ingredients.map((name) => {
     const item = state.pantry.find((entry) => entry.canonical_name.includes(name) || name.includes(entry.canonical_name));
     const stateName = !item ? 'check' : item.stock_state === 'finished' ? 'missing' : 'in_pantry';
-    return { id: `candidate_${name}`, name, state: stateName, reason: !item ? 'Dolabında kayıt yok' : null };
+    return {
+      id: `candidate_${name}`,
+      name,
+      state: stateName,
+      required_quantity_text: requiredQuantityText(recipeIds, name),
+      pantry_quantity_text: item?.quantity_text ?? null,
+      reason: !item ? 'Dolabında kayıt yok' : null,
+    };
   });
 }
 

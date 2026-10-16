@@ -1748,6 +1748,55 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   const oldSave=window.saveHealthDemoV50;if(oldSave)window.saveHealthDemoV50=function(){oldSave();sync()};const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='fit')requestAnimationFrame(sync)};sync();window.syncHealthProviderV57=sync;
 })();
 </script>
+<script>
+/* v58: Plan alisveris adaylarinda tarif olcusunu gorunur kilar. */
+(function(){
+  const details=typeof recipeDetails!=='undefined'?recipeDetails:{};
+  const normalize=value=>String(value||'').trim().toLocaleLowerCase('tr-TR');
+  function planTitles(){
+    const card=document.querySelector('#planim .day-menu:not(.empty)');
+    if(!card)return [];
+    const main=card.querySelector('.menu-line strong')?.textContent.trim();
+    const extras=(card.querySelector('.menu-line small')?.textContent||'').split(' · ').map(value=>value.trim()).filter(value=>value&&value!=='Sadece ana yemek');
+    return [main,...extras].filter(Boolean);
+  }
+  function required(){
+    const map=new Map();
+    planTitles().forEach(title=>{
+      const detail=details[title];
+      if(!Array.isArray(detail?.ingredients))return;
+      detail.ingredients.forEach(([quantity,name])=>{const key=normalize(name);const values=map.get(key)||[];if(!values.includes(quantity))values.push(quantity);map.set(key,values)});
+    });
+    return map;
+  }
+  const fallbackIngredients={
+    'Mercimek çorbası':['Mercimek','Soğan'],
+    'Bulgur pilavı':['Bulgur','Soğan'],
+    'Zeytinyağlı taze fasulye':['Taze fasulye','Soğan','Domates'],
+    'Fırında sebzeli tavuk':['Tavuk','Patates','Havuç','Soğan'],
+    'Çoban salata':['Domates','Salatalık','Soğan'],
+  };
+  function candidates(){
+    const map=required();const names=[];planTitles().forEach(title=>{const detail=details[title];const values=Array.isArray(detail?.ingredients)?detail.ingredients.map(([,name])=>name):(fallbackIngredients[title]||[]);values.forEach(name=>{const shown=String(name).charAt(0).toLocaleUpperCase('tr-TR')+String(name).slice(1);if(!names.some(value=>normalize(value)===normalize(shown)))names.push(shown)})});
+    const known=(typeof inventory!=='undefined'?inventory:[]).map(item=>({name:normalize(item[1]),state:item[3]}));
+    return names.map(name=>{const match=known.find(item=>item.name===normalize(name)||item.name.includes(normalize(name))||normalize(name).includes(item.name));return {name,state:match?(match.state==='yok'?'Bitti':match.state==='az'?'Azaldı':'Dolabında kayıtlı'):'Kontrol et',quantity:map.get(normalize(name))||[]}}).filter(item=>item.state!=='Dolabında kayıtlı');
+  }
+  function render(){
+    const card=document.getElementById('shopping-list-v40');if(!card)return;
+    const titles=planTitles();if(!titles.length)return;
+    const items=candidates();const expectedIntro=`${titles.join(' · ')} için eksik malzemeleri çıkardık.`;const head=card.querySelector('.shopping-list-head p');const visible=[...card.querySelectorAll('.shopping-item strong')].map(node=>node.textContent.trim());const expected=items.slice(0,6).map(item=>item.name);if(head?.textContent.startsWith(expectedIntro)&&expected.every((name,index)=>visible[index]===name))return;
+    const count=card.querySelector('.shopping-list-count');if(count)count.textContent=`${items.length} kontrol`;
+    if(head)head.textContent=`${expectedIntro} Kendi yazdığın öğünlerin malzemeleri doğrulanmadan listeye eklenmez.`;
+    const list=card.querySelector('.shopping-list-items');if(list)list.innerHTML=items.length?items.slice(0,6).map(item=>`<div class="shopping-item"><div><strong>${escapeHtml(item.name)}</strong><small> · ${item.state==='Bitti'||item.state==='Azaldı'?'Dolap durumuna göre':'Dolabında kayıt yok'}${item.quantity.length?` · Gereken ${escapeHtml(item.quantity.join(' + '))}`:''}</small></div><span class="shopping-state">${item.state}</span></div>`).join(''):'<div class="shopping-item"><div><strong>Eksik malzeme yok</strong><small> · Bilinen tarif malzemeleri dolapta</small></div><span class="shopping-state">Hazır</span></div>';
+  }
+  function decorate(){
+    render();
+  }
+  const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='planim')requestAnimationFrame(decorate)};
+  const plan=document.getElementById('planim');if(plan)new MutationObserver(decorate).observe(plan,{childList:true,subtree:true});
+  window.syncPlanQuantitiesV58=decorate;decorate();
+})();
+</script>
 </body>
 </html>
 

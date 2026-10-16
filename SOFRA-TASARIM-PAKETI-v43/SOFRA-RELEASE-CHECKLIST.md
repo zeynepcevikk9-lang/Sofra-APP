@@ -17,6 +17,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Sofra Fit hedefleri ortak katalogla hizalıdır; kilo alma seçimi boş kalmaz ve gerçek fotoğraflı öneri gösterir.
 - [x] Fit sağlık kartı iOS Apple HealthKit ve Android Health Connect seçimini doğru başlık ve beklenen izin metniyle yansıtır.
 - [x] Alışveriş adayları kullanıcı eklemediği ürünü kesin eksik saymaz.
+- [x] Alışveriş adayları tarifte gereken miktarı ve dolapta kayıtlı miktarı ayrı alanlarda taşır; belirsiz miktar uydurulmaz.
 
 ## 2. Veri ve algoritma
 

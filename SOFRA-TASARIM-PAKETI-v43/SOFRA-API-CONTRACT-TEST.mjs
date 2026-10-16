@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { catalog, recommend } from './SOFRA-ALGORITHM-V1.mjs';
+import { catalog, recommend, recipeDetails } from './SOFRA-ALGORITHM-V1.mjs';
 
 const apiSpec = readFileSync(new URL('./SOFRA-API-V1.openapi.yaml', import.meta.url), 'utf8');
 const requiredPaths = [
@@ -41,6 +41,8 @@ assert.ok(apiSpec.includes('AiStatus'), 'AI durum şeması eksik');
 assert.ok(apiSpec.includes('ingredients_detail:'), 'tarif detayındaki ölçülü malzeme alanı eksik');
 assert.ok(apiSpec.includes('instructions_available:'), 'tarif detayındaki hazırlanış durumu eksik');
 assert.ok(apiSpec.includes('servings:'), 'tarif detayındaki porsiyon alanı eksik');
+assert.ok(apiSpec.includes('required_quantity_text:'), 'alışveriş adayında gereken miktar alanı eksik');
+assert.ok(apiSpec.includes('pantry_quantity_text:'), 'alışveriş adayında dolap miktarı alanı eksik');
 
 const store = {
   pantry: [],
@@ -90,7 +92,17 @@ function shoppingCandidates() {
   return ingredients.map((name) => {
     const item = store.pantry.find((entry) => entry.canonical_name.includes(name) || name.includes(entry.canonical_name));
     const state = !item ? 'check' : item.stock_state === 'finished' ? 'missing' : 'in_pantry';
-    return { id: `candidate_${name}`, name, state, reason: !item ? 'Dolabında kayıt yok' : undefined };
+    const required = plannedRecipeIds.flatMap((id) => recipeDetails[id]?.ingredients ?? [])
+      .filter(([, ingredient]) => ingredient === name)
+      .map(([quantity]) => quantity);
+    return {
+      id: `candidate_${name}`,
+      name,
+      state,
+      required_quantity_text: [...new Set(required)].join(' + ') || null,
+      pantry_quantity_text: item?.quantity_text ?? null,
+      reason: !item ? 'Dolabında kayıt yok' : undefined,
+    };
   });
 }
 
@@ -136,6 +148,7 @@ const candidates = shoppingCandidates();
 assert.equal(candidates.find((item) => item.name === 'domates')?.state, 'check');
 assert.equal(candidates.find((item) => item.name === 'patates')?.state, 'in_pantry');
 assert.equal(candidates.find((item) => item.name === 'peynir')?.state, 'missing');
+assert.equal(candidates.find((item) => item.name === 'patates')?.pantry_quantity_text, 'Miktarı belirsiz');
 
 // 6) Market adapter kullanıcı onayı olmadan çağrılamaz.
 assert.throws(() => marketQuotes({ candidateIds: ['candidate_domates'], userConfirmed: false }), /onayı gerekir/);

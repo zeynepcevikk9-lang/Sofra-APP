@@ -616,6 +616,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 
 - Release ops v1.16 taslak operasyon plani icin staging/production kapilari, izleme, yedekleme, rollback ve P0-P2 olay seviyelerini kontrol eden `SOFRA-OPS-CONTRACT-TEST.mjs` eklendi; gercek servis kurulumu ve sorumlular hala yayin oncesi acik madde olarak tutuluyor.
 - Fit palet v1.15 ile Fit modulundeki profil, hedef, saglik, ogun ve tarif kartlari tek bir Sofra adacayi-krem-clay kilidine baglandi; yeni v65 modul kilidi mavi/mor varyantlari engelliyor.
+- Fit palet kontrati yalnizca son kilidi degil, canonical/reference icindeki tum Fit kapsamli CSS/HTML renk tokenlarini da tarayacak sekilde guclendirildi.
 - Fit renkleri v64 ile Sofra'nin adaçayi yesili, kremi ve kil vurgusuna kilitlendi; native form kontrollerindeki varsayilan mavi odak/accent renkleri de kaldirildi.
 - Fit palet kontrat testi v64 kilidini ve kilit icinde mavi hex token bulunmadigini otomatik kontrol ediyor.
 - Reference v2 koyu tema tutarsizligi duzeltildi: kayitli `sofraThemeV42` artik body yuzeyine uygulanıyor; Profil etiketi ile gercek ekran temasi eslesiyor.

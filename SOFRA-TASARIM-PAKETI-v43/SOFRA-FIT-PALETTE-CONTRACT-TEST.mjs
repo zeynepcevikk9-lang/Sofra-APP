@@ -20,6 +20,14 @@ for (const [name, html] of [['canonical', canonical], ['reference', reference]])
     return blue > red + 15 && blue > green + 15;
   });
   assert.equal(blueTokens.length, 0, `${name} Fit paletinde mavi token bulundu`);
+  const fitScoped = html.split(/\r?\n/).filter((line) => /(?:#fit|\.fit-|reference-v2-fit)/i.test(line)).join('\n');
+  const scopedBlueTokens = [...fitScoped.matchAll(/#([0-9a-f]{6})/gi)].filter(([, value]) => {
+    const red = Number.parseInt(value.slice(0, 2), 16);
+    const green = Number.parseInt(value.slice(2, 4), 16);
+    const blue = Number.parseInt(value.slice(4, 6), 16);
+    return blue > red + 15 && blue > green + 15;
+  });
+  assert.equal(scopedBlueTokens.length, 0, `${name} Fit kapsaminda eski mavi token bulundu`);
   assert.match(html, /#607b65!important/, `${name} adaçayi aksiyon rengi eksik`);
   assert.match(html, /#d48c75!important/, `${name} clay vurgu rengi eksik`);
   assert.match(html, /#fff6f0|#fff8f3/, `${name} sicak yuzey rengi eksik`);

@@ -64,6 +64,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Analitik olayları kişisel sağlık verisi içermeden tanımlanır; hassas alanlar sözleşme testiyle engellenir, gerçek sağlayıcı henüz bağlı değildir.
 - [ ] Gizlilik politikası, kullanım koşulları ve çerez/izin metinleri hazırdır; prototipteki sınırlar `SOFRA-PRIVACY-V1.md` ile görünür.
 - [ ] Hata izleme, yedekleme ve geri alma planı vardır.
+- [x] Taslak operasyon planı staging/production kapılarını, izleme, yedekleme, geri alma ve P0-P2 olay seviyelerini dokümante eder; `SOFRA-OPS-CONTRACT-TEST.mjs` ile korunur.
 
 Yayın taslakları: `SOFRA-LEGAL-RELEASE-DRAFT.md` ve `SOFRA-OPS-RELEASE-PLAN.md`. Bu belgeler ilgili maddeleri tamamlanmış saymaz; hukuk incelemesi, gerçek servis seçimi ve staging/production kanıtı hâlâ gereklidir.
 

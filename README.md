@@ -30,6 +30,7 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Referans Fit/tasarım smoke testi: `node SOFRA-REFERENCE-CONTRACT-TEST.mjs` (profil, sağlık sınırı, canlı tarif görselleri ve antrenman bölümünün çıkarılması)
 - Market teklif kuralları ve testi: `SOFRA-MARKET-V1.mjs` · `node SOFRA-MARKET-CONTRACT-TEST.mjs`
 - Paket ve yayın öncesi otomatik kontrol: `node SOFRA-RELEASE-CHECK.mjs`
+- Operasyon yayın planı sözleşmesi: `node SOFRA-OPS-CONTRACT-TEST.mjs` (staging/production kapıları, izleme, yedekleme, rollback ve P0-P2 olay seviyeleri)
 - GitHub kalite kapısı: `.github/workflows/sofra-quality.yml` her push ve pull request’te `node SOFRA-CI-SMOKE.mjs` çalıştırır.
 - Frontend yapısal smoke testi: `node SOFRA-FRONTEND-CONTRACT-TEST.mjs`
 - Tarif besin doğrulama kapısı: `node SOFRA-NUTRITION-CONTRACT-TEST.mjs` (yalnızca izinli ve doğrulanmış kaynaklardan gelen tam porsiyon verisi kaloriyi görünür kılar)

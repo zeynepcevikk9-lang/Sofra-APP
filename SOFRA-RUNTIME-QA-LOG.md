@@ -30,6 +30,20 @@ Senaryo: `?qa=flow-v67&demo=onboarding`
 - Serbest ogunun malzemeleri kullanici onayi olmadan alisveris adaylarina eklenmedi.
 - Bu kayit gercek iOS/Android cihaz testi degildir; native HealthKit, Health Connect ve sistem izinleri prototip sinirinda kapalidir.
 
+## Fit genel hata turu - `?qa=fit-v64`
+
+1. Temiz localhost oturumunda Fit acildi; **Dengeli**, **Kilo verme** ve **Kilo alma** hedefleri secildi.
+2. Hedef degisince onerilerin ve yaklasik profil hedeflerinin degistigi goruldu; karttan tarif detayi acildi.
+3. Koyu ve acik temada Fit kartlari Sofra'nin yesil/krem/kil paletinde kontrol edildi; mavi/pembe temel Fit rengi kalmadi.
+4. Apple Health / Health Connect izin modali kontrol edildi; izin listesinde yalnizca aktif kalori, adim ve kilo kaldi. Antrenman/egzersiz izni ve antrenman bolumu kaldirildi.
+5. Gida guvenligi tercihi aktifken bos oneriler alani kullaniciyi tercihler ekranina yonlendiren bir gozden gecirme aksiyonu gosteriyor.
+
+## Sonuc
+
+- Fit artik tarif, ogun ve profil hedefi odakli; antrenman yuzeyi gostermiyor.
+- Saglik baglantisi istege bagli ve yalnizca Fit baglami olarak sunuluyor; gercek native baglanti hala kapalidir.
+- Ana v43 ve referans v2 ayni Fit kapsam kararlarini yansitiyor.
+
 ## Gida guvenligi turu — `?qa=safety-v2`
 
 1. Profil ekraninda **Alerji ve beslenme** karti acildi.

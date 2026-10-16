@@ -36,6 +36,8 @@ export function normalize(value) {
     .toLocaleLowerCase('tr-TR')
     .replace(/ı/g, 'i')
     .replace(/İ/g, 'i')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
     .trim();
 }
 

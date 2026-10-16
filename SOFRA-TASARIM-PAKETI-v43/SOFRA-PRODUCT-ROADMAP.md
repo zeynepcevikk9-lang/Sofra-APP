@@ -620,3 +620,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Planim v1.9 editor turunda secili ana yemek alternatif `Degistir` listesinde tekrar gosterilmiyor; mobil plan duzenleme akisi gereksiz bir karttan arindirildi.
 - Fit mod gecisi v1.10 turunda Sofra'ya donuste eski `Sofra Fit acildi` toast'i temizlendi; mod degistirme bildirimi gidilen ekrana gore guncelleniyor.
 - Ana sayfa v1.11 gorsel turunda Tek tarif, Menu olustur ve Dolabimdan bul kartlari gercek fotograf kancalarina baglandi; emoji fallback ve mobil kart davranisi korundu.
+- Algoritma v1.13 normalizasyon turunda Turkce `I/ı` ve aksanli karakterler kanonik malzeme adina indirgeniyor; dolap eslesmesi yazim farklarinda kaybolmuyor ve kontrat testiyle korunuyor.

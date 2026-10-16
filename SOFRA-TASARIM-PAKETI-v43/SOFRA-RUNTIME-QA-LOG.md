@@ -140,3 +140,11 @@ Sonuc: Market yonlendirme prototipi kullanici onayi, fiyat seffafligi ve veri si
 3. Dolabimdan bul kartina tiklaninca Dolabim ekrani acildi; fotograf degisikligi navigasyonu bozmadı.
 
 Sonuc: Ana sayfanin ana secim kartlari onceki fotografli tarif kartlariyla ayni gorsel dile getirildi.
+
+## Algoritma normalizasyon turu - `SOFRA-ALGORITHM-CONTRACT-TEST.mjs`
+
+1. `Ispanak` girdisinin `ispanak` kanonik adına indiği doğrulandı.
+2. `Çölyak` girdisinin `colyak` kanonik adına indiği doğrulandı.
+3. Mevcut son kullanma tarihi, yeni eklenen ürün, Fit hedefi ve dolap eşleşmesi testleri değişmeden geçti.
+
+Sonuç: Türkçe yazım ve Unicode farkları, dolap malzemesi eşleşmesini sessizce kaçırmıyor.

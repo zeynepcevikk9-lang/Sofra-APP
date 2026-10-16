@@ -11,6 +11,8 @@ Bu sürüm gerçek AI değildir. Backend kurulana kadar ürün kararlarının ta
 - Tarif: malzemeler, süre, etiketler ve Fit uygunluğu
 - Fit hedefi: dengede kalma, kilo verme veya kilo alma
 
+Malzeme adları karşılaştırılmadan önce Türkçe `I/ı`, aksanlı harfler ve Unicode birleşik karakterleri kanonik sade forma indirilir; kullanıcının `Ispanak` veya `Çölyak` gibi yazımları eşleşmeyi kaçırmaz.
+
 ## Puanlama
 
 | Sinyal | Etki |

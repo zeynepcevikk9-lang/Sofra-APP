@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
-import { expiryBoost, recommend, recentAddBoost } from './SOFRA-ALGORITHM-V1.mjs';
+import { expiryBoost, normalize, recommend, recentAddBoost } from './SOFRA-ALGORITHM-V1.mjs';
+
+assert.equal(normalize('Ispanak'), 'ispanak', 'Turkce I/ı kanonik ada inmeli');
+assert.equal(normalize('Çölyak'), 'colyak', 'Turkce aksanlar kanonik ada inmeli');
 
 const now = new Date('2026-10-15T12:00:00.000Z');
 const inventory = [

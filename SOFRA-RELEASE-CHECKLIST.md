@@ -78,6 +78,7 @@ Prototipteki “demo”, “örnek” veya “yakında” etiketleri ancak ilgil
 Koyu tema kontrolü:
 
 - [x] Ana sayfa, Tarifler, Dolabım, Planım, Fit ve Profil ekranları koyu temada görsel olarak kontrol edildi; renk/zemin seçicileri SOFRA-THEME-CONTRACT-TEST.mjs ile korunuyor.
+- [x] Fit ekranının mavi/mor referans stillerine geri dönmemesi; canonical ve reference palet kilidi SOFRA-FIT-PALETTE-CONTRACT-TEST.mjs ile korunuyor.
 
 Paket ve prototip için hızlı release kontrolü:
 

@@ -71,6 +71,10 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 Prototipteki “demo”, “örnek” veya “yakında” etiketleri ancak ilgili gerçek entegrasyon; test, gizlilik incelemesi ve kullanıcıya açık hata davranışıyla birlikte tamamlandığında kaldırılabilir.
 # Otomatik kontrol
 
+Koyu tema kontrolü:
+
+- [x] Ana sayfa, Tarifler, Dolabım, Planım, Fit ve Profil ekranları koyu temada görsel olarak kontrol edildi; renk/zemin seçicileri SOFRA-THEME-CONTRACT-TEST.mjs ile korunuyor.
+
 Paket ve prototip için hızlı release kontrolü:
 
 ```bash

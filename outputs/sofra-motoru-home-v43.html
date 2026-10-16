@@ -1444,11 +1444,22 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   }
   function sync(){
     const plan=document.getElementById('planim');if(!plan)return;
-    const value=read();todayStrip(value);
+    const value=read();todayStrip(value);syncShoppingV52(value);
     const active=plan.querySelector('.calendar-tabs button.active')?.textContent.trim();
     if(!active||active==='Hafta'){restoreTemplateMonday();applyToday(value);}
   }
   function recipeChoices(){return recipesV52.filter(item=>item&&item[0]).slice(0,7)}
+  const planIngredientsV52={'Kremalı mantarlı makarna':['Makarna','Mantar','Krema','Parmesan'],'Renkli sebze bowl':['Domates','Yeşillik','Nohut'],'Fırında sebzeli tabak':['Sebze','Zeytinyağı'],'Ev yapımı pizza':['Un','Domates','Peynir'],'Yoğurtlu meyve kasesi':['Yoğurt','Meyve'],'Sebzeli noodle':['Noodle','Sebze','Soya sosu'],'Zeytinyağlı patlıcan':['Patlıcan','Domates','Soğan'],'Mercimek çorbası':['Mercimek','Soğan'],'Bulgur pilavı':['Bulgur','Soğan'],'Çoban salata':['Domates','Salatalık','Soğan']};
+  function syncShoppingV52(value){
+    const card=document.getElementById('shopping-list-v40');if(!card||!value)return;
+    const titles=[value.title,...(value.parts||[]).map(item=>item.title)];
+    const candidates=[...new Set(titles.flatMap(title=>planIngredientsV52[title]||[]))];
+    const known=(typeof inventory!=='undefined'?inventory:[]).map(item=>({name:String(item[1]||'').toLocaleLowerCase('tr-TR'),state:item[3]}));
+    const items=candidates.map(name=>{const lower=name.toLocaleLowerCase('tr-TR');const match=known.find(item=>item.name===lower||item.name.includes(lower)||lower.includes(item.name));return {name,state:match?(match.state==='yok'?'Bitti':match.state==='az'?'Azaldı':'Dolapta kayıtlı'):'Kontrol et'}}).filter(item=>item.state!=='Dolapta kayıtlı');
+    const head=card.querySelector('.shopping-list-head p');if(head)head.textContent=`${titles.join(' · ')} için eksik malzemeleri çıkardık. Kendi yazdığın öğünlerin malzemeleri doğrulanmadan listeye eklenmez.`;
+    const count=card.querySelector('.shopping-list-count');if(count)count.textContent=items.length+' kontrol';
+    const list=card.querySelector('.shopping-list-items');if(list)list.innerHTML=items.length?items.slice(0,6).map(item=>`<div class="shopping-item"><div><strong>${esc(item.name)}</strong><small> · ${item.state==='Bitti'||item.state==='Azaldı'?'Dolap durumuna göre':'Dolabında kayıt yok'}</small></div><span class="shopping-state">${item.state}</span></div>`).join(''):'<div class="shopping-item"><div><strong>Eksik malzeme yok</strong><small> · Bilinen tarif malzemeleri dolapta</small></div><span class="shopping-state">Hazır</span></div>';
+  }
   function renderEditor(){
     const modal=document.getElementById('modal');if(!modal||!draft)return;
     const choices=recipeChoices().map((item,index)=>`<button type="button" class="plan-edit-choice-v52" onclick="selectPlanRecipeV52(${index})"><span><strong>${esc(item[0])}</strong><small>${esc(item[1])} dk · Tarif</small></span><b>Değiştir</b></button>`).join('');

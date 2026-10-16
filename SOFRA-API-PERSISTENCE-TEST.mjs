@@ -1,11 +1,12 @@
 import assert from 'node:assert/strict';
 import { mkdtemp, rm } from 'node:fs/promises';
-import { join } from 'node:path';
-import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createSofraServer } from './SOFRA-API-SERVER.mjs';
 import { emptyStoreState, loadStore, saveStore } from './SOFRA-STORE-V1.mjs';
 
-const directory = await mkdtemp(join(tmpdir(), 'sofra-api-persistence-'));
+const root = dirname(fileURLToPath(import.meta.url));
+const directory = await mkdtemp(join(root, '.sofra-api-persistence-'));
 const filePath = join(directory, 'state.json');
 
 const openServer = async (state) => {

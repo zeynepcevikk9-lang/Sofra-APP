@@ -963,7 +963,7 @@ fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>G
 </style>
 <script>
 (function(){
-  const keys=['sofraInventory','sofraMode','sofraFitProfileV39','sofraHealthDemoV39','sofraNotificationsV42','sofraThemeV42','sofraFeedbackV1','sofraPlanViewV37','sofraShoppingV40','sofraShoppingV41'];
+  const keys=['sofraInventory','sofraMode','sofraFitProfileV39','sofraHealthDemoV39','sofraNotificationsV42','sofraThemeV42','sofraFeedbackV1','sofraPlanViewV37','sofraPlanDataV51','sofraShoppingV40','sofraShoppingV41'];
   function read(){const data={};keys.forEach(key=>{try{const value=localStorage.getItem(key);if(value!==null){try{data[key]=JSON.parse(value)}catch(e){data[key]=value}}}catch(e){}});return data}
   function exportData(){const payload={schemaVersion:1,exportedAt:new Date().toISOString(),data:read()};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='sofra-verilerim.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Veri dosyan hazır');}
   function openReset(){document.getElementById('modal').innerHTML='<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Cihazındaki veriler</span><h2>Demo verilerini temizle?</h2><p>Yalnızca Sofra’nın bu cihazda tuttuğu dolap, Fit, tema, hatırlatıcı ve plan tercihleri silinir. Başka uygulamalara ait veriler etkilenmez.</p><button class="cta wide" style="background:var(--clay)" onclick="resetSofraDataV44()">Evet, Sofra verilerini temizle</button><button class="white-btn wide" style="margin-top:8px" onclick="closeModal()">Vazgeç</button>';document.getElementById('overlay').classList.add('open')}
@@ -1537,6 +1537,58 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   const parse=value=>{const raw=String(value||'').trim();const match=raw.match(/^\s*(\d+(?:[,.]\d+)?)\s*(kg|kilo|gram|g|adet|litre|l|paket|kutu|demet)?\s+(.+?)\s*$/i);if(!match)return {name:canonical(raw),quantity:'Miktarı ayrıca doğrula'};const unit=({kilo:'kg',gram:'g',litre:'l'}[match[2]?.toLocaleLowerCase('tr-TR')]||match[2]?.toLocaleLowerCase('tr-TR')||'adet');return {name:canonical(match[3]),quantity:`${match[1].replace(',','.')} ${unit}`}};
   window.parseQuickInventoryV50=parse;
   window.addInventory=function(){const input=document.getElementById('quick-add');const value=input?.value.trim();if(!value)return;const parsed=parse(value);inventory.unshift([ingredientEmoji(parsed.name),parsed.name,parsed.quantity,'var','',new Date().toISOString()]);persistInventory();input.value='';renderInventory();toast(`${parsed.name} · ${parsed.quantity} dolabına eklendi`)};
+})();
+</script>
+<script>
+/* v51: Planım görünümündeki aynı kullanıcı menüsünü hafta/ay/geçmişte korur. */
+(function(){
+  const KEY='sofraPlanDataV51';
+  const normalize=value=>value&&typeof value==='object'&&typeof value.title==='string'&&value.title.trim()?{...value,parts:Array.isArray(value.parts)?value.parts:[]}:null;
+  const read=()=>{try{return normalize(JSON.parse(localStorage.getItem(KEY)||'null'))}catch(e){return null}};
+  const write=value=>{try{localStorage.setItem(KEY,JSON.stringify(value))}catch(e){}};
+  let currentState=read();
+  const escapeText=value=>typeof escapeHtml==='function'?escapeHtml(String(value||'')):String(value||'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  function capture(){
+    const main=document.querySelector('#menu .menu-card:not(.optional)');
+    if(!main)return null;
+    const title=main.querySelector('strong')?.textContent.trim();
+    if(!title)return null;
+    const meta=main.querySelector('.menu-meta')?.textContent.trim()||'4 kişilik';
+    const parts=[...document.querySelectorAll('#menu .menu-card.optional')].map(card=>({label:card.dataset.part||'Ek bölüm',title:card.querySelector('strong')?.textContent.trim()||'',meta:card.querySelector('.menu-meta')?.textContent.trim()||''})).filter(item=>item.title);
+    return {schemaVersion:1,title,meta,parts,plannedAt:new Date().toISOString(),day:14,month:'Ekim 2026'};
+  }
+  function saveFromMenu(){const value=capture();if(value){write(value);currentState=value;return value}return currentState||read()}
+  function current(){return currentState||read()}
+  function applyWeek(value){
+    if(!value)return;
+    const first=document.querySelector('#planim .day-menu:not(.empty)');if(!first)return;
+    const title=first.querySelector('.menu-line strong');const detail=first.querySelector('.menu-line small');
+    if(title)title.textContent=value.title;
+    if(detail)detail.textContent=value.parts.length?['Yeni kurduğun menü',...value.parts.map(item=>item.title)].join(' · '):'Yeni kurduğun menü · 4 kişilik';
+  }
+  function monthMarkup(value){
+    const names=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+    const plannedDay=Number(value?.day)||14;const plannedTitle=value?.title||'';
+    const days=[...names.map(name=>`<div class="month-day is-empty" aria-hidden="true">${name}</div>`),...Array.from({length:31},(_,index)=>{const day=index+1;const hasPlan=Boolean(plannedTitle)&&day===plannedDay;return `<div class="month-day ${day===14?'is-today':''} ${hasPlan?'has-plan':''}" ${hasPlan?'title="Planlı sofra"':''}><span>${day}</span>${hasPlan?`<small>${escapeText(plannedTitle)}</small>`:''}</div>`})];
+    return `<div class="plan-month-grid" aria-label="Ekim 2026 aylık takvimi">${days.join('')}</div><p class="plan-view-note">${plannedTitle?`Planın ${plannedDay} Ekim gününde görünüyor. Hafta görünümünden menüyü açabilirsin.`:'Renkli günlerde planlı bir sofra var. Boş bir güne dokunarak yeni sofra kurabilirsin.'}</p>`;
+  }
+  function historyMarkup(value){
+    const currentEntry=value?`<article class="history-entry" data-current-plan="true"><span>🍽️</span><div><strong>${escapeText(value.title)}</strong><small>Ana yemek${(value.parts||[]).length?' · '+escapeText((value.parts||[]).map(item=>item.title).join(' · ')):''}</small></div><time>Yeni plan</time></article>`:'';
+    return `<div class="plan-history" aria-label="Geçmiş sofralar">${currentEntry}<article class="history-entry"><span>🍝</span><div><strong>Sebzeli makarna menüsü</strong><small>Ana yemek · Roka salatası · Yoğurt</small></div><time>12 Ekim</time></article><article class="history-entry"><span>🍗</span><div><strong>Fırında tavuk sofrası</strong><small>Bulgur pilavı · Çoban salata</small></div><time>8 Ekim</time></article><article class="history-entry"><span>🥣</span><div><strong>Mercimek çorbası</strong><small>Mevsim salatası · Ekmek</small></div><time>3 Ekim</time></article><p class="plan-view-note">Bu cihazda oluşturduğun planlar görünüm değiştirirken korunur.</p></div>`;
+  }
+  function sync(){
+    const value=current();const plan=document.getElementById('planim');const grid=plan?.querySelector('.weekgrid');if(!plan||!grid)return;
+    const active=plan.querySelector('.calendar-tabs button.active');const label=active?.textContent.trim();
+    if(label==='Ay'){grid.classList.add('month-view');grid.innerHTML=monthMarkup(value)}
+    else if(label==='Geçmiş'){grid.classList.remove('month-view');grid.innerHTML=historyMarkup(value)}
+    else {grid.classList.remove('month-view');applyWeek(value)}
+  }
+  function captureBeforeMenu(){saveFromMenu()}
+  const menuButton=document.querySelector('#menu .menu-primary');if(menuButton){const oldMenuClick=menuButton.onclick;menuButton.onclick=function(event){captureBeforeMenu();return typeof oldMenuClick==='function'?oldMenuClick.call(this,event):undefined}}
+  document.querySelectorAll('#planim .calendar-tabs button').forEach(tab=>{const oldTabClick=tab.onclick;tab.onclick=function(event){const result=typeof oldTabClick==='function'?oldTabClick.call(this,event):undefined;sync();return result}});
+  const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='planim')requestAnimationFrame(sync)};
+  window.sofraPlanDataV51={read,current,capture:saveFromMenu,sync};
+  if(document.getElementById('planim'))requestAnimationFrame(sync);
 })();
 </script>
 </body>

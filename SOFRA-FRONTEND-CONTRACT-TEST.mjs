@@ -60,6 +60,9 @@ assert.match(html, /Tarif adımları henüz bağlı değil\./, 'tarif içeriği 
 assert.match(html, /function parseQuickInventory\(value\)/, 'miktar ayrıştırma fonksiyonu eksik');
 assert.match(html, /makarna.*spagetti.*parseQuickInventoryV50/s, 'hızlı giriş kanonik alias eşlemesi eksik');
 assert.match(html, /quantity:`\$\{number\} \$\{unit\}`/, 'hızlı ekle miktarı ayrı saklamıyor');
+assert.match(html, /sofraPlanDataV51/, 'Planım görünüm verisi cihazda saklanmıyor');
+assert.match(html, /data-current-plan/, 'Planım kaydı Geçmiş görünümüne taşınmıyor');
+assert.match(html, /monthMarkup\(value\)/, 'Planım kaydı Ay görünümüne taşınmıyor');
 assert.match(html, /sofraSafetyProfileV46/, 'gıda güvenliği tercihi saklama kancası eksik');
 assert.match(html, /Gluten \/ çölyak/, 'çölyak tercihi eksik');
 assert.match(html, /çapraz bulaş/, 'çapraz bulaş uyarısı eksik');

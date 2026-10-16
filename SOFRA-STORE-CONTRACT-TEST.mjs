@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import { mkdtemp, rm } from 'node:fs/promises';
-import { join } from 'node:path';
-import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { emptyStoreState, loadStore, normalizeStoreState, saveStore, STORE_SCHEMA_VERSION } from './SOFRA-STORE-V1.mjs';
 
-const directory = await mkdtemp(join(tmpdir(), 'sofra-store-'));
+const root = dirname(fileURLToPath(import.meta.url));
+const directory = await mkdtemp(join(root, '.sofra-store-'));
 const filePath = join(directory, 'state.json');
 
 try {

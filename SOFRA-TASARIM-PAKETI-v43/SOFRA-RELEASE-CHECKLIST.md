@@ -9,7 +9,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Sofra ↔ Sofra Fit geçişi her iki yönde çalışır.
 - [x] Tatlı önerisi ana yemek akışını zorunlu olarak etkilemez.
 - [x] Menü birden fazla bölüm içerebilir ve Planım’a aktarılır.
-- [ ] Planım hafta, ay ve geçmiş görünümünde aynı veriyi korur.
+- [x] Planım hafta, ay ve geçmiş görünümünde aynı veriyi korur; yeni menü kaydı cihazda görünüm değişimleri ve yenileme sonrasında korunur.
 - [x] Alışveriş adayları kullanıcı eklemediği ürünü kesin eksik saymaz.
 
 ## 2. Veri ve algoritma

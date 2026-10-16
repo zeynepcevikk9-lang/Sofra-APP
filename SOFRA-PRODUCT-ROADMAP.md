@@ -305,7 +305,7 @@ Bu özellikler ana yemek/menü deneyimini kalabalıklaştırmamalı. Önce temel
 - Referans API veri bütünlüğü: korumalı dolap alanlarının PATCH ile değiştirilememesi, geçersiz stok/mod/tarih, plan tarif kimliği, seçili dolap kimliği ve tanımsız öneri alanlarının 422 ile reddedilmesi `SOFRA-API-SERVER-TEST.mjs` içinde doğrulandı.
 - Market istek bütünlüğü: kullanıcı onayı olmadan 409, boş veya tekrarlı aday listesiyle 422 dönülmesi `SOFRA-MARKET-CONTRACT-TEST.mjs` ve `SOFRA-API-SERVER-TEST.mjs` içinde doğrulandı.
 - Veri hakları referansı: `/v1/me/export` ve `/v1/me/data` ile dışa aktarma/silme davranışı referans sunucuda uçtan uca doğrulandı; gerçek üründe kimlik doğrulama ve açık onay gerekecek.
-- Yayın öncesi otomatik kontrol: `SOFRA-RELEASE-CHECK.mjs` (`SOFRA_RELEASE_CHECK_OK`); güncel frontend sözleşmeleri, 32 çalışma scripti, 35 paket dosyası, eski sürüm temizliği ve sözleşme/API testleri birlikte doğrulandı. Kontrol hem çalışma klasöründe hem ZIP’in içinde çalıştı.
+- Yayın öncesi otomatik kontrol: `SOFRA-RELEASE-CHECK.mjs` (`SOFRA_RELEASE_CHECK_OK`); güncel frontend sözleşmeleri, 39 çalışma scripti, 53 paket dosyası, eski sürüm temizliği ve sözleşme/API testleri birlikte doğrulandı. Kontrol hem çalışma klasöründe hem ZIP’in içinde çalıştı.
 - Ana öneri kartında isteğe bağlı geri bildirim; `sofraFeedbackV1` ile cihazda saklanır ve deterministik motorun sonraki sıralamasına sınırlı `learning_boost` olarak yansır.
 - Dolap notunda bilinen ürün, miktar ve durum için kullanıcı onaylı deterministik ayrıştırma; tanınmayan cümleleri ürün uydurmadan not olarak saklama.
 - Koyu tema turu: ana sayfa, Tarifler, Dolabım, Planım, Fit, profil ve modal yüzeyleri kontrol edildi; yatay taşma ve console error/warning bulunmadı.
@@ -574,3 +574,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Health v1.5 prototipinde Fit bağlantı ekranı iOS Apple HealthKit ve Android Health Connect sağlayıcısını ayrı gösteriyor; veri türü seçimi, kısmi izin, manuel devam ve gerçek bağlantının kapalı olduğu sınır kullanıcıya açıklanıyor.
 - Market v1.6 prototipinde yönlendirme/komisyon açıklaması karşılaştırma ekranında görünür; gerçek partner bağlantısı açılmadan canlı gelir iddiası ve yönlendirme yapılmıyor.
 - Algoritma v1.7’de doğal dolap notu ve API kayıtları kanonik malzeme adına indirgeniyor; kg/g/adet/litre/paket gibi miktar-birim alanları normalize edilip `SOFRA-INGEST-CONTRACT-TEST.mjs` ile korunuyor.
+- Planım v1.8’de kullanıcı tarafından oluşturulan menü kaydı cihazdaki `sofraPlanDataV51` alanında korunuyor; Hafta/Ay/Geçmiş görünümleri aynı menü ve isteğe bağlı bölümleri gösteriyor, dışa aktarma kapsamına dahil ediliyor.

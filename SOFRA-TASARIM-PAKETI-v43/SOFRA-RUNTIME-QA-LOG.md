@@ -30,3 +30,13 @@ Senaryo: `?qa=flow-v67&demo=onboarding`
 - Serbest ogunun malzemeleri kullanici onayi olmadan alisveris adaylarina eklenmedi.
 - Bu kayit gercek iOS/Android cihaz testi degildir; native HealthKit, Health Connect ve sistem izinleri prototip sinirinda kapalidir.
 
+## Gida guvenligi turu — `?qa=safety-v2`
+
+1. Profil ekraninda **Alerji ve beslenme** karti acildi.
+2. **Gluten / colyak** tercihi secildi; acik capraz bulas uyarisi goruldu.
+3. Tercih kaydedildi; profil karti `Gluten / colyak` rozetiyle guncellendi ve kayit toast'i goruldu.
+4. Tarifler sekmesine gecildi; guvenli metadata'si bulunmayan tarifler gosterilmedi ve `Bu tercih icin dogrulanmis guvenli ornek tarif bulunamadi.` mesaji goruldu.
+5. Tur koyu temada yapildi; modal, profil karti ve tarifler ekrani okunabilir kaldi.
+
+Sonuc: gluten/colyak tercihi profil -> kaydetme -> tarif filtreleme zincirinde canli olarak dogrulandi. Bu, tibbi guvenlik garantisi degildir; gercek urun etiketleri ve capraz bulas kontrolu gereklidir.
+

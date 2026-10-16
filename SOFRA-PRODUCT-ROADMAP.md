@@ -597,6 +597,8 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 
 ### 16 Ekim 2026
 
+- Gida guvenligi akisi canli tarayici turunda dogrulandi: Profil'den Gluten / colyak secimi, kaydetme rozeti ve Tarifler ekraninda dogrulanmamis tariflerin filtrelenmesi birlikte calisti; koyu tema da kontrol edildi.
+
 - Planım kullanıcı öğünü akışı canlı tarayıcı turunda test edildi: metin, öğün bölümü, kaydetme ve yeni sekmede kalıcılık birlikte geçti; serbest metin malzemeleri onaysız alışverişe eklenmiyor.
 - Sofra Fit paleti canonical ve reference ekranlarında adaçayı-krem-clay olarak kilitlendi; mavi/mor referans stillerinin geri dönüşü için ayrı kontrat testi eklendi.
 - Son kullanma tarihi motoru ürün bazında testle korundu: tarihi olmayan ürün boost almaz, biten ürün öne alınmaz, her ürünün opsiyonel tarihi ayrı değerlendirilir.

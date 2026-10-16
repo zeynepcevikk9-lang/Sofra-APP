@@ -178,6 +178,14 @@ Sonuç: Planım, sistem önerisini kullanıcının kesin kararı gibi göstermed
 
 Sonuç: Koyu tema, Fit özet kartının son palette kilidini ezmiyor; bu regresyon için `SOFRA-FIT-PALETTE-CONTRACT-TEST.mjs` içine özel koruma eklendi.
 
+## Bildirim kanalları turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=notify-v71&demo=empty`
+
+1. Profil'den bildirim tercihleri açıldı; öğün, yaklaşan ürünler ve Planım kanalları ayrı checkbox'lar olarak görüldü.
+2. Öğün hatırlatması açıldı ve seçim kaydedildi; sistem bildirim izninin prototipte açılmadığı kullanıcıya anlatıldı.
+3. Yenileme sonrası üç kanalın da aktif kaldığı hem profil özeti hem de modal checkbox durumlarıyla doğrulandı.
+
+Sonuç: Bildirim tercihleri kanal bazında cihazda korunuyor; native sistem izni sonraki mobil entegrasyon sınırında tutuluyor.
+
 ## Fit sağlık bağlantısı turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=health-v50&demo=onboarding`
 
 1. Fit ekranında isteğe bağlı sağlık bağlantısı açıldı; platform seçiminde iOS Apple HealthKit ve Android Health Connect görüldü.

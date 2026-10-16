@@ -66,6 +66,8 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [ ] Hata izleme, yedekleme ve geri alma planı vardır.
 
 Yayın taslakları: `SOFRA-LEGAL-RELEASE-DRAFT.md` ve `SOFRA-OPS-RELEASE-PLAN.md`. Bu belgeler ilgili maddeleri tamamlanmış saymaz; hukuk incelemesi, gerçek servis seçimi ve staging/production kanıtı hâlâ gereklidir.
+
+Son canlı tarayıcı QA kaydı: `SOFRA-RUNTIME-QA-LOG.md`. Bu kayıt prototip akışını kanıtlar; gerçek cihaz ve native izin testlerinin yerine geçmez.
 - [x] GitHub Actions kalite kapısı sözleşme ve release smoke testlerini her push/pull request’te çalıştırır.
 
 ## 6. Prototipten çıkış kriteri

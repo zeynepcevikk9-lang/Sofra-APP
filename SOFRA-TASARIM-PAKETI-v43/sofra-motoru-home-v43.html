@@ -1482,8 +1482,8 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
 /* v53: Hafta ekranindaki her gunu ayri bir plan olarak duzenleme. */
 (function(){
   const KEY='sofraPlanDataV51';
-  const keys=['pazartesi','sali','carsamba','persembe'];
-  const labels={pazartesi:'PAZARTESİ · AKŞAM MENÜSÜ',sali:'SALI · AKŞAM MENÜSÜ',carsamba:'ÇARŞAMBA · BUGÜN',persembe:'PERŞEMBE · AKŞAM MENÜSÜ'};
+  const keys=['pazartesi','sali','carsamba','persembe','cuma','cumartesi','pazar'];
+  const labels={pazartesi:'PAZARTESİ · AKŞAM MENÜSÜ',sali:'SALI · AKŞAM MENÜSÜ',carsamba:'ÇARŞAMBA · BUGÜN',persembe:'PERŞEMBE · AKŞAM MENÜSÜ',cuma:'CUMA · AKŞAM MENÜSÜ',cumartesi:'CUMARTESİ · AKŞAM MENÜSÜ',pazar:'PAZAR · AKŞAM MENÜSÜ'};
   const defaults={
     pazartesi:{title:'Sebzeli makarna',meta:'30 dk · 4 kişilik',parts:[{label:'Salata',title:'Roka salatası',meta:'10 dk'}]},
     sali:{title:'Fırında tavuk',meta:'45 dk · 4 kişilik',parts:[{label:'Yanına',title:'Bulgur pilavı',meta:'20 dk'},{label:'Salata',title:'Çoban salata',meta:'10 dk'}]},
@@ -1514,7 +1514,7 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
     const strip=plan.querySelector('.plan-today-strip-v52');if(strip&&!root?.title){const button=strip.querySelector('button');if(button)button.textContent='Planla'}
   }
   function renderMonth(){
-    const plan=document.getElementById('planim');const grid=plan?.querySelector('.weekgrid');if(!grid)return;const {plans}=currentPlans();const dayFor={pazartesi:12,sali:13,carsamba:14,persembe:15};const names=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+    const plan=document.getElementById('planim');const grid=plan?.querySelector('.weekgrid');if(!grid)return;const {plans}=currentPlans();const dayFor={pazartesi:12,sali:13,carsamba:14,persembe:15,cuma:16,cumartesi:17,pazar:18};const names=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
     const cells=[...names.map(name=>`<div class="month-day is-empty" aria-hidden="true">${name}</div>`),...Array.from({length:31},(_,i)=>{const day=i+1;const hit=keys.find(key=>dayFor[key]===day&&plans[key]);return `<div class="month-day ${day===14?'is-today':''} ${hit?'has-plan':''} ${hit?'month-plan-v53':''} "><span>${day}</span>${hit?`<small>${esc(plans[hit].title)}</small>`:''}</div>`})];
     grid.classList.add('month-view');grid.innerHTML=`<div class="plan-month-grid" aria-label="Ekim 2026 aylık takvimi">${cells.join('')}</div><p class="plan-view-note">Renkli günlerde planlı sofran var. Hafta görünümünden herhangi bir günü düzenleyebilirsin.</p>`;
   }
@@ -1539,6 +1539,32 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   const oldGoV53=window.go;window.go=function(screen){oldGoV53(screen);if(screen==='planim')requestAnimationFrame(sync)};
   document.querySelectorAll('#planim .calendar-tabs button').forEach(tab=>{const old=tab.onclick;tab.onclick=function(event){const result=typeof old==='function'?old.call(this,event):undefined;requestAnimationFrame(sync);return result}});
   sync();window.sofraPlanEditorV53={read,currentPlans,sync};
+})();
+</script>
+<style>
+  .plan-day-picker-v54{display:flex;gap:6px;overflow-x:auto;margin:0 0 9px;padding:2px 0 4px;scrollbar-width:none}.plan-day-picker-v54::-webkit-scrollbar{display:none}.plan-day-picker-v54 button{flex:0 0 62px;border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--muted);padding:7px 5px;font-size:9px;font-weight:800;line-height:1.15}.plan-day-picker-v54 button strong{display:block;font-family:var(--display);font-size:15px;margin-top:3px;color:var(--ink)}.plan-day-picker-v54 button.active{background:var(--sage-dark);border-color:var(--sage-dark);color:#fff}.plan-day-picker-v54 button.active strong{color:#fff}.plan-day-picker-v54 button small{display:block;font-size:8px;font-weight:700}.plan-week-note-v54{margin:0 0 8px;color:var(--muted);font-size:9px}.day-menu-v54{margin:0!important}
+  body[data-theme="gece"] .plan-day-picker-v54 button{background:var(--paper);border-color:var(--line);color:var(--muted)}body[data-theme="gece"] .plan-day-picker-v54 button strong{color:var(--ink)}body[data-theme="gece"] .plan-day-picker-v54 button.active,body[data-theme="gece"] .plan-day-picker-v54 button.active strong{background:var(--sage-dark);color:#fff}
+</style>
+<script>
+/* v54: Planim hafta görünümünü mobilde daha kompakt hale getirir. */
+(function(){
+  const KEY='sofraPlanDataV51';
+  const keys=['pazartesi','sali','carsamba','persembe','cuma','cumartesi','pazar'];
+  const labels={pazartesi:['Pzt','12'],sali:['Sal','13'],carsamba:['Çar','14'],persembe:['Per','15'],cuma:['Cum','16'],cumartesi:['Cmt','17'],pazar:['Paz','18']};
+  const names={pazartesi:'PAZARTESİ · AKŞAM MENÜSÜ',sali:'SALI · AKŞAM MENÜSÜ',carsamba:'ÇARŞAMBA · BUGÜN',persembe:'PERŞEMBE · AKŞAM MENÜSÜ',cuma:'CUMA · AKŞAM MENÜSÜ',cumartesi:'CUMARTESİ · AKŞAM MENÜSÜ',pazar:'PAZAR · AKŞAM MENÜSÜ'};
+  const defaults={pazartesi:{title:'Sebzeli makarna',parts:[{title:'Roka salatası'}]},sali:{title:'Fırında tavuk',parts:[{title:'Bulgur pilavı'},{title:'Çoban salata'}]},persembe:{title:'Mercimek çorbası',parts:[{title:'Fırında sebzeli börek'},{title:'Mevsim salatası'}]}};
+  let selected='carsamba';
+  const esc=value=>typeof escapeHtml==='function'?escapeHtml(String(value||'')):String(value||'');
+  function read(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
+  function getPlans(){const root=read();const plans={...(root?.dayPlans||{})};if(root?.title&&!plans.carsamba)plans.carsamba={title:root.title,meta:root.meta,parts:Array.isArray(root.parts)?root.parts:[]};return {root,plans}}
+  function text(plan){return (plan?.parts||[]).map(item=>item.title).filter(Boolean).join(' · ')||'Sadece ana yemek'}
+  function card(key,plan){if(!plan)return `<div class="day-menu day-menu-v54 empty" data-plan-day="${key}"><span class="day-menu-label">${names[key]}</span><h3>Bu günü sen kur.</h3><p>Hazır bir tarif seçebilir veya kendi öğününü ekleyebilirsin.</p><button class="white-btn" style="margin-top:11px" type="button" onclick="openDayPlanEditorV53('${key}')">Günü planla ↗</button></div>`;return `<div class="day-menu day-menu-v54" data-plan-day="${key}"><div class="day-menu-head"><span class="day-menu-label">${names[key]}</span><button class="day-menu-action" type="button" onclick="openDayPlanEditorV53('${key}')">Düzenle</button></div><div class="menu-line"><i>${key==='pazartesi'?'🍝':key==='sali'?'🍗':key==='persembe'?'🥣':'🍽️'}</i><div><strong>${esc(plan.title)}</strong><small>${esc(text(plan))}</small></div></div></div>`}
+  function render(){const plan=document.getElementById('planim');const grid=plan?.querySelector('.weekgrid');if(!plan||!grid)return;const active=plan.querySelector('.calendar-tabs button.active')?.textContent.trim();if(active&&active!=='Hafta')return;const {root,plans}=getPlans();const picker=keys.map(key=>`<button type="button" class="${key===selected?'active':''}" onclick="selectPlanDayV54('${key}')"><small>${labels[key][0]}</small><strong>${labels[key][1]}</strong></button>`).join('');const current=plans[selected]||defaults[selected]||null;grid.classList.remove('month-view');grid.innerHTML=`<div class="plan-day-picker-v54" aria-label="Haftanın günleri">${picker}</div><p class="plan-week-note-v54">Bir gün seç, o günün sofrasını düzenle.</p>${card(selected,current)}`;const insight=plan.querySelector('.plan-insight>div:first-child strong');if(insight)insight.textContent=root?.title?'4 sofra · 0 boş gün':'3 sofra · 1 boş gün'}
+  window.selectPlanDayV54=function(key){if(!keys.includes(key))return;selected=key;render()};
+  const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='planim')requestAnimationFrame(render)};
+  const oldSave=window.saveDayPlanV53;if(oldSave)window.saveDayPlanV53=function(){oldSave();requestAnimationFrame(render)};
+  document.querySelectorAll('#planim .calendar-tabs button').forEach(tab=>{const old=tab.onclick;tab.onclick=function(event){const result=typeof old==='function'?old.call(this,event):undefined;requestAnimationFrame(render);return result}});
+  render();window.sofraPlanCompactV54={render};
 })();
 </script>
 </body>

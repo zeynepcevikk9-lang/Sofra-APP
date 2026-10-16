@@ -67,6 +67,8 @@ assert.match(html, /syncShoppingV52|planIngredientsV52/, 'referans değişen pla
 assert.match(html, /openDayPlanEditorV53/, 'referans hafta günleri ayrı ayrı düzenlenemiyor');
 assert.match(html, /dayPlans|currentPlans/, 'referans gün bazlı plan verisi eksik');
 assert.match(html, /renderMonth\(\)|renderHistory\(\)/, 'referans gün bazlı plan Ay/Geçmiş görünümlerine taşınmıyor');
+assert.match(html, /plan-day-picker-v54|selectPlanDayV54/, 'referans hafta görünümü mobilde kompakt gün seçicisi kullanmıyor');
+assert.match(html, /cumartesi|pazar/, 'referans hafta sonu günleri Planım seçicisinde eksik');
 assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');
 assert.match(html, /<strong>Hazırlanış<\/strong>/, 'referans tarif hazırlanış bölümü eksik');

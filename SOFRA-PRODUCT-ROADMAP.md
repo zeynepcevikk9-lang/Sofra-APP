@@ -114,6 +114,8 @@ Hazır öneri yalnızca başlangıç noktası olarak kalır. Kullanıcı Planım
 
 Bu karar dört günlük görünüm için de geçerlidir: hafta kartları yalnızca örnek metin değildir; gün seçimiyle düzenlenir ve `dayPlans` alanında ayrı saklanır. Böylece bir günün değişmesi diğer günün menüsünü ezmez.
 
+Hafta görünümü mobilde yedi günlük yatay seçiciye indirgenir; aynı anda yalnızca seçilen günün kartı açılır. Bu, planı işlevsel tutarken kullanıcının her günü görmek için uzun bir kart listesi kaydırmasını engeller.
+
 Normal Sofra görünümünde Fit özeti ve kalori kartı gösterilmeyecek. Kalori ve makro özeti yalnızca Sofra Fit bölümünde aktif olacak.
 
 Plan API’si de bu kararı korur: kayıtlar geçerli tarih, porsiyon ve katalog tarifleriyle oluşturulur; hatalı veya tekrarlı tarif kimlikleri kabul edilmez.

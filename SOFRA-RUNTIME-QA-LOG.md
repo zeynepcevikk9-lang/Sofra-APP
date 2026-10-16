@@ -123,3 +123,12 @@ Sonuc: Plan duzenleyicisi bir tekrar karti daha az gosteriyor; mobilde gereksiz 
 3. Fit ekranindan Sofra'ya donuldu; ekran ana sayfaya geldi ve bildirim `Sofra acildi` olarak guncellendi.
 
 Sonuc: Fit hedef degisimi ve iki mod arasindaki gecis kullaniciya stale bildirim birakmadan calisiyor.
+
+## Market teklifleri turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=market-v50`
+
+1. Planim ekraninda eksik malzemeler acildi; kullanici onayi alinmadan market secenekleri gosterilmedi.
+2. Liste onaylandiktan sonra CarrefourSA, Getir ve Migros ornekleri toplam fiyat, teslimat, minimum sepet ve guncelleme zamaniyla goruldu.
+3. `En uygun toplam`, `En hizli` ve `Tek markette tamamla` siralamalari calisti; minimum sepet kosulu teklif metninde korundu.
+4. Ekranda bunun canli market baglantisi olmadigi, komisyon/sponsorlu siralamanin acik etiketlenecegi ve Fit/saglik verisinin marketlere aktarilmayacagi goruldu.
+
+Sonuc: Market yonlendirme prototipi kullanici onayi, fiyat seffafligi ve veri sinirlariyla birlikte calisiyor; canli partner baglantisi henuz acilmadi.

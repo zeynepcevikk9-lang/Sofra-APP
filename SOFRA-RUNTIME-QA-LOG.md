@@ -272,3 +272,12 @@ Sonuç: Ana sayfa yolları ve koyu tema kartları aynı Sofra görsel diliyle, d
 3. Dolap fotoğrafları sabit kare kutuya alındı; `object-fit: cover` ve taşma kesilmesiyle görseller metin alanına taşmıyor.
 
 Sonuç: Adet/kilo gibi ölçüler kalabalık sekme oluşturmadan düzenleniyor; ürün görselleri satır düzenini bozmuyor.
+
+## Keşif ve malzeme arama turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=discovery-v90&demo=1`
+
+1. Ana sayfadan `domates` arandı; Tarifler ekranında `Fırında sebzeli tabak` ve `Zeytinyağlı patlıcan` kartları göründü.
+2. `Dünya mutfağı` filtresi üç kart döndürdü; aksanlı tarif adları kaybolmadı.
+3. Örnek dolapta `domates · 2 kg` kaydıyla `Dolabımdan` filtresi iki uyumlu tarif kartını sıraladı.
+4. Boş dolap senaryosunda aynı filtre genel önerilere kontrollü fallback verdi.
+
+Sonuç: Arama, kategori ve dolap odaklı keşif akışı gerçek kullanıcı adımlarıyla doğrulandı.

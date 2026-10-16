@@ -2240,6 +2240,54 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   body[data-theme="gece"] .reference-v2-home .reference-plan-v2{background:#2b372f;border-color:var(--line);color:var(--ink)}body[data-theme="gece"] .reference-v2-home .reference-plan-v2 button{color:var(--sage-dark)}body[data-theme="gece"] .reference-v2-home .reference-days-v2 button{color:var(--muted)}body[data-theme="gece"] .reference-v2-home .reference-days-v2 button.active{background:var(--sage);color:#fff}body[data-theme="gece"] .reference-v2-home .reference-meal-v2{border-top-color:var(--line)}body[data-theme="gece"] .reference-v2-home .reference-meal-v2 small{color:var(--muted)}body[data-theme="gece"] .reference-v2-home .reference-meal-v2 button{background:var(--paper);color:var(--sage-dark)}
   body[data-theme="gece"] .reference-v2-home .reference-resume-v2{background:var(--paper);border-color:var(--line);color:var(--ink)}body[data-theme="gece"] .reference-v2-home .reference-resume-v2 small{color:var(--muted)}body[data-theme="gece"] .reference-v2-home .reference-resume-v2 button{background:#304237;color:var(--sage-dark)}body[data-theme="gece"] .reference-v2-home .reference-family-v2{background:#382d29;border-color:#68473b;color:#f5f1e9}body[data-theme="gece"] .reference-v2-home .reference-family-v2 small{color:#e7ad98}body[data-theme="gece"] .reference-v2-home .reference-family-v2 b{color:#e7ad98}
 </style>
+<script id="recipe-search-ingredients-v90">
+(function(){
+  const baseRender=window.renderRecipes;
+  const renderArray=window.renderRecipeArrayV35;
+  if(typeof baseRender!=='function'||typeof renderArray!=='function')return;
+  const aliases={
+    domates:['Fırında sebzeli tabak','Zeytinyağlı patlıcan'],
+    patlıcan:['Zeytinyağlı patlıcan'],
+    mantar:['Kremalı mantarlı makarna'],
+    yoğurt:['Yoğurtlu meyve kasesi'],
+    yogurt:['Yoğurtlu meyve kasesi'],
+    peynir:['Kremalı mantarlı makarna'],
+    makarna:['Kremalı mantarlı makarna']
+  };
+  const categories={dunya:['Kremalı mantarlı makarna','Ev yapımı pizza','Sebzeli noodle']};
+  const normalize=value=>String(value||'').trim().toLocaleLowerCase('tr-TR');
+  function renderSearch(value){
+    const query=String(value||'').trim();const key=normalize(query);
+    const titles=aliases[key]||categories[key];
+    if(titles){renderArray(recipes.filter(item=>titles.includes(item[0])),key);return}
+    baseRender(query);
+  }
+  window.renderRecipes=renderSearch;
+  window.liveFilter=function(value){
+    document.querySelectorAll('.recipe-filter').forEach(node=>node.classList.remove('active'));
+    const heading=document.querySelector('#tarifler .section-row h2');
+    if(heading)heading.textContent=String(value||'').trim()?'Arama sonuçları':'Seçtiklerimiz';
+    renderSearch(value);
+  };
+  window.doSearch=function(){
+    const input=document.getElementById('homesearch');const value=(input?.value||'').trim();
+    go('tarifler');const target=document.getElementById('search2');if(target)target.value=value;const heading=document.querySelector('#tarifler .section-row h2');if(heading)heading.textContent=value?'Arama sonuçları':'Seçtiklerimiz';renderSearch(value);
+  };
+  const previousPantryFilter=window.recipeQuickFilter;
+  window.recipeQuickFilter=function(button,mode){
+    if(mode!=='pantry'){if(typeof previousPantryFilter==='function')previousPantryFilter(button,mode);return}
+    document.querySelectorAll('.recipe-filter').forEach(node=>node.classList.remove('active'));button?.classList.add('active');
+    const names=(typeof inventory!=='undefined'?inventory:[]).filter(item=>item[3]!=='yok').map(item=>normalize(item[1]));
+    const pantryAliases={domates:['Firinda sebzeli tabak','Zeytinyagli patlican'],patates:['Firinda sebzeli tabak'],yumurta:['Avokadolu yumurta tost'],peynir:['Kremali mantarli makarna'],sut:['Yogurtlu meyve kasesi'],yogurt:['Yogurtlu meyve kasesi'],makarna:['Kremali mantarli makarna'],mantar:['Kremali mantarli makarna'],marul:['Renkli sebze bowl'],roka:['Renkli sebze bowl']};
+    const fold=value=>normalize(value).replace(/ı/g,'i').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const titles=[...new Set(names.flatMap(name=>pantryAliases[name]||[]))];const matches=recipes.filter(item=>titles.some(title=>fold(title)===fold(item[0])));
+    const heading=document.querySelector('#tarifler .section-row h2');if(heading)heading.textContent='Dolabindaki urunlerle';
+    renderArray(matches.length?matches:recipes.slice(0,3),'pantry');
+    toast(matches.length?'Dolabindaki urunlerle uyumlu tarifler gosteriliyor':'Dolabin bos; genel onerileri gosteriyorum.');
+  };
+  window.sofraDiscoverySearchV90={renderSearch,aliases,categories};
+})();
+</script>
 </body>
 </html>
 

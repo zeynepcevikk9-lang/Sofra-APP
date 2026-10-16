@@ -626,6 +626,8 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Hesap/saglik siniri v1.26 kullanici turunda Profil'deki pasif Google/Apple baglantisi, Apple HealthKit/Health Connect izin plani ve izin vermeden manuel Fit devam akisi birlikte dogrulandi.
 - Ana sayfa baslangic v1.27 turunda gizlenen `Tek tarif`, `Menü oluştur` ve `Dolabımdan bul` yolları kompakt kartlar olarak tekrar görünür yapıldı; başlık `Bugün ne pişirsek?` olarak saat bağımlılığından çıkarıldı.
 - Dolap miktar v1.28 turunda ürün düzenleme modalına sekme eklemeden miktar + birim satırı (`adet`, `kg`, `g`, `litre`, `ml`, `paket`, `kutu`, `demet`, `şişe`, `kavanoz`) ve isteğe bağlı not alanı eklendi; `6 adet` → `2 kg` kaydı canlı akışta yenilendi.
+- Keşif v1.29 kullanıcı turunda ana sayfa aramasında `domates` gibi malzeme sorguları gerçek tarif kartlarına bağlandı; Dünya mutfağı ve Dolabımdan filtreleri aksanlı tarif adlarıyla eşleşecek şekilde düzeltildi, boş dolapta genel öneri fallback'i korundu.
+- Yemek.com referans uyarlaması v1.30 için gerçek fotoğraflı öne çıkan tarif, arama+filtre, evdeki malzemelerle ara, hızlı kategori, kaydetme/devam etme ve tarif içi Asistan Şef kararları `SOFRA-YEMEK-COM-INSIGHTS.md` içine alındı.
 
 - Release ops v1.16 taslak operasyon plani icin staging/production kapilari, izleme, yedekleme, rollback ve P0-P2 olay seviyelerini kontrol eden `SOFRA-OPS-CONTRACT-TEST.mjs` eklendi; gercek servis kurulumu ve sorumlular hala yayin oncesi acik madde olarak tutuluyor.
 - Fit palet v1.15 ile Fit modulundeki profil, hedef, saglik, ogun ve tarif kartlari tek bir Sofra adacayi-krem-clay kilidine baglandi; yeni v65 modul kilidi mavi/mor varyantlari engelliyor.

@@ -104,6 +104,10 @@ assert.match(html, /function recipeSafetyAllowedV46\(title\)/, 'tarif listesi g�
 assert.match(html, /Güvenli tarif doğrulaması bekleniyor/, 'güvenlik filtresi boş durum mesajı eksik');
 assert.match(html, /recipe-search-empty-v65/, 'arama boş durumu ayrıştırması eksik');
 assert.match(html, /Aramana uygun tarif/, 'eşleşmeyen arama mesajı eksik');
+assert.match(html, /recipe-search-ingredients-v90/, 'malzeme arama eşleme katmanı eksik');
+assert.match(html, /sofraDiscoverySearchV90/, 'arama ve kategori son katmanı eksik');
+assert.match(html, /domates:\['Firinda sebzeli tabak'/, 'domates tarif eşlemesi eksik');
+assert.match(html, /previousPantryFilter/, 'dolaptan tarif filtresi bağlantısı eksik');
 assert.match(html, /Henüz alışveriş listesi yok/, 'boş plan alışveriş durumu eksik');
 assert.match(html, /fit-sofra-palette-v64-no-blue/, 'Fit Sofra palette kilidi eksik');
 assert.match(html, /plan-editor-compact-v59/, 'Planım düzenleyicisi seçili tarifi alternatiflerde tekrar gösteriyor');

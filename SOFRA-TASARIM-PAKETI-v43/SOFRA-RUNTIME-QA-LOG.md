@@ -40,3 +40,12 @@ Senaryo: `?qa=flow-v67&demo=onboarding`
 
 Sonuc: gluten/colyak tercihi profil -> kaydetme -> tarif filtreleme zincirinde canli olarak dogrulandi. Bu, tibbi guvenlik garantisi degildir; gercek urun etiketleri ve capraz bulas kontrolu gereklidir.
 
+## Fit hedef ve mod degistirme turu - `http://localhost:8766/?qa=fit-goal-v3`
+
+1. Temiz oturumda 30 yas / 170 cm / 70 kg ve Erkek profili girildi.
+2. **Kilo verme** secildi; oneriler `Renkli sebze bowl`, `Zeytinyagli patlican` ve `Firinda sebzeli tabak` olarak degisti; profil kaydi sonrasi `1.924 kcal` ve `105 g` yaklasik hedef goruldu.
+3. **Kilo alma** secildi; oneriler `Avokadolu yumurta tost` ve `Sebzeli noodle` gibi daha doyurucu secimlere dondu; profil kaydi sonrasi `2.474 kcal` ve `84 g` yaklasik hedef goruldu.
+4. Fit ekranindaki **Sofra'ya gec - Modu degistir** aksiyonu kullanildi; ana sayfada Sofra secili, Sofra Fit secenegi secili degil olarak goruldu.
+
+Sonuc: Fit hedefi -> oneriler -> profil kaydi -> Sofra modu donusu zinciri temiz oturumda canli olarak dogrulandi.
+

@@ -597,6 +597,8 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 
 ### 16 Ekim 2026
 
+- Fit hedef ve mod degistirme akisi temiz oturumda canli test edildi: kilo verme ve kilo alma secimleri farkli tarif siralamasi/icerigi ve yaklasik hedef uretti; profil kaydi ve Fit'ten Sofra'ya donuste mod gostergesi dogru kaldı.
+
 - Gida guvenligi akisi canli tarayici turunda dogrulandi: Profil'den Gluten / colyak secimi, kaydetme rozeti ve Tarifler ekraninda dogrulanmamis tariflerin filtrelenmesi birlikte calisti; koyu tema da kontrol edildi.
 
 - Planım kullanıcı öğünü akışı canlı tarayıcı turunda test edildi: metin, öğün bölümü, kaydetme ve yeni sekmede kalıcılık birlikte geçti; serbest metin malzemeleri onaysız alışverişe eklenmiyor.

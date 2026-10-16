@@ -281,3 +281,13 @@ Sonuç: Adet/kilo gibi ölçüler kalabalık sekme oluşturmadan düzenleniyor; 
 4. Boş dolap senaryosunda aynı filtre genel önerilere kontrollü fallback verdi.
 
 Sonuç: Arama, kategori ve dolap odaklı keşif akışı gerçek kullanıcı adımlarıyla doğrulandı.
+
+## Yemek.com fark analizi ve yatay ana sayfa seçimi turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=discovery-v90&demo=1`
+
+1. Tarifler ekranında kompakt `Kategoriler`, `Video` ve `Dolabımdan bul` araçları görüldü.
+2. Kategori sheet'inden `Dünya mutfağı` seçildi; 3 tarif kartı ve sonuç sayısı güncellendi.
+3. Dolap sheet'inde `domates` seçildi; 5 eşleşen tarif ve kart detayları görüldü.
+4. Ana sayfada `Bugünün seçimi` tek büyük hero yerine yatay kaydırılabilir 4 gerçek fotoğraflı karta dönüştü.
+5. Tarif kartları kaydetme, tarif modalına geçiş ve mevcut koyu tema kontratıyla birlikte korundu.
+
+Sonuç: Yemek.com'daki keşif mantığının Sofra'ya uygun sade bir dilde ilk katmanı çalışıyor; gerçek veri, porsiyon/besin modeli ve adım medyası sonraki P0 işleridir.

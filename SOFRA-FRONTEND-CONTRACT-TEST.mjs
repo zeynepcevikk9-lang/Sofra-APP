@@ -108,6 +108,11 @@ assert.match(html, /recipe-search-ingredients-v90/, 'malzeme arama eşleme katma
 assert.match(html, /sofraDiscoverySearchV90/, 'arama ve kategori son katmanı eksik');
 assert.match(html, /domates:\['Firinda sebzeli tabak'/, 'domates tarif eşlemesi eksik');
 assert.match(html, /previousPantryFilter/, 'dolaptan tarif filtresi bağlantısı eksik');
+assert.match(html, /yemek-discovery-v92/, 'gelişmiş tarif keşif katmanı eksik');
+assert.match(html, /discovery-sheet-v92/, 'kategori ve dolap arama sheet katmanı eksik');
+assert.match(html, /data-discovery-action/, 'tarif keşif araçları eksik');
+assert.match(html, /recipe-share-v92/, 'tarif paylaşma aksiyonu eksik');
+assert.match(html, /today-picks-v93/, 'ana sayfa bugünün seçimi kaydırma katmanı eksik');
 assert.match(html, /Henüz alışveriş listesi yok/, 'boş plan alışveriş durumu eksik');
 assert.match(html, /fit-sofra-palette-v64-no-blue/, 'Fit Sofra palette kilidi eksik');
 assert.match(html, /plan-editor-compact-v59/, 'Planım düzenleyicisi seçili tarifi alternatiflerde tekrar gösteriyor');

@@ -641,3 +641,6 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Ana sayfa v1.11 gorsel turunda Tek tarif, Menu olustur ve Dolabimdan bul kartlari gercek fotograf kancalarina baglandi; emoji fallback ve mobil kart davranisi korundu.
 - Algoritma v1.13 normalizasyon turunda Turkce `I/ı` ve aksanli karakterler kanonik malzeme adina indirgeniyor; dolap eslesmesi yazim farklarinda kaybolmuyor ve kontrat testiyle korunuyor.
 - Health v1.14 kullanici turunda iOS Apple HealthKit secimi, Android Health Connect alternatifi, veri kapsami ve gercek baglanti siniri birlikte dogrulandi.
+- Yemek.com fark analizi v1.31 ile 17 ekran incelendi; sonuc sayisi, kategori sheet'i, evdeki/istenmeyen malzeme aramasi, tarif karti kaydi ve paylasim aksiyonu Sofra'nin sade akisini bozmadan eklendi.
+- Ana sayfa kesif v1.32 ile tek buyuk hero yerine `Bugunun secimi` yatay tarif seridine alindi; gercek fotograf, sure, dolap uyumu ve tarif modalina gecis korunuyor.
+- Marka v1.33 ile yaprak isareti yerine alcak yuvarlak yer sofrasini cagristiran kucuk kod cizimi denendi; bu bir tasarim prototipidir, son logo karari degildir.

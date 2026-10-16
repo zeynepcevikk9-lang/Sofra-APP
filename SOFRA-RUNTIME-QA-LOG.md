@@ -161,6 +161,15 @@ Sonuç: Türkçe yazım ve Unicode farkları, dolap malzemesi eşleşmesini sess
 
 Sonuç: Dolaba eklenen ürün Fit önerilerinin sıralamasına ve açıklama metnine yansıyor; Fit modülü Sofra paletinden sapmıyor.
 
+## Planım kullanıcı öğünü turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=plan-v69&demo=empty`
+
+1. Bugünün planında `Düzenle` açıldı; hazır ana yemek alternatifleri seçilebilir ve seçili tarif tekrar alternatif listesinde gösterilmedi.
+2. Kullanıcının kendi öğünü `Kullanıcının kendi mercimekli bowl öğünü` olarak eklendi ve akşam bölümüyle kaydedildi.
+3. Ana yemek `Fırında sebzeli tabak` ile değiştirildi; alışveriş adayları yeni tarifin malzemelerine göre yeniden hesaplandı.
+4. Yenileme sonrası ana yemek ve kendi öğünü plan kartında korundu; serbest metin öğünün malzemeleri doğrulanmadan alışveriş adaylarına eklenmedi.
+
+Sonuç: Planım, sistem önerisini kullanıcının kesin kararı gibi göstermeden ana yemek değiştirme, kendi öğünü ekleme ve kalıcı kaydetme akışını koruyor.
+
 ## Fit sağlık bağlantısı turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=health-v50&demo=onboarding`
 
 1. Fit ekranında isteğe bağlı sağlık bağlantısı açıldı; platform seçiminde iOS Apple HealthKit ve Android Health Connect görüldü.

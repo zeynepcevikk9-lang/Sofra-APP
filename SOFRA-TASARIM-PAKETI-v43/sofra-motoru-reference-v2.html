@@ -268,6 +268,51 @@ document.querySelectorAll('[data-theme-switch]').forEach(b=>b.onclick=()=>{docum
 document.querySelectorAll('[data-inventory-demo]').forEach(b=>b.onclick=()=>setInventoryState(b.dataset.inventoryDemo));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});renderRecipes();renderInventory();
 </script>
+
+<style id="fit-sofra-palette-v62">
+  /* Final Fit palette guard: Fit uses the same sage/cream/clay language as Sofra. */
+  .reference-v2-fit .fit-streak-v2{background:#f4e2d9;color:#9a6250}
+  .reference-v2-fit .fit-days-v2 button{background:#f1f4ef;color:#6b7d6f}
+  .reference-v2-fit .fit-days-v2 button.active{background:#607b65;color:#fff}
+  .reference-v2-fit .fit-calorie-v2{background:linear-gradient(135deg,#edf4eb 0%,#fff6f0 100%)}
+  .reference-v2-fit .fit-kicker-v2{color:#6b866f}
+  .reference-v2-fit .fit-calorie-main-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-calorie-main-v2 span{color:#6f7d71}
+  .reference-v2-fit .fit-macros-v2{border-top-color:#dfe9dc}
+  .reference-v2-fit .fit-macros-v2 div{color:#6c7e70}
+  .reference-v2-fit .fit-macros-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-actions-v2 button{color:#4d6e55}
+  .reference-v2-fit .fit-actions-v2 button:first-child{background:#607b65;border-color:#607b65;color:#fff}
+  .reference-v2-fit .fit-workout-v2{background:#395b42}
+  .reference-v2-fit .fit-workout-v2 small{color:#e6f0e3}
+  .reference-v2-fit .fit-workout-v2 button{background:#d48c75}
+  .reference-v2-fit .fit-meals-v2{border-color:#e7e5dd;background:#fffefa}
+  .reference-v2-fit .fit-meal-v2{border-top-color:#eee9e2}
+  .reference-v2-fit .fit-meal-v2 b{color:#607b65}
+  .reference-v2-fit .fit-wellness-v2>div{background:#eef4eb;color:#56745d}
+  .reference-v2-fit .fit-wellness-v2>div+div{background:#fff1eb;color:#a36f5d}
+  .reference-v2-fit .fit-profile-reference-v2{border-color:#e3e8e0;background:#fffefa}
+  .reference-v2-fit .fit-reference-kicker-v2{color:#6b866f}
+  .reference-v2-fit .fit-reference-status-v2{background:#eef4eb;color:#5b775f}
+  .reference-v2-fit .fit-reference-copy-v2{color:#7c887d}
+  .reference-v2-fit .fit-reference-fields-v2 label{color:#7f8a80}
+  .reference-v2-fit .fit-reference-fields-v2 input,.reference-v2-fit .fit-reference-fields-v2 select{border-color:#e3e8e0;background:#fbfcf8;color:#395b42}
+  .reference-v2-fit .fit-reference-goal-v2{border-color:#e2e8df;color:#6f7d71}
+  .reference-v2-fit .fit-reference-goal-v2.active{border-color:#607b65;background:#607b65;color:#fff}
+  .reference-v2-fit .fit-reference-save-v2{background:#607b65}
+  .reference-v2-fit .fit-health-reference-v2{border-color:#e3e8e0;background:#f7faf5}
+  .reference-v2-fit .fit-health-icon-v2{background:#eef4eb;color:#607b65}
+  .reference-v2-fit .fit-health-reference-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-health-reference-v2 small{color:#7c887d}
+  .reference-v2-fit .fit-health-reference-v2 button{background:#607b65}
+  .reference-v2-fit .fit-recommendations-reference-v2{border-color:#e7e5dd;background:#fffefa}
+  .reference-v2-fit .fit-recommendations-reference-v2 h3{color:#28312b}
+  .reference-v2-fit .fit-recommendations-reference-v2>p{color:#7c887d}
+  .reference-v2-fit .fit-recipe-reference-v2{border-top-color:#eee9e2}
+  .reference-v2-fit .fit-recipe-reference-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-recipe-reference-v2 small{color:#7c887d}
+  .reference-v2-fit .fit-recipe-reference-v2 b{color:#a36f5d}
+</style>
 <script>
   // Fit özeti yalnızca Sofra Fit ekranında görünür; normal Planım genel kalır.
   const planInsight = document.querySelector('#planim .plan-insight');
@@ -1878,4 +1923,49 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   };
 })();
 </script>
+
+<style id="fit-sofra-palette-v62-final">
+  /* Keep the Fit reference screen on Sofra's sage/cream/clay palette. */
+  .reference-v2-fit .fit-streak-v2{background:#f4e2d9;color:#9a6250}
+  .reference-v2-fit .fit-days-v2 button{background:#f1f4ef;color:#6b7d6f}
+  .reference-v2-fit .fit-days-v2 button.active{background:#607b65;color:#fff}
+  .reference-v2-fit .fit-calorie-v2{background:linear-gradient(135deg,#edf4eb 0%,#fff6f0 100%)}
+  .reference-v2-fit .fit-kicker-v2{color:#6b866f}
+  .reference-v2-fit .fit-calorie-main-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-calorie-main-v2 span{color:#6f7d71}
+  .reference-v2-fit .fit-macros-v2{border-top-color:#dfe9dc}
+  .reference-v2-fit .fit-macros-v2 div{color:#6c7e70}
+  .reference-v2-fit .fit-macros-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-actions-v2 button{color:#4d6e55}
+  .reference-v2-fit .fit-actions-v2 button:first-child{background:#607b65;border-color:#607b65;color:#fff}
+  .reference-v2-fit .fit-workout-v2{background:#395b42}
+  .reference-v2-fit .fit-workout-v2 small{color:#e6f0e3}
+  .reference-v2-fit .fit-workout-v2 button{background:#d48c75}
+  .reference-v2-fit .fit-meals-v2{border-color:#e7e5dd;background:#fffefa}
+  .reference-v2-fit .fit-meal-v2{border-top-color:#eee9e2}
+  .reference-v2-fit .fit-meal-v2 b{color:#607b65}
+  .reference-v2-fit .fit-wellness-v2>div{background:#eef4eb;color:#56745d}
+  .reference-v2-fit .fit-wellness-v2>div+div{background:#fff1eb;color:#a36f5d}
+  .reference-v2-fit .fit-profile-reference-v2{border-color:#e3e8e0;background:#fffefa}
+  .reference-v2-fit .fit-reference-kicker-v2{color:#6b866f}
+  .reference-v2-fit .fit-reference-status-v2{background:#eef4eb;color:#5b775f}
+  .reference-v2-fit .fit-reference-copy-v2{color:#7c887d}
+  .reference-v2-fit .fit-reference-fields-v2 label{color:#7f8a80}
+  .reference-v2-fit .fit-reference-fields-v2 input,.reference-v2-fit .fit-reference-fields-v2 select{border-color:#e3e8e0;background:#fbfcf8;color:#395b42}
+  .reference-v2-fit .fit-reference-goal-v2{border-color:#e2e8df;color:#6f7d71}
+  .reference-v2-fit .fit-reference-goal-v2.active{border-color:#607b65;background:#607b65;color:#fff}
+  .reference-v2-fit .fit-reference-save-v2{background:#607b65}
+  .reference-v2-fit .fit-health-reference-v2{border-color:#e3e8e0;background:#f7faf5}
+  .reference-v2-fit .fit-health-icon-v2{background:#eef4eb;color:#607b65}
+  .reference-v2-fit .fit-health-reference-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-health-reference-v2 small{color:#7c887d}
+  .reference-v2-fit .fit-health-reference-v2 button{background:#607b65}
+  .reference-v2-fit .fit-recommendations-reference-v2{border-color:#e7e5dd;background:#fffefa}
+  .reference-v2-fit .fit-recommendations-reference-v2 h3{color:#28312b}
+  .reference-v2-fit .fit-recommendations-reference-v2>p{color:#7c887d}
+  .reference-v2-fit .fit-recipe-reference-v2{border-top-color:#eee9e2}
+  .reference-v2-fit .fit-recipe-reference-v2 strong{color:#395b42}
+  .reference-v2-fit .fit-recipe-reference-v2 small{color:#7c887d}
+  .reference-v2-fit .fit-recipe-reference-v2 b{color:#a36f5d}
+</style>
 

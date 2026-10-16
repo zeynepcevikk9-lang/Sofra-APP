@@ -268,6 +268,24 @@ document.querySelectorAll('[data-theme-switch]').forEach(b=>b.onclick=()=>{docum
 document.querySelectorAll('[data-inventory-demo]').forEach(b=>b.onclick=()=>setInventoryState(b.dataset.inventoryDemo));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});renderRecipes();renderInventory();
 </script>
+
+<style id="fit-sofra-palette-v62">
+  /* Final Fit palette guard: Fit uses the same sage/cream/clay language as Sofra. */
+  #fit .fit-insight{background:#eef4eb;color:#28312b}
+  #fit .fit-profile{border-color:#e3e8e0;background:#fffefa}
+  #fit .fit-profile-badge{background:#eef4eb;color:#5b775f}
+  #fit .fit-goal{border-color:#e2e8df;background:#fff;color:#6f7d71}
+  #fit .fit-goal.active{border-color:#607b65;background:#607b65;color:#fff}
+  #fit .fit-save{background:#607b65}
+  #fit .fit-health-card{border-color:#eadfd7;background:#fff8f3}
+  #fit .fit-health-status{background:#f4dccc;color:#98624f}
+  #fit .fit-health-data div{background:#fffefa;border-color:#efdfd5}
+  #fit .fit-health-button{background:#d48c75}
+  #fit .fit-goal-recommendations-v47{border-color:#e7e5dd;background:#fffefa}
+  #fit .fit-goal-recipe-v47{border-top-color:#eee9e2;color:#28312b}
+  #fit .fit-goal-recipe-v47 strong{color:#395b42}
+  #fit .fit-goal-recipe-v47 b{color:#a36f5d}
+</style>
 <script>
   // Fit özeti yalnızca Sofra Fit ekranında görünür; normal Planım genel kalır.
   const planInsight = document.querySelector('#planim .plan-insight');
@@ -1683,4 +1701,22 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   };
 })();
 </script>
+
+<style id="fit-sofra-palette-v62-final">
+  /* Keep the canonical Fit screen on Sofra's sage/cream/clay palette. */
+  #fit .fit-insight{background:#eef4eb;color:#28312b}
+  #fit .fit-profile{border-color:#e3e8e0;background:#fffefa}
+  #fit .fit-profile-badge{background:#eef4eb;color:#5b775f}
+  #fit .fit-goal{border-color:#e2e8df;background:#fff;color:#6f7d71}
+  #fit .fit-goal.active{border-color:#607b65;background:#607b65;color:#fff}
+  #fit .fit-save{background:#607b65}
+  #fit .fit-health-card{border-color:#eadfd7;background:#fff8f3}
+  #fit .fit-health-status{background:#f4dccc;color:#98624f}
+  #fit .fit-health-data div{background:#fffefa;border-color:#efdfd5}
+  #fit .fit-health-button{background:#d48c75}
+  #fit .fit-goal-recommendations-v47{border-color:#e7e5dd;background:#fffefa}
+  #fit .fit-goal-recipe-v47{border-top-color:#eee9e2;color:#28312b}
+  #fit .fit-goal-recipe-v47 strong{color:#395b42}
+  #fit .fit-goal-recipe-v47 b{color:#a36f5d}
+</style>
 

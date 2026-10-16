@@ -110,10 +110,16 @@ function fitGoalBoost(recipe, fitGoal) {
   return recipe.fitGoals?.includes(fitGoal) ? 20 : -10;
 }
 
+function fitEligible(recipe, fitGoal) {
+  if (!recipe.fit) return false;
+  return !fitGoal || (Array.isArray(recipe.fitGoals) && recipe.fitGoals.includes(fitGoal));
+}
+
 export function recommend({ mode = 'sofra', maxMinutes = 0, inventory = [], feedback = [], recentRecipeIds = [], safetyProfile = {}, fitGoal = null, now = new Date() } = {}) {
   const pantry = activeInventory(inventory);
   const normalizedSafetyProfile = normalizeSafetyProfile(safetyProfile);
-  return catalog
+  const candidates = mode === 'fit' ? catalog.filter((recipe) => fitEligible(recipe, fitGoal)) : catalog;
+  return candidates
     .map((recipe) => {
       const safety = assessRecipeSafety(recipe, normalizedSafetyProfile);
       if (safety.blocked) return null;

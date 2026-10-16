@@ -53,6 +53,7 @@ Demo kataloğundaki tarifler şu anda `verified: false` olduğu için kısıtlı
 - Ana sayfadaki kişisel öneriyi sıralar.
 - `Dolabımdan` tarif filtresini puanlı sonuçlarla doldurur.
 - Sofra Fit moduna geçince Fit uyumlu tarifleri öne alır.
+- Fit hedefi seçildiğinde motor yalnızca o hedefte tanımlı Fit tariflerini döndürür; normal veya başka hedefe ait tarifler puanla listeye sızmaz.
 - İleride backend’e taşınabilecek `catalog`, `recommend` ve `activeInventory` ayrımını korur.
 
 ## Öğrenme sinyali v1.1

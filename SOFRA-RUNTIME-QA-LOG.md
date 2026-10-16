@@ -98,3 +98,5 @@ Sonuc: Eslesme bulunmamasi ile guvenlik filtresinin tarifleri elemesi artik ayni
 3. Fit ekranindaki saglik, profil, hedef ve tarif aksiyonlari Sofra'nin yesil-krem-kil paletinde kaldi; mavi/mor renk token'i bulunmadi.
 
 Sonuc: Fit modulu Sofra moduluyle ayni renk dilini kullaniyor; eski cache/preview acilirsa yeni v64 palette kilidini iceren dosya acilmali.
+
+Otomasyon: `SOFRA-FIT-PALETTE-CONTRACT-TEST.mjs` v64 kilidini ve kilit icindeki mavi hex token yoklugunu dogruladi.

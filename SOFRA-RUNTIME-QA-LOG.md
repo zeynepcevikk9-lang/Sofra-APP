@@ -22,6 +22,8 @@ Senaryo: `?qa=flow-v67&demo=onboarding`
 
 ## Sonuc
 
+- Fit palet v1.15 turunda canonical ve reference on izleme ekranlarinda profil, hedef, saglik, ogun ve tarif yuzeyleri tek Sofra modul paletine baglandi; yeni v65 kilidi mavi/mor varyantlarin geri donmesini engelliyor.
+
 - Akista bos ekran veya yanlis ekrana yonlenme gorulmedi.
 - Fit hedef degisimi tarif kartlarina yansidi.
 - Plan degisimi alisveris adaylarina yansidi.

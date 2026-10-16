@@ -89,5 +89,8 @@ for (const [index, match] of scripts.entries()) {
   try { Function(match[1]); } catch (error) { throw new Error(`referans HTML script ${index + 1} parse edilemedi: ${error.message}`); }
 }
 
+assert.match(html, /id="day-custom-v53"/, 'referans kullanici ogunu metin alani eksik');
+assert.match(html, /day-custom-slot-v58/, 'referans kullanici ogunu bolum secimi eksik');
+assert.match(html, /cleanSavedSlots/, 'referans kullanici ogunu saklama temizleme kapisi eksik');
 console.log('SOFRA_REFERENCE_CONTRACT_TEST_OK');
 console.log(`fitProfile=ok healthBoundary=ok realRecipePhotos=ok workoutSection=removed scripts=${scripts.length}`);

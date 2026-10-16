@@ -99,5 +99,9 @@ assert.match(html, /demo==='empty'.*return \[\]/s, 'boş dolap QA senaryosu eksi
 assert.match(html, /Dolabın henüz boş\./, 'boş dolap geri dönüşü eksik');
 assert.doesNotMatch(html, /<button[^>]*class="heart"[^>]*>/, 'işlevsiz favori kalbi geri eklenmiş');
 
+assert.match(html, /id="day-custom-v53"/, 'kullanici ogunu metin alani eksik');
+assert.match(html, /day-custom-slot-v58/, 'kullanici ogunu bolum secimi eksik');
+assert.match(html, /cleanSavedSlots/, 'kullanici ogunu saklama temizleme kapisi eksik');
+assert.match(html, /Kendi yazd.{0,20}malzemeleri.{0,40}do.{0,2}rulanmadan/, 'serbest ogun alisveris siniri eksik');
 console.log('SOFRA_FRONTEND_CONTRACT_TEST_OK');
 console.log('screens=6 navTabs=5 mobileGuards=ok fallbackImages=ok');

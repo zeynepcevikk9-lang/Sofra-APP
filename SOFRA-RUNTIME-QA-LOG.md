@@ -16,6 +16,9 @@ Senaryo: `?qa=flow-v67&demo=onboarding`
 8. Alisveris adaylari yeni tarif malzemelerine gore guncellendi: marul, roka, domates ve zeytinyagi gibi adaylar gorundu.
 9. **Listeyi kontrol et** onay ekrani acildi; onaydan sonra ornek market karsilastirmasi acildi.
 10. Market ekraninda ornek veri, guncelleme zamani, minimum sepet ve komisyon/yonlendirme aciklamasi goruldu.
+11. Planim duzenleyicisinde **Kendi ogununu ekle** alani acildi; `Evde yaptigim mercimek salatasi` metni girildi ve **Aksam** bolumuyle eklendi.
+12. Plan kaydedildi; bugunun karti kendi ogununu gosterdi ve serbest metin icin malzeme uydurulmadigi aciklamasi korundu.
+13. Yeni tarayici sekmesinde Planim yeniden acildi; kendi ogunu ayni gunde ve ayni bolum bilgisiyle korundu.
 
 ## Sonuc
 
@@ -23,6 +26,7 @@ Senaryo: `?qa=flow-v67&demo=onboarding`
 - Fit hedef degisimi tarif kartlarina yansidi.
 - Plan degisimi alisveris adaylarina yansidi.
 - Market ekrani liste onayindan once acilmadi.
-- Bu turda kendi serbest ogununu metin alanina yazma adimi ayrica dogrulanmadi; sonraki cihaz/metin girisi testinin maddesidir.
+- Kendi serbest ogununu metin alanina yazma, bolum secimi, kaydetme ve yeni sekmede kalicilik dogrulandi.
+- Serbest ogunun malzemeleri kullanici onayi olmadan alisveris adaylarina eklenmedi.
 - Bu kayit gercek iOS/Android cihaz testi degildir; native HealthKit, Health Connect ve sistem izinleri prototip sinirinda kapalidir.
 

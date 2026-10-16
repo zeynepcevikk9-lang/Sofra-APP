@@ -10,6 +10,7 @@ const reference = readFileSync(join(sourceRoot, 'sofra-motoru-reference-v2.html'
 
 for (const [name, html] of [['canonical', canonical], ['reference', reference]]) {
   assert.match(html, /fit-sofra-palette-v66-final/, `${name} Fit final palette lock missing`);
+  assert.match(html, /fit-sofra-palette-v67-brand/, `${name} Sofra Fit marka paleti son kilidi eksik`);
   assert.match(html, /fit-sofra-palette-v63-lock/, `${name} Fit palet kilidi eksik`);
   assert.match(html, /fit-sofra-palette-v65-module/, `${name} Fit modül paleti eksik`);
   const lock = html.match(/<style id="fit-sofra-palette-v64-no-blue">([\s\S]*?)<\/style>/)?.[1];

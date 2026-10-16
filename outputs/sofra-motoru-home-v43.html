@@ -289,6 +289,21 @@
 <style>
   .recipe-detail-card{border:1px solid #e8e5dc;border-radius:14px;background:#fffefa;padding:12px;margin-top:10px}.recipe-detail-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.recipe-detail-head strong{font:600 17px var(--display)}.recipe-detail-head span{font-size:9px;color:#7f897f;font-weight:800}.recipe-ingredients{display:grid;gap:5px;margin:9px 0 0;padding:0;list-style:none}.recipe-ingredients li{display:flex;justify-content:space-between;gap:8px;border-top:1px solid #efede7;padding-top:5px;font-size:10px;color:#667267}.recipe-ingredients li strong{color:var(--ink);font-size:10px}.recipe-tip{font-size:10px!important;line-height:1.5!important;color:#876f65!important;margin:9px 0 0!important}.recipe-detail-card .steps{margin:8px 0 0;font-size:10px;line-height:1.55}.recipe-detail-card .steps li{padding:3px 0}
 </style>
+<style id="fit-sofra-palette-v67-brand">
+  /* Fit uses the same Sofra language: sage for action, cream for surface, clay for emphasis. */
+  #fit{--fit-sage:#607b65;--fit-sage-dark:#395b42;--fit-sage-soft:#eef4eb;--fit-cream:#fffefa;--fit-clay:#d48c75;--fit-clay-soft:#fff1eb;--fit-line:#e7e5dd;--fit-ink:#28312b;--fit-muted:#6f7d71}
+  #fit .fit-calorie-v2{background:linear-gradient(135deg,#eef4eb 0%,#fff6f0 100%)!important;color:#28312b!important}
+  #fit .fit-days-v2 button.active,#fit .fit-actions-v2 button:first-child,#fit .fit-reference-goal-v2.active,#fit .fit-save{background:#607b65!important;border-color:#607b65!important;color:#fff!important}
+  #fit .fit-days-v2 button:not(.active),#fit .fit-actions-v2 button:not(:first-child),#fit .fit-reference-goal-v2:not(.active){background:#fffefa!important;border-color:#e7e5dd!important;color:#4d6e55!important}
+  #fit .fit-workout-v2{background:#395b42!important;color:#fff!important}
+  #fit .fit-workout-v2 button,#fit .fit-health-button{background:#d48c75!important;color:#fff!important}
+  #fit .fit-meals-v2,#fit .fit-profile-reference-v2,#fit .fit-recommendations-reference-v2{background:#fffefa!important;border-color:#e7e5dd!important}
+  #fit .fit-wellness-v2>div{background:#eef4eb!important;color:#56745d!important}
+  #fit .fit-wellness-v2>div+div{background:#fff1eb!important;color:#a36f5d!important}
+  #fit .fit-health-reference-v2{background:#f7faf5!important;border-color:#e3e8e0!important}
+  #fit .fit-health-icon-v2{background:#eef4eb!important;color:#607b65!important}
+  #fit .fit-calorie-main-v2 strong,#fit .fit-macros-v2 strong,#fit .fit-meal-v2 b,#fit .fit-recipe-reference-v2 strong{color:#395b42!important}
+</style>
 </head>
 <body data-theme="sicak">
 <div class="workspace">
@@ -1948,8 +1963,8 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
 <script id="choice-photos-v60-script">
 (function(){
   const base='https://images.unsplash.com/';
-  const photos=['photo-1547592180-85f173990554','photo-1512621776951-a57141f2eefd','photo-1518977676601-b53f82aba655'];
-  document.querySelectorAll('#home .choice .choice-icon').forEach((node,index)=>{const id=photos[index];if(!id)return;node.classList.add('photo-choice-v60');node.style.backgroundImage=`url("${base}${id}?auto=format&fit=crop&w=160&q=82")`;node.textContent='';node.setAttribute('aria-hidden','true')});
+  const photos=['photo-1547592180-85f173990554','photo-1512621776951-a57141f2eefd',null];
+  document.querySelectorAll('#home .choice .choice-icon').forEach((node,index)=>{const id=photos[index];if(!id){node.classList.add('choice-cabinet-v88');node.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 10h14M9 6h.01M9 14h.01"/></svg>';node.setAttribute('aria-label','Dolap');return}node.classList.add('photo-choice-v60');node.style.backgroundImage=`url("${base}${id}?auto=format&fit=crop&w=160&q=82")`;node.textContent='';node.setAttribute('aria-hidden','true')});
 })();
 </script>
 <style id="fit-sofra-palette-v66-final">
@@ -1977,6 +1992,20 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   }
   new MutationObserver(addRule).observe(document.body,{childList:true,subtree:true});
   addRule();
+})();
+</script>
+<style id="inventory-units-v67">
+  .inventory-amount-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.inventory-amount-row label{display:grid;gap:5px}.inventory-amount-row input,.inventory-amount-row select{width:100%;box-sizing:border-box;border:1px solid #e1e7df;border-radius:11px;background:#fffefa;padding:11px 10px;font-size:12px;color:#354238}.inventory-note-v67{margin-top:1px}.inventory-note-v67 input{margin-top:5px}.inventory-row .item-emoji{flex:none;overflow:hidden}.inventory-row .inventory-photo{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
+  body[data-theme="gece"] .inventory-amount-row input,body[data-theme="gece"] .inventory-amount-row select,body[data-theme="gece"] .inventory-note-v67 input{background:#1d261f;color:var(--ink);border-color:var(--line)}
+</style>
+<script id="inventory-units-v67-script">
+(function(){
+  const units=['adet','kg','g','litre','ml','paket','kutu','demet','şişe','kavanoz'];
+  function splitQuantity(value){const raw=String(value||'').trim();const match=raw.match(/^([0-9]+(?:[,.][0-9]+)?)\s*(kg|kilo|g|gram|adet|litre|l|ml|paket|kutu|demet|şişe|sise|kavanoz)(?:\s*·\s*(.*))?$/i);if(!match)return {amount:'',unit:'adet',note:raw&&!/miktarı (?:ayrıca )?doğrula|miktari (?:ayrica )?dogrula|miktarı belirsiz|miktari belirsiz/i.test(raw)?raw:''};const aliases={kilo:'kg',gram:'g',l:'litre',sise:'şişe'};return {amount:match[1].replace(',','.'),unit:aliases[match[2].toLocaleLowerCase('tr-TR')]||match[2].toLocaleLowerCase('tr-TR'),note:match[3]||''}}
+  function optionList(selected){return units.map(unit=>`<option value="${unit}" ${unit===selected?'selected':''}>${unit}</option>`).join('')}
+  window.openInventoryItemV36=function(index){const item=inventory[index];if(!item)return;const q=splitQuantity(item[2]);const modal=document.getElementById('modal');modal.innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">Dolap kaydı</span><h2>${escapeHtml(item[1])}</h2><p>Ürünün miktarını veya durumunu istediğin zaman güncelleyebilirsin.</p><div class="inventory-edit-form"><div class="inventory-amount-row"><label>Miktar<input id="inventory-amount-v67" inputmode="decimal" placeholder="Örn. 2" value="${escapeHtml(q.amount)}" aria-label="Miktar"></label><label>Birim<select id="inventory-unit-v67" aria-label="Birim">${optionList(q.unit)}</select></label></div><label class="inventory-note-v67">Not <span style="font-weight:500;color:var(--muted)">(isteğe bağlı)</span><input id="inventory-note-v67" placeholder="Örn. yarım paket" value="${escapeHtml(q.note)}" aria-label="Miktar notu"></label><label for="inventory-state-v36">Durum</label><select id="inventory-state-v36" aria-label="Durum"><option value="var" ${item[3]==='var'?'selected':''}>Var</option><option value="az" ${item[3]==='az'?'selected':''}>Azaldı</option><option value="yok" ${item[3]==='yok'?'selected':''}>Bitti</option></select><label for="inventory-expiry-v44">Son kullanma tarihi <span style="font-weight:500;color:var(--muted)">(isteğe bağlı)</span></label><input id="inventory-expiry-v44" type="date" value="${escapeHtml(item[4]||'')}" aria-label="Son kullanma tarihi (isteğe bağlı)"><small class="inventory-expiry-help-v44">Tarih girmezsen ürün normal dolap kaydı olarak kalır.</small></div><div class="inventory-modal-actions"><button class="danger-btn" type="button" onclick="removeInventoryItemV36(${index})">Sil</button><button class="cta" style="margin:0;flex:1" type="button" onclick="saveInventoryItemV67(${index})">Kaydet</button></div>`;document.getElementById('overlay').classList.add('open')}
+  window.saveInventoryItemV67=function(index){const item=inventory[index];if(!item)return;const amount=document.getElementById('inventory-amount-v67')?.value.trim().replace(',','.');const unit=document.getElementById('inventory-unit-v67')?.value||'adet';const note=document.getElementById('inventory-note-v67')?.value.trim();const status=document.getElementById('inventory-state-v36')?.value||'var';const expiry=document.getElementById('inventory-expiry-v44')?.value||'';item[2]=amount?`${amount} ${unit}${note?` · ${note}`:''}`:(note||'Miktarı ayrıca doğrula');item[3]=status;item[4]=expiry;persistInventory();closeModal();go('dolabim');toast(item[1]+' güncellendi')}
+  if(typeof renderInventory==='function')renderInventory();
 })();
 </script>
 </body>

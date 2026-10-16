@@ -28,6 +28,11 @@ for (const tab of ['home', 'tarifler', 'dolabim', 'planim', 'profil']) {
 assert.match(html, /class="fallback"/, 'görsel fallback alanı eksik');
 assert.ok((html.match(/onerror=/g) || []).length >= 3, 'görsel yüklenememe fallbackleri eksik');
 assert.match(html, /choice-photos-v60/, 'ana sayfa seçim kartlarında gerçek fotoğraf kapısı eksik');
+assert.match(html, /fit-sofra-palette-v67-brand/, 'Fit Sofra marka paleti son kilidi eksik');
+assert.match(html, /inventory-units-v67/, 'Dolap miktar-birim alanları eksik');
+assert.match(html, /inventory-amount-v67.*inventory-unit-v67/s, 'Dolap miktar ve birim aynı sade akışta eksik');
+assert.match(html, /class="today-choice"/, 'Ana sayfa tek tarif/menu/dolap seçimleri eksik');
+assert.match(html, /Bugün ne<br><em>pişirsek/, 'Ana sayfa zaman bağımlı akşam başlığı kalmış');
 assert.match(html, /Apple Health ile bağlan/, 'Fit sağlık bağlantısı arayüz kancası eksik');
 assert.match(html, /health-v50-provider.*Health Connect/s, 'iOS/Android sağlık sağlayıcı seçimi eksik');
 assert.match(html, /Health Connect ile bağlan/, 'seçilen sağlık sağlayıcısı kartta görünmüyor');

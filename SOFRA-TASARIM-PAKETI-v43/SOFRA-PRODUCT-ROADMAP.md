@@ -624,6 +624,8 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Dolap onerisi v1.24 kullanici turunda bos demo dolabina domates ve patates eklendi; ana sayfa onerisi, Dolabindakilerle menu kurulumu ve Planim kaydi ayni akista dogrulandi.
 - Market akis v1.25 kullanici turunda eksik tarif malzemeleri liste onayindan sonra ornek tekliflere donustu; minimum sepet kosulu, uc siralama ve Fit/saglik verisi aktarilmadigi aciklamasi canli ekranda dogrulandi.
 - Hesap/saglik siniri v1.26 kullanici turunda Profil'deki pasif Google/Apple baglantisi, Apple HealthKit/Health Connect izin plani ve izin vermeden manuel Fit devam akisi birlikte dogrulandi.
+- Ana sayfa baslangic v1.27 turunda gizlenen `Tek tarif`, `Menü oluştur` ve `Dolabımdan bul` yolları kompakt kartlar olarak tekrar görünür yapıldı; başlık `Bugün ne pişirsek?` olarak saat bağımlılığından çıkarıldı.
+- Dolap miktar v1.28 turunda ürün düzenleme modalına sekme eklemeden miktar + birim satırı (`adet`, `kg`, `g`, `litre`, `ml`, `paket`, `kutu`, `demet`, `şişe`, `kavanoz`) ve isteğe bağlı not alanı eklendi; `6 adet` → `2 kg` kaydı canlı akışta yenilendi.
 
 - Release ops v1.16 taslak operasyon plani icin staging/production kapilari, izleme, yedekleme, rollback ve P0-P2 olay seviyelerini kontrol eden `SOFRA-OPS-CONTRACT-TEST.mjs` eklendi; gercek servis kurulumu ve sorumlular hala yayin oncesi acik madde olarak tutuluyor.
 - Fit palet v1.15 ile Fit modulundeki profil, hedef, saglik, ogun ve tarif kartlari tek bir Sofra adacayi-krem-clay kilidine baglandi; yeni v65 modul kilidi mavi/mor varyantlari engelliyor.

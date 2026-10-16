@@ -255,3 +255,20 @@ Sonuc: Prototip, gercek OAuth veya native saglik izni verilmis gibi davranmiyor;
 3. CSS son kilidi canonical ve reference v2 çıktılarının sonuna eklendi; form kontrolleri de sage accent-color kullanıyor.
 
 Sonuç: Sofra Fit artık Sofra ana modülünün sage/cream/clay diliyle aynı görsel sistemi kullanıyor.
+
+## Ana sayfa başlangıç yolları ve koyu tema turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=home-choice-v88&demo=empty`
+
+1. Ana sayfada `Bugün ne pişirsek?` başlığı görüldü; önceki `Bu akşam` ifadesi kaldırıldı.
+2. Arama alanının altında kompakt `Tek tarif`, `Menü oluştur` ve `Dolabımdan bul` kartları görünür kaldı; üçüncü kartta fotoğraf yerine anlamlı dolap ikonu kullanıldı.
+3. Koyu temada dolap özeti, kategori alanı, plan kartı ve Çocuğum için kartının yüzey/metin kontrastı düzeltildi; içerik bitince sabit panelin altında büyük boşluk bırakılmadı.
+4. Tarif görselindeki başlık için koyu okunabilirlik katmanı eklendi; görsel üstünde metin kaybolmadan okunuyor.
+
+Sonuç: Ana sayfa yolları ve koyu tema kartları aynı Sofra görsel diliyle, daha kısa ve okunabilir akışta çalışıyor.
+
+## Dolap miktar-birim ve görsel sabitleme turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=home-choice-v88&demo=empty`
+
+1. Düzenleme modalında miktar + birim satırı, kısa not, durum ve isteğe bağlı tarih aynı akışta görüldü.
+2. `6 adet` kaydı `2 kg` olarak kaydedildi ve liste satırında doğru göründü.
+3. Dolap fotoğrafları sabit kare kutuya alındı; `object-fit: cover` ve taşma kesilmesiyle görseller metin alanına taşmıyor.
+
+Sonuç: Adet/kilo gibi ölçüler kalabalık sekme oluşturmadan düzenleniyor; ürün görselleri satır düzenini bozmuyor.

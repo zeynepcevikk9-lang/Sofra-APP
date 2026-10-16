@@ -64,6 +64,8 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Analitik olayları kişisel sağlık verisi içermeden tanımlanır; hassas alanlar sözleşme testiyle engellenir, gerçek sağlayıcı henüz bağlı değildir.
 - [ ] Gizlilik politikası, kullanım koşulları ve çerez/izin metinleri hazırdır; prototipteki sınırlar `SOFRA-PRIVACY-V1.md` ile görünür.
 - [ ] Hata izleme, yedekleme ve geri alma planı vardır.
+
+Yayın taslakları: `SOFRA-LEGAL-RELEASE-DRAFT.md` ve `SOFRA-OPS-RELEASE-PLAN.md`. Bu belgeler ilgili maddeleri tamamlanmış saymaz; hukuk incelemesi, gerçek servis seçimi ve staging/production kanıtı hâlâ gereklidir.
 - [x] GitHub Actions kalite kapısı sözleşme ve release smoke testlerini her push/pull request’te çalıştırır.
 
 ## 6. Prototipten çıkış kriteri

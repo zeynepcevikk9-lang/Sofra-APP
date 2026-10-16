@@ -219,3 +219,11 @@ Sonuç: Fit hedef seçimi artık yalnızca tarif sıralamasını değil, kullan�
 3. Geçiş bildirimi `Sofra açıldı` oldu; eski `Sofra Fit açıldı` mesajı ekranda kalmadı.
 
 Sonuç: İki mod arasındaki dönüş akışı görünür ekran, aktif mod ve toast mesajı bakımından tutarlı.
+
+## Fit Sofra paleti son kontrol turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=fit-palette-v86&demo=onboarding`
+
+1. Onboarding üzerinden Sofra Fit açıldı; profil, sağlık bağlantısı, hedef ve öneri kartları birlikte kontrol edildi.
+2. Fit ekranında mavi/mor aksan kalmadı; aksiyonlar sage, ikincil vurgu clay, yüzeyler cream/sage-soft olarak kilitlendi.
+3. CSS son kilidi canonical ve reference v2 çıktılarının sonuna eklendi; form kontrolleri de sage accent-color kullanıyor.
+
+Sonuç: Sofra Fit artık Sofra ana modülünün sage/cream/clay diliyle aynı görsel sistemi kullanıyor.

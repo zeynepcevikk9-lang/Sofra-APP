@@ -1952,6 +1952,19 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   document.querySelectorAll('#home .choice .choice-icon').forEach((node,index)=>{const id=photos[index];if(!id)return;node.classList.add('photo-choice-v60');node.style.backgroundImage=`url("${base}${id}?auto=format&fit=crop&w=160&q=82")`;node.textContent='';node.setAttribute('aria-hidden','true')});
 })();
 </script>
+<style id="fit-sofra-palette-v66-final">
+  /* Fit is a Sofra module: sage + cream + clay, never blue or purple. */
+  #fit{--fit-sage:#607b65;--fit-sage-dark:#395b42;--fit-sage-soft:#eef4eb;--fit-cream:#fffefa;--fit-clay:#d48c75;--fit-clay-soft:#fff1eb;--fit-line:#e7e5dd;--fit-ink:#28312b;--fit-muted:#6f7d71;color:var(--fit-ink)}
+  #fit .fit-dashboard-v2,#fit .fit-profile,#fit .fit-profile-reference-v2,#fit .fit-meals-v2,#fit .fit-recommendations-reference-v2{background:var(--fit-cream)!important;border-color:var(--fit-line)!important}
+  #fit .fit-calorie-v2{background:linear-gradient(135deg,var(--fit-sage-soft),#fff6f0)!important;color:var(--fit-ink)!important}
+  #fit .fit-days-v2 button,#fit .fit-reference-goal-v2:not(.active),#fit .fit-actions-v2 button:not(:first-child){background:var(--fit-cream)!important;color:#4d6e55!important;border-color:var(--fit-line)!important}
+  #fit .fit-days-v2 button.active,#fit .fit-actions-v2 button:first-child,#fit .fit-reference-goal-v2.active,#fit .fit-save,#fit .fit-reference-save-v2,#fit .fit-health-reference-v2 button{background:var(--fit-sage)!important;border-color:var(--fit-sage)!important;color:#fff!important}
+  #fit .fit-calorie-main-v2 strong,#fit .fit-macros-v2 strong,#fit .fit-meal-v2 b,#fit .fit-recipe-reference-v2 strong{color:var(--fit-sage-dark)!important}
+  #fit .fit-health-reference-v2,#fit .fit-health-card{background:#f7faf5!important;border-color:#e3e8e0!important}
+  #fit .fit-health-icon-v2{background:var(--fit-sage-soft)!important;color:var(--fit-sage)!important}
+  #fit .fit-health-button,#fit .fit-workout-v2 button{background:var(--fit-clay)!important;color:#fff!important}
+  #fit input,#fit select{accent-color:var(--fit-sage)!important}
+</style>
 </body>
 </html>
 

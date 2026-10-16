@@ -9,6 +9,7 @@ const canonical = readFileSync(join(sourceRoot, 'sofra-motoru-home-v43.html'), '
 const reference = readFileSync(join(sourceRoot, 'sofra-motoru-reference-v2.html'), 'utf8');
 
 for (const [name, html] of [['canonical', canonical], ['reference', reference]]) {
+  assert.match(html, /fit-sofra-palette-v66-final/, `${name} Fit final palette lock missing`);
   assert.match(html, /fit-sofra-palette-v63-lock/, `${name} Fit palet kilidi eksik`);
   assert.match(html, /fit-sofra-palette-v65-module/, `${name} Fit modül paleti eksik`);
   const lock = html.match(/<style id="fit-sofra-palette-v64-no-blue">([\s\S]*?)<\/style>/)?.[1];
@@ -31,6 +32,8 @@ for (const [name, html] of [['canonical', canonical], ['reference', reference]])
   assert.match(html, /#607b65!important/, `${name} adaçayi aksiyon rengi eksik`);
   assert.match(html, /#d48c75!important/, `${name} clay vurgu rengi eksik`);
   assert.match(html, /#fff6f0|#fff8f3/, `${name} sicak yuzey rengi eksik`);
+  assert.match(html, /--fit-sage:#607b65/, `${name} Fit sage variable missing`);
+  assert.match(html, /--fit-clay:#d48c75/, `${name} Fit clay variable missing`);
   assert.match(html, /fit-calorie-v2[^}]*!important/, `${name} kalori karti kilidi eksik`);
   assert.match(html, /fit-reference-goal-v2\.active[^}]*!important/, `${name} hedef secimi kilidi eksik`);
   assert.match(html, /body\[data-theme="gece"\][^}]*\.fit-insight\{background:#2b372f!important/, `${name} koyu Fit ozet zemini eksik`);

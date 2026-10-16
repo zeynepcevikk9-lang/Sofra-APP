@@ -64,6 +64,9 @@ assert.match(html, /addCustomPlanPartV52|Kendi öğününü ekle/, 'referans kul
 assert.match(html, /removePlanPartV52|Bugünün planını kaydet/, 'referans Planım öğün ekleme/çıkarma kaydı eksik');
 assert.match(html, /CARSAMBA|restoreTemplateMonday/, 'referans plan kaydı bugün kartına yazılmıyor');
 assert.match(html, /syncShoppingV52|planIngredientsV52/, 'referans değişen plan alışveriş adaylarına yansımıyor');
+assert.match(html, /openDayPlanEditorV53/, 'referans hafta günleri ayrı ayrı düzenlenemiyor');
+assert.match(html, /dayPlans|currentPlans/, 'referans gün bazlı plan verisi eksik');
+assert.match(html, /renderMonth\(\)|renderHistory\(\)/, 'referans gün bazlı plan Ay/Geçmiş görünümlerine taşınmıyor');
 assert.match(html, /const recipeDetails=/, 'referans tarif detay verisi eksik');
 assert.match(html, /<strong>Malzemeler<\/strong>/, 'referans tarif malzeme bölümü eksik');
 assert.match(html, /<strong>Hazırlanış<\/strong>/, 'referans tarif hazırlanış bölümü eksik');

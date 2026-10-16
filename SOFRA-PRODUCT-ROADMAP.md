@@ -112,6 +112,8 @@ içerebilmeli.
 
 Hazır öneri yalnızca başlangıç noktası olarak kalır. Kullanıcı Planım ekranında bugünün ana yemeğini değiştirebilir, ek tarif ekleyebilir, kendi yazdığı bir öğünü ekleyebilir veya öğünü kaldırabilir. Kaydedilen plan tek bir güne yazılır; hafta, ay, geçmiş ve yenileme sonrasında aynı veri görülür. Planın alışveriş listesi, tarif malzemesi bağlı olmayan kullanıcı yazılarında malzeme uydurmaz; belirsiz kısımlar ileride onay akışı ile çözülecek.
 
+Bu karar dört günlük görünüm için de geçerlidir: hafta kartları yalnızca örnek metin değildir; gün seçimiyle düzenlenir ve `dayPlans` alanında ayrı saklanır. Böylece bir günün değişmesi diğer günün menüsünü ezmez.
+
 Normal Sofra görünümünde Fit özeti ve kalori kartı gösterilmeyecek. Kalori ve makro özeti yalnızca Sofra Fit bölümünde aktif olacak.
 
 Plan API’si de bu kararı korur: kayıtlar geçerli tarih, porsiyon ve katalog tarifleriyle oluşturulur; hatalı veya tekrarlı tarif kimlikleri kabul edilmez.

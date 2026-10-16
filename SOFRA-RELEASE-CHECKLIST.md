@@ -11,6 +11,7 @@ Bu liste, prototipten gerçek ürüne geçmeden önce tamamlanması gereken tekn
 - [x] Menü birden fazla bölüm içerebilir ve Planım’a aktarılır.
 - [x] Planım hafta, ay ve geçmiş görünümünde aynı veriyi korur; yeni menü kaydı cihazda görünüm değişimleri ve yenileme sonrasında korunur.
 - [x] Planım bugün kartında hazır menüyü değiştirmeye, başka tarif veya kullanıcının kendi öğününü ekleyip kaldırmaya izin verir; plan yanlış güne kopyalanmaz.
+- [x] Hafta görünümündeki her planlı gün ayrı ayrı düzenlenebilir; gün bazlı kayıtlar Ay ve Geçmiş görünümlerine taşınır.
 - [x] Alışveriş adayları kullanıcı eklemediği ürünü kesin eksik saymaz.
 
 ## 2. Veri ve algoritma

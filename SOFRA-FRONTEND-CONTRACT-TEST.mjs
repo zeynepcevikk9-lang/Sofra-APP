@@ -72,6 +72,9 @@ assert.match(html, /addCustomPlanPartV52|Kendi öğününü ekle/, 'kullanıcı 
 assert.match(html, /removePlanPartV52|Bugünün planını kaydet/, 'Planım öğün ekleme/çıkarma kaydı eksik');
 assert.match(html, /CARSAMBA|restoreTemplateMonday/, 'plan kaydı ilk dolu güne değil bugün kartına yazılmıyor');
 assert.match(html, /syncShoppingV52|planIngredientsV52/, 'değişen plan alışveriş adaylarına yansımıyor');
+assert.match(html, /openDayPlanEditorV53/, 'hafta günleri ayrı ayrı düzenlenemiyor');
+assert.match(html, /dayPlans|currentPlans/, 'gün bazlı plan verisi eksik');
+assert.match(html, /renderMonth\(\)|renderHistory\(\)/, 'gün bazlı plan Ay/Geçmiş görünümlerine taşınmıyor');
 assert.match(html, /sofraSafetyProfileV46/, 'gıda güvenliği tercihi saklama kancası eksik');
 assert.match(html, /Gluten \/ çölyak/, 'çölyak tercihi eksik');
 assert.match(html, /çapraz bulaş/, 'çapraz bulaş uyarısı eksik');

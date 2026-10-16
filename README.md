@@ -66,9 +66,10 @@ Bu dosya şu an gerçek backend’e bağlı değildir. LocalStorage ile örnek k
 5. Bir ürünü düzenleyip son kullanma tarihini istersen ekle; tarih girilmediğinde önerileri zorlamadığını kontrol et.
 6. Menü’yü Planım’a aktar; alışveriş adaylarını kontrol et ve listeyi kopyala.
 7. Planım'a gir; bugün kartında **Düzenle** ile ana yemeği değiştir, bir tarif ekle, kendi öğününü yazıp kaydet. Hafta görünümünde planın sadece bugün kartında olduğunu, Ay ve Geçmiş'te de korunduğunu kontrol et.
-8. Alışveriş adaylarını kontrol et, açıkça onayla ve örnek market karşılaştırmasını aç; fiyatların canlı değil, tasarım verisi olduğunu ve her teklifin örnek güncelleme zamanını unutma. Minimum sepeti karşılanmayan teklifler "Tahmini toplam" olarak kalır.
-9. Market modalında "En uygun toplam", "En hızlı" ve "Tek markette tamamla" sıralamalarını dene; bu sıralamalar yalnızca örnek teklif verisini yeniden düzenler.
-10. Sofra modunda Planım'daki ikinci kartın alışveriş özeti, Sofra Fit modunda ise kalori özeti olduğunu kontrol et.
+8. Hafta görünümünde Pazartesi, Salı veya Perşembe kartındaki **Düzenle** ile o güne farklı tarif ve kendi öğününü kaydet; Ay ve Geçmiş görünümlerinde doğru günün korunduğunu kontrol et.
+9. Alışveriş adaylarını kontrol et, açıkça onayla ve örnek market karşılaştırmasını aç; fiyatların canlı değil, tasarım verisi olduğunu ve her teklifin örnek güncelleme zamanını unutma. Minimum sepeti karşılanmayan teklifler "Tahmini toplam" olarak kalır.
+10. Market modalında "En uygun toplam", "En hızlı" ve "Tek markette tamamla" sıralamalarını dene; bu sıralamalar yalnızca örnek teklif verisini yeniden düzenler.
+11. Sofra modunda Planım'daki ikinci kartın alışveriş özeti, Sofra Fit modunda ise kalori özeti olduğunu kontrol et.
 10. Profil’den açık/koyu tema ve hatırlatıcı tercihini dene; hatırlatıcıyı açmadan önce nedenini açıklayan ekranı gör.
 10. Profil’de cihazdaki Sofra verilerini dışa aktarma ve temizleme seçeneklerini incele.
 11. Fit’te manuel profil hesabını ve Apple Health izin akışı demosunu incele.

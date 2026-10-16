@@ -1482,6 +1482,40 @@ fit.insertAdjacentHTML('beforeend','<section class="fit-dashboard-v2" aria-label
   render();
 })();
 </script>
+<script>
+/* v50: HealthKit / Health Connect izin planı; gerçek platform bağlantısı değildir. */
+(function(){
+  const permissions=[['activeCalories','Aktif kalori','Günlük hareket bağlamı'],['steps','Adım','Hareket yoğunluğu sinyali'],['exercise','Egzersiz süresi','Sadece aktivite bağlamı; antrenman ekranı açmaz'],['weightKg','Kilo','Fit profilini desteklemek']];
+  const key='sofraHealthDemoV50';
+  const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}};
+  const providerLabel=value=>value==='health_connect'?'Android · Health Connect':'iOS · Apple HealthKit';
+  function sync(){
+    const state=read();const label=state?`Demo izin akışı · ${providerLabel(state.provider)}`:'İsteğe bağlı · gerçek bağlantı henüz açık değil';
+    document.querySelectorAll('.fit-health-status').forEach(node=>node.textContent=state?(state.status==='partial'?'Kısmi demo izin':state.status==='denied'?'İzin verilmedi':'Demo hazır'):'Bağlı değil');
+    document.querySelectorAll('.fit-health-button').forEach(button=>button.textContent=state?'İzinleri yönet →':'İzinleri incele →');
+    document.querySelectorAll('.fit-health-reference-v2 small').forEach(node=>node.textContent=label);
+    document.querySelectorAll('#fit-reference-health').forEach(button=>button.textContent=state?'İzinleri yönet':'Bağla');
+  }
+  function open(){
+    const state=read();const selected=state?.permissions||permissions.map(item=>item[0]);
+    const modal=document.getElementById('modal');if(!modal)return;
+    modal.innerHTML=`<button class="close" onclick="closeModal()" aria-label="Kapat">×</button><span class="eyebrow">İSTEĞE BAĞLI SAĞLIK BAĞLANTISI</span><h2>Fit verilerini nasıl kullanalım?</h2><p>Sağlık verisi yalnızca Fit tarif bağlamını destekler. Marketlere, markalara veya reklamlara aktarılmaz; otomatik olarak daha fazla yemek önermez.</p><label class="health-v50-provider">Platform<select id="health-v50-provider"><option value="apple_healthkit">iOS · Apple HealthKit</option><option value="health_connect">Android · Health Connect</option></select></label><div class="health-v50-list" role="group" aria-label="Okuma izinleri">${permissions.map(item=>`<label><input type="checkbox" value="${item[0]}" ${selected.includes(item[0])?'checked':''}><span><strong>${item[1]}</strong><small>${item[2]}</small></span></label>`).join('')}</div><div class="health-v50-note"><strong>Şeffaf demo:</strong> Bu prototip cihazın sağlık API’sine bağlanmaz. Gerçek uygulamada sistem izin penceresi bu seçimden sonra açılır; izin vermezsen manuel Fit profili çalışmaya devam eder.</div><button class="cta wide" type="button" onclick="saveHealthDemoV50()">İzin planını kaydet →</button><button class="white-btn wide" style="margin-top:8px" onclick="closeModal();toast('Manuel Fit profiliyle devam edebilirsin')">Manuel devam et</button>`;
+    const provider=modal.querySelector('#health-v50-provider');if(provider&&state?.provider)provider.value=state.provider;
+    document.getElementById('overlay').classList.add('open');
+  }
+  window.openHealthConnectV39=open;
+  window.saveHealthDemoV50=function(){
+    const modal=document.getElementById('modal');const selected=[...modal.querySelectorAll('.health-v50-list input:checked')].map(input=>input.value);const provider=modal.querySelector('#health-v50-provider')?.value||'apple_healthkit';const status=selected.length===permissions.length?'connected':selected.length?'partial':'denied';
+    try{localStorage.setItem(key,JSON.stringify({schemaVersion:1,provider,permissions:selected,status,liveConnection:false,updatedAt:new Date().toISOString()}))}catch(e){}closeModal();sync();toast(status==='denied'?'İzin seçilmedi · manuel Fit açık':status==='partial'?'Kısmi demo izin kaydedildi':'Demo izin planı hazır · gerçek bağlantı sonraki mobil aşamada');
+  };
+  const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='fit')sync()};
+  sync();window.syncHealthDemoV50=sync;
+})();
+</script>
+<style>
+.health-v50-provider{display:block;color:var(--muted);font-size:10px;font-weight:800;margin:12px 0 8px}.health-v50-provider select{display:block;width:100%;box-sizing:border-box;margin-top:4px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);padding:9px;font-size:10px}.health-v50-list{display:grid;gap:6px;margin:10px 0}.health-v50-list label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:8px 9px}.health-v50-list input{accent-color:var(--sage);width:15px;height:15px}.health-v50-list strong{display:block;color:var(--ink);font-size:10px}.health-v50-list small{display:block;color:var(--muted);font-size:8px;margin-top:2px}.health-v50-note{border:1px solid #eadfd7;border-radius:10px;background:#fff8f3;color:#8b6758;padding:9px;font-size:9px;line-height:1.4}.health-v50-note strong{font-weight:800}
+body[data-theme="gece"] .health-v50-note{background:#49352e;border-color:#68473b;color:#e7ad98}
+</style>
 </body>
 </html>
 

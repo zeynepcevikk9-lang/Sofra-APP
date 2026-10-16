@@ -27,6 +27,8 @@ for (const tab of ['home', 'tarifler', 'dolabim', 'planim', 'profil']) {
 assert.match(html, /class="fallback"/, 'görsel fallback alanı eksik');
 assert.ok((html.match(/onerror=/g) || []).length >= 3, 'görsel yüklenememe fallbackleri eksik');
 assert.match(html, /Apple Health ile bağlan/, 'Fit sağlık bağlantısı arayüz kancası eksik');
+assert.match(html, /health-v50-provider.*Health Connect/s, 'iOS/Android sağlık sağlayıcı seçimi eksik');
+assert.match(html, /saveHealthDemoV50|liveConnection:false/, 'kısmi sağlık izinleri ve demo sınırı eksik');
 assert.match(html, /id="welcomeGate"/, 'ilk giriş yönlendirme alanı eksik');
 for (const mode of ['sofra', 'fit', 'tatli']) {
   assert.match(html, new RegExp(`chooseMode\\(['"]${mode}['"]\\)`), `ilk giriş modu eksik: ${mode}`);

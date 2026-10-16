@@ -302,12 +302,16 @@
   .reference-v2-fit .fit-health-icon-v2{background:#eef4eb!important;color:#607b65!important}
   .reference-v2-fit .fit-calorie-main-v2 strong,.reference-v2-fit .fit-macros-v2 strong,.reference-v2-fit .fit-meal-v2 b,.reference-v2-fit .fit-recipe-reference-v2 strong{color:#395b42!important}
 </style>
+<style id="sofra-logo-v98-style">
+  .brand-logo-wrap-v98{width:96px;height:72px;gap:0;overflow:visible}.brand-logo-v98{display:block;width:96px;height:72px;object-fit:contain;object-position:center}
+  body[data-theme="gece"] .brand-logo-v98{filter:drop-shadow(0 1px 2px rgba(255,255,255,.14))}
+</style>
 </head>
 <body data-theme="sicak">
 <div class="workspace">
   <main class="app" aria-label="Sofra Motoru mobil uygulama demosu">
     <div class="app-inner" id="scrollpane">
-      <header class="top"><div class="brand"><span class="brand-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52745A" stroke-width="1.7"><path d="M12 20c-4-4-5-10 2-15 0 4 5 5 5 9 0 4-3 6-7 6Z"/><path d="M8 20c1-6 4-9 8-11"/></svg></span>sofra<span style="color:#b8bdb4">.</span></div><button class="profile" onclick="go('profil')" aria-label="Profil">S</button></header>
+      <header class="top"><div class="brand brand-logo-wrap-v98"><img class="brand-logo-v98" src="sofra-logo-v1.png" alt="Sofra" /></div><button class="profile" onclick="go('profil')" aria-label="Profil">S</button></header>
       <section id="home" class="screen active"><span class="eyebrow">Mutfağından güzel şeyler çıkar</span><h1 class="headline">Bugün ne<br><em>pişirsek?</em></h1><p class="subtitle">Lezzetli bir fikir için uzağa bakma.<br>İlham, tam da mutfağında.</p>
       <div class="searchrow"><label class="searchwrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 5 5"/></svg><input id="homesearch" placeholder="Tarif veya malzeme ara..." aria-label="Tarif ara" onkeydown="if(event.key==='Enter')doSearch()"></label><button class="mic" onclick="showNote()" aria-label="Dolabıma sesli not al"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v3a7 7 0 0 0 14 0v-3M12 20v3m-4 0h8"/></svg></button></div>
       <div class="chips" role="group" aria-label="Tarif filtreleri"><button class="chip active" onclick="filterChip(this,'Hepsi')">✦ Senin için</button><button class="chip" onclick="filterChip(this,'Pratik')">⚡ 30 dakikada</button><button class="chip" onclick="filterChip(this,'Dünya')">🌍 Dünya mutfağı</button><button class="chip" onclick="filterChip(this,'Fit')">🥬 Hafif</button><button class="chip" onclick="filterChip(this,'Ekonomik')">₺ Ekonomik</button><button class="chip" onclick="filterChip(this,'Tek tencere')">🍲 Tek tencere</button><button class="chip" onclick="filterChip(this,'Mevsimlik')">🌱 Mevsimlik</button></div>
@@ -2444,11 +2448,54 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
 (function(){
   const labels={milk:'Süt ürünü',egg:'Yumurta',peanut:'Yer fıstığı',nuts:'Kuruyemiş',fish:'Balık',shellfish:'Kabuklu deniz ürünü',soy:'Soya',gluten:'Gluten'};
   const esc=value=>typeof escapeHtml==='function'?escapeHtml(String(value??'')):String(value??'');
-  const norm=value=>String(value||'').toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const norm=value=>String(value||'').toLocaleLowerCase('tr-TR').replace(/[ıİ]/g,'i').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   function metadata(title){const catalog=window.sofraEngineV38?.catalog;if(!Array.isArray(catalog))return null;const wanted=norm(title);return catalog.find(item=>norm(item.title)===wanted)||null}
   function enhance(title){const modal=document.getElementById('modal');if(!modal||modal.dataset.recipeSafetyV96===title)return;modal.dataset.recipeSafetyV96=title;const item=metadata(title);const safety=item?.safety;const allergens=Array.isArray(safety?.allergens)?safety.allergens:[];const verified=safety?.verified===true;const unknown=!item||!safety||!Array.isArray(safety.allergens);const card=document.createElement('section');card.className='recipe-safety-v96';const tags=allergens.length?allergens.map(key=>`<span>${esc(labels[key]||key)}</span>`).join(''):'<span>Tanımlı alerjen yok</span>';let warning=unknown?'Bu tarif için yapılandırılmış alerjen metadata’sı bağlı değil; güvenli kabul edilmiyor.':!verified?'İçerik doğrulaması tamamlanmadı. Paket etiketini ve üretici bilgisini kontrol et.':'';if(safety?.crossContamination!=='controlled'&&allergens.includes('gluten'))warning+=' Çölyak için çapraz bulaş bilgisi yok; glutensiz kabul edilmez.';card.innerHTML=`<strong>Gıda güvenliği</strong><p>Tarifte bildirilen alerjenler ve doğrulama durumu.</p><div class="recipe-safety-tags-v96">${tags}</div>${warning?`<div class="recipe-safety-warning-v96">${esc(warning)}</div>`:''}`;const anchor=modal.querySelector('.recipe-serving-v95')||modal.querySelector('.recipe-detail-card');if(anchor)anchor.before(card);else modal.append(card)}
   const oldRecipe=window.recipe;if(typeof oldRecipe==='function'&&!window.recipeSafetyV96){window.recipeSafetyV96=true;window.recipe=function(title,mins,emoji,photo){oldRecipe(title,mins,emoji,photo);requestAnimationFrame(()=>enhance(title))}}
   window.enhanceRecipeSafetyV96=enhance;
+})();
+</script>
+<style id="recipe-step-media-v97-style">
+  .recipe-steps-v97{list-style:none!important;padding-left:0!important;display:grid;gap:8px}.recipe-step-v97{display:grid;gap:6px;border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:8px}.recipe-step-v97>span{font-size:10px;line-height:1.55;color:var(--ink)}.recipe-step-media-v97{display:grid;gap:4px;margin:0}.recipe-step-media-v97 img{display:block;width:100%;height:112px;object-fit:cover;border-radius:10px;background:var(--sage-soft)}.recipe-step-media-v97 figcaption{font-size:8px;color:var(--muted)}body[data-theme="gece"] .recipe-step-v97{background:#202b25;border-color:#405047}
+</style>
+<script id="recipe-step-media-v97">
+(function(){
+  const norm=value=>String(value||'').toLocaleLowerCase('tr-TR').replace(/[ıİ]/g,'i').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const esc=value=>typeof escapeHtml==='function'?escapeHtml(String(value??'')):String(value??'');
+  const imageBase='https://images.unsplash.com/';
+  const mediaByTitle=new Map([
+    ['kremali mantarli makarna',['photo-1551183053-bf91a1d81141','photo-1504674900247-0877df9cc836','photo-1473093295043-cdd812d0e601']],
+    ['renkli sebze bowl',['photo-1512621776951-a57141f2eefd','photo-1540189549336-e6e99c3679fe','photo-1512621776951-a57141f2eefd']],
+    ['firinda sebzeli tabak',['photo-1518977676601-b53f82aba655','photo-1572453800999-e8d2d1589b7c','photo-1547592180-85f173990554']],
+    ['ev yapimi pizza',['photo-1579751626657-72bc17010498','photo-1574071318508-1cdbab80d002','photo-1565299624946-b28f40a0ae38']],
+    ['yogurtlu meyve kasesi',['photo-1490474418585-ba9bad8fd0ea','photo-1488477181946-6428a0291777','photo-1546069901-ba9599a7e63c']],
+    ['sebzeli noodle',['photo-1569718212165-3a8278d5f624','photo-1512058564366-18510be2db19','photo-1551183053-bf91a1d81141']],
+    ['zeytinyagli patlican',['photo-1634546865062-ed3eb17643f6','photo-1592924357228-91a4daadcfea','photo-1634546865062-ed3eb17643f6']],
+  ]);
+  if(typeof recipeDetails!=='undefined')Object.keys(recipeDetails).forEach(title=>{const assets=mediaByTitle.get(norm(title));if(assets)recipeDetails[title].step_media=assets.map((asset,index)=>({step:index+1,type:'image',provider:'unsplash',asset_id:asset,alt:`Adim ${index+1} gorseli`}))});
+  function enhance(title){const modal=document.getElementById('modal');const detail=typeof recipeDetails!=='undefined'?recipeDetails?.[title]:null;const list=modal?.querySelector('.steps');if(!modal||!detail||!list||modal.dataset.recipeStepMediaV97===title)return;modal.dataset.recipeStepMediaV97=title;list.classList.add('recipe-steps-v97');const assets=detail.step_media||[];[...list.children].forEach((li,index)=>{const asset=assets[index];if(!asset?.asset_id)return;const text=li.textContent||'';li.className='recipe-step-v97';li.innerHTML=`<span>${esc(text)}</span><figure class="recipe-step-media-v97"><img src="${imageBase}${esc(asset.asset_id)}?auto=format&fit=crop&w=640&q=82" alt="${esc(asset.alt)}" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Adim ${index+1} gorseli · ${esc(asset.provider)}</figcaption></figure>`})}
+  const oldRecipe=window.recipe;if(typeof oldRecipe==='function'&&!window.recipeStepMediaV97){window.recipeStepMediaV97=true;window.recipe=function(title,mins,emoji,photo){oldRecipe(title,mins,emoji,photo);requestAnimationFrame(()=>enhance(title))}}
+  window.enhanceRecipeStepMediaV97=enhance;
+})();
+</script>
+<script id="recipe-step-media-v97-fallback">
+(function(){
+  const norm=value=>String(value||'').toLocaleLowerCase('tr-TR').replace(/[ıİ]/g,'i').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const esc=value=>typeof escapeHtml==='function'?escapeHtml(String(value??'')):String(value??'');
+  const base='https://images.unsplash.com/';
+  const assets={'kremali mantarli makarna':['photo-1551183053-bf91a1d81141','photo-1504674900247-0877df9cc836','photo-1473093295043-cdd812d0e601'],'renkli sebze bowl':['photo-1512621776951-a57141f2eefd','photo-1540189549336-e6e99c3679fe','photo-1512621776951-a57141f2eefd'],'firinda sebzeli tabak':['photo-1518977676601-b53f82aba655','photo-1572453800999-e8d2d1589b7c','photo-1547592180-85f173990554'],'ev yapimi pizza':['photo-1579751626657-72bc17010498','photo-1574071318508-1cdbab80d002','photo-1565299624946-b28f40a0ae38'],'yogurtlu meyve kasesi':['photo-1490474418585-ba9bad8fd0ea','photo-1488477181946-6428a0291777','photo-1546069901-ba9599a7e63c'],'sebzeli noodle':['photo-1569718212165-3a8278d5f624','photo-1512058564366-18510be2db19','photo-1551183053-bf91a1d81141'],'zeytinyagli patlican':['photo-1634546865062-ed3eb17643f6','photo-1592924357228-91a4daadcfea','photo-1634546865062-ed3eb17643f6']};
+  function enhance(title){const modal=document.getElementById('modal');const list=modal?.querySelector('.steps');const set=assets[norm(title)];if(!modal||!list||!set||list.dataset.mediaFallbackV97)return;list.dataset.mediaFallbackV97='1';[...list.children].forEach((li,index)=>{const asset=set[index];if(!asset)return;const text=li.textContent||'';li.className='recipe-step-v97';li.innerHTML=`<span>${esc(text)}</span><figure class="recipe-step-media-v97"><img src="${base}${asset}?auto=format&fit=crop&w=640&q=82" alt="Adim ${index+1} gorseli" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Adim ${index+1} gorseli · Gercek yemek fotografi</figcaption></figure>`})}
+  const oldRecipe=window.recipe;if(typeof oldRecipe==='function'&&!window.recipeStepMediaV97Fallback){window.recipeStepMediaV97Fallback=true;window.recipe=function(title,mins,emoji,photo){oldRecipe(title,mins,emoji,photo);requestAnimationFrame(()=>enhance(title))}}
+})();
+</script>
+<script id="recipe-step-media-v97-observer">
+(function(){
+  const fold=value=>String(value||'').toLocaleLowerCase('tr-TR').split('').map(ch=>ch===String.fromCharCode(305)?'i':ch).join('').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const base='https://images.unsplash.com/';
+  const catalog={'kremali mantarli makarna':['photo-1551183053-bf91a1d81141','photo-1504674900247-0877df9cc836','photo-1473093295043-cdd812d0e601'],'renkli sebze bowl':['photo-1512621776951-a57141f2eefd','photo-1540189549336-e6e99c3679fe','photo-1512621776951-a57141f2eefd'],'firinda sebzeli tabak':['photo-1518977676601-b53f82aba655','photo-1572453800999-e8d2d1589b7c','photo-1547592180-85f173990554'],'ev yapimi pizza':['photo-1579751626657-72bc17010498','photo-1574071318508-1cdbab80d002','photo-1565299624946-b28f40a0ae38'],'yogurtlu meyve kasesi':['photo-1490474418585-ba9bad8fd0ea','photo-1488477181946-6428a0291777','photo-1546069901-ba9599a7e63c'],'sebzeli noodle':['photo-1569718212165-3a8278d5f624','photo-1512058564366-18510be2db19','photo-1551183053-bf91a1d81141'],'zeytinyagli patlican':['photo-1634546865062-ed3eb17643f6','photo-1592924357228-91a4daadcfea','photo-1634546865062-ed3eb17643f6']};
+  const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  function apply(){const modal=document.getElementById('modal');const title=modal?.querySelector('h2')?.textContent||'';const set=catalog[fold(title)];const list=modal?.querySelector('.steps');if(!modal||!list||!set||list.dataset.stepMediaObserverV97)return;list.dataset.stepMediaObserverV97='1';list.classList.add('recipe-steps-v97');[...list.children].forEach((li,index)=>{const asset=set[index];if(!asset)return;const text=li.textContent||'';li.className='recipe-step-v97';li.innerHTML='<span>'+esc(text)+'</span><figure class="recipe-step-media-v97"><img src="'+base+asset+'?auto=format&fit=crop&w=640&q=82" alt="Adim '+(index+1)+' gorseli" loading="lazy"><figcaption>Adim '+(index+1)+' gorseli · Gercek yemek fotografi</figcaption></figure>'})}
+  new MutationObserver(apply).observe(document.body,{childList:true,subtree:true});apply();
 })();
 </script>
 </body>

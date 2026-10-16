@@ -31,6 +31,51 @@ export const recipeDetails = Object.freeze({
   recipe_eggplant_olive_oil: { servings: 2, ingredients: [['2 adet', 'patlıcan'], ['2 adet', 'domates'], ['1 adet', 'soğan'], ['2 yemek kaşığı', 'zeytinyağı']], instructions: ['Patlıcanları alacalı soyup küp doğra; acısını almak istersen kısa süre tuzlu suda beklet.', 'Soğanı zeytinyağında yumuşat, domatesi ekleyip birkaç dakika pişir.', 'Patlıcanı ekle, kapağı kapat ve kısık ateşte yumuşayana kadar pişir.'], tip: 'Tarifin suyu azalırsa az miktarda sıcak su ekleyebilirsin.' },
 });
 
+// Tarif adimlarina baglanan gercek gorsel varliklari ayri tutuyoruz.
+// Asset id'leri gorsel kaynagini belirtir; dogrulanmis besin veya saglik iddiasi degildir.
+export const recipeStepMedia = Object.freeze({
+  recipe_pasta_mushroom: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1551183053-bf91a1d81141', alt: 'Makarnanin haslanmasi' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1504674900247-0877df9cc836', alt: 'Mantarin tavada sotelenmesi' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1473093295043-cdd812d0e601', alt: 'Kremali mantarli makarnanin servisi' },
+  ],
+  recipe_vegetable_bowl: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1512621776951-a57141f2eefd', alt: 'Yikanan yesillikler' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1540189549336-e6e99c3679fe', alt: 'Dogranmis sebzeler' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1512621776951-a57141f2eefd', alt: 'Sebze kasesinin servisi' },
+  ],
+  recipe_oven_vegetables: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1518977676601-b53f82aba655', alt: 'Dilimlenmis patatesler' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1572453800999-e8d2d1589b7c', alt: 'Firinda sebzeler' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1547592180-85f173990554', alt: 'Peynirli sebze tabagi' },
+  ],
+  recipe_pizza: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1579751626657-72bc17010498', alt: 'Pizza hamurunun acilmasi' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1574071318508-1cdbab80d002', alt: 'Pizzaya malzeme eklenmesi' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1565299624946-b28f40a0ae38', alt: 'Pizzanin firindan cikmasi' },
+  ],
+  recipe_yogurt_bowl: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1490474418585-ba9bad8fd0ea', alt: 'Dogranmis elma' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1488477181946-6428a0291777', alt: 'Yogurt ve yulaf kasesi' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1546069901-ba9599a7e63c', alt: 'Meyveli yogurt kasesi' },
+  ],
+  recipe_noodle: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1569718212165-3a8278d5f624', alt: 'Noodle haslanmasi' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1512058564366-18510be2db19', alt: 'Sebzelerin tavada sotelenmesi' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1551183053-bf91a1d81141', alt: 'Sebzeli noodle servisi' },
+  ],
+  recipe_avocado_egg_toast: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1525351484163-7529414344d8', alt: 'Kizarmis ekmek' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1525351484163-7529414344d8', alt: 'Pismis yumurta' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1525351484163-7529414344d8', alt: 'Avokadolu yumurta tost' },
+  ],
+  recipe_eggplant_olive_oil: [
+    { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1634546865062-ed3eb17643f6', alt: 'Dogranmis patlican' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1592924357228-91a4daadcfea', alt: 'Domatesli soganli sos' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1634546865062-ed3eb17643f6', alt: 'Zeytinyagli patlican servisi' },
+  ],
+});
+
 export function normalize(value) {
   return String(value ?? '')
     .toLocaleLowerCase('tr-TR')

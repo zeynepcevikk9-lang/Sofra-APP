@@ -46,6 +46,9 @@ try {
   assert.equal(result.body.ingredients_detail[0].quantity_text, '2 adet');
   assert.equal(result.body.ingredients_detail[0].quantity_value, 2);
   assert.equal(result.body.ingredients_detail[0].unit, 'adet');
+  assert.equal(result.body.step_media.length, 3);
+  assert.equal(result.body.step_media[0].type, 'image');
+  assert.equal(result.body.step_media[0].provider, 'unsplash');
   assert.equal(result.body.instructions.length, 3);
   result = await request('/v1/recipes/recipe_does_not_exist');
   assert.equal(result.response.status, 404);

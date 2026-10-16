@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { catalog, normalize as normalizeRecipeText, recipeDetails, recommend } from './SOFRA-ALGORITHM-V1.mjs';
+import { catalog, normalize as normalizeRecipeText, recipeDetails, recipeStepMedia, recommend } from './SOFRA-ALGORITHM-V1.mjs';
 import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { canonicalizeIngredient, parsePantryNote, parseQuantityText } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
@@ -149,6 +149,7 @@ function serializeRecipeDetail(recipe) {
     servings: detail.servings || null,
     ingredients_detail: (detail.ingredients || []).map(serializeIngredientDetail),
     instructions: detail.instructions || [],
+    step_media: (recipeStepMedia[recipe.id] || []).map((media) => ({ ...media })),
     tip: detail.tip || null,
     instructions_available: Array.isArray(detail.instructions) && detail.instructions.length > 0,
   };

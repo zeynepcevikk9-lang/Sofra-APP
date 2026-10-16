@@ -661,7 +661,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/RecipeCatalogItem'
         - type: object
-          required: [source, instructions_available, servings, ingredients_detail, instructions, tip]
+          required: [source, instructions_available, servings, ingredients_detail, instructions, step_media, tip]
           properties:
             source: { type: string, enum: [catalog_v1] }
             instructions_available: { type: boolean }
@@ -678,6 +678,17 @@ components:
                   quantity_value: { type: number, minimum: 0, nullable: true }
                   unit: { type: string, nullable: true }
             instructions: { type: array, items: { type: string } }
+            step_media:
+              type: array
+              items:
+                type: object
+                required: [step, type, provider, asset_id, alt]
+                properties:
+                  step: { type: integer, minimum: 1 }
+                  type: { type: string, enum: [image, video] }
+                  provider: { type: string }
+                  asset_id: { type: string }
+                  alt: { type: string }
             tip: { type: string, nullable: true }
     DataExport:
       type: object

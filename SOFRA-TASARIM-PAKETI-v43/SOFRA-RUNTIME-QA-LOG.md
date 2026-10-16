@@ -322,3 +322,11 @@ Sonuc: Kullanici alerjen bilgisini ve dogrulama sinirini tarifin icinde goruyor;
 3. API sunucu, sozlesme ve kalicilik testleri birlikte gecti.
 
 Sonuc: Dolap ve tarif akislari adet, kilo ve diger olculeri ileride miktar bazli eslestirmeye hazir bir sozlesmeyle tasiyor.
+
+## Yeni transparan yer sofrasi logosu - `?qa=handoff-v97`
+
+1. Kullanici tarafindan secilen logo arka plani transparan PNG olarak `sofra-logo-v1.png` dosyasina alindi.
+2. Kanonik ana sayfa ve reference header'da logo gorunur; PNG yuklenmesi tarayicida `complete=true` ve 1254x1254 dogal boyutla dogrulandi.
+3. Tarif modalinda uc adim icin uc ayri gercek yemek fotografi gorunuyor; Turkce `ı` normalizasyonu acigi duzeltilip yeniden test edildi.
+
+Sonuc: Marka gorseli ve tarif adim medyasi son onizleme URL'sinde birlikte calisiyor.

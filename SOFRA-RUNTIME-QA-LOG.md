@@ -152,6 +152,15 @@ Sonuc: Ana sayfanin ana secim kartlari onceki fotografli tarif kartlariyla ayni 
 
 Sonuç: Türkçe yazım ve Unicode farkları, dolap malzemesi eşleşmesini sessizce kaçırmıyor.
 
+## Fit–Dolap eşleşmesi turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=fit-pantry-v67&demo=empty`
+
+1. Temiz demo oturumunda Dolabım açıldı; `domates` hızlı eklemesi miktar girilmeden kaydedildi ve miktar `Miktarı ayrıca doğrula` olarak korundu.
+2. Ana sayfadan Sofra Fit'e geçildi; profil, sağlık bağlantısı ve Fit tarif önerileri göründü.
+3. Fit önerilerinde `1 dolap eşleşmesi` ifadesi görüldü; eksik ürün sayısı da kartta ayrı gösterildi.
+4. Canonical Fit ekranında tarayıcı tarafından hesaplanan renkler adaçayı/krem/kil paletinde kaldı; mavi veya mor renk token'i görülmedi.
+
+Sonuç: Dolaba eklenen ürün Fit önerilerinin sıralamasına ve açıklama metnine yansıyor; Fit modülü Sofra paletinden sapmıyor.
+
 ## Fit sağlık bağlantısı turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=health-v50&demo=onboarding`
 
 1. Fit ekranında isteğe bağlı sağlık bağlantısı açıldı; platform seçiminde iOS Apple HealthKit ve Android Health Connect görüldü.

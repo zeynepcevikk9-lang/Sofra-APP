@@ -330,3 +330,12 @@ Sonuc: Dolap ve tarif akislari adet, kilo ve diger olculeri ileride miktar bazli
 3. Tarif modalinda uc adim icin uc ayri gercek yemek fotografi gorunuyor; Turkce `ı` normalizasyonu acigi duzeltilip yeniden test edildi.
 
 Sonuc: Marka gorseli ve tarif adim medyasi son onizleme URL'sinde birlikte calisiyor.
+
+## Tarif detay API porsiyon olcekleme - `SOFRA-API-SERVER-TEST.mjs`
+
+1. `recipe_eggplant_olive_oil?servings=4` isteginde 2 kisilik tarifin adet ve yemek kasigi miktarlari 2 katina cikti.
+2. `recipe_yogurt_bowl?servings=2` isteginde `1/2 adet` degeri `1 adet` olarak hesaplandi; kesir parser acigi regression testiyle kapatildi.
+3. Yanitta `servings`, `base_servings` ve `scale_factor` birlikte donuyor; `servings=0` ve `servings=2.5` 422 ile reddediliyor.
+4. API sunucu, API sozlesmesi, kalicilik, CI smoke ve release check birlikte gecti.
+
+Sonuc: Tarif modalinin ileride API'ye baglanmasi icin porsiyon ve miktar karari deterministik, izlenebilir ve testli hale geldi.

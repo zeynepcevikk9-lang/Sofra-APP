@@ -648,3 +648,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Tarif guvenligi v1.35: detay modalinda alerjen metadata'si, dogrulama durumu ve gluten icin capraz bulas siniri gorunur hale getirildi; dogrulanmamis tarif guvenli sayilmiyor.
 - Tarif veri modeli v1.36: API `ingredients_detail` alani artik kanonik ad, kullaniciya gosterilen ad, miktar metni, sayisal miktar ve birimi ayri tasiyor; adet/kg/g/litre gibi olculer algoritma ve istemci icin daha guvenilir islenebilir.
 - Marka v1.37: kullanicinin sectigi yer sofrasi logosu arka plani transparan PNG olarak kanonik ve reference header'a baglandi; eski logo secenekleri degistirilmeden karsilastirma arsivinde tutuldu.
+- Tarif veri modeli v1.38: `/v1/recipes/{recipeId}?servings=N` artik tarif detayindaki adet, gram, kasik ve kesirli miktarlari istenen porsiyona gore olceklendiriyor; `base_servings` ve `scale_factor` ile hesap acikca izlenebiliyor. Gecersiz porsiyonlar reddediliyor.

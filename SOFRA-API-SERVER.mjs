@@ -101,7 +101,7 @@ const recipeUnitAliases = new Map([
 
 function parseRecipeQuantity(quantityText) {
   const text = String(quantityText ?? '').trim();
-  const match = text.match(/^(\d+(?:[.,]\d+)?|\d+\/\d+)\s*(.*)$/);
+  const match = text.match(/^(\d+\/\d+|\d+(?:[.,]\d+)?)\s*(.*)$/);
   if (!match) return { quantity_text: text || null, quantity_value: null, unit: null };
   const rawNumber = match[1].replace(',', '.');
   const value = rawNumber.includes('/')
@@ -113,12 +113,33 @@ function parseRecipeQuantity(quantityText) {
   return { quantity_text: text || null, quantity_value: Number.isFinite(value) ? value : null, unit };
 }
 
-function serializeIngredientDetail(entry) {
+function formatScaledQuantity(value) {
+  if (!Number.isFinite(value)) return null;
+  if (Number.isInteger(value)) return String(value);
+  return Number(value.toFixed(2)).toString().replace('.', ',');
+}
+
+function scaleQuantityText(quantityText, factor) {
+  const text = String(quantityText ?? '').trim();
+  if (!text || factor === 1) return text || null;
+  const match = text.match(/^(\d+\/\d+|\d+(?:[.,]\d+)?)\s*(.*)$/);
+  if (!match) return text;
+  const parsed = parseRecipeQuantity(text);
+  if (parsed.quantity_value == null) return text;
+  const scaled = formatScaledQuantity(parsed.quantity_value * factor);
+  return scaled == null ? text : `${scaled}${match[2] ? ` ${match[2].trim()}` : ''}`;
+}
+
+function serializeIngredientDetail(entry, factor = 1) {
   const [quantityText, displayName] = Array.isArray(entry) ? entry : [entry?.quantity_text, entry?.display_name || entry?.canonical_name];
+  const parsed = parseRecipeQuantity(quantityText);
+  const quantityValue = parsed.quantity_value == null ? null : Number((parsed.quantity_value * factor).toFixed(4));
   return {
     canonical_name: normalizeRecipeText(displayName),
     display_name: displayName || null,
-    ...parseRecipeQuantity(quantityText),
+    quantity_text: scaleQuantityText(quantityText, factor),
+    quantity_value: quantityValue,
+    unit: parsed.unit,
   };
 }
 
@@ -143,16 +164,29 @@ function serializeRecipe(recipe) {
   };
 }
 
-function serializeRecipeDetail(recipe) {
+function serializeRecipeDetail(recipe, requestedServings = null) {
   const detail = recipeDetails[recipe.id] || {};
+  const baseServings = Number.isInteger(detail.servings) && detail.servings > 0 ? detail.servings : null;
+  const servings = requestedServings ?? baseServings;
+  const scaleFactor = baseServings && servings ? servings / baseServings : 1;
   return {
-    servings: detail.servings || null,
-    ingredients_detail: (detail.ingredients || []).map(serializeIngredientDetail),
+    servings,
+    base_servings: baseServings,
+    scale_factor: Number(scaleFactor.toFixed(4)),
+    ingredients_detail: (detail.ingredients || []).map((entry) => serializeIngredientDetail(entry, scaleFactor)),
     instructions: detail.instructions || [],
     step_media: (recipeStepMedia[recipe.id] || []).map((media) => ({ ...media })),
     tip: detail.tip || null,
     instructions_available: Array.isArray(detail.instructions) && detail.instructions.length > 0,
   };
+}
+
+function parseRequestedServings(searchParams) {
+  const raw = searchParams.get('servings');
+  if (raw == null || raw === '') return null;
+  const value = Number(raw);
+  if (!Number.isInteger(value) || value < 1 || value > 50) throw validationError('gecersiz tarif porsiyonu');
+  return value;
 }
 
 function recipeCatalogResponse(searchParams) {
@@ -372,7 +406,7 @@ export function createSofraServer({ state = createState(), saveState = null } = 
       if (method === 'GET' && recipeDetailMatch) {
         const recipe = recipeById(recipeDetailMatch[1]);
         if (!recipe) return json(res, 404, { code: 'not_found', message: 'Tarif bulunamadı' });
-        return json(res, 200, { ...serializeRecipe(recipe), ...serializeRecipeDetail(recipe), source: 'catalog_v1' });
+        return json(res, 200, { ...serializeRecipe(recipe), ...serializeRecipeDetail(recipe, parseRequestedServings(url.searchParams)), source: 'catalog_v1' });
       }
       if (method === 'GET' && path === '/v1/me/export') return json(res, 200, exportUserData(state));
       if (method === 'DELETE' && path === '/v1/me/data') {

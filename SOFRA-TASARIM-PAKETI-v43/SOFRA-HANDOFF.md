@@ -100,6 +100,10 @@ Tarayıcıda ayrıca 390px genişlikte şu akışlar kontrol edilmeli: Sofra →
 - `SOFRA-RUNTIME-QA-LOG.md`: canlı QA kayıtları.
 - `SOFRA-TASARIM-PAKETI-v43.zip`: arkadaşına/başka geliştiriciye gönderilecek paket.
 
+## Son veri modeli ilerlemesi
+
+Tarif detay API'si `?servings=N` parametresini destekliyor. `ingredients_detail` miktarlari istenen porsiyona gore olcekleniyor; yanitta `base_servings` ve `scale_factor` hesap izlenebilirligini koruyor. Kesirli adetler ve gecersiz porsiyon girdileri testli.
+
 ## Logo durumu
 
 Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı transparan PNG olarak `outputs/sofra-logo-v1.png` dosyasına alındı ve ana uygulamanın üst başlığına uygulanıyor. Eski logo v4 sayfası yalnızca karşılaştırma geçmişidir.

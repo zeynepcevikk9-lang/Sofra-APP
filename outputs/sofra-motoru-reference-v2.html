@@ -1790,7 +1790,7 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   }
   function renderEditor(){
     const modal=document.getElementById('modal');if(!modal||!draft)return;
-    const choices=recipeChoices().map((item,index)=>`<button type="button" class="plan-edit-choice-v52" onclick="selectPlanRecipeV52(${index})"><span><strong>${esc(item[0])}</strong><small>${esc(item[1])} dk · Tarif</small></span><b>Değiştir</b></button>`).join('');
+    const choices=recipeChoices().map((item,index)=>({item,index})).filter(({item})=>item[0]!==draft.title).map(({item,index})=>`<button type="button" class="plan-edit-choice-v52" onclick="selectPlanRecipeV52(${index})"><span><strong>${esc(item[0])}</strong><small>${esc(item[1])} dk · Tarif</small></span><b>Değiştir</b></button>`).join('');
     const parts=draft.parts.length?draft.parts.map((item,index)=>`<div class="plan-edit-part-v52"><span><strong>${esc(item.title)}</strong><small>${esc(item.label||'Ek öğün')} · ${esc(item.meta||'Kendi seçimin')}</small></span><button type="button" onclick="removePlanPartV52(${index})">Kaldır</button></div>`).join(''):'<div class="plan-edit-empty-v52">Henüz ek öğün yok. İstersen aşağıdan bir tarif veya kendi öğününü ekle.</div>';
     const suggestions=recipeChoices().filter(item=>item[0]!==draft.title&&!draft.parts.some(part=>part.title===item[0])).slice(0,4).map((item,index)=>`<button type="button" class="plan-edit-choice-v52" onclick="addPlanRecipeV52(${index})"><span><strong>${esc(item[0])}</strong><small>${esc(item[1])} dk · Ek öğün</small></span><b>+ Ekle</b></button>`).join('');
     modal.innerHTML=`<button class="close" type="button" onclick="closeModal()" aria-label="Kapat">×</button><div class="plan-edit-v52"><span class="eyebrow">Bugünün planı</span><h2>Dilediğini ekle, çıkar</h2><p>Önerilen menü sabit değil. Ana yemeği değiştirebilir, yanına başka bir tarif veya kendi yazdığın öğünü ekleyebilirsin.</p><span class="plan-edit-label-v52">Ana yemek</span><div class="plan-edit-main-v52"><span><strong>${esc(draft.title)}</strong><small>${esc(draft.meta||'Tarif')}</small></span><span style="color:var(--sage-dark);font-size:9px;font-weight:800">Seçili</span></div><div class="plan-edit-list-v52" style="margin-top:6px">${choices}</div><span class="plan-edit-label-v52">Eklediklerin</span><div class="plan-edit-list-v52">${parts}</div><span class="plan-edit-label-v52">Başka bir tarif ekle</span><div class="plan-edit-list-v52">${suggestions||'<div class="plan-edit-empty-v52">Başka öneri kalmadı; kendi öğününü yazabilirsin.</div>'}</div><span class="plan-edit-label-v52">Kendi öğününü ekle</span><div class="plan-edit-add-v52"><input id="plan-custom-v52" type="text" placeholder="Örn. zeytinyağlı fasulye" aria-label="Kendi öğünün" onkeydown="if(event.key==='Enter')addCustomPlanPartV52()"><button type="button" onclick="addCustomPlanPartV52()" aria-label="Öğün ekle">+</button></div><p class="plan-edit-note-v52">Kaydettiğinde bu seçim bugünün planında ve hafta/ay/geçmiş görünümlerinde korunur.</p><button class="plan-edit-save-v52" type="button" onclick="savePlanEditorV52()">Bugünün planını kaydet</button></div>`;
@@ -2115,6 +2115,26 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   window.liveFilter=function(value){document.querySelectorAll('.recipe-filter').forEach(node=>node.classList.remove('active'));const heading=document.querySelector('#tarifler .section-row h2');if(heading)heading.textContent=String(value||'').trim()?'Arama sonu\u00E7lar\u0131':'Se\u00E7tiklerimiz';window.renderRecipes(value)};
   window.doSearch=function(){const input=document.getElementById('homesearch');const value=(input?.value||'').trim();go('tarifler');const target=document.getElementById('search2');if(target)target.value=value;const heading=document.querySelector('#tarifler .section-row h2');if(heading)heading.textContent='Arama sonu\u00E7lar\u0131';window.renderRecipes(value)};
   window.recipeSearchV65={render};
+})();
+</script>
+<script id="plan-editor-compact-v59">
+(function(){
+  function removeSelectedAlternative(){
+    const modal=document.getElementById('modal');if(!modal)return;
+    const selected=modal.querySelector('.plan-edit-main-v52 strong')?.textContent.trim();if(!selected)return;
+    modal.querySelectorAll('.plan-edit-choice-v52').forEach(button=>{
+      const title=button.querySelector('strong')?.textContent.trim();
+      if(title===selected&&button.textContent.includes('Değiştir'))button.remove();
+    });
+  }
+  ['openDayPlanEditorV53','selectDayPlanRecipeV53','openPlanEditorV52','selectPlanRecipeV52'].forEach(name=>{
+    const original=window[name];if(!original||original.__planEditorCompactV59)return;
+    const wrapped=function(){const result=original.apply(this,arguments);requestAnimationFrame(removeSelectedAlternative);return result};
+    wrapped.__planEditorCompactV59=true;window[name]=wrapped;
+  });
+  new MutationObserver(removeSelectedAlternative).observe(document.body,{childList:true,subtree:true});
+  removeSelectedAlternative();
+  window.sofraPlanEditorCompactV59={removeSelectedAlternative};
 })();
 </script>
 </body>

@@ -98,6 +98,7 @@ assert.match(html, /recipe-search-empty-v65/, 'arama boş durumu ayrıştırmas�
 assert.match(html, /Aramana uygun tarif/, 'eşleşmeyen arama mesajı eksik');
 assert.match(html, /Henüz alışveriş listesi yok/, 'boş plan alışveriş durumu eksik');
 assert.match(html, /fit-sofra-palette-v64-no-blue/, 'Fit Sofra palette kilidi eksik');
+assert.match(html, /plan-editor-compact-v59/, 'Planım düzenleyicisi seçili tarifi alternatiflerde tekrar gösteriyor');
 assert.match(html, /new URLSearchParams\(location\.search\).*demo.*DEFAULT_INVENTORY/s, 'demo dolap verisi normal açılışta gerçek kullanıcı verisi gibi yükleniyor');
 assert.match(html, /demo==='empty'.*return \[\]/s, 'boş dolap QA senaryosu eksik');
 assert.match(html, /Dolabın henüz boş\./, 'boş dolap geri dönüşü eksik');

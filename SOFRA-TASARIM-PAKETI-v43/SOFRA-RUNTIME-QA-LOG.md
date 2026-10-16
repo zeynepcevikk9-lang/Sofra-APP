@@ -107,3 +107,11 @@ Otomasyon: `SOFRA-FIT-PALETTE-CONTRACT-TEST.mjs` v64 kilidini ve kilit icindeki 
 2. Profilde `Acik moda gec` secildi; body/app yuzeyleri acik temaya dondu, etiket `Acik gorunum acik` ve sonraki dugme `Koyu moda gec` oldu.
 
 Sonuc: Reference v2, tema etiketini gostermekle kalmiyor; kayitli tema ile gorunen yuzeyleri de ayni duruma getiriyor.
+
+## Planim editor sadelestirme turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=plan-v59&demo=empty`
+
+1. Planim ekraninda mevcut gunun `Duzenle` akisi acildi; secili ana yemek kartinin hemen altinda ayni tarifin tekrar listelendigi goruldu.
+2. Secili ana yemek artik alternatif `Degistir` listesinden cikariliyor; listede yalnizca gercekten baska tarifler kaliyor.
+3. Alternatif tarif secme, ek ogun ekleme ve kaydetme kancalari korunuyor; Renkli sebze bowl kaydedilince plan karti ve alisveris adaylari yeni tarife gore guncellendi.
+
+Sonuc: Plan duzenleyicisi bir tekrar karti daha az gosteriyor; mobilde gereksiz dikey kaydirma ve secim kalabaligi azaltildi.

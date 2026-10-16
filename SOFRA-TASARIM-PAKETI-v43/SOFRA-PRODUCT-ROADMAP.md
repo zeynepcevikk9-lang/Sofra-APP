@@ -617,3 +617,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Fit renkleri v64 ile Sofra'nin adaçayi yesili, kremi ve kil vurgusuna kilitlendi; native form kontrollerindeki varsayilan mavi odak/accent renkleri de kaldirildi.
 - Fit palet kontrat testi v64 kilidini ve kilit icinde mavi hex token bulunmadigini otomatik kontrol ediyor.
 - Reference v2 koyu tema tutarsizligi duzeltildi: kayitli `sofraThemeV42` artik body yuzeyine uygulanıyor; Profil etiketi ile gercek ekran temasi eslesiyor.
+- Planim v1.9 editor turunda secili ana yemek alternatif `Degistir` listesinde tekrar gosterilmiyor; mobil plan duzenleme akisi gereksiz bir karttan arindirildi.

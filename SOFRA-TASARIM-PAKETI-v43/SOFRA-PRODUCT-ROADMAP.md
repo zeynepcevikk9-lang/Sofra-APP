@@ -615,6 +615,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 ### Fit v1.2
 
 - Fit v1.17 kullanici turunda bos demo dolabina `domates` eklenmesiyle Fit tarif kartlarinda `1 dolap eslesmesi` ve eksik urun sayisi goruldu; miktarsiz giris `Miktari ayrica dogrula` olarak korundu ve canonical/reference paletleri tarayici renk olcumuyla yeniden kontrol edildi.
+- Fit v1.18 koyu tema regresyon turunda enerji/protein ozet kartinin acik yuzeye donmesi bulundu ve duzeltildi; canonical/reference koyu Fit override'i artik kontrat testiyle korunuyor.
 
 - Release ops v1.16 taslak operasyon plani icin staging/production kapilari, izleme, yedekleme, rollback ve P0-P2 olay seviyelerini kontrol eden `SOFRA-OPS-CONTRACT-TEST.mjs` eklendi; gercek servis kurulumu ve sorumlular hala yayin oncesi acik madde olarak tutuluyor.
 - Fit palet v1.15 ile Fit modulundeki profil, hedef, saglik, ogun ve tarif kartlari tek bir Sofra adacayi-krem-clay kilidine baglandi; yeni v65 modul kilidi mavi/mor varyantlari engelliyor.

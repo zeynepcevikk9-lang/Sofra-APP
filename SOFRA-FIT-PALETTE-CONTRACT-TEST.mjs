@@ -33,6 +33,7 @@ for (const [name, html] of [['canonical', canonical], ['reference', reference]])
   assert.match(html, /#fff6f0|#fff8f3/, `${name} sicak yuzey rengi eksik`);
   assert.match(html, /fit-calorie-v2[^}]*!important/, `${name} kalori karti kilidi eksik`);
   assert.match(html, /fit-reference-goal-v2\.active[^}]*!important/, `${name} hedef secimi kilidi eksik`);
+  assert.match(html, /body\[data-theme="gece"\][^}]*\.fit-insight\{background:#2b372f!important/, `${name} koyu Fit ozet zemini eksik`);
 }
 
 assert.match(canonical, /#fit \.fit-health-card/);

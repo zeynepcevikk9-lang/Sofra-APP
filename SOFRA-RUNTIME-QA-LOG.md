@@ -170,6 +170,14 @@ Sonuç: Dolaba eklenen ürün Fit önerilerinin sıralamasına ve açıklama met
 
 Sonuç: Planım, sistem önerisini kullanıcının kesin kararı gibi göstermeden ana yemek değiştirme, kendi öğünü ekleme ve kalıcı kaydetme akışını koruyor.
 
+## Koyu Fit özet kartı regresyon turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=theme-v70&demo=empty`
+
+1. Profil'den koyu moda geçildi; tercih rozeti `Koyu görünüm açık` olarak güncellendi.
+2. Koyu temada Sofra Fit açıldı; enerji/protein özet kartının açık beyaz yüzeye dönmediği, koyu yeşil yüzeyde kaldığı görsel olarak doğrulandı.
+3. Fit ekranından sonra ana akış korunurken Fit profil, sağlık bağlantısı ve tarif önerileri erişilebilirlik ağacında görünür kaldı.
+
+Sonuç: Koyu tema, Fit özet kartının son palette kilidini ezmiyor; bu regresyon için `SOFRA-FIT-PALETTE-CONTRACT-TEST.mjs` içine özel koruma eklendi.
+
 ## Fit sağlık bağlantısı turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=health-v50&demo=onboarding`
 
 1. Fit ekranında isteğe bağlı sağlık bağlantısı açıldı; platform seçiminde iOS Apple HealthKit ve Android Health Connect görüldü.

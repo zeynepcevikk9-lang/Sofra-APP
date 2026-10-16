@@ -94,6 +94,8 @@ assert.match(html, /allergen_verification_missing/, 'doğrulanmamış alerjen me
 assert.match(html, /cross_contamination_unknown/, 'çölyak çapraz bulaş motor koruması eksik');
 assert.match(html, /function recipeSafetyAllowedV46\(title\)/, 'tarif listesi güvenlik filtresi eksik');
 assert.match(html, /Güvenli tarif doğrulaması bekleniyor/, 'güvenlik filtresi boş durum mesajı eksik');
+assert.match(html, /recipe-search-empty-v65/, 'arama boş durumu ayrıştırması eksik');
+assert.match(html, /Aramana uygun tarif/, 'eşleşmeyen arama mesajı eksik');
 assert.match(html, /new URLSearchParams\(location\.search\).*demo.*DEFAULT_INVENTORY/s, 'demo dolap verisi normal açılışta gerçek kullanıcı verisi gibi yükleniyor');
 assert.match(html, /demo==='empty'.*return \[\]/s, 'boş dolap QA senaryosu eksik');
 assert.match(html, /Dolabın henüz boş\./, 'boş dolap geri dönüşü eksik');

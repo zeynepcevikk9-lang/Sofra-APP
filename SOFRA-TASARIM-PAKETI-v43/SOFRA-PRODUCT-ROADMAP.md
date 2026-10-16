@@ -608,3 +608,6 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Planım kullanıcı öğünü akışı canlı tarayıcı turunda test edildi: metin, öğün bölümü, kaydetme ve yeni sekmede kalıcılık birlikte geçti; serbest metin malzemeleri onaysız alışverişe eklenmiyor.
 - Sofra Fit paleti canonical ve reference ekranlarında adaçayı-krem-clay olarak kilitlendi; mavi/mor referans stillerinin geri dönüşü için ayrı kontrat testi eklendi.
 - Son kullanma tarihi motoru ürün bazında testle korundu: tarihi olmayan ürün boost almaz, biten ürün öne alınmaz, her ürünün opsiyonel tarihi ayrı değerlendirilir.
+### Arama v1.1
+
+- Arama bos durumu v65 ile ayrildi: hic eslesme yoksa kullaniciya aramasina uygun tarif bulunamadigi, eslesen tariflerin guvenlik filtresinden elenmesi durumunda ise guvenlik tercihini gozden gecirmesi anlatiliyor; kanonik ve referans ekranlarda canli test edildi.

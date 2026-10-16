@@ -1862,6 +1862,30 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
 })();
 </script>
 
+<style id="recipe-search-empty-v65">
+  #recipe-list .recipe-search-empty-v65{grid-column:1/-1;color:var(--muted);font-size:10px;line-height:1.4;margin:0}
+</style>
+<script id="recipe-search-empty-v65-script">
+(function(){
+  const list=document.getElementById('recipe-list');if(!list)return;
+  const categoryQueries=new Set(['pratik','dunya']);
+  const message=(matched,query)=>matched.length?'Bu tercih i\u00E7in do\u011Frulanm\u0131\u015F g\u00FCvenli \u00F6rnek tarif bulunamad\u0131.':query&&!categoryQueries.has(query)?'Aramana uygun tarif bulunamad\u0131.':'Bu tercih i\u00E7in do\u011Frulanm\u0131\u015F g\u00FCvenli \u00F6rnek tarif bulunamad\u0131.';
+  const render=(items,query='')=>{
+    const safeItems=items.filter(item=>recipeSafetyAllowedV46(item[0]));
+    list.innerHTML=safeItems.map(item=>`<button class="foodtile" data-recipe="${escapeHtml(item[0])}" aria-label="${escapeHtml(item[0])} tarifini a\u00E7"><div class="foodpic"><div class="fallback">${item[2]}</div><img src="https://images.unsplash.com/${images[item[0]]}?auto=format&fit=crop&w=500&q=80" alt="${escapeHtml(item[0])}" onerror="this.style.display='none'"></div><span class="foodname">${escapeHtml(item[0])}</span><span class="foodmeta">${item[1]} dk · Tarif önizlemesi</span></button>`).join('')||`<p class="recipe-search-empty-v65">${message(items,String(query||'').trim().toLocaleLowerCase('tr-TR'))}</p>`;
+    list.querySelectorAll('[data-recipe]').forEach(button=>button.onclick=()=>{const item=recipes.find(entry=>entry[0]===button.dataset.recipe);if(item)recipe(item[0],item[1],item[2],images[item[0]])});
+  };
+  window.renderRecipes=function(search=''){
+    const query=String(search||'').trim();const normalized=query.toLocaleLowerCase('tr-TR');
+    const matched=recipes.filter(item=>normalized==='pratik'?item[1]<=30:normalized==='dunya'?['Kremali mantarli makarna','Ev yapimi pizza','Sebzeli noodle'].includes(item[0]):item[0].toLocaleLowerCase('tr-TR').includes(normalized));
+    render(matched,normalized);
+  };
+  window.renderRecipeArrayV35=function(items,query=''){render(Array.isArray(items)?items:[],query)};
+  window.liveFilter=function(value){document.querySelectorAll('.recipe-filter').forEach(node=>node.classList.remove('active'));const heading=document.querySelector('#tarifler .section-row h2');if(heading)heading.textContent=String(value||'').trim()?'Arama sonu\u00E7lar\u0131':'Se\u00E7tiklerimiz';window.renderRecipes(value)};
+  window.doSearch=function(){const input=document.getElementById('homesearch');const value=(input?.value||'').trim();go('tarifler');const target=document.getElementById('search2');if(target)target.value=value;const heading=document.querySelector('#tarifler .section-row h2');if(heading)heading.textContent='Arama sonu\u00E7lar\u0131';window.renderRecipes(value)};
+  window.recipeSearchV65={render};
+})();
+</script>
 </body>
 </html>
 

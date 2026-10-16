@@ -82,3 +82,11 @@ Sonuc: Cocuk akisi ana v43'te yas secimine ve detay tarif onizlemesine baglandi;
 
 Sonuc: Bos dolap kullanicisi zorunlu urun girmeden kesfe devam edebiliyor; demo verisi kalici kullanici dolabina yazilmadi.
 
+## Arama bos durum turu - `http://localhost:8766/sofra-motoru-home-v43.html?qa=search-v65&demo=empty`
+
+1. Tarifler ekraninda `xyzq` arandi; liste bosken `Aramana uygun tarif bulunamadi.` mesaji goruldu.
+2. `makarna` aramasinda yalnizca Kremali mantarli makarna sonucu goruldu.
+3. Sonuca tiklanarak tarif detayina gecildi; malzemeler, hazirlanis adimlari ve ipucu modalda goruldu.
+4. Ayni bos arama ayrimi referans v2 ekraninda da dogrulandi.
+
+Sonuc: Eslesme bulunmamasi ile guvenlik filtresinin tarifleri elemesi artik ayni hata mesaji gibi gorunmuyor.

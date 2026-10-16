@@ -220,6 +220,15 @@ Sonuç: Fit hedef seçimi artık yalnızca tarif sıralamasını değil, kullan�
 
 Sonuç: İki mod arasındaki dönüş akışı görünür ekran, aktif mod ve toast mesajı bakımından tutarlı.
 
+## Dolap -> ana sayfa -> menu -> Planim turu - `http://127.0.0.1:8766/sofra-motoru-home-v43.html?qa=pantry-home-v85&demo=empty`
+
+1. Temiz demo dolabinda `2 adet domates` ve `1 kg patates` hizli ekleme ile kaydedildi; iki urun de miktariyla birlikte `Var` durumunda gorundu.
+2. Ana sayfaya donulunce genel panel, `Firinda sebzeli tabak ile baslayalim` ve `2 malzeme uyumlu` metnine gecti; bugunun tarifi de `2 malzeme dolabinla uyumlu` olarak guncellendi.
+3. `Menu kur` aksiyonu acildi; `Domatesli patates tenceresi` ve `Dolabindakilerle` aciklamasi gorundu.
+4. Menu `Planima ekle` ile kaydedildi; Planim ekraninda bugunun menusu, 4 kisilik bilgi ve eksik malzeme olmadigi dogrulandi.
+
+Sonuc: Dolap girdisi ana sayfa onerisine, menu kurulumuna ve Planim kaydina kadar kesintisiz tasiniyor.
+
 ## Fit Sofra paleti son kontrol turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?qa=fit-palette-v86&demo=onboarding`
 
 1. Onboarding üzerinden Sofra Fit açıldı; profil, sağlık bağlantısı, hedef ve öneri kartları birlikte kontrol edildi.

@@ -628,7 +628,7 @@ fitCard.insertAdjacentHTML('beforebegin', '<div class="fit-insight"><div><span>G
   function setHomeModeV34(mode){
     try{localStorage.setItem('sofraMode',mode)}catch(e){}
     syncHomeModeV34();
-    if(mode==='fit')go('fit');else go('home');
+    if(mode==='fit'){go('fit');toast('Sofra Fit açıldı')}else{go('home');toast('Sofra açıldı')}
   }
   syncHomeModeV34();
 </script>

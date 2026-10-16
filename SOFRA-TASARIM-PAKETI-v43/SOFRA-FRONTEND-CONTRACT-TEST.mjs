@@ -79,6 +79,7 @@ assert.match(html, /removePlanPartV52|Bugünün planını kaydet/, 'Planım öğ
 assert.match(html, /CARSAMBA|restoreTemplateMonday/, 'plan kaydı ilk dolu güne değil bugün kartına yazılmıyor');
 assert.match(html, /syncShoppingV52|planIngredientsV52/, 'değişen plan alışveriş adaylarına yansımıyor');
 assert.match(html, /openDayPlanEditorV53/, 'hafta günleri ayrı ayrı düzenlenemiyor');
+assert.match(html, /if\(mode==='fit'\)\{go\('fit'\);toast\('Sofra Fit açıldı'\)\}else\{go\('home'\);toast\('Sofra açıldı'\)\}/, 'Fit/Sofra mod değişiminde eski toast kalıyor');
 assert.match(html, /dayPlans|currentPlans/, 'gün bazlı plan verisi eksik');
 assert.match(html, /renderMonth\(\)|renderHistory\(\)/, 'gün bazlı plan Ay/Geçmiş görünümlerine taşınmıyor');
 assert.match(html, /plan-day-picker-v54|selectPlanDayV54/, 'hafta görünümü mobilde kompakt gün seçicisi kullanmıyor');

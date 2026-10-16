@@ -115,3 +115,11 @@ Sonuc: Reference v2, tema etiketini gostermekle kalmiyor; kayitli tema ile gorun
 3. Alternatif tarif secme, ek ogun ekleme ve kaydetme kancalari korunuyor; Renkli sebze bowl kaydedilince plan karti ve alisveris adaylari yeni tarife gore guncellendi.
 
 Sonuc: Plan duzenleyicisi bir tekrar karti daha az gosteriyor; mobilde gereksiz dikey kaydirma ve secim kalabaligi azaltildi.
+
+## Sofra Fit mod gecisi turu - `http://127.0.0.1:8766/sofra-motoru-reference-v2.html?demo=onboarding`
+
+1. Onboarding penceresinden Sofra Fit acildi; Fit profilinde boy, kilo, yas, cinsiyet, hedef, saglik baglantisi ve tarif onerileri goruldu.
+2. `Kilo vermek` seciminde hedef `1.924 kcal`, daha hafif tarif siralamasi; `Kilo almak` seciminde hedef `2.474 kcal`, daha yogun tarif siralamasi goruldu.
+3. Fit ekranindan Sofra'ya donuldu; ekran ana sayfaya geldi ve bildirim `Sofra acildi` olarak guncellendi.
+
+Sonuc: Fit hedef degisimi ve iki mod arasindaki gecis kullaniciya stale bildirim birakmadan calisiyor.

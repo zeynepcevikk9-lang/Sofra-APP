@@ -17,6 +17,7 @@ Bu belge prototipte kullanıcıya anlatılan veri sınırını tanımlar; hukuki
 ## Paylaşım önizleme sınırı
 
 - POST /v1/share/preview yalnızca public tarif/plan projection'ı üretir.
+- Senkron hazırlığı yalnızca açık sync onayıyla pantry, plan ve geri bildirim projection'ı üretir; buluta yazma ve cihazlar arası aktarım hesap bağlanana kadar kapalıdır.
 - Dolap, Fit profili, sağlık özeti, market verisi, geri bildirim ve hesap kimliği paylaşım payload'ına girmez.
 - Önizleme kalıcı link oluşturmaz ve veri saklamaz; gerçek link hesap, süre ve geri alma sınırları tanımlanmadan açılmaz.
 

@@ -14,6 +14,7 @@ import { buildNotificationStatus } from './SOFRA-NOTIFICATIONS-V1.mjs';
 import { buildBillingStatus } from './SOFRA-BILLING-V1.mjs';
 import { recipeContentProvenance, validateRecipeSourceRecord } from './SOFRA-RECIPE-SOURCE-V1.mjs';
 import { buildSharePreview } from './SOFRA-SHARE-V1.mjs';
+import { buildSyncEnvelope, buildSyncStatus } from './SOFRA-SYNC-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -222,6 +223,14 @@ function buildSharePreviewInput(input) {
   return { ...input, include_nutrition: input.include_nutrition !== false };
 }
 
+function buildSyncPrepareInput(input) {
+  if (input == null) return { consent: null };
+  if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('gecersiz sync govdesi');
+  const unknown = Object.keys(input).filter((key) => key !== 'consent');
+  if (unknown.length) throw validationError('guncellenemeyen sync alani: ' + unknown[0]);
+  return { consent: input.consent ?? null };
+}
+
 function buildRecommendationInput(state, input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('geçersiz öneri gövdesi');
   const allowed = ['mode', 'max_minutes', 'servings', 'pantry_item_ids', 'fit_profile_id', 'fit_profile', 'health_summary', 'recent_recipe_ids', 'safety_profile'];
@@ -418,6 +427,7 @@ export function createSofraServer({ state = createState(), saveState = null } = 
         return json(res, 200, { id: 'usr_anonymous_demo', auth_provider: 'anonymous', locale: 'tr-TR', created_at: '2026-10-14T12:00:00Z' });
       }
       if (method === 'GET' && path === '/v1/auth/status') return json(res, 200, buildAuthStatus());
+      if (method === 'GET' && path === '/v1/sync/status') return json(res, 200, buildSyncStatus());
       if (method === 'GET' && path === '/v1/notifications/status') return json(res, 200, buildNotificationStatus({ platform: url.searchParams.get('platform') || 'web' }));
       if (method === 'GET' && path === '/v1/billing/status') return json(res, 200, buildBillingStatus());
       if (method === 'GET' && path === '/v1/ai/status') return json(res, 200, {
@@ -455,6 +465,10 @@ export function createSofraServer({ state = createState(), saveState = null } = 
         const recipeIds = [plan.main_recipe_id, ...(plan.optional_recipe_ids || [])].filter(Boolean);
         const recipes = recipeIds.map((id) => recipeById(id)).filter(Boolean).map(serializeRecipe);
         return json(res, 200, buildSharePreview({ resource_type: 'plan', plan, recipes }));
+      }
+      if (method === 'POST' && path === '/v1/sync/prepare') {
+        const input = buildSyncPrepareInput(await readJson(req));
+        return json(res, 200, buildSyncEnvelope({ state, consent: input.consent }));
       }
       const recipeDetailMatch = path.match(/^\/v1\/recipes\/([^/]+)$/);
       if (method === 'GET' && recipeDetailMatch) {

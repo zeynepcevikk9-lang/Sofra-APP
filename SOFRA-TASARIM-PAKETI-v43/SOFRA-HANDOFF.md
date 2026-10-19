@@ -147,4 +147,11 @@ Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı tran
 
 ## Git notu
 
+## Senkron siniri v1.48
+
+- GET /v1/sync/status ve POST /v1/sync/prepare hesap baglanmadan bulut/cihazlar arasi senkronu kapali tutuyor.
+- Acik sync onayi olmadan payload null; onayli projection yalnizca pantry, plans ve feedback koleksiyonlarini tasiyor.
+- Fit profili, Apple Health/Health Connect, market verisi, token ve hesap kimligi disarida; cloud_sync=false ve persisted=false zorunlu.
+- Yeni dosyalar: SOFRA-SYNC-V1.mjs, SOFRA-SYNC-V1.md, SOFRA-SYNC-CONTRACT-TEST.mjs, SOFRA-SYNC-SERVER-TEST.mjs.
+
 Her anlamlı değişiklikten sonra kök dosyalarla `SOFRA-TASARIM-PAKETI-v43` klasörünü senkronlayıp zip'i yeniden oluştur. Commit öncesi CI ve release testlerini çalıştır. Logo seçilmeden ana uygulamadaki logo çizimini değiştirme.

@@ -17,6 +17,7 @@ tags:
   - name: Shopping
   - name: Market
   - name: Share
+  - name: Sync
 paths:
   /v1/me:
     get:
@@ -76,6 +77,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthStatus'
+  /v1/sync/status:
+    get:
+      tags: [Sync]
+      summary: Hesap bagli olmadan senkronizasyon sinirini getirir
+      operationId: getSyncStatus
+      responses:
+        '200':
+          description: Bulut/cihazlar arasi senkron kapali durum
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncStatus'
+  /v1/sync/prepare:
+    post:
+      tags: [Sync]
+      summary: Acik onay varsa cihaz verisinin surumlu sync projection'ini hazirlar
+      operationId: prepareSync
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncPrepareRequest'
+      responses:
+        '200':
+          description: Buluta gonderilmeyen, persistence yapmayan sync envelope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncEnvelope'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/notifications/status:
     get:
       tags: [User]
@@ -837,6 +870,46 @@ components:
         excluded_private_fields: { type: array, items: { type: string } }
         privacy:
           $ref: '#/components/schemas/SharePrivacy'
+    SyncPrepareRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        consent:
+          type: object
+          additionalProperties: false
+          required: [sync, scopes]
+          properties:
+            sync: { type: boolean, enum: [true] }
+            scopes: { type: array, minItems: 1, items: { type: string, enum: [pantry, plans, feedback] } }
+    SyncStatus:
+      type: object
+      required: [schema_version, status, provider, cloud_sync, cross_device_sync, account_required, consent_required, upload_enabled, download_enabled, token_storage, sensitive_data, excluded_fields]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        status: { type: string, enum: [account_required] }
+        provider: { type: string, enum: [anonymous, google, apple] }
+        cloud_sync: { type: boolean, enum: [false] }
+        cross_device_sync: { type: boolean, enum: [false] }
+        account_required: { type: boolean, enum: [true] }
+        consent_required: { type: boolean, enum: [true] }
+        upload_enabled: { type: boolean, enum: [false] }
+        download_enabled: { type: boolean, enum: [false] }
+        token_storage: { type: string, enum: [not_enabled] }
+        sensitive_data: { type: object }
+        excluded_fields: { type: array, items: { type: string } }
+    SyncEnvelope:
+      type: object
+      required: [schema_version, sync_status, cloud_sync, persisted, account_required, consent, conflict_policy, excluded_fields, payload]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        sync_status: { type: string, enum: [consent_required, ready_for_account_sync] }
+        cloud_sync: { type: boolean, enum: [false] }
+        persisted: { type: boolean, enum: [false] }
+        account_required: { type: boolean, enum: [true] }
+        consent: { type: object }
+        conflict_policy: { type: object }
+        excluded_fields: { type: array, items: { type: string } }
+        payload: { type: object, nullable: true }
     PantryItemInput:
       type: object
       required: [display_name, stock_state, source]

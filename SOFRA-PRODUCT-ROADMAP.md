@@ -598,6 +598,7 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 ### 16 Ekim 2026
 
 - Paylasim v1.47de tarif/plan icin public projection siniri eklendi; preview kalici link ve persistence acmadan calisiyor, dolap/Fit/saglik/market/hesap verileri ve custom meal notlari disarida birakiliyor. SOFRA-SHARE-CONTRACT-TEST.mjs ve SOFRA-SHARE-SERVER-TEST.mjs ile dogrulandi.
+- Senkron v1.48de acik onayli, surumlu sync envelope hazirlandi; hesap/OAuth yokken payload uretilmiyor, onayli kapsam pantry/plans/feedback ile sinirli ve Fit/saglik/market/token alanlari bloke ediliyor. SOFRA-SYNC-CONTRACT-TEST.mjs ve SOFRA-SYNC-SERVER-TEST.mjs ile dogrulandi.
 
 - Fit hedef ve mod degistirme akisi temiz oturumda canli test edildi: kilo verme ve kilo alma secimleri farkli tarif siralamasi/icerigi ve yaklasik hedef uretti; profil kaydi ve Fit'ten Sofra'ya donuste mod gostergesi dogru kaldı.
 - Fit kapsam temizligi yapildi: antrenman karti/aksiyonu ve egzersiz izin secenegi kaldirildi; Fit tarif, ogun, profil hedefi ve istege bagli saglik baglantisi odaginda tutuldu.

@@ -8,6 +8,8 @@ assert.ok(apiSpec.includes('recipe_detail:'), 'oneride tarif detay baglantisi ek
 const requiredPaths = [
   '/v1/me:',
   '/v1/share/preview:',
+  '/v1/sync/status:',
+  '/v1/sync/prepare:',
   '/v1/auth/status:',
   '/v1/notifications/status:',
   '/v1/billing/status:',
@@ -38,6 +40,9 @@ assert.ok(apiSpec.includes('RecipeContentProvenance'), 'Tarif content provenance
 assert.ok(apiSpec.includes('SharePreviewRequest'), 'Paylasim onizleme istek semasi eksik');
 assert.ok(apiSpec.includes('SharePreview'), 'Paylasim onizleme yanit semasi eksik');
 assert.ok(apiSpec.includes('SharePrivacy'), 'Paylasim gizlilik semasi eksik');
+assert.ok(apiSpec.includes('SyncPrepareRequest'), 'Senkron onay istek semasi eksik');
+assert.ok(apiSpec.includes('SyncStatus'), 'Senkron durum semasi eksik');
+assert.ok(apiSpec.includes('SyncEnvelope'), 'Senkron envelope semasi eksik');
 assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı eksik');
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
 assert.ok(apiSpec.includes('HealthContext'), 'Fit sağlık kullanım politikası şeması eksik');

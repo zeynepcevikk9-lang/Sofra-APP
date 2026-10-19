@@ -204,6 +204,7 @@ try {
   assert.equal(result.body.health_context.activeCalories, 420);
   assert.equal(result.body.fit_verification, 'unverified');
   assert.equal(result.body.nutrition, null, 'doğrulanmamış tarif kalorisi öneriye taşınmamalı');
+  assert.equal(result.body.nutrition_provenance, null);
   assert.equal(result.body.safety.status, 'not_requested');
 
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'fit', servings: 4, fit_profile: { gender: 'Kadın', age: 30, height: 165, weight: 60, activityFactor: 1.375, goalKey: 'lose' } }) });

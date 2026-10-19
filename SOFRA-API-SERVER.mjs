@@ -157,6 +157,7 @@ function serializeRecipe(recipe) {
     fit_goals: recipe.fitGoals || [],
     fit_verification: nutrition.fit_verification,
     nutrition: nutrition.nutrition,
+    nutrition_provenance: nutrition.nutrition_provenance || null,
     safety: {
       allergens: recipe.safety?.allergens || [],
       verified: recipe.safety?.verified === true,
@@ -384,6 +385,7 @@ function recommendationResponse(state, input) {
     fit_target: fitTarget,
     fit_verification: nutrition.fit_verification,
     nutrition: nutrition.nutrition,
+    nutrition_provenance: nutrition.nutrition_provenance || null,
     recipe_detail: { ...serializeRecipe(top), ...serializeRecipeDetail(top, input.servings), source: 'catalog_v1' },
   };
 }

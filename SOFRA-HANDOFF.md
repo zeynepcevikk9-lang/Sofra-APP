@@ -114,6 +114,13 @@ Fit v1.42'de `POST /v1/recommendations` yanitina `recipe_detail` eklendi. Fit he
 
 Plan v1.43'te `custom_meals` ile katalog disi ogun ekleme destekleniyor. Serbest ogun baslik/not olarak saklaniyor, malzeme veya alisveris urunu varsayilmiyor; kullanici daha sonra isterse tarifi ayri katalog kaydi olarak eklemeli.
 
+## Besin provenance ve gram donusumu v1.45
+
+- `buildNutritionFromIngredients()` g/kg dogrudan, adet/dilim/paket gibi olculeri yalnizca kaynakli `grams_per_unit` ile hesaplar.
+- Tum malzemeler icin kaynak kaydi, lisans ve gram kapsami yoksa sonuc `unverified` ve `nutrition=null` kalir.
+- Tarif ve Fit onerisi API'lerinde `nutrition_provenance` alaninda kaynak kayitlari, porsiyon gramaji ve donusum izleri tasinir.
+- Mevcut katalog gercek kaynak kayitlariyla bagli olmadigi icin hala kcal/makro iddiasi yayinlamiyor.
+
 ## Health adapter runtime durumu v1.44
 
 - `/v1/health/adapter-status?provider=apple_healthkit|health_connect` ortak provider durumunu verir.

@@ -373,3 +373,12 @@ Sonuc: Alerji/colyak akisi malzeme seviyesinde daha acik; yine de gercek uretici
 3. API sozlesmesi ve server testi gecti; dogrulanmamis besin degeri hala `null` olarak korunuyor.
 
 Sonuc: Fit kartindan tarif detayina gecis icin backend yaniti tekil ve tutarli hale geldi.
+
+## Planim serbest ogun turu - `SOFRA-API-SERVER-TEST.mjs`
+
+1. Katalog disi `Mercimek çorbası` custom meal, `dinner` slotu ve notuyla kaydedildi.
+2. Yalnizca custom meal iceren plan kabul edildi; `main_recipe_id` null olarak acik dondu.
+3. Bos baslik reddedildi.
+4. Custom meal alisveris adaylarina urun olarak sizmadi; katalog tariflerinin patates adayi korunuyor.
+
+Sonuc: Kullanici bugunun planina kendi yemegini ekleyebiliyor; sistem bunu tarif verisi varmis gibi varsaymiyor.

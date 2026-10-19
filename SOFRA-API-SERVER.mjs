@@ -242,13 +242,28 @@ function buildRecommendationInput(state, input) {
 }
 
 function buildPlan(state, input) {
+  const customMeals = input?.custom_meals ?? [];
+  if (!Array.isArray(customMeals) || customMeals.length > 8) throw validationError('custom_meals en fazla 8 oge olmali');
+  const allowedSlots = ['breakfast', 'lunch', 'dinner', 'snack'];
+  const normalizedCustomMeals = customMeals.map((meal) => {
+    if (!meal || typeof meal !== 'object' || Array.isArray(meal)) throw validationError('gecersiz custom_meal');
+    const unknownMealField = Object.keys(meal).find((key) => !['slot', 'title', 'note'].includes(key));
+    if (unknownMealField) throw validationError(`guncellenemeyen custom_meal alani: ${unknownMealField}`);
+    const title = String(meal.title || '').trim();
+    if (!title || title.length > 80) throw validationError('custom_meal title 1-80 karakter olmali');
+    if (!allowedSlots.includes(meal.slot)) throw validationError('gecersiz custom_meal slot');
+    const note = meal.note == null ? null : String(meal.note).trim();
+    if (note != null && note.length > 160) throw validationError('custom_meal note en fazla 160 karakter olmali');
+    return { id: `custom_meal_${state.nextId++}`, slot: meal.slot, title, note: note || null };
+  });
+  if (input?.main_recipe_id == null && !normalizedCustomMeals.length) throw validationError('main_recipe_id veya custom_meals gerekli');
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('geçersiz plan gövdesi');
-  const allowed = ['date', 'servings', 'main_recipe_id', 'optional_recipe_ids'];
+  const allowed = ['date', 'servings', 'main_recipe_id', 'optional_recipe_ids', 'custom_meals'];
   const unknown = Object.keys(input).filter((key) => !allowed.includes(key));
   if (unknown.length) throw validationError(`güncellenemeyen plan alanı: ${unknown[0]}`);
   if (!isoDate(input.date)) throw validationError('geçersiz plan tarihi');
   if (!Number.isInteger(input.servings) || input.servings < 1) throw validationError('servings en az 1 olmalı');
-  if (typeof input.main_recipe_id !== 'string' || !recipeById(input.main_recipe_id)) throw validationError('geçersiz main_recipe_id');
+  if (input.main_recipe_id != null && (typeof input.main_recipe_id !== 'string' || !recipeById(input.main_recipe_id))) throw validationError('geçersiz main_recipe_id');
   const optionalRecipeIds = input.optional_recipe_ids ?? [];
   if (!Array.isArray(optionalRecipeIds)) throw validationError('optional_recipe_ids dizi olmalı');
   if (new Set(optionalRecipeIds).size !== optionalRecipeIds.length || optionalRecipeIds.some((id) => typeof id !== 'string' || !recipeById(id))) {
@@ -258,8 +273,9 @@ function buildPlan(state, input) {
     id: `plan_${state.nextId++}`,
     date: input.date,
     servings: input.servings,
-    main_recipe_id: input.main_recipe_id,
+    main_recipe_id: input.main_recipe_id ?? null,
     optional_recipe_ids: optionalRecipeIds,
+    custom_meals: normalizedCustomMeals,
   };
 }
 

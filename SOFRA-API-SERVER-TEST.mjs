@@ -238,6 +238,15 @@ try {
   result = await request('/v1/plans', { method: 'POST', body: JSON.stringify({ date: '2026-10-14', servings: 4, main_recipe_id: 'recipe_oven_vegetables' }) });
   assert.equal(result.response.status, 201);
   assert.deepEqual(result.body.optional_recipe_ids, []);
+  assert.deepEqual(result.body.custom_meals, []);
+  result = await request('/v1/plans', { method: 'POST', body: JSON.stringify({ date: '2026-10-15', servings: 2, custom_meals: [{ slot: 'dinner', title: 'Mercimek çorbası', note: 'Evdeki tarifim' }] }) });
+  assert.equal(result.response.status, 201);
+  assert.equal(result.body.main_recipe_id, null);
+  assert.equal(result.body.custom_meals[0].slot, 'dinner');
+  assert.equal(result.body.custom_meals[0].title, 'Mercimek çorbası');
+  assert.match(result.body.custom_meals[0].id, /^custom_meal_/);
+  result = await request('/v1/plans', { method: 'POST', body: JSON.stringify({ date: '2026-10-16', servings: 2, custom_meals: [{ slot: 'dinner', title: '' }] }) });
+  assert.equal(result.response.status, 422, 'bos custom meal kaydedilmemeli');
 
   result = await request('/v1/plans', { method: 'POST', body: JSON.stringify({ date: '14-10-2026', servings: 4, main_recipe_id: 'recipe_oven_vegetables' }) });
   assert.equal(result.response.status, 422, 'geçersiz plan tarihi kabul edilmemeli');
@@ -253,6 +262,7 @@ try {
 
   result = await request('/v1/shopping/candidates');
   assert.equal(result.response.status, 200);
+  assert.equal(result.body.items.some((item) => item.name === 'Mercimek çorbası'), false, 'serbest custom meal alisverise urun sizdirmamali');
   assert.equal(result.body.items.find((item) => item.name === 'patates').state, 'in_pantry');
   assert.equal(result.body.items.find((item) => item.name === 'domates').state, 'check');
   assert.equal(result.body.items.find((item) => item.name === 'patates').required_quantity_text, '3 adet', 'plan alisveris adayi gereken miktari tasimali');
@@ -309,7 +319,7 @@ try {
   assert.equal(result.response.status, 200);
   assert.equal(result.body.schema_version, 1);
   assert.equal(result.body.data.pantry.length, 3);
-  assert.equal(result.body.data.plans.length, 1);
+  assert.equal(result.body.data.plans.length, 2);
   assert.equal(result.body.data.feedback.length, 1);
 
   result = await request('/v1/me/data', { method: 'DELETE' });

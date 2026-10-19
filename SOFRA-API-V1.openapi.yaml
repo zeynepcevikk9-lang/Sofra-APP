@@ -1052,14 +1052,25 @@ components:
     PlanInput:
       type: object
       additionalProperties: false
-      required: [date, servings, main_recipe_id]
+      required: [date, servings]
       properties:
         date: { type: string, format: date }
         servings: { type: integer, minimum: 1 }
-        main_recipe_id: { type: string }
+        main_recipe_id: { type: string, nullable: true }
         optional_recipe_ids:
           type: array
           items: { type: string }
+        custom_meals:
+          type: array
+          maxItems: 8
+          items:
+            type: object
+            additionalProperties: false
+            required: [slot, title]
+            properties:
+              slot: { type: string, enum: [breakfast, lunch, dinner, snack] }
+              title: { type: string, minLength: 1, maxLength: 80 }
+              note: { type: string, maxLength: 160, nullable: true }
     Plan:
       allOf:
         - $ref: '#/components/schemas/PlanInput'

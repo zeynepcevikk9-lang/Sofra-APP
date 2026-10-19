@@ -60,3 +60,4 @@ Bu dosya karar günlüğüdür; canlı bağlantı, gerçek sağlık izni, market
 - v1.40 ile tarif adim medyasi ayni tarif icinde benzersiz varliklara ayrildi ve modalda tarayici testi yapildi; kaynak lisansi ve gercek tarif editoryal baglantisi hala P0 acigidir.
 - v1.41 ile malzeme bazli aday alerjen ve etiket kontrolu alanlari API detayina eklendi; bu, uretici/recete kaynagi dogrulanana kadar guvenli iddiasi uretmez.
 - v1.42 ile Fit onerisi secilen tarif detayina baglandi; dogrulanmis besin verisi olmadigi durumda kcal/makro iddiasi yine yayinlanmiyor.
+- v1.43 ile Planim'da custom meal ekleme ve custom-only plan desteklendi; serbest metin otomatik malzeme veya alisveris adayi sayilmiyor.

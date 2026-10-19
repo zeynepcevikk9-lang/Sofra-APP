@@ -653,3 +653,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Tarif adim medyasi v1.40: sebze bowl, avokadolu tost ve zeytinyagli patlican adimlarinda tekrarlanan demo varliklari ayrildi; her tarifin adim medyasi benzersiz `asset_id` kontrat testiyle ve Renkli sebze bowl modalinda 3 benzersiz URL ile dogrulandi.
 - Gida guvenligi v1.41: tarif detay API'sine malzeme bazli `ingredient_safety` eklendi; gluten/sut/yumurta adaylari ve etiketten dogrulama gereksinimi ayri gorunuyor, bilinmeyen veya capraz bulas durumu guvenli sayilmiyor.
 - Fit onerisi v1.42: `POST /v1/recommendations` artik secilen tarifi `recipe_detail` ile ayni yanıtta donuyor; istenen porsiyona gore olculer, malzeme guvenligi ve Fit hedef baglami birlikte tasiniyor.
+- Planim v1.43: Plan API'si katalog disi `custom_meals` ogelerini (slot, baslik, not) kabul ediyor; custom-only plan mumkun, serbest ogunlar alisveris adaylarina malzeme olarak sizdirilmiyor.

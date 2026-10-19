@@ -146,6 +146,7 @@ assert.ok(learned.find((item) => item.id === 'recipe_noodle')?.preferenceBoost >
 // 5) Plan → alışveriş adayı zinciri; eklenmeyen ürün kesin yok sayılmaz.
 const plan = createPlan({ date: '2026-10-14', servings: 4, main_recipe_id: 'recipe_oven_vegetables', optional_recipe_ids: ['recipe_yogurt_bowl'] });
 assert.equal(plan.main_recipe_id, 'recipe_oven_vegetables');
+assert.deepEqual(plan.custom_meals ?? [], []);
 const candidates = shoppingCandidates();
 assert.equal(candidates.find((item) => item.name === 'domates')?.state, 'check');
 assert.equal(candidates.find((item) => item.name === 'patates')?.state, 'in_pantry');

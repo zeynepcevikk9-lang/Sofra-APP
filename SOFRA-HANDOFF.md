@@ -112,6 +112,8 @@ Safety v1.41'de tarif detay API'si `ingredient_safety` ile malzeme bazli aday al
 
 Fit v1.42'de `POST /v1/recommendations` yanitina `recipe_detail` eklendi. Fit hedefi, secilen tarif, istenen porsiyon, olculu malzemeler ve malzeme guvenlik notlari artik ayni backend cevabinda bulunuyor.
 
+Plan v1.43'te `custom_meals` ile katalog disi ogun ekleme destekleniyor. Serbest ogun baslik/not olarak saklaniyor, malzeme veya alisveris urunu varsayilmiyor; kullanici daha sonra isterse tarifi ayri katalog kaydi olarak eklemeli.
+
 ## Logo durumu
 
 Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı transparan PNG olarak `outputs/sofra-logo-v1.png` dosyasına alındı ve ana uygulamanın üst başlığına uygulanıyor. Eski logo v4 sayfası yalnızca karşılaştırma geçmişidir.

@@ -168,6 +168,27 @@ paths:
                 $ref: '#/components/schemas/HealthPermissionPlan'
         '422':
           $ref: '#/components/responses/ValidationError'
+  /v1/health/adapter-status:
+    get:
+      tags: [Recommendations]
+      summary: HealthKit veya Health Connect adapter durumunu getirir
+      operationId: getHealthAdapterStatus
+      parameters:
+        - name: provider
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [apple_healthkit, health_connect]
+      responses:
+        '200':
+          description: Provider izinleri, baglanti durumu ve manuel Fit fallback bilgisi
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthAdapterStatus'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/me/data:
     delete:
       tags: [User]
@@ -899,6 +920,15 @@ components:
               platform_type: { type: string }
               rationale: { type: string }
               requested: { type: boolean }
+    HealthAdapterStatus:
+      allOf:
+        - $ref: '#/components/schemas/HealthPermissionPlan'
+        - type: object
+          required: [manual_fallback_available, health_context]
+          properties:
+            manual_fallback_available: { type: boolean }
+            health_context:
+              $ref: '#/components/schemas/HealthContext'
     PantryItem:
       allOf:
         - $ref: '#/components/schemas/PantryItemInput'

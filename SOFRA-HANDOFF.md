@@ -114,6 +114,13 @@ Fit v1.42'de `POST /v1/recommendations` yanitina `recipe_detail` eklendi. Fit he
 
 Plan v1.43'te `custom_meals` ile katalog disi ogun ekleme destekleniyor. Serbest ogun baslik/not olarak saklaniyor, malzeme veya alisveris urunu varsayilmiyor; kullanici daha sonra isterse tarifi ayri katalog kaydi olarak eklemeli.
 
+## Health adapter runtime durumu v1.44
+
+- `/v1/health/adapter-status?provider=apple_healthkit|health_connect` ortak provider durumunu verir.
+- Varsayilan durumda `not_connected`, `read_only`, `write_permissions=[]` ve `manual_fallback_available=true` korunur.
+- Kismi izinlerde yalnizca `granted` metrikler Fit baglamina girebilir; canli baglanti yokken degerler `null` kalir.
+- Fit modalinda iOS/Android provider, kismi izin ve manuel devam akisi tarayicida test edildi.
+
 ## Logo durumu
 
 Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı transparan PNG olarak `outputs/sofra-logo-v1.png` dosyasına alındı ve ana uygulamanın üst başlığına uygulanıyor. Eski logo v4 sayfası yalnızca karşılaştırma geçmişidir.

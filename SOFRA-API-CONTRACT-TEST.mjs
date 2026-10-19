@@ -14,6 +14,7 @@ const requiredPaths = [
   '/v1/recipes/{recipeId}:',
   '/v1/ai/status:',
   '/v1/health/permission-plan:',
+  '/v1/health/adapter-status:',
   '/v1/pantry:',
   '/v1/pantry/items:',
   '/v1/pantry/items/bulk:',
@@ -26,6 +27,8 @@ const requiredPaths = [
 ];
 
 for (const path of requiredPaths) assert.ok(apiSpec.includes(path), `OpenAPI yolu eksik: ${path}`);
+assert.ok(apiSpec.includes('HealthAdapterStatus'), 'Health adapter runtime durum semasi eksik');
+assert.ok(apiSpec.includes('manual_fallback_available'), 'Health adapter manuel fallback alani eksik');
 assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı eksik');
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
 assert.ok(apiSpec.includes('HealthContext'), 'Fit sağlık kullanım politikası şeması eksik');

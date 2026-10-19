@@ -3,6 +3,7 @@ import { catalog, matchesRecipeSearch, normalize as normalizeRecipeText, recipeD
 import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { canonicalizeIngredient, parsePantryNote, parseQuantityText } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
+import { buildHealthAdapterStatus } from './SOFRA-HEALTH-ADAPTERS-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
 import { inspectIngredientSafety, normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
@@ -414,6 +415,9 @@ export function createSofraServer({ state = createState(), saveState = null } = 
       });
       if (method === 'GET' && path === '/v1/health/permission-plan') {
         return json(res, 200, buildHealthPermissionPlan(url.searchParams.get('provider') || ''));
+      }
+      if (method === 'GET' && path === '/v1/health/adapter-status') {
+        return json(res, 200, buildHealthAdapterStatus(url.searchParams.get('provider') || ''));
       }
       if (method === 'GET' && path === '/v1/recipes') return json(res, 200, recipeCatalogResponse(url.searchParams));
       const recipeDetailMatch = path.match(/^\/v1\/recipes\/([^/]+)$/);

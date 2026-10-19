@@ -105,6 +105,16 @@ try {
   assert.deepEqual(result.body.write_permissions, []);
   assert.equal(result.body.permissions.find((item) => item.key === 'activeCalories').platform_type, 'HKQuantityTypeIdentifierActiveEnergyBurned');
 
+  result = await request('/v1/health/adapter-status?provider=apple_healthkit');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.connection.state, 'not_connected');
+  assert.equal(result.body.manual_fallback_available, true);
+  assert.equal(result.body.health_context.activeCalories, null);
+  assert.equal(result.body.permissions.find((item) => item.key === 'steps').status, 'not_requested');
+
+  result = await request('/v1/health/adapter-status?provider=unknown');
+  assert.equal(result.response.status, 422);
+
   result = await request('/v1/health/permission-plan?provider=unknown');
   assert.equal(result.response.status, 422, 'bilinmeyen sağlık sağlayıcısı kabul edilmemeli');
 

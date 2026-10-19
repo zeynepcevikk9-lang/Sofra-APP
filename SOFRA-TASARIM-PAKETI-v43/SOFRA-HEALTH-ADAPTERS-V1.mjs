@@ -5,7 +5,7 @@
  * HealthKit or Health Connect SDKs. Native code owns permission prompts and
  * sample aggregation; this boundary owns field mapping and normalization.
  */
-import { normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
+import { buildHealthPermissionPlan, fitContext, healthConnectionState, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 
 const healthKeys = ['activeCalories', 'steps', 'exercise', 'weightKg'];
 
@@ -20,6 +20,13 @@ function numeric(value) {
 
 function defaultPermissions(input) {
   return Object.fromEntries(healthKeys.map((key) => [key, input?.[key] ?? 'not_requested']));
+}
+
+function normalizePermissionInput(input) {
+  if (Array.isArray(input)) {
+    return Object.fromEntries(healthKeys.map((key) => [key, input.includes(key) ? 'granted' : 'not_requested']));
+  }
+  return defaultPermissions(input);
 }
 
 function normalizeAdapterInput({ source, payload = {}, permissions, asOf }) {
@@ -40,6 +47,33 @@ export function adaptHealthKitPayload(payload = {}, options = {}) {
 
 export function adaptHealthConnectPayload(payload = {}, options = {}) {
   return normalizeAdapterInput({ source: 'health_connect', payload, permissions: options.permissions, asOf: options.asOf });
+}
+
+export function buildHealthAdapterStatus(provider, options = {}) {
+  const plan = buildHealthPermissionPlan(provider);
+  const permissions = normalizePermissionInput(options.permissions);
+  const liveConnection = options.liveConnection === true;
+  const state = healthConnectionState({ provider, permissions, liveConnection });
+  const summary = normalizeHealthSummary({
+    source: provider,
+    asOf: options.asOf,
+    activeCalories: liveConnection ? options.activeCalories : undefined,
+    steps: liveConnection ? options.steps : undefined,
+    exerciseMinutes: liveConnection ? options.exerciseMinutes : undefined,
+    weightKg: liveConnection ? options.weightKg : undefined,
+    permissions,
+  });
+  return {
+    ...plan,
+    connection: { ...plan.connection, state },
+    permissions: plan.permissions.map((item) => ({
+      ...item,
+      status: permissions[item.key],
+      requested: permissions[item.key] !== 'not_requested',
+    })),
+    manual_fallback_available: true,
+    health_context: fitContext(summary, { now: options.now }),
+  };
 }
 
 export function adaptHealthPayload(provider, payload = {}, options = {}) {

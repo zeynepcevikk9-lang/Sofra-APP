@@ -2510,6 +2510,30 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   document.getElementById('search2')?.addEventListener('input',event=>{event.stopImmediatePropagation();render(event.target.value)},true);
 })();
 </script>
+<script>
+/* v101: Fit saglik baglantisi canli veri yokken manuel fallback'i acikca gosterir. */
+(function(){
+  const key='sofraHealthDemoV50';
+  const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}};
+  function sync(){
+    const state=read();const selected=new Set(Array.isArray(state?.permissions)?state.permissions:[]);const status=state?.status||'';
+    document.querySelectorAll('#fit .fit-health-card').forEach(card=>{
+      const badge=card.querySelector('.fit-health-status');const values=[...card.querySelectorAll('.fit-health-data strong')];const note=card.querySelector('.fit-calc-note');
+      if(!state){if(badge)badge.textContent='Ba\u011fl\u0131 de\u011fil';values.forEach(node=>node.textContent='Manuel profil');if(note)note.textContent='Sa\u011fl\u0131k ba\u011flant\u0131s\u0131 olmadan da Fit profilinle devam edebilirsin.';return}
+      if(status==='denied'){if(badge)badge.textContent='\u0130zin verilmedi';values.forEach(node=>node.textContent='Manuel profil');if(note)note.textContent='\u0130zin vermeden de manuel Fit profiliyle devam edebilirsin.';return}
+      if(badge)badge.textContent=status==='partial'?'K\u0131smi demo izin':'Demo izin plan\u0131';
+      if(values[0])values[0].textContent=selected.has('activeCalories')?'Ger\u00e7ek ba\u011flant\u0131 bekleniyor':'\u0130zin se\u00e7ilmedi';
+      if(values[1])values[1].textContent=selected.has('steps')?'Ger\u00e7ek ba\u011flant\u0131 bekleniyor':'\u0130zin se\u00e7ilmedi';
+      if(note)note.textContent='Bu bir izin plan\u0131 demosu; cihaz verisi hen\u00fcz okunmuyor. Manuel Fit profili a\u00e7\u0131k.';
+    });
+  }
+  const oldGo=window.go;window.go=function(screen){oldGo(screen);if(screen==='fit')requestAnimationFrame(sync)};
+  const oldSave=window.saveHealthDemoV50;if(oldSave)window.saveHealthDemoV50=function(){oldSave();sync()};
+  function bindManual(){document.querySelectorAll('#modal button').forEach(button=>{if(button.textContent.includes('Manuel devam')&&!button.dataset.healthManualBound){button.dataset.healthManualBound='1';button.addEventListener('click',()=>{try{localStorage.removeItem(key)}catch(e){}requestAnimationFrame(sync)})}})}
+  new MutationObserver(bindManual).observe(document.body,{childList:true,subtree:true});bindManual();
+  window.syncFitHealthStatusV101=sync;sync();
+})();
+</script>
 </body>
 </html>
 

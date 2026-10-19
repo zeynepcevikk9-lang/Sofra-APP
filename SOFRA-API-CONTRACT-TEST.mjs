@@ -11,6 +11,8 @@ const requiredPaths = [
   '/v1/sync/status:',
   '/v1/sync/prepare:',
   '/v1/auth/status:',
+  '/v1/auth/authorize:',
+  '/v1/auth/callback:',
   '/v1/notifications/status:',
   '/v1/billing/status:',
   '/v1/recipes:',
@@ -43,6 +45,10 @@ assert.ok(apiSpec.includes('SharePrivacy'), 'Paylasim gizlilik semasi eksik');
 assert.ok(apiSpec.includes('SyncPrepareRequest'), 'Senkron onay istek semasi eksik');
 assert.ok(apiSpec.includes('SyncStatus'), 'Senkron durum semasi eksik');
 assert.ok(apiSpec.includes('SyncEnvelope'), 'Senkron envelope semasi eksik');
+assert.ok(apiSpec.includes('OAuthAuthorizeRequest'), 'OAuth authorize istek semasi eksik');
+assert.ok(apiSpec.includes('OAuthAuthorizeResponse'), 'OAuth authorize yanit semasi eksik');
+assert.ok(apiSpec.includes('OAuthCallbackRequest'), 'OAuth callback istek semasi eksik');
+assert.ok(apiSpec.includes('OAuthCallbackResponse'), 'OAuth callback yanit semasi eksik');
 assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı eksik');
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
 assert.ok(apiSpec.includes('HealthContext'), 'Fit sağlık kullanım politikası şeması eksik');

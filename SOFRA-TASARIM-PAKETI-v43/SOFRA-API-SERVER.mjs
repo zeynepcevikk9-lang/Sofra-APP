@@ -15,6 +15,7 @@ import { buildBillingStatus } from './SOFRA-BILLING-V1.mjs';
 import { recipeContentProvenance, validateRecipeSourceRecord } from './SOFRA-RECIPE-SOURCE-V1.mjs';
 import { buildSharePreview } from './SOFRA-SHARE-V1.mjs';
 import { buildSyncEnvelope, buildSyncStatus } from './SOFRA-SYNC-V1.mjs';
+import { buildOAuthCallbackResult, createOAuthTransactionStore } from './SOFRA-AUTH-TRANSACTION-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -231,6 +232,28 @@ function buildSyncPrepareInput(input) {
   return { consent: input.consent ?? null };
 }
 
+function buildOAuthStartInput(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('gecersiz OAuth baslangic govdesi');
+  const allowed = ['provider', 'redirect_uri', 'code_challenge', 'scopes'];
+  const unknown = Object.keys(input).filter((key) => !allowed.includes(key));
+  if (unknown.length) throw validationError('guncellenemeyen OAuth alani: ' + unknown[0]);
+  if (!['google', 'apple'].includes(input.provider)) throw validationError('gecersiz OAuth saglayicisi');
+  if (typeof input.redirect_uri !== 'string' || !input.redirect_uri.trim()) throw validationError('redirect_uri gerekli');
+  if (typeof input.code_challenge !== 'string' || input.code_challenge.length < 43) throw validationError('code_challenge gecersiz');
+  if (input.scopes != null && (!Array.isArray(input.scopes) || input.scopes.some((scope) => typeof scope !== 'string'))) throw validationError('scopes gecersiz');
+  return input;
+}
+
+function buildOAuthCallbackInput(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('gecersiz OAuth callback govdesi');
+  const allowed = ['provider', 'state', 'code', 'error'];
+  const unknown = Object.keys(input).filter((key) => !allowed.includes(key));
+  if (unknown.length) throw validationError('guncellenemeyen OAuth callback alani: ' + unknown[0]);
+  if (!['google', 'apple'].includes(input.provider) || typeof input.state !== 'string') throw validationError('OAuth callback kimligi gecersiz');
+  if (input.code == null && input.error == null) throw validationError('OAuth code veya error gerekli');
+  return input;
+}
+
 function buildRecommendationInput(state, input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('geçersiz öneri gövdesi');
   const allowed = ['mode', 'max_minutes', 'servings', 'pantry_item_ids', 'fit_profile_id', 'fit_profile', 'health_summary', 'recent_recipe_ids', 'safety_profile'];
@@ -415,8 +438,11 @@ function recommendationResponse(state, input) {
   };
 }
 
-export function createSofraServer({ state = createState(), saveState = null } = {}) {
+export function createSofraServer({ state = createState(), saveState = null, oauthConfig = {} } = {}) {
   const persist = async () => { if (typeof saveState === 'function') await saveState(state); };
+  const oauthTransactions = createOAuthTransactionStore();
+  const oauthClientIds = oauthConfig && typeof oauthConfig.clientIds === 'object' ? oauthConfig.clientIds : {};
+  const oauthRedirectUris = Array.isArray(oauthConfig?.allowedRedirectUris) ? oauthConfig.allowedRedirectUris : [];
   const server = http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://127.0.0.1');
@@ -427,6 +453,24 @@ export function createSofraServer({ state = createState(), saveState = null } = 
         return json(res, 200, { id: 'usr_anonymous_demo', auth_provider: 'anonymous', locale: 'tr-TR', created_at: '2026-10-14T12:00:00Z' });
       }
       if (method === 'GET' && path === '/v1/auth/status') return json(res, 200, buildAuthStatus());
+      if (method === 'POST' && path === '/v1/auth/authorize') {
+        const input = buildOAuthStartInput(await readJson(req));
+        const clientId = oauthClientIds[input.provider];
+        if (typeof clientId !== 'string' || !clientId || !oauthRedirectUris.length) return json(res, 503, { code: 'auth_not_configured', message: 'OAuth saglayici henuz yapilandirilmadi' });
+        return json(res, 200, oauthTransactions.issue({
+          provider: input.provider,
+          clientId,
+          redirectUri: input.redirect_uri,
+          allowedRedirectUris: oauthRedirectUris,
+          codeChallenge: input.code_challenge,
+          scopes: input.scopes,
+        }));
+      }
+      if (method === 'POST' && path === '/v1/auth/callback') {
+        const input = buildOAuthCallbackInput(await readJson(req));
+        const transaction = oauthTransactions.consume({ provider: input.provider, state: input.state });
+        return json(res, 200, buildOAuthCallbackResult({ transaction, code: input.code, error: input.error }));
+      }
       if (method === 'GET' && path === '/v1/sync/status') return json(res, 200, buildSyncStatus());
       if (method === 'GET' && path === '/v1/notifications/status') return json(res, 200, buildNotificationStatus({ platform: url.searchParams.get('platform') || 'web' }));
       if (method === 'GET' && path === '/v1/billing/status') return json(res, 200, buildBillingStatus());

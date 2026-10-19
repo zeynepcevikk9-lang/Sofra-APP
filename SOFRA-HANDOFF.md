@@ -154,4 +154,10 @@ Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı tran
 - Fit profili, Apple Health/Health Connect, market verisi, token ve hesap kimligi disarida; cloud_sync=false ve persisted=false zorunlu.
 - Yeni dosyalar: SOFRA-SYNC-V1.mjs, SOFRA-SYNC-V1.md, SOFRA-SYNC-CONTRACT-TEST.mjs, SOFRA-SYNC-SERVER-TEST.mjs.
 
+## OAuth transaction siniri v1.49
+
+- POST /v1/auth/authorize provider ayari varsa server-only state ve PKCE ile authorize URL'si uretiyor; allowlist disi redirect reddediliyor.
+- POST /v1/auth/callback state'i tek kullanimlik ve 10 dakikalik transaction olarak dogruluyor; token exchange server_only, session null.
+- Varsayilan sunucuda provider ayari yoksa auth_not_configured donuyor; Google/Apple gercek baglantisi acilmadi.
+
 Her anlamlı değişiklikten sonra kök dosyalarla `SOFRA-TASARIM-PAKETI-v43` klasörünü senkronlayıp zip'i yeniden oluştur. Commit öncesi CI ve release testlerini çalıştır. Logo seçilmeden ana uygulamadaki logo çizimini değiştirme.

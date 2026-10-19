@@ -77,6 +77,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthStatus'
+  /v1/auth/authorize:
+    post:
+      tags: [User]
+      summary: PKCE ve allowlist ile OAuth yetkilendirme URL'si hazirlar
+      operationId: startOAuthAuthorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthAuthorizeRequest'
+      responses:
+        '200':
+          description: Sunucu tarafinda tutulan OAuth transaction ve yetkilendirme URL'si
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthAuthorizeResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '503':
+          description: Saglayici veya client ayari henuz yapilandirilmadi
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/auth/callback:
+    post:
+      tags: [User]
+      summary: OAuth callback state'ini tek kullanimlik dogrular
+      operationId: handleOAuthCallback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthCallbackRequest'
+      responses:
+        '200':
+          description: Token degisimi yapilmadan server-only sonuc
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthCallbackResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/sync/status:
     get:
       tags: [Sync]
@@ -657,6 +703,44 @@ components:
           properties:
             export_endpoint: { type: string }
             delete_endpoint: { type: string }
+    OAuthAuthorizeRequest:
+      type: object
+      additionalProperties: false
+      required: [provider, redirect_uri, code_challenge]
+      properties:
+        provider: { type: string, enum: [google, apple] }
+        redirect_uri: { type: string }
+        code_challenge: { type: string, minLength: 43 }
+        scopes: { type: array, items: { type: string } }
+    OAuthAuthorizeResponse:
+      type: object
+      required: [schema_version, status, provider, expires_at, transaction_storage, authorization]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        status: { type: string, enum: [authorization_ready] }
+        provider: { type: string, enum: [google, apple] }
+        expires_at: { type: string, format: date-time }
+        transaction_storage: { type: string, enum: [server_only] }
+        authorization: { type: object }
+    OAuthCallbackRequest:
+      type: object
+      additionalProperties: false
+      required: [provider, state]
+      properties:
+        provider: { type: string, enum: [google, apple] }
+        state: { type: string, minLength: 32 }
+        code: { type: string, nullable: true }
+        error: { type: string, nullable: true }
+    OAuthCallbackResponse:
+      type: object
+      required: [schema_version, status, provider, token_exchange]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        status: { type: string, enum: [token_exchange_required, provider_error] }
+        provider: { type: string, enum: [google, apple] }
+        authorization_code_present: { type: boolean, nullable: true }
+        token_exchange: { type: string, enum: [server_only] }
+        session: { type: object, nullable: true }
     NotificationStatus:
       type: object
       required: [schema_version, platform, live_permission, permission_status, permission_plan, channels, requires_user_action, privacy]

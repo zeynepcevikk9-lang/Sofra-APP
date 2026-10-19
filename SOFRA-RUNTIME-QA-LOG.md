@@ -348,3 +348,11 @@ Sonuc: Tarif modalinin ileride API'ye baglanmasi icin porsiyon ve miktar karari 
 4. Gecersiz/alakasiz sorgularin bos durum davranisi korunuyor.
 
 Sonuc: Arama, yalnizca birebir Turkce metne bagli olmaktan cikti; kullanici dili ve malzeme es anlamlilari icin ortak bir temel kazandi.
+
+## Tarif adim medya tekrar kontrolu - `?qa=media-v100&demo=empty`
+
+1. Renkli sebze bowl tarifi modalinda 3 adim gorseli yüklendi.
+2. Tarayici DOM kontrolunde 3 gorsel ve 3 benzersiz Unsplash URL'si goruldu.
+3. Algoritma kontrati tum tariflerde ayni tarif icinde tekrar eden `asset_id` olmadigini dogruluyor.
+
+Sonuc: Tarif adimlari tek bir hero fotografini tekrar kullanmiyor; medya kaynagi adim bazinda izlenebilir.

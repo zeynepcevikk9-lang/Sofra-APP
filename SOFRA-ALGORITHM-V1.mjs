@@ -57,7 +57,7 @@ export const recipeStepMedia = Object.freeze({
   recipe_vegetable_bowl: [
     { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1512621776951-a57141f2eefd', alt: 'Yikanan yesillikler' },
     { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1540189549336-e6e99c3679fe', alt: 'Dogranmis sebzeler' },
-    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1512621776951-a57141f2eefd', alt: 'Sebze kasesinin servisi' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1546069901-ba9599a7e63c', alt: 'Sebze kasesinin servisi' },
   ],
   recipe_oven_vegetables: [
     { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1518977676601-b53f82aba655', alt: 'Dilimlenmis patatesler' },
@@ -81,13 +81,13 @@ export const recipeStepMedia = Object.freeze({
   ],
   recipe_avocado_egg_toast: [
     { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1525351484163-7529414344d8', alt: 'Kizarmis ekmek' },
-    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1525351484163-7529414344d8', alt: 'Pismis yumurta' },
-    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1525351484163-7529414344d8', alt: 'Avokadolu yumurta tost' },
+    { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1547592180-85f173990554', alt: 'Pismis yumurta' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1512621776951-a57141f2eefd', alt: 'Avokadolu yumurta tost' },
   ],
   recipe_eggplant_olive_oil: [
     { step: 1, type: 'image', provider: 'unsplash', asset_id: 'photo-1634546865062-ed3eb17643f6', alt: 'Dogranmis patlican' },
     { step: 2, type: 'image', provider: 'unsplash', asset_id: 'photo-1592924357228-91a4daadcfea', alt: 'Domatesli soganli sos' },
-    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1634546865062-ed3eb17643f6', alt: 'Zeytinyagli patlican servisi' },
+    { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1473093295043-cdd812d0e601', alt: 'Zeytinyagli patlican servisi' },
   ],
 });
 

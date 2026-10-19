@@ -138,6 +138,13 @@ Plan v1.43'te `custom_meals` ile katalog disi ogun ekleme destekleniyor. Serbest
 
 Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı transparan PNG olarak `outputs/sofra-logo-v1.png` dosyasına alındı ve ana uygulamanın üst başlığına uygulanıyor. Eski logo v4 sayfası yalnızca karşılaştırma geçmişidir.
 
+## Paylasim siniri v1.47
+
+- POST /v1/share/preview tarif ve plan icin yalnizca public projection uretiyor; preview_only, live_link=false ve persisted=false kapisi testli.
+- Dolap, Fit profili, Apple Health/Health Connect ozeti, market verisi, geri bildirim, hesap kimligi ve custom meal notlari payload disinda tutuluyor.
+- Gercek hesap/OAuth, cihazlar arasi senkronizasyon ve sureli/geri alinabilir public link hala P1 urun isi; bu prototipte acilmadi.
+- Yeni dosyalar: SOFRA-SHARE-V1.mjs, SOFRA-SHARE-V1.md, SOFRA-SHARE-CONTRACT-TEST.mjs, SOFRA-SHARE-SERVER-TEST.mjs.
+
 ## Git notu
 
 Her anlamlı değişiklikten sonra kök dosyalarla `SOFRA-TASARIM-PAKETI-v43` klasörünü senkronlayıp zip'i yeniden oluştur. Commit öncesi CI ve release testlerini çalıştır. Logo seçilmeden ana uygulamadaki logo çizimini değiştirme.

@@ -14,4 +14,10 @@ Bu belge prototipte kullanıcıya anlatılan veri sınırını tanımlar; hukuki
 
 ## Yayın öncesi gereklilik
 
+## Paylaşım önizleme sınırı
+
+- POST /v1/share/preview yalnızca public tarif/plan projection'ı üretir.
+- Dolap, Fit profili, sağlık özeti, market verisi, geri bildirim ve hesap kimliği paylaşım payload'ına girmez.
+- Önizleme kalıcı link oluşturmaz ve veri saklamaz; gerçek link hesap, süre ve geri alma sınırları tanımlanmadan açılmaz.
+
 Bu metin ürün sınırıdır. Gerçek yayından önce hukuki gizlilik politikası, kullanım koşulları, veri saklama süresi, sağlayıcı listesi ve kullanıcı hakları ayrıca hazırlanıp incelenmelidir.

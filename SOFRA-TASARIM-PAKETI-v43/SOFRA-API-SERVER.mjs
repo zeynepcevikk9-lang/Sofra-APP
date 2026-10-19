@@ -13,6 +13,7 @@ import { buildAuthStatus } from './SOFRA-AUTH-V1.mjs';
 import { buildNotificationStatus } from './SOFRA-NOTIFICATIONS-V1.mjs';
 import { buildBillingStatus } from './SOFRA-BILLING-V1.mjs';
 import { recipeContentProvenance, validateRecipeSourceRecord } from './SOFRA-RECIPE-SOURCE-V1.mjs';
+import { buildSharePreview } from './SOFRA-SHARE-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -207,6 +208,18 @@ function recipeCatalogResponse(searchParams) {
     .filter((recipe) => matchesRecipeSearch(recipe, query))
     .map(serializeRecipe);
   return { mode, query, max_minutes: maxMinutes, items };
+}
+
+function buildSharePreviewInput(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) throw validationError('gecersiz paylasim onizleme govdesi');
+  const allowed = ['resource_type', 'recipe_id', 'plan_id', 'include_nutrition'];
+  const unknown = Object.keys(input).filter((key) => !allowed.includes(key));
+  if (unknown.length) throw validationError(`guncellenemeyen paylasim alani: ${unknown[0]}`);
+  if (!['recipe', 'plan'].includes(input.resource_type)) throw validationError('gecersiz resource_type');
+  if (input.resource_type === 'recipe' && (typeof input.recipe_id !== 'string' || !recipeById(input.recipe_id))) throw validationError('gecersiz recipe_id');
+  if (input.resource_type === 'plan' && (typeof input.plan_id !== 'string' || !input.plan_id.trim())) throw validationError('gecersiz plan_id');
+  if (input.include_nutrition != null && typeof input.include_nutrition !== 'boolean') throw validationError('gecersiz include_nutrition');
+  return { ...input, include_nutrition: input.include_nutrition !== false };
 }
 
 function buildRecommendationInput(state, input) {
@@ -426,6 +439,23 @@ export function createSofraServer({ state = createState(), saveState = null } = 
       }
       if (method === 'GET' && path === '/v1/recipes') return json(res, 200, recipeCatalogResponse(url.searchParams));
       if (method === 'POST' && path === '/v1/recipe-sources/validate') return json(res, 200, validateRecipeSourceRecord(await readJson(req)));
+      if (method === 'POST' && path === '/v1/share/preview') {
+        const input = buildSharePreviewInput(await readJson(req));
+        if (input.resource_type === 'recipe') {
+          const recipe = recipeById(input.recipe_id);
+          return json(res, 200, buildSharePreview({
+            resource_type: 'recipe',
+            recipe: serializeRecipe(recipe),
+            detail: serializeRecipeDetail(recipe),
+            includeNutrition: input.include_nutrition,
+          }));
+        }
+        const plan = state.plans.find((item) => item.id === input.plan_id);
+        if (!plan) return json(res, 404, { code: 'not_found', message: 'Plan bulunamadi' });
+        const recipeIds = [plan.main_recipe_id, ...(plan.optional_recipe_ids || [])].filter(Boolean);
+        const recipes = recipeIds.map((id) => recipeById(id)).filter(Boolean).map(serializeRecipe);
+        return json(res, 200, buildSharePreview({ resource_type: 'plan', plan, recipes }));
+      }
       const recipeDetailMatch = path.match(/^\/v1\/recipes\/([^/]+)$/);
       if (method === 'GET' && recipeDetailMatch) {
         const recipe = recipeById(recipeDetailMatch[1]);

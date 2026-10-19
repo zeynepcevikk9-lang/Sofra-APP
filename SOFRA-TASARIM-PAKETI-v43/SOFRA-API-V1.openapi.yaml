@@ -16,6 +16,7 @@ tags:
   - name: Plans
   - name: Shopping
   - name: Market
+  - name: Share
 paths:
   /v1/me:
     get:
@@ -41,6 +42,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataExport'
+  /v1/share/preview:
+    post:
+      tags: [Share]
+      summary: Tarif veya plani private verileri ayiklayarak paylasim onizlemesine cevirir
+      operationId: previewShare
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharePreviewRequest'
+      responses:
+        '200':
+          description: Kalici link olusturmayan public projection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharePreview'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/auth/status:
     get:
       tags: [User]
@@ -783,6 +806,37 @@ components:
             feedback:
               type: array
               items: { type: object }
+    SharePreviewRequest:
+      type: object
+      additionalProperties: false
+      required: [resource_type]
+      properties:
+        resource_type: { type: string, enum: [recipe, plan] }
+        recipe_id: { type: string, nullable: true }
+        plan_id: { type: string, nullable: true }
+        include_nutrition: { type: boolean, default: true }
+    SharePrivacy:
+      type: object
+      required: [pantry_included, health_data_included, fit_profile_included, market_data_included, feedback_included, account_identifiers_included]
+      properties:
+        pantry_included: { type: boolean, enum: [false] }
+        health_data_included: { type: boolean, enum: [false] }
+        fit_profile_included: { type: boolean, enum: [false] }
+        market_data_included: { type: boolean, enum: [false] }
+        feedback_included: { type: boolean, enum: [false] }
+        account_identifiers_included: { type: boolean, enum: [false] }
+    SharePreview:
+      type: object
+      required: [schema_version, share_status, live_link, persisted, public_payload, excluded_private_fields, privacy]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        share_status: { type: string, enum: [preview_only] }
+        live_link: { type: boolean, enum: [false] }
+        persisted: { type: boolean, enum: [false] }
+        public_payload: { type: object }
+        excluded_private_fields: { type: array, items: { type: string } }
+        privacy:
+          $ref: '#/components/schemas/SharePrivacy'
     PantryItemInput:
       type: object
       required: [display_name, stock_state, source]

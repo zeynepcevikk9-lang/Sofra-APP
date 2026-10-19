@@ -7,6 +7,7 @@ assert.ok(apiSpec.includes('ingredient_safety:'), 'tarif detayindaki malzeme guv
 assert.ok(apiSpec.includes('recipe_detail:'), 'oneride tarif detay baglantisi eksik');
 const requiredPaths = [
   '/v1/me:',
+  '/v1/share/preview:',
   '/v1/auth/status:',
   '/v1/notifications/status:',
   '/v1/billing/status:',
@@ -34,6 +35,9 @@ assert.ok(apiSpec.includes('NutritionProvenance'), 'Besin provenance semasi eksi
 assert.ok(apiSpec.includes('ingredient_weighted_per_100g'), 'Besin gram donusum hesap yontemi eksik');
 assert.ok(apiSpec.includes('RecipeSourceValidation'), 'Tarif source validation semasi eksik');
 assert.ok(apiSpec.includes('RecipeContentProvenance'), 'Tarif content provenance semasi eksik');
+assert.ok(apiSpec.includes('SharePreviewRequest'), 'Paylasim onizleme istek semasi eksik');
+assert.ok(apiSpec.includes('SharePreview'), 'Paylasim onizleme yanit semasi eksik');
+assert.ok(apiSpec.includes('SharePrivacy'), 'Paylasim gizlilik semasi eksik');
 assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı eksik');
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
 assert.ok(apiSpec.includes('HealthContext'), 'Fit sağlık kullanım politikası şeması eksik');

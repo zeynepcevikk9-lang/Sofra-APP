@@ -35,6 +35,7 @@ try {
   assert.equal(result.body.items[0].id, 'recipe_eggplant_olive_oil');
   assert.equal(result.body.items[0].fit_verification, 'unverified');
   assert.equal(result.body.items[0].nutrition, null);
+  assert.equal(result.body.items[0].content_provenance, null);
   result = await request('/v1/recipes?query=pasta%20mantar');
   assert.equal(result.response.status, 200);
   assert.deepEqual(result.body.items.map((item) => item.id), ['recipe_pasta_mushroom'], 'cok kelimeli es anlamli arama tek tarifi bulmali');
@@ -114,6 +115,25 @@ try {
 
   result = await request('/v1/health/adapter-status?provider=unknown');
   assert.equal(result.response.status, 422);
+
+  result = await request('/v1/recipe-sources/validate', { method: 'POST', body: JSON.stringify({
+    source_id: 'partner-demo-001', source_type: 'licensed_partner', source_url: 'https://partner.example/recipes/001',
+    attribution: 'Demo partner', license: 'licensed_partner', license_url: 'https://partner.example/license',
+    recipe_revision_id: 'recipe-001-r3', last_verified_at: '2026-10-19T10:00:00Z',
+    ingredients: [{ canonical_name: 'domates', quantity_value: 2, unit: 'adet' }],
+  }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.status, 'verified');
+  assert.equal(result.body.content_provenance.ingredients_status, 'source_bound');
+
+  result = await request('/v1/recipe-sources/validate', { method: 'POST', body: JSON.stringify({
+    source_id: 'bad-001', source_type: 'licensed_partner', source_url: 'https://partner.example/recipes/001',
+    attribution: 'Demo partner', recipe_revision_id: 'recipe-001-r3', last_verified_at: '2026-10-19T10:00:00Z',
+    ingredients: [{ canonical_name: 'domates', quantity_value: 2, unit: 'adet' }],
+  }) });
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.status, 'rejected');
+  assert.equal(result.body.content_provenance, null);
 
   result = await request('/v1/health/permission-plan?provider=unknown');
   assert.equal(result.response.status, 422, 'bilinmeyen sağlık sağlayıcısı kabul edilmemeli');

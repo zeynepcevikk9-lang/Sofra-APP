@@ -12,6 +12,7 @@ import { emptyStoreState, loadStore, saveStore } from './SOFRA-STORE-V1.mjs';
 import { buildAuthStatus } from './SOFRA-AUTH-V1.mjs';
 import { buildNotificationStatus } from './SOFRA-NOTIFICATIONS-V1.mjs';
 import { buildBillingStatus } from './SOFRA-BILLING-V1.mjs';
+import { recipeContentProvenance, validateRecipeSourceRecord } from './SOFRA-RECIPE-SOURCE-V1.mjs';
 
 const json = (res, status, body) => {
   const payload = body == null ? '' : JSON.stringify(body);
@@ -158,6 +159,7 @@ function serializeRecipe(recipe) {
     fit_verification: nutrition.fit_verification,
     nutrition: nutrition.nutrition,
     nutrition_provenance: nutrition.nutrition_provenance || null,
+    content_provenance: recipeContentProvenance(recipe),
     safety: {
       allergens: recipe.safety?.allergens || [],
       verified: recipe.safety?.verified === true,
@@ -386,6 +388,7 @@ function recommendationResponse(state, input) {
     fit_verification: nutrition.fit_verification,
     nutrition: nutrition.nutrition,
     nutrition_provenance: nutrition.nutrition_provenance || null,
+    content_provenance: recipeContentProvenance(top),
     recipe_detail: { ...serializeRecipe(top), ...serializeRecipeDetail(top, input.servings), source: 'catalog_v1' },
   };
 }
@@ -422,6 +425,7 @@ export function createSofraServer({ state = createState(), saveState = null } = 
         return json(res, 200, buildHealthAdapterStatus(url.searchParams.get('provider') || ''));
       }
       if (method === 'GET' && path === '/v1/recipes') return json(res, 200, recipeCatalogResponse(url.searchParams));
+      if (method === 'POST' && path === '/v1/recipe-sources/validate') return json(res, 200, validateRecipeSourceRecord(await readJson(req)));
       const recipeDetailMatch = path.match(/^\/v1\/recipes\/([^/]+)$/);
       if (method === 'GET' && recipeDetailMatch) {
         const recipe = recipeById(recipeDetailMatch[1]);

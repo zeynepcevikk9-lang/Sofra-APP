@@ -135,6 +135,26 @@ paths:
                 $ref: '#/components/schemas/RecipeDetail'
         '404':
           $ref: '#/components/responses/NotFound'
+  /v1/recipe-sources/validate:
+    post:
+      tags: [Recommendations]
+      summary: Tarif kaynak kaydini lisans, atif ve medya sinirlarina gore dogrular
+      operationId: validateRecipeSource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeSourceRecordInput'
+      responses:
+        '200':
+          description: Kaynak kaydi dogrulama sonucu; bu endpoint kayit yapmaz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeSourceValidation'
+        '422':
+          $ref: '#/components/responses/ValidationError'
   /v1/ai/status:
     get:
       tags: [Recommendations]
@@ -656,7 +676,7 @@ components:
             $ref: '#/components/schemas/RecipeCatalogItem'
     RecipeCatalogItem:
       type: object
-      required: [id, title, minutes, ingredients, tags, fit, fit_goals, fit_verification, nutrition, nutrition_provenance, safety]
+      required: [id, title, minutes, ingredients, tags, fit, fit_goals, fit_verification, nutrition, nutrition_provenance, content_provenance, safety]
       properties:
         id: { type: string }
         title: { type: string }
@@ -679,6 +699,10 @@ components:
         nutrition_provenance:
           allOf:
             - $ref: '#/components/schemas/NutritionProvenance'
+          nullable: true
+        content_provenance:
+          allOf:
+            - $ref: '#/components/schemas/RecipeContentProvenance'
           nullable: true
         recipe_detail:
           allOf:
@@ -829,6 +853,72 @@ components:
           enum: [not_connected, connected]
         requires_user_confirmation: { type: boolean }
         auto_saved: { type: boolean }
+    RecipeSourceRecordInput:
+      type: object
+      additionalProperties: false
+      required: [source_id, source_type, source_url, attribution, license, recipe_revision_id, last_verified_at, ingredients]
+      properties:
+        source_id: { type: string, minLength: 1 }
+        source_type: { type: string, enum: [licensed_partner, public_domain, cc_by, editorial_owned] }
+        source_url: { type: string, format: uri, pattern: '^https://' }
+        attribution: { type: string, minLength: 1 }
+        license: { type: string, enum: [public_domain, cc_by, odc_by, licensed_partner] }
+        license_url: { type: string, format: uri, pattern: '^https://', nullable: true }
+        recipe_revision_id: { type: string, minLength: 1 }
+        last_verified_at: { type: string, format: date-time }
+        ingredients:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [canonical_name, quantity_value, unit]
+            properties:
+              canonical_name: { type: string, minLength: 1 }
+              display_name: { type: string, nullable: true }
+              quantity_value: { type: number, exclusiveMinimum: 0 }
+              unit: { type: string, minLength: 1 }
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeMediaProvenance'
+    RecipeMediaProvenance:
+      type: object
+      required: [asset_id, type, source_url, license, attribution]
+      properties:
+        asset_id: { type: string }
+        type: { type: string, enum: [image, video] }
+        source_url: { type: string, format: uri, pattern: '^https://' }
+        license: { type: string, enum: [public_domain, cc_by, odc_by, licensed_partner] }
+        attribution: { type: string }
+    RecipeContentProvenance:
+      type: object
+      required: [source_id, source_type, source_url, attribution, license, license_url, recipe_revision_id, last_verified_at, ingredients_status, media_status, media]
+      properties:
+        source_id: { type: string }
+        source_type: { type: string, enum: [licensed_partner, public_domain, cc_by, editorial_owned] }
+        source_url: { type: string, format: uri }
+        attribution: { type: string }
+        license: { type: string, enum: [public_domain, cc_by, odc_by, licensed_partner] }
+        license_url: { type: string, format: uri, nullable: true }
+        recipe_revision_id: { type: string }
+        last_verified_at: { type: string, format: date-time }
+        ingredients_status: { type: string, enum: [source_bound] }
+        media_status: { type: string, enum: [source_bound, not_bound] }
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeMediaProvenance'
+    RecipeSourceValidation:
+      type: object
+      required: [schema_version, status, errors, content_provenance]
+      properties:
+        schema_version: { type: integer, example: 1 }
+        status: { type: string, enum: [verified, rejected] }
+        errors: { type: array, items: { type: string } }
+        content_provenance:
+          allOf:
+            - $ref: '#/components/schemas/RecipeContentProvenance'
+          nullable: true
     NutritionProvenance:
       type: object
       additionalProperties: false

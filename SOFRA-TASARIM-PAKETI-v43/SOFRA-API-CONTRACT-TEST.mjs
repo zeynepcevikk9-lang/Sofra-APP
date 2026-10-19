@@ -15,6 +15,7 @@ const requiredPaths = [
   '/v1/ai/status:',
   '/v1/health/permission-plan:',
   '/v1/health/adapter-status:',
+  '/v1/recipe-sources/validate:',
   '/v1/pantry:',
   '/v1/pantry/items:',
   '/v1/pantry/items/bulk:',
@@ -31,6 +32,8 @@ assert.ok(apiSpec.includes('HealthAdapterStatus'), 'Health adapter runtime durum
 assert.ok(apiSpec.includes('manual_fallback_available'), 'Health adapter manuel fallback alani eksik');
 assert.ok(apiSpec.includes('NutritionProvenance'), 'Besin provenance semasi eksik');
 assert.ok(apiSpec.includes('ingredient_weighted_per_100g'), 'Besin gram donusum hesap yontemi eksik');
+assert.ok(apiSpec.includes('RecipeSourceValidation'), 'Tarif source validation semasi eksik');
+assert.ok(apiSpec.includes('RecipeContentProvenance'), 'Tarif content provenance semasi eksik');
 assert.ok(apiSpec.includes('health_summary:'), 'Fit sağlık bağlamı alanı eksik');
 assert.ok(apiSpec.includes('health_context:'), 'Fit sağlık bağlamı yanıt alanı eksik');
 assert.ok(apiSpec.includes('HealthContext'), 'Fit sağlık kullanım politikası şeması eksik');

@@ -114,6 +114,12 @@ Fit v1.42'de `POST /v1/recommendations` yanitina `recipe_detail` eklendi. Fit he
 
 Plan v1.43'te `custom_meals` ile katalog disi ogun ekleme destekleniyor. Serbest ogun baslik/not olarak saklaniyor, malzeme veya alisveris urunu varsayilmiyor; kullanici daha sonra isterse tarifi ayri katalog kaydi olarak eklemeli.
 
+## Tarif kaynak provenance v1.46
+
+- `POST /v1/recipe-sources/validate` kaynak URL'si, lisans, atif, revizyon, malzeme olculeri ve medya lisansini dogrular; kayit yapmaz.
+- Gecerli bir kayitta `content_provenance` kaynak ve medya baglamini tasir; eksik kayitta status `rejected` ve provenance `null` doner.
+- Mevcut kataloga henuz gercek partner kaydi baglanmadi; `content_provenance=null` bilincli olarak korunuyor.
+
 ## Besin provenance ve gram donusumu v1.45
 
 - `buildNutritionFromIngredients()` g/kg dogrudan, adet/dilim/paket gibi olculeri yalnizca kaynakli `grams_per_unit` ile hesaplar.

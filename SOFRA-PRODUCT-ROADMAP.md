@@ -656,3 +656,4 @@ Not: Test amacıyla tarayıcıdaki yerel demo dolabına “2 kg soğan” ve “
 - Planim v1.43: Plan API'si katalog disi `custom_meals` ogelerini (slot, baslik, not) kabul ediyor; custom-only plan mumkun, serbest ogunlar alisveris adaylarina malzeme olarak sizdirilmiyor.
 - Health adapter v1.44: `/v1/health/adapter-status` provider bazli baglanti/izin durumunu, kismi izinleri ve manuel Fit fallback'ini tek runtime cevabinda aciga cikartiyor; canli veri yokken `health_context` metrikleri `null` kaliyor.
 - Nutrition v1.45: `buildNutritionFromIngredients()` kaynak kaydi ve lisans zorunlulugu, gram/kg donusumu, kaynakli adet donusumu ve tam malzeme kapsami olmadan kcal/makro yayinlamiyor; provenance API yanitina eklendi.
+- Recipe source v1.46: `POST /v1/recipe-sources/validate` tarif kaynagini, lisansi, atfi, revizyonu, malzeme olculerini ve adim medyasini yayinlamadan once kontrol ediyor; demo katalogda `content_provenance=null` siniri korunuyor.

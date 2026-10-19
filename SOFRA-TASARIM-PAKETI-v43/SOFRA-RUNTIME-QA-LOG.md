@@ -339,3 +339,12 @@ Sonuc: Marka gorseli ve tarif adim medyasi son onizleme URL'sinde birlikte calis
 4. API sunucu, API sozlesmesi, kalicilik, CI smoke ve release check birlikte gecti.
 
 Sonuc: Tarif modalinin ileride API'ye baglanmasi icin porsiyon ve miktar karari deterministik, izlenebilir ve testli hale geldi.
+
+## Arama es anlamli sorgu turu - `?qa=search-v98d&demo=empty`
+
+1. Tarifler ekraninda `pasta mantar` sorgusu tek sonuca, Kremali mantarli makarnaya dondu.
+2. `tomato potato` sorgusu Fırında sebzeli tabak sonucunu verdi; ekranda `1 tarif gösteriliyor.` sayaci gorundu.
+3. API ayni sorgulari `matchesRecipeSearch` ile deterministik eslestiriyor; algoritma ve API server testleri gecti.
+4. Gecersiz/alakasiz sorgularin bos durum davranisi korunuyor.
+
+Sonuc: Arama, yalnizca birebir Turkce metne bagli olmaktan cikti; kullanici dili ve malzeme es anlamlilari icin ortak bir temel kazandi.

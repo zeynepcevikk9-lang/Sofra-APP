@@ -18,6 +18,21 @@ export const catalog = [
   { id: 'recipe_eggplant_olive_oil', title: 'Zeytinyağlı patlıcan', mins: 30, emoji: '🍆', ingredients: ['patlıcan', 'domates', 'soğan'], tags: ['sofra', 'mevsim', 'sebze'], fit: true, fitGoals: ['balanced', 'lose'], safety: { allergens: [], verified: false, crossContamination: 'unknown' } },
 ];
 
+const searchAliasGroups = Object.freeze([
+  ['domates', 'domatesli', 'tomat', 'tomato'],
+  ['patlican', 'patlicanli', 'eggplant', 'aubergine'],
+  ['yogurt', 'yogurtlu', 'yoğurt'],
+  ['makarna', 'pasta'],
+  ['mantar', 'mantarli', 'mushroom'],
+  ['patates', 'potato'],
+  ['yumurta', 'egg'],
+  ['sogan', 'onion'],
+  ['marul', 'lettuce'],
+  ['roka', 'arugula'],
+  ['elma', 'apple'],
+  ['avokado', 'avocado'],
+]);
+
 // Tarif metni ayrı tutulur: öneri sıralaması bu içeriğe bağımlı değildir;
 // besin ve alerjen doğrulaması yapılmadan kesin sağlık iddiası üretilmez.
 export const recipeDetails = Object.freeze({
@@ -75,6 +90,18 @@ export const recipeStepMedia = Object.freeze({
     { step: 3, type: 'image', provider: 'unsplash', asset_id: 'photo-1634546865062-ed3eb17643f6', alt: 'Zeytinyagli patlican servisi' },
   ],
 });
+
+export function matchesRecipeSearch(recipe, query) {
+  const tokens = normalize(query).split(/\s+/).filter(Boolean);
+  if (!tokens.length) return true;
+  const haystack = [recipe.title, ...(recipe.ingredients || []), ...(recipe.tags || [])]
+    .map(normalize)
+    .join(' ');
+  return tokens.every((token) => {
+    const aliases = searchAliasGroups.find((group) => group.some((alias) => normalize(alias) === token)) || [token];
+    return aliases.some((alias) => haystack.includes(normalize(alias)));
+  });
+}
 
 export function normalize(value) {
   return String(value ?? '')

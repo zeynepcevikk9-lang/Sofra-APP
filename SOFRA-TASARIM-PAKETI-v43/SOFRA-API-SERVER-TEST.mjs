@@ -35,6 +35,12 @@ try {
   assert.equal(result.body.items[0].id, 'recipe_eggplant_olive_oil');
   assert.equal(result.body.items[0].fit_verification, 'unverified');
   assert.equal(result.body.items[0].nutrition, null);
+  result = await request('/v1/recipes?query=pasta%20mantar');
+  assert.equal(result.response.status, 200);
+  assert.deepEqual(result.body.items.map((item) => item.id), ['recipe_pasta_mushroom'], 'cok kelimeli es anlamli arama tek tarifi bulmali');
+  result = await request('/v1/recipes?query=tomato%20potato');
+  assert.equal(result.response.status, 200);
+  assert.ok(result.body.items.some((item) => item.id === 'recipe_oven_vegetables'), 'Ingilizce malzeme aramasi tarif bulmali');
   result = await request('/v1/recipes/recipe_eggplant_olive_oil');
   assert.equal(result.response.status, 200);
   assert.equal(result.body.title, 'Zeytinyağlı patlıcan');

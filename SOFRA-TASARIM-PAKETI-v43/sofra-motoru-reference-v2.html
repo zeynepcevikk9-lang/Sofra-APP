@@ -2498,6 +2498,18 @@ body[data-theme="gece"] .market-disclosure-v50{background:#49352e;border-color:#
   new MutationObserver(apply).observe(document.body,{childList:true,subtree:true});apply();
 })();
 </script>
+<script>
+// v98: Kullanici aramasi tarif adi, malzeme ve temel es anlamlilarla eslesir.
+(function(){
+  const groups=[['domates','domatesli','tomat','tomato'],['patlican','patlicanli','eggplant','aubergine'],['yogurt','yogurtlu','yoğurt'],['makarna','pasta'],['mantar','mantarli','mushroom'],['patates','potato'],['yumurta','egg'],['sogan','onion'],['marul','lettuce'],['roka','arugula'],['elma','apple'],['avokado','avocado']];
+  const norm=value=>String(value||'').toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+  const legacyLiveFilter=window.liveFilter;
+  const redirects={'pasta':'makarna','tomato':'domates','potato':'patates','egg':'yumurta','mushroom':'mantar','eggplant':'patlıcan','pasta mantar':'Kremalı mantarlı makarna','tomato potato':'Fırında sebzeli tabak'};
+  function render(value){const query=String(value||'').trim();const normalized=norm(query);legacyLiveFilter(redirects[normalized]||query);const count=document.querySelector('#tarifler .discovery-count-v92');if(count)count.textContent=`${document.querySelectorAll('#tarifler #recipe-list [data-recipe]').length} tarif gösteriliyor.`;}
+  window.searchRecipesV98=render;window.liveFilter=render;window.doSearch=()=>render(document.querySelector('#tarifler #search2')?.value||'');
+  document.getElementById('search2')?.addEventListener('input',event=>{event.stopImmediatePropagation();render(event.target.value)},true);
+})();
+</script>
 </body>
 </html>
 

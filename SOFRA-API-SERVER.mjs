@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { catalog, normalize as normalizeRecipeText, recipeDetails, recipeStepMedia, recommend } from './SOFRA-ALGORITHM-V1.mjs';
+import { catalog, matchesRecipeSearch, normalize as normalizeRecipeText, recipeDetails, recipeStepMedia, recommend } from './SOFRA-ALGORITHM-V1.mjs';
 import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARKET-V1.mjs';
 import { canonicalizeIngredient, parsePantryNote, parseQuantityText } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
@@ -199,11 +199,7 @@ function recipeCatalogResponse(searchParams) {
   const items = catalog
     .filter((recipe) => mode === 'sofra' || (mode === 'fit' ? recipe.fit === true : recipe.tags.includes('tatli')))
     .filter((recipe) => maxMinutes == null || recipe.mins <= maxMinutes)
-    .filter((recipe) => {
-      if (!query) return true;
-      const haystack = [recipe.title, ...recipe.ingredients, ...recipe.tags].map(normalizeRecipeText).join(' ');
-      return haystack.includes(query);
-    })
+    .filter((recipe) => matchesRecipeSearch(recipe, query))
     .map(serializeRecipe);
   return { mode, query, max_minutes: maxMinutes, items };
 }

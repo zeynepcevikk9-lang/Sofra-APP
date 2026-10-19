@@ -56,3 +56,4 @@ Bu dosya karar günlüğüdür; canlı bağlantı, gerçek sağlık izni, market
 - Profil icinde cihazda kaydedilen tarifleri listeleme, kaldigin adimi gosterme ve kayittan cikarma eklendi.
 - Tarif detayinda porsiyon secici, miktar olcekleme ve "yanina ne gider" karti eklendi; dogrulanmamis besin degeri bilincli olarak gosterilmiyor.
 - Tarif detayinda alerjen etiketi, metadata dogrulama durumu ve gluten icin capraz bulas bilinmiyorsa acik uyari gosterimi eklendi; guvenli iddiasi uretilmiyor.
+- v1.38 ile porsiyon olcekleme ve kesirli adet parse'i API sozlesmesine alindi; v1.39 ile es anlamli cok kelimeli arama API ve frontend'de test edildi. Gercek lisansli veri kaynagi ve dogrulanmis besin/alerjen icerigi hala P0 acigidir.

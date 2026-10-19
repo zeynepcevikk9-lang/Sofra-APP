@@ -104,6 +104,8 @@ Tarayıcıda ayrıca 390px genişlikte şu akışlar kontrol edilmeli: Sofra →
 
 Tarif detay API'si `?servings=N` parametresini destekliyor. `ingredients_detail` miktarlari istenen porsiyona gore olcekleniyor; yanitta `base_servings` ve `scale_factor` hesap izlenebilirligini koruyor. Kesirli adetler ve gecersiz porsiyon girdileri testli.
 
+Arama v1.39'da API ve iki frontend ayni temel es anlamli arama kararini kullaniyor. `pasta mantar` ve `tomato potato` tarayici turunda dogrulandi; statik frontend icin redirect katmani, API icin `matchesRecipeSearch` bulunuyor.
+
 ## Logo durumu
 
 Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı transparan PNG olarak `outputs/sofra-logo-v1.png` dosyasına alındı ve ana uygulamanın üst başlığına uygulanıyor. Eski logo v4 sayfası yalnızca karşılaştırma geçmişidir.

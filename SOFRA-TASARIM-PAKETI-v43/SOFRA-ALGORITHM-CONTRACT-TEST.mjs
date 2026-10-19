@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
-import { expiryBoost, normalize, recommend, recentAddBoost } from './SOFRA-ALGORITHM-V1.mjs';
+import { expiryBoost, matchesRecipeSearch, normalize, recommend, recentAddBoost } from './SOFRA-ALGORITHM-V1.mjs';
 
 assert.equal(normalize('Ispanak'), 'ispanak', 'Turkce I/ı kanonik ada inmeli');
 assert.equal(normalize('Çölyak'), 'colyak', 'Turkce aksanlar kanonik ada inmeli');
+assert.equal(matchesRecipeSearch({ title: 'Kremali mantarli makarna', ingredients: ['mantar', 'makarna'], tags: ['sofra'] }, 'pasta mantar'), true, 'es anlamli cok kelimeli arama eslesmeli');
+assert.equal(matchesRecipeSearch({ title: 'Firinda sebzeli tabak', ingredients: ['patates', 'domates'], tags: ['sofra'] }, 'tomato potato'), true, 'Ingilizce malzeme es anlamlilari eslesmeli');
+assert.equal(matchesRecipeSearch({ title: 'Zeytinyagli patlican', ingredients: ['patlican'], tags: ['sofra'] }, 'mantar'), false, 'alakasiz malzeme aramasi eslesmemeli');
 
 const now = new Date('2026-10-15T12:00:00.000Z');
 const inventory = [

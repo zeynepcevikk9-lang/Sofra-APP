@@ -5,7 +5,7 @@ import { canonicalizeIngredient, parsePantryNote, parseQuantityText } from './SO
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { buildHealthAdapterStatus } from './SOFRA-HEALTH-ADAPTERS-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
-import { inspectIngredientSafety, normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
+import { inspectIngredientSafety, normalizeSafetyProfile, recipeSafetyProvenance, validateSafetySourceRecord, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
 import { AI_SCHEMA_VERSION, AI_TASKS } from './SOFRA-AI-V1.mjs';
 import { emptyStoreState, loadStore, saveStore } from './SOFRA-STORE-V1.mjs';
@@ -163,6 +163,7 @@ function serializeRecipe(recipe) {
     nutrition: nutrition.nutrition,
     nutrition_provenance: nutrition.nutrition_provenance || null,
     content_provenance: recipeContentProvenance(recipe),
+    safety_provenance: recipeSafetyProvenance(recipe),
     safety: {
       allergens: recipe.safety?.allergens || [],
       verified: recipe.safety?.verified === true,
@@ -493,6 +494,7 @@ export function createSofraServer({ state = createState(), saveState = null, oau
       }
       if (method === 'GET' && path === '/v1/recipes') return json(res, 200, recipeCatalogResponse(url.searchParams));
       if (method === 'POST' && path === '/v1/recipe-sources/validate') return json(res, 200, validateRecipeSourceRecord(await readJson(req)));
+      if (method === 'POST' && path === '/v1/safety-sources/validate') return json(res, 200, validateSafetySourceRecord(await readJson(req)));
       if (method === 'POST' && path === '/v1/share/preview') {
         const input = buildSharePreviewInput(await readJson(req));
         if (input.resource_type === 'recipe') {

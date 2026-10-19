@@ -160,4 +160,10 @@ Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı tran
 - POST /v1/auth/callback state'i tek kullanimlik ve 10 dakikalik transaction olarak dogruluyor; token exchange server_only, session null.
 - Varsayilan sunucuda provider ayari yoksa auth_not_configured donuyor; Google/Apple gercek baglantisi acilmadi.
 
+## Safety provenance siniri v1.50
+
+- POST /v1/safety-sources/validate kaynak, lisans, revizyon, malzeme bazli alerjen kaniti ve capraz bulas kapsamiyla safety kaydini dogruluyor.
+- Eksik veya candidate/unmapped metadata rejected; mevcut demo katalogda safety_provenance null kalmaya devam ediyor.
+- Colyak icin cross_contamination=controlled kapsami olmadan tarif eligible sayilmiyor; bu tibbi onay degil, bilinmeyeni guvenli saymayan urun kapisi.
+
 Her anlamlı değişiklikten sonra kök dosyalarla `SOFRA-TASARIM-PAKETI-v43` klasörünü senkronlayıp zip'i yeniden oluştur. Commit öncesi CI ve release testlerini çalıştır. Logo seçilmeden ana uygulamadaki logo çizimini değiştirme.

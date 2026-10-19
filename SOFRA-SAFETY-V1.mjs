@@ -18,6 +18,8 @@ export const SAFETY_KEYS = Object.freeze([
 ]);
 
 const safetyKeySet = new Set(SAFETY_KEYS);
+const safetySourceTypes = new Set(['licensed_partner', 'public_database', 'editorial_owned']);
+const safetyLicenses = new Set(['public_domain', 'cc_by', 'odc_by', 'licensed_partner']);
 
 const ingredientAllergenHints = new Map([
   ['makarna', ['gluten']],
@@ -122,4 +124,79 @@ export function assessRecipeSafety(recipe, profile = {}) {
     conflicts: [],
     reason: null,
   };
+}
+
+function validText(value) {
+  return typeof value === 'string' && value.trim() ? value.trim() : null;
+}
+
+function validHttps(value) {
+  return typeof value === 'string' && /^https:\/\//.test(value);
+}
+
+function validDate(value) {
+  return typeof value === 'string' && !Number.isNaN(new Date(value).getTime());
+}
+
+export function validateSafetySourceRecord(input = {}) {
+  const errors = [];
+  const sourceId = validText(input.source_id);
+  const sourceType = validText(input.source_type);
+  const sourceUrl = validText(input.source_url);
+  const attribution = validText(input.attribution);
+  const license = validText(input.license);
+  const licenseUrl = validText(input.license_url);
+  const revisionId = validText(input.revision_id);
+  const lastVerifiedAt = validText(input.last_verified_at);
+  const crossContamination = validText(input.cross_contamination);
+  if (!sourceId) errors.push('source_id_required');
+  if (!sourceType || !safetySourceTypes.has(sourceType)) errors.push('source_type_invalid');
+  if (!validHttps(sourceUrl)) errors.push('https_source_required');
+  if (!attribution) errors.push('attribution_required');
+  if (!license || !safetyLicenses.has(license)) errors.push('license_invalid');
+  if (license !== 'public_domain' && !validHttps(licenseUrl)) errors.push('license_url_required');
+  if (!revisionId) errors.push('revision_id_required');
+  if (!validDate(lastVerifiedAt)) errors.push('last_verified_at_required');
+  if (input.verified !== true) errors.push('verified_required');
+  if (!['controlled', 'unknown'].includes(crossContamination)) errors.push('cross_contamination_invalid');
+  if (!Array.isArray(input.ingredients) || !input.ingredients.length) errors.push('ingredients_required');
+  const seen = new Set();
+  const ingredients = Array.isArray(input.ingredients) ? input.ingredients.map((item, index) => {
+    const canonicalName = normalizeIngredientKey(item?.canonical_name);
+    const allergens = Array.isArray(item?.allergens) ? [...new Set(item.allergens)] : [];
+    const evidenceStatus = validText(item?.evidence_status);
+    const ingredientCrossContamination = validText(item?.cross_contamination);
+    if (!canonicalName) errors.push('ingredient_' + index + '_canonical_name_required');
+    if (seen.has(canonicalName)) errors.push('ingredient_' + index + '_duplicate');
+    seen.add(canonicalName);
+    if (allergens.some((key) => !safetyKeySet.has(key))) errors.push('ingredient_' + index + '_allergen_invalid');
+    if (evidenceStatus !== 'verified') errors.push('ingredient_' + index + '_verification_required');
+    if (item?.label_check_required !== true) errors.push('ingredient_' + index + '_label_check_required');
+    if (!['controlled', 'unknown'].includes(ingredientCrossContamination)) errors.push('ingredient_' + index + '_cross_contamination_invalid');
+    return { canonical_name: canonicalName, allergens, evidence_status: evidenceStatus, label_check_required: true, cross_contamination: ingredientCrossContamination };
+  }) : [];
+  if (crossContamination === 'controlled' && ingredients.some((item) => item.cross_contamination !== 'controlled')) errors.push('cross_contamination_coverage_incomplete');
+  if (errors.length) return { schema_version: 1, status: 'rejected', errors, safety_provenance: null };
+  return {
+    schema_version: 1,
+    status: 'verified',
+    errors: [],
+    safety_provenance: {
+      source_id: sourceId,
+      source_type: sourceType,
+      source_url: sourceUrl,
+      attribution,
+      license,
+      license_url: licenseUrl,
+      revision_id: revisionId,
+      last_verified_at: lastVerifiedAt,
+      cross_contamination: crossContamination,
+      ingredients,
+    },
+  };
+}
+
+export function recipeSafetyProvenance(recipe = {}) {
+  const result = validateSafetySourceRecord(recipe.safety_source || {});
+  return result.status === 'verified' ? result.safety_provenance : null;
 }

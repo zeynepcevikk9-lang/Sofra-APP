@@ -39,6 +39,7 @@ Sofra, “Bugün ne pişirsem?” sorusunu kullanıcının zamanı, tercihi, Fit
 - Paylaşım sınırı: `SOFRA-SHARE-V1.md` · `node SOFRA-SHARE-CONTRACT-TEST.mjs` · `node SOFRA-SHARE-SERVER-TEST.mjs` (public projection; dolap/Fit/sağlık/market/hesap verisi kapalı, canlı link yok)
 - Senkron sınırı: `SOFRA-SYNC-V1.md` · `node SOFRA-SYNC-CONTRACT-TEST.mjs` · `node SOFRA-SYNC-SERVER-TEST.mjs` (açık onaylı projection; hesap yokken bulut/cihazlar arası aktarım kapalı)
 - OAuth transaction sınırı: `SOFRA-AUTH-TRANSACTION-V1.md` · `node SOFRA-AUTH-TRANSACTION-CONTRACT-TEST.mjs` · `node SOFRA-AUTH-TRANSACTION-SERVER-TEST.mjs` (PKCE/state/redirect allowlist; token exchange ve gerçek oturum kapalı)
+- Safety provenance sınırı: `node SOFRA-SAFETY-CONTRACT-TEST.mjs` · `node SOFRA-SAFETY-SERVER-TEST.mjs` (kaynak/lisans/malzeme alerjen doğrulaması; çölyak için çapraz bulaş belirsizliği güvenli sayılmaz)
 - Analitik veri sınırı: `SOFRA-ANALYTICS-V1.md` · `node SOFRA-ANALYTICS-CONTRACT-TEST.mjs` (izinli olaylar; sağlık, kişisel ve serbest metin alanları kapalı)
 
 Not: Tek dosyalık HTML önizlemesi internetsiz açılabilsin diye motorun tarayıcı kopyasını içerir; backend sözleşme testi ise ortak `SOFRA-ALGORITHM-V1.mjs` modülünü kullanır. Gerçek uygulamada bu modül sunucu tarafının tek kaynağı olarak korunmalıdır.

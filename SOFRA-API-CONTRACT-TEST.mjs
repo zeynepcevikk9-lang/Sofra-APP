@@ -21,6 +21,7 @@ const requiredPaths = [
   '/v1/health/permission-plan:',
   '/v1/health/adapter-status:',
   '/v1/recipe-sources/validate:',
+  '/v1/safety-sources/validate:',
   '/v1/pantry:',
   '/v1/pantry/items:',
   '/v1/pantry/items/bulk:',
@@ -39,6 +40,9 @@ assert.ok(apiSpec.includes('NutritionProvenance'), 'Besin provenance semasi eksi
 assert.ok(apiSpec.includes('ingredient_weighted_per_100g'), 'Besin gram donusum hesap yontemi eksik');
 assert.ok(apiSpec.includes('RecipeSourceValidation'), 'Tarif source validation semasi eksik');
 assert.ok(apiSpec.includes('RecipeContentProvenance'), 'Tarif content provenance semasi eksik');
+assert.ok(apiSpec.includes('SafetySourceRecordInput'), 'Safety source validation istek semasi eksik');
+assert.ok(apiSpec.includes('SafetySourceValidation'), 'Safety source validation yanit semasi eksik');
+assert.ok(apiSpec.includes('SafetyProvenance'), 'Safety provenance semasi eksik');
 assert.ok(apiSpec.includes('SharePreviewRequest'), 'Paylasim onizleme istek semasi eksik');
 assert.ok(apiSpec.includes('SharePreview'), 'Paylasim onizleme yanit semasi eksik');
 assert.ok(apiSpec.includes('SharePrivacy'), 'Paylasim gizlilik semasi eksik');

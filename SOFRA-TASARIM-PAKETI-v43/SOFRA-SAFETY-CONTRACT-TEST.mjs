@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { catalog, recommend } from './SOFRA-ALGORITHM-V1.mjs';
-import { assessRecipeSafety, inspectIngredientSafety, normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
+import { assessRecipeSafety, inspectIngredientSafety, normalizeSafetyProfile, recipeSafetyProvenance, validateSafetySourceRecord, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 
 const profile = normalizeSafetyProfile({ selected: ['gluten', 'gluten', 'not-a-real-key'] });
 assert.deepEqual(profile.selected, ['gluten']);
@@ -27,6 +27,42 @@ const verifiedRecipe = {
 };
 assert.equal(assessRecipeSafety(verifiedRecipe, { selected: ['gluten'] }).status, 'eligible');
 assert.equal(assessRecipeSafety({ safety: { allergens: [], verified: true, crossContamination: 'unknown' } }, { selected: ['gluten'] }).reason, 'cross_contamination_unknown');
+
+const verifiedSource = validateSafetySourceRecord({
+  source_id: 'safety-partner-001',
+  source_type: 'licensed_partner',
+  source_url: 'https://partner.example/safety/001',
+  attribution: 'Demo safety partner',
+  license: 'licensed_partner',
+  license_url: 'https://partner.example/license',
+  revision_id: 'safety-001-r2',
+  last_verified_at: '2026-10-19T10:00:00Z',
+  verified: true,
+  cross_contamination: 'controlled',
+  ingredients: [
+    { canonical_name: 'domates', allergens: [], evidence_status: 'verified', label_check_required: true, cross_contamination: 'controlled' },
+    { canonical_name: 'zeytinyagi', allergens: [], evidence_status: 'verified', label_check_required: true, cross_contamination: 'controlled' },
+  ],
+});
+assert.equal(verifiedSource.status, 'verified');
+assert.equal(verifiedSource.safety_provenance.cross_contamination, 'controlled');
+assert.equal(recipeSafetyProvenance({ safety_source: { source_id: 'missing' } }), null);
+const incompleteSource = validateSafetySourceRecord({
+  source_id: 'safety-bad',
+  source_type: 'licensed_partner',
+  source_url: 'https://partner.example/safety/bad',
+  attribution: 'Demo',
+  license: 'licensed_partner',
+  license_url: 'https://partner.example/license',
+  revision_id: 'r1',
+  last_verified_at: '2026-10-19T10:00:00Z',
+  verified: true,
+  cross_contamination: 'controlled',
+  ingredients: [{ canonical_name: 'domates', allergens: [], evidence_status: 'candidate', label_check_required: true, cross_contamination: 'unknown' }],
+});
+assert.equal(incompleteSource.status, 'rejected');
+assert.ok(incompleteSource.errors.includes('ingredient_0_verification_required'));
+assert.ok(incompleteSource.errors.includes('cross_contamination_coverage_incomplete'));
 
 const unrestricted = recommend({ mode: 'sofra', inventory: [] });
 const restricted = recommend({ mode: 'sofra', inventory: [], safetyProfile: { selected: ['gluten'] } });

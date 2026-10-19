@@ -367,6 +367,7 @@ function recommendationResponse(state, input) {
     fit_target: fitTarget,
     fit_verification: nutrition.fit_verification,
     nutrition: nutrition.nutrition,
+    recipe_detail: { ...serializeRecipe(top), ...serializeRecipeDetail(top, input.servings), source: 'catalog_v1' },
   };
 }
 

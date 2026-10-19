@@ -59,3 +59,4 @@ Bu dosya karar günlüğüdür; canlı bağlantı, gerçek sağlık izni, market
 - v1.38 ile porsiyon olcekleme ve kesirli adet parse'i API sozlesmesine alindi; v1.39 ile es anlamli cok kelimeli arama API ve frontend'de test edildi. Gercek lisansli veri kaynagi ve dogrulanmis besin/alerjen icerigi hala P0 acigidir.
 - v1.40 ile tarif adim medyasi ayni tarif icinde benzersiz varliklara ayrildi ve modalda tarayici testi yapildi; kaynak lisansi ve gercek tarif editoryal baglantisi hala P0 acigidir.
 - v1.41 ile malzeme bazli aday alerjen ve etiket kontrolu alanlari API detayina eklendi; bu, uretici/recete kaynagi dogrulanana kadar guvenli iddiasi uretmez.
+- v1.42 ile Fit onerisi secilen tarif detayina baglandi; dogrulanmis besin verisi olmadigi durumda kcal/makro iddiasi yine yayinlanmiyor.

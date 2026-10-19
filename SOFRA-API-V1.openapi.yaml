@@ -655,6 +655,10 @@ components:
             carbs_g: { type: number, minimum: 0 }
             fat_g: { type: number, minimum: 0 }
             fiber_g: { type: number, minimum: 0 }
+        recipe_detail:
+          allOf:
+            - $ref: '#/components/schemas/RecipeDetail'
+          nullable: true
         safety:
           type: object
           required: [allergens, verified, cross_contamination]

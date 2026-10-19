@@ -110,6 +110,8 @@ Tarif adim medyasi v1.40'da ayni tarif icindeki tekrarlar kaldirildi. Renkli seb
 
 Safety v1.41'de tarif detay API'si `ingredient_safety` ile malzeme bazli aday alerjenleri donuyor. `candidate` ve `unmapped` durumlari bilinmeyen veriyi guvenli varsaymiyor; her kayitta etiket kontrolu ve capraz bulas belirsizligi korunuyor.
 
+Fit v1.42'de `POST /v1/recommendations` yanitina `recipe_detail` eklendi. Fit hedefi, secilen tarif, istenen porsiyon, olculu malzemeler ve malzeme guvenlik notlari artik ayni backend cevabinda bulunuyor.
+
 ## Logo durumu
 
 Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı transparan PNG olarak `outputs/sofra-logo-v1.png` dosyasına alındı ve ana uygulamanın üst başlığına uygulanıyor. Eski logo v4 sayfası yalnızca karşılaştırma geçmişidir.

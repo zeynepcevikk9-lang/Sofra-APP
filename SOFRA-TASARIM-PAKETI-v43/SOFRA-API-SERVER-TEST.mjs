@@ -162,6 +162,10 @@ try {
   assert.equal(result.response.status, 200);
   assert.equal(result.body.recipe_id, 'recipe_oven_vegetables');
   assert.equal(result.body.expiry_boost, true);
+  assert.equal(result.body.recipe_detail.id, result.body.recipe_id);
+  assert.equal(result.body.recipe_detail.servings, 4);
+  assert.equal(result.body.recipe_detail.base_servings, 2);
+  assert.equal(result.body.recipe_detail.ingredients_detail[0].quantity_text, '6 adet');
 
   result = await request('/v1/recommendations', { method: 'POST', body: JSON.stringify({ mode: 'unknown', servings: 4 }) });
   assert.equal(result.response.status, 422, 'geçersiz mod kabul edilmemeli');
@@ -197,6 +201,9 @@ try {
   assert.equal(result.body.fit_target.ready, true);
   assert.equal(result.body.fit_target.targetKcal, 1515);
   assert.equal(result.body.fit_target.approximate, true);
+  assert.equal(result.body.recipe_detail.id, result.body.recipe_id);
+  assert.equal(result.body.recipe_detail.servings, 4);
+  assert.ok(Array.isArray(result.body.recipe_detail.ingredient_safety));
   assert.equal(result.body.fit_goal_boost, 20, 'Fit hedefi öneri puanına yansımadı');
   assert.equal(result.body.reason_code, 'fit_goal', 'Fit hedefi açıklaması dönmedi');
 

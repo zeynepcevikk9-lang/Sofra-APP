@@ -365,3 +365,11 @@ Sonuc: Tarif adimlari tek bir hero fotografini tekrar kullanmiyor; medya kaynagi
 4. API, Safety ve CI testleri gecti.
 
 Sonuc: Alerji/colyak akisi malzeme seviyesinde daha acik; yine de gercek uretici etiketi ve lisansli besin/alerjen kaynagi P0 olarak acik.
+
+## Fit onerisi tarif baglantisi - `SOFRA-API-SERVER-TEST.mjs`
+
+1. Sofra onerisi 4 kisilik istendiginde `recipe_detail` ayni tarif kimligiyle dondu ve 3 adet patates 6 adede olceklendi.
+2. Fit onerisi hedef baglami ile birlikte `recipe_detail`, `ingredient_safety` ve porsiyon alanlarini tasiyor.
+3. API sozlesmesi ve server testi gecti; dogrulanmamis besin degeri hala `null` olarak korunuyor.
+
+Sonuc: Fit kartindan tarif detayina gecis icin backend yaniti tekil ve tutarli hale geldi.

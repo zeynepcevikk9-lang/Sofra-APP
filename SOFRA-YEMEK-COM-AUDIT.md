@@ -58,3 +58,4 @@ Bu dosya karar günlüğüdür; canlı bağlantı, gerçek sağlık izni, market
 - Tarif detayinda alerjen etiketi, metadata dogrulama durumu ve gluten icin capraz bulas bilinmiyorsa acik uyari gosterimi eklendi; guvenli iddiasi uretilmiyor.
 - v1.38 ile porsiyon olcekleme ve kesirli adet parse'i API sozlesmesine alindi; v1.39 ile es anlamli cok kelimeli arama API ve frontend'de test edildi. Gercek lisansli veri kaynagi ve dogrulanmis besin/alerjen icerigi hala P0 acigidir.
 - v1.40 ile tarif adim medyasi ayni tarif icinde benzersiz varliklara ayrildi ve modalda tarayici testi yapildi; kaynak lisansi ve gercek tarif editoryal baglantisi hala P0 acigidir.
+- v1.41 ile malzeme bazli aday alerjen ve etiket kontrolu alanlari API detayina eklendi; bu, uretici/recete kaynagi dogrulanana kadar guvenli iddiasi uretmez.

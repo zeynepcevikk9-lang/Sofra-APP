@@ -52,6 +52,11 @@ try {
   assert.equal(result.body.ingredients_detail[0].quantity_text, '2 adet');
   assert.equal(result.body.ingredients_detail[0].quantity_value, 2);
   assert.equal(result.body.ingredients_detail[0].unit, 'adet');
+  result = await request('/v1/recipes/recipe_pasta_mushroom');
+  assert.equal(result.response.status, 200);
+  assert.deepEqual(result.body.ingredient_safety[0].potential_allergens, ['gluten']);
+  assert.deepEqual(result.body.ingredient_safety[2].potential_allergens, ['milk']);
+  assert.equal(result.body.ingredient_safety.every((item) => item.label_check_required), true);
   assert.equal(result.body.step_media.length, 3);
   assert.equal(result.body.step_media[0].type, 'image');
   assert.equal(result.body.step_media[0].provider, 'unsplash');

@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { catalog, recommend, recipeDetails } from './SOFRA-ALGORITHM-V1.mjs';
 
 const apiSpec = readFileSync(new URL('./SOFRA-API-V1.openapi.yaml', import.meta.url), 'utf8');
+assert.ok(apiSpec.includes('ingredient_safety:'), 'tarif detayindaki malzeme guvenlik alani eksik');
 const requiredPaths = [
   '/v1/me:',
   '/v1/auth/status:',

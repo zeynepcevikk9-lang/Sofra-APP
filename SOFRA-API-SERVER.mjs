@@ -4,7 +4,7 @@ import { buildMarketHandoff, buildMarketRequest, rankQuotes } from './SOFRA-MARK
 import { canonicalizeIngredient, parsePantryNote, parseQuantityText } from './SOFRA-INGEST-V1.mjs';
 import { buildHealthPermissionPlan, fitContext, normalizeHealthSummary } from './SOFRA-HEALTH-V1.mjs';
 import { recipeNutrition } from './SOFRA-NUTRITION-V1.mjs';
-import { normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
+import { inspectIngredientSafety, normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 import { calculateFitTarget, normalizeFitProfile } from './SOFRA-FIT-V1.mjs';
 import { AI_SCHEMA_VERSION, AI_TASKS } from './SOFRA-AI-V1.mjs';
 import { emptyStoreState, loadStore, saveStore } from './SOFRA-STORE-V1.mjs';
@@ -174,6 +174,7 @@ function serializeRecipeDetail(recipe, requestedServings = null) {
     base_servings: baseServings,
     scale_factor: Number(scaleFactor.toFixed(4)),
     ingredients_detail: (detail.ingredients || []).map((entry) => serializeIngredientDetail(entry, scaleFactor)),
+    ingredient_safety: inspectIngredientSafety(detail.ingredients || []),
     instructions: detail.instructions || [],
     step_media: (recipeStepMedia[recipe.id] || []).map((media) => ({ ...media })),
     tip: detail.tip || null,

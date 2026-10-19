@@ -1,11 +1,16 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { catalog, recommend } from './SOFRA-ALGORITHM-V1.mjs';
-import { assessRecipeSafety, normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
+import { assessRecipeSafety, inspectIngredientSafety, normalizeSafetyProfile, SAFETY_KEYS } from './SOFRA-SAFETY-V1.mjs';
 
 const profile = normalizeSafetyProfile({ selected: ['gluten', 'gluten', 'not-a-real-key'] });
 assert.deepEqual(profile.selected, ['gluten']);
 assert.deepEqual(SAFETY_KEYS.length, 8);
+const ingredientChecks = inspectIngredientSafety([['200 g', 'makarna'], ['50 g', 'peynir'], ['2 adet', 'domates']]);
+assert.deepEqual(ingredientChecks[0].potential_allergens, ['gluten']);
+assert.deepEqual(ingredientChecks[1].potential_allergens, ['milk']);
+assert.equal(ingredientChecks[2].evidence_status, 'unmapped');
+assert.equal(ingredientChecks.every((item) => item.label_check_required), true);
 
 const pizza = catalog.find((recipe) => recipe.id === 'recipe_pizza');
 assert.equal(assessRecipeSafety(pizza, {}).status, 'not_requested');

@@ -19,6 +19,41 @@ export const SAFETY_KEYS = Object.freeze([
 
 const safetyKeySet = new Set(SAFETY_KEYS);
 
+const ingredientAllergenHints = new Map([
+  ['makarna', ['gluten']],
+  ['ekmek', ['gluten']],
+  ['noodle', ['gluten']],
+  ['pizza hamuru', ['gluten']],
+  ['peynir', ['milk']],
+  ['yogurt', ['milk']],
+  ['sut', ['milk']],
+  ['tereyagi', ['milk']],
+  ['yumurta', ['egg']],
+]);
+
+function normalizeIngredientKey(value) {
+  return String(value ?? '')
+    .toLocaleLowerCase('tr-TR')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
+export function inspectIngredientSafety(ingredients = []) {
+  return ingredients.map((entry) => {
+    const displayName = Array.isArray(entry) ? entry[1] : entry?.display_name || entry?.canonical_name;
+    const canonicalName = normalizeIngredientKey(displayName);
+    const potentialAllergens = ingredientAllergenHints.get(canonicalName) || [];
+    return {
+      canonical_name: canonicalName,
+      potential_allergens: potentialAllergens,
+      evidence_status: potentialAllergens.length ? 'candidate' : 'unmapped',
+      label_check_required: true,
+      cross_contamination: 'unknown',
+    };
+  });
+}
+
 export function normalizeSafetyProfile(input = {}) {
   const selected = Array.isArray(input?.selected)
     ? [...new Set(input.selected.filter((key) => safetyKeySet.has(key)))]

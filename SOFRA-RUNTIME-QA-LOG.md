@@ -356,3 +356,12 @@ Sonuc: Arama, yalnizca birebir Turkce metne bagli olmaktan cikti; kullanici dili
 3. Algoritma kontrati tum tariflerde ayni tarif icinde tekrar eden `asset_id` olmadigini dogruluyor.
 
 Sonuc: Tarif adimlari tek bir hero fotografini tekrar kullanmiyor; medya kaynagi adim bazinda izlenebilir.
+
+## Malzeme bazli gida guvenligi turu - API ve Safety kontratlari
+
+1. Kremali mantarli makarna detayinda makarna icin gluten, peynir icin sut adayi dondu.
+2. Her malzeme icin `label_check_required=true` korunuyor; bu alan uretici etiketi dogrulanmadan tarifi guvenli ilan etmiyor.
+3. Bilinmeyen malzeme `unmapped`, aday alerjenler `candidate` olarak ayriliyor; capraz bulas `unknown` kaliyor.
+4. API, Safety ve CI testleri gecti.
+
+Sonuc: Alerji/colyak akisi malzeme seviyesinde daha acik; yine de gercek uretici etiketi ve lisansli besin/alerjen kaynagi P0 olarak acik.

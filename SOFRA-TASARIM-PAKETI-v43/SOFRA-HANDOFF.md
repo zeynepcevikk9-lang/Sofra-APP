@@ -108,6 +108,8 @@ Arama v1.39'da API ve iki frontend ayni temel es anlamli arama kararini kullaniy
 
 Tarif adim medyasi v1.40'da ayni tarif icindeki tekrarlar kaldirildi. Renkli sebze bowl modalinda 3 benzersiz görsel URL'si tarayici testinde görüldü; üretimde kullanılacak lisanslı kaynak seçimi yine açık P0 maddesidir.
 
+Safety v1.41'de tarif detay API'si `ingredient_safety` ile malzeme bazli aday alerjenleri donuyor. `candidate` ve `unmapped` durumlari bilinmeyen veriyi guvenli varsaymiyor; her kayitta etiket kontrolu ve capraz bulas belirsizligi korunuyor.
+
 ## Logo durumu
 
 Kullanıcının gönderdiği yeni yer sofrası logosu seçildi. Arka planı transparan PNG olarak `outputs/sofra-logo-v1.png` dosyasına alındı ve ana uygulamanın üst başlığına uygulanıyor. Eski logo v4 sayfası yalnızca karşılaştırma geçmişidir.

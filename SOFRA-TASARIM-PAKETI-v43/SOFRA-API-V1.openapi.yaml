@@ -666,7 +666,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/RecipeCatalogItem'
         - type: object
-          required: [source, instructions_available, servings, base_servings, scale_factor, ingredients_detail, instructions, step_media, tip]
+          required: [source, instructions_available, servings, base_servings, scale_factor, ingredients_detail, ingredient_safety, instructions, step_media, tip]
           properties:
             source: { type: string, enum: [catalog_v1] }
             instructions_available: { type: boolean }
@@ -684,6 +684,17 @@ components:
                   quantity_text: { type: string, nullable: true }
                   quantity_value: { type: number, minimum: 0, nullable: true }
                   unit: { type: string, nullable: true }
+            ingredient_safety:
+              type: array
+              items:
+                type: object
+                required: [canonical_name, potential_allergens, evidence_status, label_check_required, cross_contamination]
+                properties:
+                  canonical_name: { type: string }
+                  potential_allergens: { type: array, items: { type: string } }
+                  evidence_status: { type: string, enum: [candidate, unmapped] }
+                  label_check_required: { type: boolean }
+                  cross_contamination: { type: string, enum: [unknown, controlled] }
             instructions: { type: array, items: { type: string } }
             step_media:
               type: array
